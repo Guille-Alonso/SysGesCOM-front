@@ -3,20 +3,24 @@ import { LOGIN_VALUES } from '../../constants';
 import { validationLogin } from '../../helpers/validationsLogin';
 import useForm from '../../hooks/useForm';
 import './login.css'
+import { useContext, useEffect } from 'react';
+import { COMContext } from '../../context/COMContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
 
-    const iniciarSesion = async ()=>{
-        try {
-            console.log(values);
+    const { login, authenticated } = useContext(COMContext);
 
-            setValues(LOGIN_VALUES)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const { handleChange, handleSubmit, values, setValues, errors } = useForm(LOGIN_VALUES,login,validationLogin);
 
-    const { handleChange, handleSubmit, values, setValues, errors } = useForm(LOGIN_VALUES,iniciarSesion,validationLogin)
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+      if (authenticated) {
+        navigate("/home");
+      }
+    }, [authenticated]);
+
     return (
       <>
         <div className="box">

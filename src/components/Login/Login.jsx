@@ -42,6 +42,7 @@ export const Login = () => {
                 onChange={handleChange}
                 type="password"
                 required="required"
+                maxLength={30}
               />
               <span>Contraseña</span>
               <i></i>

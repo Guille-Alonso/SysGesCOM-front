@@ -9,11 +9,22 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./iconoPassword.css";
 import { useState } from "react";
 import axios from "../../config/axios";
+import { toast } from "react-toastify";
 
 const CambiarContraseña = () => {
   const enviarDatos = async () => {
-    const respuesta = await axios.put("/users/editarContraseña");
-    console.log(respuesta);
+    const objetoCompleto = {
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+      confirmPasswordRepeat: values.confirmPasswordRepeat,
+      idUsuario: 20,
+    };
+    try {
+      const respuesta = await axios.put("/users/editPassword", objetoCompleto);
+      console.log(respuesta);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     CHANGE_PASSWORD_VALUES,

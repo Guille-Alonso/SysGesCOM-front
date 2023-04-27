@@ -13,8 +13,8 @@ export const validationChangePassword = (values) => {
       errors.confirmPassword = "La confirmación de la contraseña es obligatoria";
     } else if (values.confirmPassword!== values.confirmPasswordRepeat) {
       errors.confirmPassword = "Las contraseñas no coinciden";
-    }else if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)){
-        errors.password = "La contraseña debe tener mayúsculas y números";
+    }else if(!/^[a-zA-Z0-9]+$/.test(values.confirmPassword)){
+        errors.confirmPassword = "La contraseña no debe tener simbolos especiales";
     }
     return errors;
   };

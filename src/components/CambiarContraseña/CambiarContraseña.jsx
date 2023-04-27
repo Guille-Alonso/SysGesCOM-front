@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import useForm from "../../hooks/useForm";
 import { CHANGE_PASSWORD_VALUES } from "../../constants";
 import { validationChangePassword } from "../../helpers/validacionFormChangePassword";
@@ -10,14 +10,16 @@ import "./iconoPassword.css";
 import { useState } from "react";
 import axios from "../../config/axios";
 import { toast } from "react-toastify";
+import { COMContext } from "../../context/COMContext";
 
 const CambiarContraseña = () => {
+  const { user } = useContext(COMContext);
   const enviarDatos = async () => {
     const objetoCompleto = {
       password: values.password,
       confirmPassword: values.confirmPassword,
       confirmPasswordRepeat: values.confirmPasswordRepeat,
-      idUsuario: 20,
+      idUsuario: user._id,
     };
     try {
       const respuesta = await axios.put("/users/editPassword", objetoCompleto);

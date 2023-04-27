@@ -8,10 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./iconoPassword.css";
 import { useState } from "react";
+import axios from "../../config/axios";
 
 const CambiarContraseña = () => {
-  const enviarDatos = () => {
-    console.log(values);
+  const enviarDatos = async () => {
+    const respuesta = await axios.put("/users/editarContraseña");
+    console.log(respuesta);
   };
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     CHANGE_PASSWORD_VALUES,

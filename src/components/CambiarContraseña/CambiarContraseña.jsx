@@ -40,9 +40,9 @@ const CambiarContraseña = () => {
               <img
                 src="src\assets\img\logo_comm_marca_de_agua.png"
                 alt="logo del com"
-                className="mb-5 mt-5"
+                className="mb-5 mt-5 logoComFormChangePassword"
               />
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} className="formChangePassword">
                 <Form.Group>
                   <Form.Label>Contraseña actual</Form.Label>
                   <Form.Control
@@ -54,7 +54,7 @@ const CambiarContraseña = () => {
                     name="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Contraseña actual"
-                    className="inputBox"
+                    className="inputBoxPasswordChange"
                   />
                   <FontAwesomeIcon
                     icon={showPassword ? faEye : faEyeSlash}
@@ -73,7 +73,7 @@ const CambiarContraseña = () => {
                     name="confirmPassword"
                     type={showPassword2 ? "text" : "password"}
                     placeholder="Contraseña nueva"
-                    className="inputBox"
+                    className="inputBoxPasswordChange"
                   />
                   <FontAwesomeIcon
                     icon={showPassword2 ? faEye : faEyeSlash}
@@ -92,7 +92,7 @@ const CambiarContraseña = () => {
                     name="confirmPasswordRepeat"
                     type={showPassword3 ? "text" : "password"}
                     placeholder="Confirmar nueva"
-                    className="inputBox"
+                    className="inputBoxPasswordChange"
                   />
                   <FontAwesomeIcon
                     icon={showPassword3 ? faEye : faEyeSlash}

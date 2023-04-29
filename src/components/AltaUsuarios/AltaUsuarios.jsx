@@ -161,6 +161,7 @@ const AltaUsuarios = () => {
 
                         <Form.Control
                             type="file"
+                            accept="image/*"
                             onChange={handleChange}
                             value={values.photo}
                             name='photo'

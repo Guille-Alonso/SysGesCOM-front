@@ -1,0 +1,47 @@
+.container-fluid{
+    background: #1b384a;
+    color: #fff;
+    padding: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh ;
+}
+.formAltaDeCamara{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.logoComFormAltaDeCamara{
+    width: 50vh;
+    height: 15vh;
+}
+.inputAltaDeCamara{
+    width: 350px !important ;
+}
+.alertaError{
+    position: absolute;
+    z-index: 1;
+    top: 11%;
+    left: 75%;
+}
+.columnaForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width: 768px) {
+    .formAltaDeCamara{
+        width: 100%;
+    }
+    .inputAltaDeCamara{
+        width: 300px !important ;
+    }
+    .logoComFormAltaDeCamara{
+        width: 300px;
+        height: 100px;
+    }
+}

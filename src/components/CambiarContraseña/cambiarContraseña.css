@@ -1,0 +1,47 @@
+.container-fluid{
+    background: #1b384a;
+    color: #fff;
+    padding: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh ;
+}
+.formChangePassword{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.logoComFormChangePassword{
+    width: 50vh;
+    height: 15vh;
+}
+.inputBoxPasswordChange{
+    width: 380px !important ;
+}
+.alertaError{
+    position: absolute;
+    z-index: 1;
+    top: 11%;
+    left: 75%;
+}
+.columnaForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width: 768px) {
+    .formChangePassword{
+        width: 100%;
+    }
+    .inputBoxPasswordsChange{
+        width: 300px !important ;
+    }
+    .logoComFormChangePassword{
+        width: 300px;
+        height: 100px;
+    }
+}

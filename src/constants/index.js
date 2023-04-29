@@ -1,16 +1,18 @@
 export const LOGIN_VALUES = {
-    email: "",
-    password: "",
+    nombreUsuario: "",
+    contraseña: "",
   };
 
-  export const REGISTER_VALUES={
-    name: "",
-    email: "",
+  export const CHANGE_PASSWORD_VALUES = {
     password: "",
-    repeatPassword:""
+    confirmPassword: "",
+    confirmPasswordRepeat: "",
   };
-
-  
+  export const ALTA_CAMARA_VALUES = {
+    idCamara: "",
+    tipoDeCamara: "",
+    ubicacion: "",
+  };
   export const REGISTER_ALTA_USUARIOS_VALUES={
     name: "",
     userName:"",

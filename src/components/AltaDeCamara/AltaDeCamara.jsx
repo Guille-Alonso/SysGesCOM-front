@@ -31,15 +31,10 @@ const AltaDeCamara = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <div className="container-fluid">
+      <div className="contenedor">
+        <div className="container1">
           <Row>
             <Col xs={12} className="columnaForm">
-              <img
-                src="src\assets\img\logo_comm_marca_de_agua.png"
-                alt="logo del com"
-                className="mb-5 mt-5 logoComFormAltaDeCamara"
-              />
               <Form className="AltaDeCamara" onSubmit={handleSubmit}>
                 <Form.Label>Cámara</Form.Label>
                 <Form.Control
@@ -79,7 +74,7 @@ const AltaDeCamara = () => {
                 />
                 <Button
                   variant="success"
-                  className="mt-5 col-9 mb-3 "
+                  className="mt-5 col-12 mb-3"
                   size="lg"
                   type="submit"
                 >

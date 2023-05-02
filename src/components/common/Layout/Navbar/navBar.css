@@ -12,10 +12,34 @@ body {
 	justify-content: center;
 	min-height: 100vh;
 	background: #141f27;
+	max-width: auto;
+}
+
+header {
+	width: 100%;
+	box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+#menu{
+	display: none;
+}
+
+.icono {
+	width: 25px;
+}
+
+header label {
+	display: none;
 }
 
 ul {
 	position: relative;
+
 	display: flex;
 	justify-content: center;
 }

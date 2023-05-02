@@ -5,11 +5,11 @@ import HomePage from "./pages/HomePage";
 function App() {
   return (
     <Router>
-      {/* <Layout> */}
+      <Layout>
         <Routes>
           <Route path="/*" element={<HomePage />} />
         </Routes>
-      {/* </Layout> */}
+      </Layout>
     </Router>
   );
 }

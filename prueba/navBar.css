@@ -8,16 +8,20 @@
 }
 
 body {
-	display: flex;
-	justify-content: center;
 	min-height: 100vh;
 	background: #141f27;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1200px;
 }
 
 ul {
 	position: relative;
 	display: flex;
 	justify-content: center;
+	width: 100%;
 }
 
 ul li {

@@ -9,31 +9,39 @@
 	<title>Document</title>
 </head>
 
-<body>
+
+<header>
+	<div class="container">
 	<ul>
 		<li><a href="#">Inicio</a></li>
 		<li><a href="#">Nosotros</a></li>
 		<li><a href="#">Servicios</a></li>
 		<li><a href="#">Contacto</a></li>
-		<li><a href="#">Equipo</a></li>
+		<li><a href="#">Mi cuenta</a></li>
 		<div id="marker"></div>
 	</ul>
+</div>
+</header>
 
-		<script>
-			const marker = document.querySelector('#marker');
-			const item = document.querySelectorAll('ul li a');
+<body>
+	<h1>
+		asdjsakjdjaskldhasjkdhsadkj
+	</h1>
+	<script>
+		const marker = document.querySelector('#marker');
+		const item = document.querySelectorAll('ul li a');
 
-			function Indicator (e) {
-				marker.style.left = e.offsetLeft + "px";
-				marker.style.width = e.offsetWidth + "px";
-			}
+		function Indicator(e) {
+			marker.style.left = e.offsetLeft + "px";
+			marker.style.width = e.offsetWidth + "px";
+		}
 
-			item.forEach(link => {
-				link.addEventListener('mousemove', (e) => {
-					Indicator(e.target);
-				})
+		item.forEach(link => {
+			link.addEventListener('mousemove', (e) => {
+				Indicator(e.target);
 			})
-		</script>
+		})
+	</script>
 
 </body>
 

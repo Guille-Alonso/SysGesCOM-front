@@ -20,7 +20,7 @@ const Navbar = () => {
 
 	return (
 		<>
-			<header>
+			<header className='headerContainer'>
 				<div className='container'>
 					<input type="checkbox" id='menu'/>
 					<label htmlFor="menu">

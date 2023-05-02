@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <ProviderCOM>
-        {/* <Layout> */}
+      <Layout>
         <Routes>
           <Route path="/alta-camara" element={<AltaDeCamara />} />
           <Route path="/cambiar-contraseña" element={<CambiarContraseña />} />
@@ -19,7 +19,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
         </Routes>
         <ToastContainer />
-        {/* </Layout> */}
+      </Layout>
       </ProviderCOM>
     </Router>
   );

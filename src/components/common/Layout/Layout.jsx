@@ -1,12 +1,14 @@
+import React from 'react';
+import Navbar from './Navbar/Navbar';
 
 const Layout = ({children}) => {
     return (   
     <>
-    {/* NavBarComponent */}
+    <Navbar />
         {children}
     {/* FooterComponent */}
     </> 
     );
 }
- 
+
 export default Layout;

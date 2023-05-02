@@ -22,6 +22,13 @@
     margin-top: 5px;
     padding: 5px;
 }
+
+.inputBoxAltaUsuariosPassword {
+    margin-top: 5px;
+    padding: 5px;
+    height: 79.6px;
+}
+
 .grupoAltaUsuarios {
     text-align: center;
 }

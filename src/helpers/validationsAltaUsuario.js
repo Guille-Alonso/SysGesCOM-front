@@ -28,7 +28,9 @@ export const validationAltaUsuario = (values) => {
         errors.password = "La contraseña debe tener como mínimo 8 caracteres";
     } else if (values.password.length > 30) {
         errors.password = "La contraseña no debe poseer más de 30 caracteres";
-    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
+    }else if(!/^[a-zA-Z0-9]+$/.test(values.password)){
+        errors.confirmPassword = "La contraseña no debe tener simbolos especiales";
+    }else if(!/^(?=.*[A-Za-z])(?=.*\d)/.test(values.password)){
         errors.password = "La contraseña debe tener al menos una mayúscula y números";
     }
 

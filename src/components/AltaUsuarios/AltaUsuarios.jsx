@@ -1,10 +1,13 @@
-import {Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import './altaUsuarios.css'
 import useForm from '../../hooks/useForm';
 import { REGISTER_ALTA_USUARIOS_VALUES } from '../../constants';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { validationAltaUsuario } from '../../helpers/validationsAltaUsuario';
+import { useState } from 'react';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const AltaUsuarios = () => {
@@ -18,7 +21,7 @@ const AltaUsuarios = () => {
             password: values.password,
             repeatPassword: values.repeatPassword,
             grupoAltaUsuarios: values.grupoAltaUsuarios,
-            photo:values.photo
+            photo: values.photo
         };
         try {
             const respuesta = await axios.post('/alta-usuarios', datosUsuario);
@@ -26,17 +29,26 @@ const AltaUsuarios = () => {
             console.log('Error al enviar los datos. Intente nuevamente más tarde.')
             console.log(datosUsuario);
             toast.error(error.message);
-            
+
             setValues(REGISTER_ALTA_USUARIOS_VALUES);
         }
     }
-
 
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(
         REGISTER_ALTA_USUARIOS_VALUES,
         agregarUsuario,
         validationAltaUsuario
     )
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const [showPassword2, setShowPassword2] = useState(false);
+    const handleShowPassword2 = () => {
+        setShowPassword2(!showPassword2);
+    };
 
     return (
         <>
@@ -99,12 +111,12 @@ const AltaUsuarios = () => {
 
                     </Form.Group>
 
-                    <Form.Group className='inputBoxAltaUsuarios'>
+                    <Form.Group className='inputBoxAltaUsuariosPassword'>
 
                         <Form.Label>Contraseña</Form.Label>
 
                         <Form.Control
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="Ingrese su contraseña"
                             onChange={handleChange}
                             value={values.password}
@@ -113,15 +125,20 @@ const AltaUsuarios = () => {
                             minLength={4}
                             required
                         />
+                        <FontAwesomeIcon
+                            icon={showPassword ? faEye : faEyeSlash}
+                            onClick={handleShowPassword}
+                            className="icono-password"
+                        />
 
                     </Form.Group>
 
-                    <Form.Group className='inputBoxAltaUsuarios'>
+                    <Form.Group className='inputBoxAltaUsuariosPassword'>
 
                         <Form.Label>Confirmar contraseña</Form.Label>
 
                         <Form.Control
-                            type="password"
+                            type={showPassword2 ? "text" : "password"}
                             placeholder="Ingrese su contraseña"
                             onChange={handleChange}
                             value={values.repeatPassword}
@@ -129,6 +146,11 @@ const AltaUsuarios = () => {
                             maxLength={25}
                             minLength={4}
                             required
+                        />
+                        <FontAwesomeIcon
+                            icon={showPassword2 ? faEye : faEyeSlash}
+                            onClick={handleShowPassword2}
+                            className="icono-password-2"
                         />
 
                     </Form.Group>

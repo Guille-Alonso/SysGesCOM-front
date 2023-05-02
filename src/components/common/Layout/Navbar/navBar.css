@@ -17,7 +17,6 @@ body {
 
 header {
 	width: 100%;
-	box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
 
 .container {
@@ -91,7 +90,7 @@ ul li:nth-last-child(2) a{
 	width: 40px;
 	height: 40px;
 	z-index: 1;
-	transition: 0.5s;
+	transition: 0.1s;
 }
 
 #marker::before{

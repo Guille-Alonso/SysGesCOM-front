@@ -15,17 +15,10 @@ const AltaUsuarios = () => {
 
     const agregarUsuario = async () => {
 
-        const datosUsuario = {
-            name: values.name,
-            userName: values.userName,
-            password: values.password,
-            repeatPassword: values.repeatPassword,
-            grupoAltaUsuarios: values.grupoAltaUsuarios,
-            photo: values.photo
-        };
         try {
-            const respuesta = await axios.post('/alta-usuarios', datosUsuario);
+            const respuesta = await axios.post('/alta-usuarios', values);
         } catch (error) {
+
             console.log('Error al enviar los datos. Intente nuevamente más tarde.')
             console.log(datosUsuario);
             toast.error(error.message);
@@ -52,11 +45,13 @@ const AltaUsuarios = () => {
 
     return (
         <>
-            <div className='containerAltaUsuarios'>
+            <div className='contenedorPadre'>
+
+            <div className='contenedorAltaUsuarios'>
 
                 <Form className="formAltaUsuarios" onSubmit={handleSubmit}>
 
-                    <div className='contAltaUsuarios col-md-12'>
+                    <div className='conteAltaUsuarios col-md-12'>
 
                         <Form.Group className='inputBoxAltaUsuarios col-md-6'>
 
@@ -107,7 +102,7 @@ const AltaUsuarios = () => {
                             maxLength={25}
                             minLength={4}
                             required
-                        />
+                            />
 
                     </Form.Group>
 
@@ -124,12 +119,12 @@ const AltaUsuarios = () => {
                             maxLength={25}
                             minLength={4}
                             required
-                        />
+                            />
                         <FontAwesomeIcon
                             icon={showPassword ? faEye : faEyeSlash}
                             onClick={handleShowPassword}
                             className="icono-password"
-                        />
+                            />
 
                     </Form.Group>
 
@@ -146,18 +141,18 @@ const AltaUsuarios = () => {
                             maxLength={25}
                             minLength={4}
                             required
-                        />
+                            />
                         <FontAwesomeIcon
                             icon={showPassword2 ? faEye : faEyeSlash}
                             onClick={handleShowPassword2}
                             className="icono-password-2"
-                        />
+                            />
 
                     </Form.Group>
 
                     <Form.Group className='inputBoxAltaUsuarios'>
 
-                        <Form.Label>Grupo</Form.Label>
+                        <Form.Label>Perfil de usuario</Form.Label>
 
                         <Form.Select
                             className='grupoAltaUsuarios'
@@ -165,14 +160,14 @@ const AltaUsuarios = () => {
                             value={values.grupoAltaUsuarios}
                             name='grupoAltaUsuarios'
                             required
-                        >
+                            >
                             <option value="">------------------Seleccionar-----------------</option>
                             <option>ADMIN</option>
                             <option>AREA ESTADISTICA</option>
                             <option>AREA TECNICA</option>
                             <option>DEPTO LEGAL</option>
                             <option>SUPERVISOR</option>
-                            <option>VISU    ALIZADOR</option>
+                            <option>VISUALIZADOR</option>
                         </Form.Select>
 
                     </Form.Group>
@@ -206,6 +201,7 @@ const AltaUsuarios = () => {
                         </Alert>
                     ))}
             </div>
+             </div>
         </>
     );
 };

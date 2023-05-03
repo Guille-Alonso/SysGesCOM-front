@@ -9,13 +9,8 @@ import { toast } from "react-toastify";
 
 const AltaDeCamara = () => {
   const enviarDatos = async () => {
-    const datosCamara = {
-      idCamara: values.idCamara,
-      tipoDeCamara: values.tipoDeCamara,
-      ubicacion: values.ubicacion,
-    };
     try {
-      const respuesta = await axios.post("/camaras/altaDeCamara", datosCamara);
+      const respuesta = await axios.post("/camaras/altaDeCamara", values);
       console.log(respuesta);
       setValues(ALTA_CAMARA_VALUES);
     } catch (error) {

@@ -10,7 +10,7 @@ const Navbar = () => {
 	};
 
 	useEffect(() => {
-		const item = document.querySelectorAll('ul li a');
+		const item = document.querySelectorAll('ul.lista li a');
 		item.forEach((link) => {
 			link.addEventListener('mousemove', (e) => {
 				handleIndicator(e.target);
@@ -21,12 +21,12 @@ const Navbar = () => {
 	return (
 		<>
 			<header className='headerContainer'>
-				<div className='container'>
+				<div className='container1'>
 					<input type="checkbox" id='menu'/>
 					<label htmlFor="menu">
 						<img className='icono'  src="src/assets/menu.png"/>
 					</label>
-					<ul>
+					<ul className='lista'>
 						<li>
 							<a href="#">Inicio</a>
 						</li>

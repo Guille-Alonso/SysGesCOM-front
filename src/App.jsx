@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./components/common/Layout/Layout";
+import Layout from "./components/common/Layout";
 import HomePage from "./pages/HomePage";
 import CambiarContraseña from "./components/CambiarContraseña/CambiarContraseña";
 import LoginPage from "./pages/LoginPage";
@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <ProviderCOM>
-        {/* <Layout> */}
+        <Layout>
         <Routes>
           <Route path="/alta-camara" element={<AltaDeCamara />} />
           <Route path="/cambiar-contraseña" element={<CambiarContraseña />} />
@@ -21,7 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
         </Routes>
         <ToastContainer />
-        {/* </Layout> */}
+        </Layout>
       </ProviderCOM>
     </Router>
   );

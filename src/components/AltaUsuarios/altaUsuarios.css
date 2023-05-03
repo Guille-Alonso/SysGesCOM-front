@@ -1,0 +1,53 @@
+.contenedorPadre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+.contenedorAltaUsuarios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    background-color: #1b384a;
+    height: 600px;
+    width: 30%;
+    border: solid 1px #fff;
+}
+
+.btnAltaUsuarios {
+    margin-left: 10%;
+    margin-top: 25px;
+    width: 80%;
+}
+
+.conteAltaUsuarios {
+    display: flex;
+
+}
+
+.inputBoxAltaUsuarios {
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.inputBoxAltaUsuariosPassword {
+    margin-top: 5px;
+    padding: 5px;
+    height: 79.6px;
+}
+
+.grupoAltaUsuarios {
+    text-align: center;
+}
+
+.alertasAltaUsuario{
+    position: relative;
+    top: 2%;
+    left: 65%;
+}
+
+label {
+    color: white;
+}
+

@@ -48,15 +48,10 @@ const CambiarContraseña = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <div className="container-fluid">
+      <div className="contenedorPadre">
+        <div className="contenedorHijo">
           <Row>
             <Col xs={12} className="columnaForm">
-              <img
-                src="src\assets\img\logo_comm_marca_de_agua.png"
-                alt="logo del com"
-                className="mb-5 mt-5 logoComFormChangePassword"
-              />
               <Form onSubmit={handleSubmit} className="formChangePassword">
                 <Form.Group>
                   <Form.Label>Contraseña actual</Form.Label>

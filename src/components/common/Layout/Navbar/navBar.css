@@ -2,7 +2,7 @@
 
 .headerContainer {
 	width: 100%; 
-	background-color: #1b384a;
+	background-color: #141f27;
 }
 
 .container1 {
@@ -26,17 +26,18 @@ header label {
 	position: relative;
 	display: flex;
 	justify-content: center;
+	padding: 0;
 }
 
 .lista li {
-	list-style: none !important;
+	list-style: none;
 }
 
 .lista li a {
 	position: relative;
 	color: #fff;
 	font-size: 1em;
-	text-decoration: none !important;
+	text-decoration: none;
 	display: inline-block;
 	padding: 10px 20px;
 	font-weight: 400;

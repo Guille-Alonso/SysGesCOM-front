@@ -15,56 +15,13 @@
 .movFooter {
 	position: relative;
 	width: 100%;
-	min-height: 100px;
-	background: #1b384a;
+	background: #141f27;
 	padding: 20px 50px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	height: 170px;
-}
-
-.movFooter .socialIcon,
-.menuFooter {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 10px 0;
-	flex-wrap: wrap;
-}
-
-.movFooter .socialIcon li,
-.menuFooter li {
-	list-style: none;
-}
-
-.movFooter .socialIcon li a,
-.menuFooter li a {
-	font-size: 2em;
-	color: #fff;
-	margin: 0 10px;
-	display: inline-block;
-	transition: 0.5s;
-}
-
-.movFooter .socialIcon li a:hover {
-	transform: translateY(-10px);
-}
-
-.menuFooter li a {
-	font-size: 1.2em;
-	color: #fff;
-	margin: 0 10px;
-	display: inline-block;
-	transition: 0.5s;
-	text-decoration: none;
-	opacity: 0.5;
-}
-
-.menuFooter li a:hover {
-	opacity: 1;
+	height: 70px;
 }
 
 .movFooter p {
@@ -72,82 +29,6 @@
 	text-align: center;
 	margin-top: 15px;
 	margin-bottom: 10px;
-	font-size: 1em;
-}
-
-/* .movFooter .wave {
-	position: absolute;
-	top: -100px;
-	left: 0;
-	width: 100%;
-	height: 100px;
-	background: url(wave.png);
-	background-size: 1000px 100px;
-}
-
-.movFooter .wave#wave1 {
-	z-index: 1000;
-	opacity: 1;
-	bottom: 0;
-	animation: animateWave 5s linear infinite;
-}
-
-.movFooter .wave#wave2 {
-	z-index: 999;
-	opacity: 0.5;
-	bottom: 10px;
-	animation: animateWave2 6s linear infinite;
-}
-
-.movFooter .wave#wave3 {
-	z-index: 1000;
-	opacity: 0.2;
-	bottom: 15px;
-	animation: animateWave 4s linear infinite;
-}
-
-.movFooter .wave#wave4 {
-	z-index: 999;
-	opacity: 0.7;
-	bottom: 20px;
-	animation: animateWave2 3s linear infinite;
-} */
-
-@media (min-width: 768px) {
-	.movFooter {
-		flex-direction: row;
-		height: auto;
-		justify-content: space-between;
-	}
-
-	.movFooter .socialIcon,
-	.menuFooter {
-		margin: 0 20px;
-	}
-
-	.movFooter p {
-		margin-top: 0;
-		margin-bottom: 0;
-		margin-right: 120px;
-	}
-}
-
-@keyframes animateWave {
-	0% {
-		background-position-x: 1000px;
-	}
-
-	100% {
-		background-position-x: 0px;
-	}
-}
-
-@keyframes animateWave2 {
-	0% {
-		background-position-x: 1000px;
-	}
-
-	100% {
-		background-position-x: 0px;
-	}
+	font-size: 12px;
+	font-weight: 300;
 }

@@ -2,17 +2,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 80vh;
 }
 .contenedorAltaUsuarios {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80%;
     border-radius: 25px;
     background-color: #1b384a;
-    min-width: 500px;
-    max-width: 500px;
+    height: 600px;
+    width: 30%;
+    border: solid 1px #fff;
 }
 
 .btnAltaUsuarios {
@@ -51,9 +51,3 @@ label {
     color: white;
 }
 
-/*
-
-.lista {
-    margin-top: 10px;
-}
-*/

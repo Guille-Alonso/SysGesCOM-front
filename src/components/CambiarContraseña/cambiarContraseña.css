@@ -1,11 +1,17 @@
-.container-fluid{
+.contenedorPadre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+.contenedorHijo{
     background: #1b384a;
     color: #fff;
     padding: 25px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100vh ;
+    height: 50%;
+    width: 35%;
+    border-radius: 20px 20px 20px 20px;
 }
 .formChangePassword{
     width: 400px;

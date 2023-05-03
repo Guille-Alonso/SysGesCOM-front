@@ -13,3 +13,12 @@ export const LOGIN_VALUES = {
     tipoDeCamara: "",
     ubicacion: "",
   };
+  export const REGISTER_ALTA_USUARIOS_VALUES={
+    name: "",
+    userName:"",
+    email: "",
+    password: "",
+    repeatPassword:"",
+    grupoAltaUsuarios:"",
+    photo:""
+  };

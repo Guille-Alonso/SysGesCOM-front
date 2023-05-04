@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const AltaDeCamara = () => {
   const enviarDatos = async () => {
     try {
-      const respuesta = await axios.post("/camaras/altaDeCamara", values);
+      const respuesta = await axios.post("/camaras/alta", values);
       console.log(respuesta);
       setValues(ALTA_CAMARA_VALUES);
     } catch (error) {
@@ -26,23 +26,18 @@ const AltaDeCamara = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <div className="container-fluid">
+      <div className="contenedor">
+        <div className="contenedor1">
           <Row>
             <Col xs={12} className="columnaForm">
-              <img
-                src="src\assets\img\logo_comm_marca_de_agua.png"
-                alt="logo del com"
-                className="mb-5 mt-5 logoComFormAltaDeCamara"
-              />
               <Form className="AltaDeCamara" onSubmit={handleSubmit}>
                 <Form.Label>Cámara</Form.Label>
                 <Form.Control
                   className="inputAltaDeCamara"
                   type="text"
                   placeholder="Cámara"
-                  value={values.idCamara}
-                  name="idCamara"
+                  value={values.nombre}
+                  name="nombre"
                   onChange={handleChange}
                   required
                   maxLength={7}
@@ -57,8 +52,8 @@ const AltaDeCamara = () => {
                   required
                 >
                   <option value="">Seleccione una opción</option>
-                  <option>Cámara</option>
-                  <option>Domo</option>
+                  <option>camara</option>
+                  <option>domo</option>
                 </Form.Select>
                 <Form.Label className="mt-4">Ubicación</Form.Label>
                 <Form.Control
@@ -74,7 +69,7 @@ const AltaDeCamara = () => {
                 />
                 <Button
                   variant="success"
-                  className="mt-5 col-9 mb-3 "
+                  className="mt-5 col-12 mb-3"
                   size="lg"
                   type="submit"
                 >

@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const AltaDeCamara = () => {
   const enviarDatos = async () => {
     try {
-      const respuesta = await axios.post("/camaras/altaDeCamara", values);
+      const respuesta = await axios.post("/camaras/alta", values);
       console.log(respuesta);
       setValues(ALTA_CAMARA_VALUES);
     } catch (error) {
@@ -27,7 +27,7 @@ const AltaDeCamara = () => {
   return (
     <>
       <div className="contenedor">
-        <div className="container1">
+        <div className="contenedor1">
           <Row>
             <Col xs={12} className="columnaForm">
               <Form className="AltaDeCamara" onSubmit={handleSubmit}>
@@ -36,8 +36,8 @@ const AltaDeCamara = () => {
                   className="inputAltaDeCamara"
                   type="text"
                   placeholder="Cámara"
-                  value={values.idCamara}
-                  name="idCamara"
+                  value={values.nombre}
+                  name="nombre"
                   onChange={handleChange}
                   required
                   maxLength={7}
@@ -52,8 +52,8 @@ const AltaDeCamara = () => {
                   required
                 >
                   <option value="">Seleccione una opción</option>
-                  <option>Cámara</option>
-                  <option>Domo</option>
+                  <option>camara</option>
+                  <option>domo</option>
                 </Form.Select>
                 <Form.Label className="mt-4">Ubicación</Form.Label>
                 <Form.Control

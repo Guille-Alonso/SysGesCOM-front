@@ -1,34 +1,50 @@
-import React, { useRef, useEffect } from 'react';
-import './navBar.css'
+import React, { useRef, useEffect, useState } from 'react';
+import './navBar.css';
 
 const Navbar = () => {
 	const markerRef = useRef(null);
+	const [isIndicatorVisible, setIsIndicatorVisible] = useState(false);
+	const [listOffset, setListOffset] = useState(0);
 
 	const handleIndicator = (e) => {
-		markerRef.current.style.left = `${e.offsetLeft}px`;
-		markerRef.current.style.width = `${e.offsetWidth}px`;
+		const li = e.closest('li');
+		if (li) {
+			const liOffset = li.offsetLeft;
+			const liWidth = li.offsetWidth;
+			if (markerRef.current) {
+				markerRef.current.style.left = `${liOffset + listOffset}px`;
+				markerRef.current.style.width = `${liWidth}px`;
+			}
+		}
+	};
+
+	const handleMouseLeave = () => {
+		setIsIndicatorVisible(false);
 	};
 
 	useEffect(() => {
-		const item = document.querySelectorAll('ul.lista li a');
-		item.forEach((link) => {
-			link.addEventListener('mousemove', (e) => {
-				handleIndicator(e.target);
+		const lista = document.querySelector('ul.lista');
+		if (lista) {
+			const item = lista.querySelectorAll('li a');
+			item.forEach((link) => {
+				link.addEventListener('mousemove', (e) => {
+					setIsIndicatorVisible(true);
+					handleIndicator(e.target);
+				});
 			});
-		});
+			setListOffset(lista.offsetLeft);
+		}
 	}, []);
 
 	return (
 		<>
-			<header className='headerContainer'>
-				<div className='container1'>
-					<input type="checkbox" id='menu'/>
-					<label htmlFor="menu">
-						<img className='icono'  src="src/assets/menu.png"/>
-					</label>
-					<ul className='lista'>
+			<header className="headerContainer">
+				<div className="container1">
+					<img src="src\assets\img\logo_comm_marca_de_agua.png" className='logoCOM' />
+					<ul className="lista fixed-top" onMouseLeave={handleMouseLeave}>
 						<li>
 							<a href="#">Inicio</a>
+							{isIndicatorVisible && <div ref={markerRef} id="marker"></div>}
 						</li>
 						<li>
 							<a href="#">Nosotros</a>
@@ -42,7 +58,6 @@ const Navbar = () => {
 						<li>
 							<a href="#">Equipo</a>
 						</li>
-						<div ref={markerRef} id="marker"></div>
 					</ul>
 				</div>
 			</header>

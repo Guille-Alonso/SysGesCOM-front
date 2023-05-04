@@ -1,27 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 .headerContainer {
-	width: 100%; 
+	width: 100%;
 	background-color: inherit;
 	height: 8vh;
 	margin-bottom: 10px;
 }
 
-.container1 {
-	margin: 0 auto;
-	max-width: 1200px;
-}
-
-#menu{
-	display: none;
-}
-
-.icono {
-	width: 25px;
-}
-
-header label {
-	display: none;
+.logoCOM{
+	margin-top: 10px;
+	width: 200px;
+	height: 50px;
+	object-fit: contain;
 }
 
 .lista {
@@ -53,7 +43,7 @@ header label {
 	backdrop-filter: blur(15px);
 }
 
-.lista li a::before{
+.lista li a::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -63,15 +53,17 @@ header label {
 	background: rgba(255, 255, 255, 0.1);
 }
 
-.lista li:first-child a{
+.lista li:first-child a {
 	border-top-left-radius: 30px;
 	border-bottom-left-radius: 30px;
 }
 
-.lista li:nth-last-child(2) a{
+.lista li:last-child a {
 	border-top-right-radius: 30px;
 	border-bottom-right-radius: 30px;
 }
+
+
 
 #marker {
 	position: absolute;
@@ -82,7 +74,7 @@ header label {
 	transition: 0.1s;
 }
 
-#marker::before{
+#marker::before {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -93,8 +85,7 @@ header label {
 	border-radius: 50%;
 	background: #36bfc9;
 	box-shadow: 0 0 15px #36bfc9,
-	0 0 25px #36bfc9,
-	0 0 35px #36bfc9,
-	0 0 45px #36bfc9;
+		0 0 25px #36bfc9,
+		0 0 35px #36bfc9,
+		0 0 45px #36bfc9;
 }
-

@@ -8,6 +8,7 @@ import { validationAltaUsuario } from "../../helpers/validationsAltaUsuario";
 import { useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
 
 const AltaUsuarios = () => {
   const agregarUsuario = async () => {
@@ -17,6 +18,7 @@ const AltaUsuarios = () => {
       setValues(REGISTER_ALTA_USUARIOS_VALUES);
       toast.success("Usuario registrado con éxito");
     } catch (error) {
+      console.log(values);
       console.log("Error al enviar los datos. Intente nuevamente más tarde.");
       toast.error(error.message);
     }
@@ -37,6 +39,34 @@ const AltaUsuarios = () => {
   const handleShowPassword2 = () => {
     setShowPassword2(!showPassword2);
   };
+  const generateUserName = (nombreCompleto) => {
+    if (nombreCompleto !== "") {
+
+      const names = nombreCompleto.trim().split(" ");
+      const initials = names.slice(0, -1).map((name) => name[0]).join("") + ".";
+      const lastName = names[names.length - 1];
+      const userName = `${initials}${lastName}`;
+
+      return userName.toLowerCase();
+    }else{
+      const userName = "";
+    }
+  };
+
+  const [nombreCompleto, setNombreCompleto] = useState("");
+
+  useEffect(() => {
+    const userName = generateUserName(nombreCompleto);
+    
+    setValues((prevValues) => ({ ...prevValues, userName }));
+  },
+    [nombreCompleto, setValues]
+  );
+
+  const handleNombreCompletoBlur = (event) => {
+    const { value } = event.target;
+    setNombreCompleto(value);
+  };
 
   return (
     <>
@@ -51,6 +81,7 @@ const AltaUsuarios = () => {
                   type="text"
                   placeholder="Ingrese su nombre"
                   onChange={handleChange}
+                  onBlur={handleNombreCompletoBlur}
                   value={values.name}
                   name="name"
                   maxLength={40}
@@ -64,6 +95,7 @@ const AltaUsuarios = () => {
 
                 <Form.Control
                   type="text"
+                  readOnly
                   placeholder="Ingrese el usuario"
                   onChange={handleChange}
                   value={values.userName}
@@ -134,10 +166,10 @@ const AltaUsuarios = () => {
               <Form.Label>Perfil de usuario</Form.Label>
 
               <Form.Select
-                className="grupoAltaUsuarios"
+                className="perfilAltaUsuarios"
                 onChange={handleChange}
-                value={values.grupoAltaUsuarios}
-                name="grupoAltaUsuarios"
+                value={values.perfilAltaUsuarios}
+                name="perfilAltaUsuarios"
                 required
               >
                 <option value="">
@@ -171,6 +203,7 @@ const AltaUsuarios = () => {
         <div className="alertasAltaUsuario">
           {Object.keys(errors).length !== 0 &&
             Object.values(errors).map((error, index) => (
+              // toast.error(error)
               <Alert variant="danger" className="mt-3" key={index}>
                 {error}
               </Alert>

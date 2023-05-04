@@ -50,7 +50,7 @@ const CambiarContraseña = () => {
   return (
     <>
       <div className="contenedorPadre">
-        <div className="contenedorHijo">
+        <div className="container-fluid contenedorForm">
           <Row>
             <Col xs={12} className="columnaForm">
               <Form onSubmit={handleSubmit} className="formChangePassword">
@@ -111,14 +111,14 @@ const CambiarContraseña = () => {
                     className="icono-password-3"
                   />
                 </Form.Group>
-                {/* <button
-                  className="mt-3 col-12 mb-3 boton-confirmar"
+                <button
+                  className="mt-3 col-6 mb-3 boton-confirmar"
                   size="lg"
                   type="submit"
                 >
                   Confirmar
-                </button> */}
-                <ButtonConfirm title="Confirmar" />
+                </button>
+                {/* <ButtonConfirm title="Confirmar" /> */}
               </Form>
               <div className="alertaError">
                 {Object.keys(errors).length !== 0 &&

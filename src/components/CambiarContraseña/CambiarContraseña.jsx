@@ -11,6 +11,7 @@ import { useState } from "react";
 import axios from "../../config/axios";
 import { toast } from "react-toastify";
 import { COMContext } from "../../context/COMContext";
+import ButtonConfirm from "../CustomButtons/ButtonConfirm";
 
 const CambiarContraseña = () => {
   const { user } = useContext(COMContext);
@@ -110,9 +111,14 @@ const CambiarContraseña = () => {
                     className="icono-password-3"
                   />
                 </Form.Group>
-                <Button className="mt-3 col-12 mb-3" size="lg" type="submit">
+                {/* <button
+                  className="mt-3 col-12 mb-3 boton-confirmar"
+                  size="lg"
+                  type="submit"
+                >
                   Confirmar
-                </Button>
+                </button> */}
+                <ButtonConfirm title="Confirmar" />
               </Form>
               <div className="alertaError">
                 {Object.keys(errors).length !== 0 &&

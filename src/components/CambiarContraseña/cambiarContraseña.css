@@ -9,9 +9,11 @@
     background: #1b384a;
     color: #fff;
     padding: 25px;
-    height: 50%;
-    width: 35%;
+    height: 65%;
+    width: 30%;
     border-radius: 20px 20px 20px 20px;
+    border: solid 1.5px  #FFFFFF10;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
 }
 .formChangePassword{
     width: 400px;
@@ -39,6 +41,30 @@
     justify-content: center;
     align-items: center;
 }
+.boton-confirmar{
+    font-size: 25px;
+    -webkit-text-stroke: 2px #00ff62;
+    color: transparent;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    cursor: pointer;
+    border-style: none;
+    border-radius: 20px;
+}
+.boton-confirmar::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    border-style: 4px solid #00ff62;
+    transition: 0.5s ease-in-out;
+}
+
+.boton-confirmar:hover::before{
+    height: 100%;
+}
+
 @media screen and (max-width: 768px) {
     .formChangePassword{
         width: 100%;

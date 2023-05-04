@@ -13,8 +13,9 @@ const AltaDeCamara = () => {
       const respuesta = await axios.post("/camaras/alta", values);
       console.log(respuesta);
       setValues(ALTA_CAMARA_VALUES);
+      toast.success("Cámara registrada con éxito");
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data.message || error.message);
     }
   };
 

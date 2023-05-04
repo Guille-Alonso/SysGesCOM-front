@@ -20,7 +20,7 @@ const AltaUsuarios = () => {
     } catch (error) {
       console.log(values);
       console.log("Error al enviar los datos. Intente nuevamente más tarde.");
-      toast.error(error.message);
+      toast.error(error.response?.data.message || error.message);
     }
   };
 

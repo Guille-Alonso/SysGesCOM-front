@@ -19,6 +19,6 @@ export const REGISTER_ALTA_USUARIOS_VALUES = {
   email: "",
   password: "",
   repeatPassword: "",
-  grupoAltaUsuarios: "",
+  perfilAltaUsuarios: "",
   photo: ""
 };

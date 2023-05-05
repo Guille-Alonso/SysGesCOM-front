@@ -28,6 +28,7 @@
     z-index: 1;
     top: 11%;
     left: 75%;
+    border-radius: 15px;
 }
 .columnaForm{
     display: flex;
@@ -35,7 +36,13 @@
     justify-content: center;
     align-items: center;
 }
-
+.alertaError{
+    position: absolute;
+    z-index: 1;
+    top: 0%;
+    left: 110%;
+    width: 50%;
+}
 @media screen and (max-width: 768px) {
     .formAltaDeCamara{
         width: 100%;

@@ -200,10 +200,10 @@ const AltaUsuarios = () => {
                 <Form.Label>Turno</Form.Label>
 
                 <Form.Select
-                  className="tunoAltaUsuario"
+                  className="tuno"
                   onChange={handleChange}
-                  value={values.turnoAltaUsuarios}
-                  name="turnoAltaUsuarios"
+                  value={values.turno}
+                  name="turno"
                   required
                 >
                   <option value="">

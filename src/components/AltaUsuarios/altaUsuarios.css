@@ -1,9 +1,10 @@
-.contenedorPadre{
+.contenedorPadre {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
 }
+
 .contenedorAltaUsuarios {
     display: flex;
     justify-content: center;
@@ -41,13 +42,71 @@
     text-align: center;
 }
 
-.alertasAltaUsuario{
+.alertasAltaUsuario {
     position: absolute;
-    top: 2%;
+    top: 7.2%;
     left: 70%;
+}
+
+.inputBoxFotoAltaUsuarios {
+    margin-top: 5px;
+    padding: 5px;
+    width: 228.2px;
+}
+
+.inputBoxTurnoAltaUsuarios {
+    margin-top: 5px;
+    padding: 5px;
+    width: 163px;
 }
 
 label {
     color: white;
 }
 
+@media screen and (max-width: 768px) {
+    .contenedorAltaUsuarios {
+        width: 67%;
+    }
+
+    .alertasAltaUsuario {
+        position: absolute;
+        top: 7%;
+        left: 70%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .contenedorAltaUsuarios {
+        width: 35%;
+    }
+
+    .alertasAltaUsuario {
+        position: absolute;
+        top: 7%;
+        left: 70%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .contenedorAltaUsuarios {
+        width: 35%;
+    }
+
+    .alertasAltaUsuario {
+        position: absolute;
+        top: 7%;
+        left: 70%;
+    }
+}
+@media screen and (max-width: 425px) {
+    .contenedorAltaUsuarios {
+        width: 100%;
+    }
+
+    .alertasAltaUsuario {
+        position: absolute;
+        top: 3%;
+        left: 70%;
+    }
+}

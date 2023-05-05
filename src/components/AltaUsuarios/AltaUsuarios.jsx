@@ -48,7 +48,7 @@ const AltaUsuarios = () => {
       const userName = `${initials}${lastName}`;
 
       return userName.toLowerCase();
-    }else{
+    } else {
       const userName = "";
     }
   };
@@ -57,7 +57,7 @@ const AltaUsuarios = () => {
 
   useEffect(() => {
     const userName = generateUserName(nombreCompleto);
-    
+
     setValues((prevValues) => ({ ...prevValues, userName }));
   },
     [nombreCompleto, setValues]
@@ -84,8 +84,8 @@ const AltaUsuarios = () => {
                   onBlur={handleNombreCompletoBlur}
                   value={values.name}
                   name="name"
-                  maxLength={40}
-                  minLength={4}
+                  maxLength={30}
+                  minLength={2}
                   required
                 />
               </Form.Group>
@@ -100,7 +100,7 @@ const AltaUsuarios = () => {
                   onChange={handleChange}
                   value={values.userName}
                   name="userName"
-                  maxLength={30}
+                  maxLength={20}
                   minLength={4}
                   required
                 />
@@ -116,7 +116,7 @@ const AltaUsuarios = () => {
                 onChange={handleChange}
                 value={values.email}
                 name="email"
-                maxLength={25}
+                maxLength={40}
                 minLength={4}
                 required
               />
@@ -131,8 +131,8 @@ const AltaUsuarios = () => {
                 onChange={handleChange}
                 value={values.password}
                 name="password"
-                maxLength={25}
-                minLength={4}
+                maxLength={30}
+                minLength={8}
                 required
               />
               <FontAwesomeIcon
@@ -151,14 +151,14 @@ const AltaUsuarios = () => {
                 onChange={handleChange}
                 value={values.repeatPassword}
                 name="repeatPassword"
-                maxLength={25}
-                minLength={4}
+                maxLength={30}
+                minLength={8}
                 required
               />
               <FontAwesomeIcon
                 icon={showPassword2 ? faEye : faEyeSlash}
                 onClick={handleShowPassword2}
-                className="icono-password-2"
+                className="icono-password"
               />
             </Form.Group>
 
@@ -182,17 +182,39 @@ const AltaUsuarios = () => {
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="inputBoxAltaUsuarios">
-              <Form.Label>Fotografía</Form.Label>
+            <div className="conteAltaUsuarios">
 
-              <Form.Control
-                type="file"
-                accept="image/*"
-                onChange={handleChange}
-                value={values.photo}
-                name="photo"
-              />
-            </Form.Group>
+              <Form.Group className="inputBoxFotoAltaUsuarios">
+                <Form.Label>Fotografía</Form.Label>
+
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  onChange={handleChange}
+                  value={values.photo}
+                  name="photo"
+                />
+              </Form.Group>
+              
+              <Form.Group className="inputBoxTurnoAltaUsuarios">
+                <Form.Label>Turno</Form.Label>
+
+                <Form.Select
+                  className="tunoAltaUsuario"
+                  onChange={handleChange}
+                  value={values.turnoAltaUsuarios}
+                  name="turnoAltaUsuarios"
+                  required
+                >
+                  <option value="">
+                    ------------
+                  </option>
+                  <option>mañana</option>
+                  <option>tarde</option>
+                  <option>noche</option>
+                </Form.Select>
+              </Form.Group>
+            </div>
 
             <Button className="btnAltaUsuarios" variant="success" type="submit">
               Registrar

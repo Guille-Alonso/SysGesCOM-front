@@ -9,11 +9,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 25px;
-    background-color: #1b384a;
+    border-radius: 15px;
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     height: 600px;
     width: 30%;
-    border: solid 1px #fff;
+    border: solid 1px ;
 }
 
 .btnAltaUsuarios {

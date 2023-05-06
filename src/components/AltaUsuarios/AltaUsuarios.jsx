@@ -195,12 +195,12 @@ const AltaUsuarios = () => {
                   name="photo"
                 />
               </Form.Group>
-              
+
               <Form.Group className="inputBoxTurnoAltaUsuarios">
                 <Form.Label>Turno</Form.Label>
 
                 <Form.Select
-                  className="tuno"
+                  className="turno"
                   onChange={handleChange}
                   value={values.turno}
                   name="turno"

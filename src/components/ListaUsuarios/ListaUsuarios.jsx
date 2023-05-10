@@ -25,7 +25,7 @@ const ListaUsuarios = () => {
       <section className="usuariosSection">
         <Swiper
           effect={"coverflow"}
-          grabCursor={false}
+          grabCursor={true}
           centeredSlides={true}
           loop={false}
           slidesPerView={"auto"}

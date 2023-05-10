@@ -63,7 +63,6 @@
 label {
     color: white;
 }
-
 @media screen and (max-width: 768px) {
     .contenedorAltaUsuarios {
         width: 67%;

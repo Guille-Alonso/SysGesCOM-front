@@ -31,7 +31,7 @@ const GeneralTable = ({headings, items, setSelected, selected}) => {
         })
 
           }
-        editar
+      
         </tr>
           )
       }

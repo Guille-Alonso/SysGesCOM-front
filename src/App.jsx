@@ -7,6 +7,7 @@ import ProviderCOM from "./context/COMContext";
 import { ToastContainer } from "react-toastify";
 import AltaDeCamara from "./components/AltaDeCamara/AltaDeCamara";
 import AltaUsuarios from "./components/AltaUsuarios/AltaUsuarios";
+import ListarCamaras from "./components/ListarCamaras/ListarCamaras";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/alta-camara" element={<AltaDeCamara />} />
           <Route path="/cambiar-contraseña" element={<CambiarContraseña />} />
+          <Route path="/listar-camaras" element={<ListarCamaras />} />
           <Route path="/alta-usuarios" element={<AltaUsuarios/>} />
           <Route path="/*" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

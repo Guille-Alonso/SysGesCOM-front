@@ -7,12 +7,12 @@ import './GeneralTable.css'
 const GeneralTable = ({headings, items, setSelected, selected}) => {
 
   return ( 
-    <MDBTable responsive>
-      <MDBTableHead className="colorTabla">
+    <MDBTable responsive className="generalTable">
+      <MDBTableHead  className="colorTabla">
    
       <tr>
         { 
-        headings.map((heading)=><th key={nanoid()}>{heading}</th>)
+        headings.map((heading)=><th scope="col" key={nanoid()}>{heading}</th>)
         }        
       </tr>
       </MDBTableHead>

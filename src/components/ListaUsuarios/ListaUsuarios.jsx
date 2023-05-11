@@ -1,12 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ListaUsuarios.css";
 import UsuarioCard from "./UsuarioCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faArrowRight,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -15,6 +11,12 @@ import { EffectCoverflow, Navigation, Pagination } from "swiper";
 
 const ListaUsuarios = () => {
   const handleChange = () => {};
+
+  const [sliderEnabled, setSliderEnabled] = useState(true);
+  const handleSliderClick = () => {
+    console.log("hola pelotudo");
+    setSliderEnabled(!sliderEnabled);
+  };
 
   return (
     <>
@@ -29,7 +31,7 @@ const ListaUsuarios = () => {
       <section className="usuariosSection">
         <Swiper
           effect={"coverflow"}
-          grabCursor={false}
+          grabCursor={true}
           centeredSlides={true}
           loop={false}
           slidesPerView={"auto"}
@@ -40,6 +42,9 @@ const ListaUsuarios = () => {
             modifier: 2.5,
             slideShadows: false,
           }}
+          allowSlideNext={sliderEnabled}
+          allowSlidePrev={sliderEnabled}
+          allowTouchMove={sliderEnabled}
           pagination={{ el: ".swiper-pagination", clickable: true }}
           navigation={{
             nextEl: ".swiper-button-next",
@@ -50,7 +55,7 @@ const ListaUsuarios = () => {
           className="swiper-container"
         >
           <SwiperSlide>
-            <UsuarioCard></UsuarioCard>
+            <UsuarioCard onClick={handleSliderClick}></UsuarioCard>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>

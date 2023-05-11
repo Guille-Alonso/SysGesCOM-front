@@ -3,7 +3,7 @@ import "./UsuarioCard.css";
 import Card from "react-bootstrap/Card";
 import UsuarioCardBig from "./UsuarioCardBig";
 
-const UsuarioCard = (props) => {
+const UsuarioCard = ({ onClick }) => {
   const [sizeCard, setSizeCard] = useState(false);
 
   return (
@@ -17,6 +17,7 @@ const UsuarioCard = (props) => {
       <div className="infoDeUsuarioCard">
         <Card.Title>Tobias Alvarez</Card.Title>
         <Card.Text>Area Tecnica y Desarrollo.</Card.Text>
+        <button onClick={onClick}>hola</button>
       </div>
     </div>
   );

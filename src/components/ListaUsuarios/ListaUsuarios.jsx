@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ListaUsuarios.css";
 import UsuarioCard from "./UsuarioCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +11,12 @@ import { EffectCoverflow, Navigation, Pagination } from "swiper";
 
 const ListaUsuarios = () => {
   const handleChange = () => {};
+
+  const [sliderEnabled, setSliderEnabled] = useState(true);
+  const handleSliderClick = () => {
+    console.log("hola pelotudo");
+    setSliderEnabled(!sliderEnabled);
+  };
 
   return (
     <>
@@ -36,6 +42,9 @@ const ListaUsuarios = () => {
             modifier: 2.5,
             slideShadows: false,
           }}
+          allowSlideNext={sliderEnabled}
+          allowSlidePrev={sliderEnabled}
+          allowTouchMove={sliderEnabled}
           pagination={{ el: ".swiper-pagination", clickable: true }}
           navigation={{
             nextEl: ".swiper-button-next",
@@ -46,7 +55,7 @@ const ListaUsuarios = () => {
           className="swiper-container"
         >
           <SwiperSlide>
-            <UsuarioCard></UsuarioCard>
+            <UsuarioCard onClick={handleSliderClick}></UsuarioCard>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>

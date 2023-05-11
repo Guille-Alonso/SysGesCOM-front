@@ -16,11 +16,16 @@
     padding: 10px;
 }
 .usuariosSection{
-    width: 100%;
+    width: 50%;
     height: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.bigCardSection{
+    width: 50%;
+    position: absolute;
+    right: 0;
 }
 .iconoBusquedaUserList{
     color: black;
@@ -37,4 +42,13 @@
 .swiper-button-next, .swiper-button-prev {
     top: var(--swiper-navigation-top-offset,85%) !important;
     width: calc(var(--swiper-navigation-size)/ 44 * 1000) !important;
+}
+.botonVerMas{
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    border-style: none;
+    position: absolute;
+    z-index: 10;
+    top: 550px;
 }

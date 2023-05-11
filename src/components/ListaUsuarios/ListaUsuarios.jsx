@@ -8,15 +8,11 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import { EffectCoverflow, Navigation, Pagination } from "swiper";
+import UsuarioCardBig from "./UsuarioCardBig";
 
 const ListaUsuarios = () => {
   const handleChange = () => {};
-
-  const [sliderEnabled, setSliderEnabled] = useState(true);
-  const handleSliderClick = () => {
-    console.log("hola pelotudo");
-    setSliderEnabled(!sliderEnabled);
-  };
+  const [sizeCard, setSizeCard] = useState(false);
 
   return (
     <>
@@ -37,14 +33,11 @@ const ListaUsuarios = () => {
           slidesPerView={"auto"}
           coverflowEffect={{
             rotate: 5,
-            stretch: 500,
+            stretch: 250,
             depth: 100,
             modifier: 2.5,
             slideShadows: false,
           }}
-          allowSlideNext={sliderEnabled}
-          allowSlidePrev={sliderEnabled}
-          allowTouchMove={sliderEnabled}
           pagination={{ el: ".swiper-pagination", clickable: true }}
           navigation={{
             nextEl: ".swiper-button-next",
@@ -55,30 +48,81 @@ const ListaUsuarios = () => {
           className="swiper-container"
         >
           <SwiperSlide>
-            <UsuarioCard onClick={handleSliderClick}></UsuarioCard>
+            <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
           <SwiperSlide>
             <UsuarioCard></UsuarioCard>
+            <button
+              className="botonVerMas"
+              onClick={() => setSizeCard(!sizeCard)}
+            >
+              Ver mas
+            </button>
           </SwiperSlide>
         </Swiper>
+        <section className="bigCardSection">
+          {sizeCard && <UsuarioCardBig />}
+        </section>
         <div className="slider-controler">
           <div className="swiper-button-prev slider-arrow"></div>
           <div className="swiper-button-next slider-arrow"></div>

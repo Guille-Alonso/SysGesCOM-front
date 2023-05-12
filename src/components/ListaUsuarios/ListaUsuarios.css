@@ -17,13 +17,14 @@
 }
 .usuariosSection{
     width: 50%;
-    height: 70%;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .bigCardSection{
     width: 50%;
+    height: 60%;
     position: absolute;
     right: 0;
 }
@@ -37,7 +38,7 @@
     display: flex !important;
     justify-content: center;
     align-items: center;
-    height: 70vh !important;
+    height: 60vh !important;
 }
 .swiper-button-next, .swiper-button-prev {
     top: var(--swiper-navigation-top-offset,85%) !important;
@@ -50,5 +51,5 @@
     border-style: none;
     position: absolute;
     z-index: 10;
-    top: 550px;
+    top: 90%;
 }

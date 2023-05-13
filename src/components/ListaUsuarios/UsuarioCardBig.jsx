@@ -4,6 +4,9 @@ import Card from "react-bootstrap/Card";
 import "./UsuarioCardBig.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCheck, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { ModalBody } from "react-bootstrap";
 
 const UsuarioCardBig = () => {
   const [changeIcon, setChangeIcon] = useState(false);
@@ -35,57 +38,65 @@ const UsuarioCardBig = () => {
       input.parentNode.replaceChild(pElement, input);
     });
   };
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
-    <div className="contenedorBigCard">
-      <div className="usuarioCardBig">
-        <div className="bigCardSuperior">
-          <img
-            variant="top"
-            src="src\assets\img\foto-tob.png"
-            className="imgUsuarioBig"
-          />
-          <div className="topicInformation">
-            <Card.Title className="titleTopicInfo">Tobias Alvarez</Card.Title>
-            <Card.Title className="titleTopicInfo">Area Tecnica</Card.Title>
-          </div>
-          <section>
-            <FontAwesomeIcon
-              onClick={handleClick1}
-              className="iconoEditUser1"
-              icon={faUserPen}
+    <>
+      <Modal size="lg" show={show} centered onHide={handleClose}>
+        <Modal.Body className="usuarioCardBig">
+          <div className="bigCardSuperior">
+            <img
+              variant="top"
+              src="src\assets\img\foto-tob.png"
+              className="imgUsuarioBig"
             />
-            {changeIcon && (
+            <div className="topicInformation">
+              <Card.Title className="titleTopicInfo">Tobias Alvarez</Card.Title>
+              <Card.Title className="titleTopicInfo">Area Tecnica</Card.Title>
+            </div>
+            <section>
               <FontAwesomeIcon
-                onClick={handleClick2}
-                className="iconoEditUser2"
-                icon={faUserCheck}
-                style={{ color: "#46ce68" }}
-                beat
+                onClick={handleClick1}
+                className="iconoEditUser1"
+                icon={faUserPen}
               />
-            )}
-          </section>
-        </div>
-        <div className="infoDiv">
-          <div className="infoDeUsuarioCardBig1">
-            <span className="spanBigCard">Email</span>
-            <p className="parrafoInfo">********@gmail.com</p>
-            <span className="spanBigCard">Usuario</span>
-            <p className="parrafoInfo">tsa.ortiz</p>
-            <span className="spanBigCard">DNI</span>
-            <p className="parrafoInfo">**********</p>
+              {changeIcon && (
+                <FontAwesomeIcon
+                  onClick={handleClick2}
+                  className="iconoEditUser2"
+                  icon={faUserCheck}
+                  style={{ color: "#46ce68" }}
+                  beat
+                />
+              )}
+            </section>
           </div>
-          <div className="infoDeUsuarioCardBig2">
-            <span className="spanBigCard">Fecha de Nacimiento</span>
-            <p className="parrafoInfo">20/12/1999</p>
-            <span className="spanBigCard">Num Afiliado</span>
-            <p className="parrafoInfo">28347</p>
-            <span className="spanBigCard">Turno</span>
-            <p className="parrafoInfo">Tarde</p>
+          <div className="infoDiv">
+            <div className="infoDeUsuarioCardBig1">
+              <span className="spanBigCard">Email</span>
+              <p className="parrafoInfo">********@gmail.com</p>
+              <span className="spanBigCard">Usuario</span>
+              <p className="parrafoInfo">tsa.ortiz</p>
+              <span className="spanBigCard">DNI</span>
+              <p className="parrafoInfo">**********</p>
+            </div>
+            <div className="infoDeUsuarioCardBig2">
+              <span className="spanBigCard">Fecha de Nacimiento</span>
+              <p className="parrafoInfo">20/12/1999</p>
+              <span className="spanBigCard">Num Afiliado</span>
+              <p className="parrafoInfo">28347</p>
+              <span className="spanBigCard">Turno</span>
+              <p className="parrafoInfo">Tarde</p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </Modal.Body>
+      </Modal>
+      <Button className="botonVerMas" variant="primary" onClick={handleShow}>
+        Ver más...
+      </Button>
+    </>
   );
 };
 

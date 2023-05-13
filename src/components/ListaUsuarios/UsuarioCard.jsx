@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./UsuarioCard.css";
 import Card from "react-bootstrap/Card";
-import UsuarioCardBig from "./UsuarioCardBig";
 
-const UsuarioCard = ({ onClick }) => {
+const UsuarioCard = ({ name, rol }) => {
   return (
     <div className="usuarioCard">
       <img
@@ -12,8 +11,8 @@ const UsuarioCard = ({ onClick }) => {
         className="imgUsuario"
       />
       <div className="infoDeUsuarioCard">
-        <Card.Title>Tobias Alvarez</Card.Title>
-        <Card.Text>Area Tecnica y Desarrollo.</Card.Text>
+        <Card.Title>{name}</Card.Title>
+        <Card.Text>{rol}</Card.Text>
       </div>
     </div>
   );

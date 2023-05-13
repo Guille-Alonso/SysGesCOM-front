@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GeneralTable from '../common/Table/GeneralTable';
 import useGet from '../../hooks/useGet';
 import { Spinner } from 'react-bootstrap';
@@ -11,15 +11,30 @@ import './ListarCamaras.css';
 const ListarCamaras = () => {
   const [selected, setSelected] = useState(undefined);
   const [camara, loading] = useGet('/camaras/listar', axios);
+  const [buscador, setBuscador] = useState('');
+  const [ResultadoBusaqueda, setResultadoBusaqueda] = useState([]);
+  
+  const handleChange = (event) => {
+    setBuscador(event.target.value);
+  }
 
-  const handleChange = () => { };
-
+  useEffect(() => {
+    if (Array.isArray(camara.camaras)) {
+      const results = camara.camaras.filter((camara) =>
+        camara.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
+        camara.ubicacion.toLowerCase().includes(buscador.toLowerCase()) ||
+        camara.tipo.toLowerCase().includes(buscador.toLowerCase())
+      );
+      setResultadoBusaqueda(results);
+    }
+  }, [camara.camaras, buscador]);
+  
   return (
     <>
       <h3 className='text-light'>Tabla de camaras</h3>
 
       <div className="contBusquedaCamaras">
-        <input type="text" className="buscadorCamaras" onChange={handleChange} />
+        <input type="text" className="buscadorCamaras" value={buscador} onChange={handleChange} />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           className="iconoBusquedaCamaras"
@@ -27,11 +42,11 @@ const ListarCamaras = () => {
         />
       </div>
 
-        {
-          loading ? <Spinner />
-            :
-            <GeneralTable headings={['Nombre', 'Ubicacion', 'Tipo', 'Estado']} items={camara.camaras} setSelected={setSelected} selected={selected} />
-        }
+      {
+        loading ? <Spinner />
+          :
+          <GeneralTable headings={['Nombre', 'Ubicacion', 'Tipo', 'Estado']} items={ResultadoBusaqueda} setSelected={setSelected} selected={selected} />
+      }
 
     </>
 

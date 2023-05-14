@@ -38,6 +38,9 @@ export const validationAltaUsuario = (values) => {
         errors.password = "Las contraseñas no coinciden";
     }
 
+    if(values.photo !== '' && !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(values.photo)){
+        errors.photo = "URL no válida"
+    }
 
     return errors;
 };

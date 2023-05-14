@@ -188,8 +188,9 @@ const AltaUsuarios = () => {
                 <Form.Label>Fotografía</Form.Label>
 
                 <Form.Control
-                  type="file"
-                  accept="image/*"
+                  type="text"
+                  placeholder="Ingrese una URL"
+                  title="Suba una imágen a la nube y copie el vínculo"
                   onChange={handleChange}
                   value={values.photo}
                   name="photo"

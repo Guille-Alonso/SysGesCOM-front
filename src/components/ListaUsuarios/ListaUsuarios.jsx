@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ListaUsuarios.css";
 import UsuarioCard from "./UsuarioCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,24 +9,39 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import { EffectCoverflow, Navigation, Pagination } from "swiper";
 import UsuarioCardBig from "./UsuarioCardBig";
+import useGet from "../../hooks/useGet";
+import axios from "../../config/axios";
 
 const ListaUsuarios = () => {
-  const handleChange = () => {};
-  const users = [
-    { name: "Tobias", rol: "admin" },
-    { name: "Pedro", rol: "admin" },
-    { name: "Guillermo", rol: "admin" },
-    { name: "Walter", rol: "admin" },
-  ];
+  const [users, loading] = useGet("/users/email", axios);
+  const [buscador, setBuscador] = useState("");
+  const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
+  const handleChange = (e) => {
+    setBuscador(e.target.value);
+  };
+  useEffect(() => {
+    if (Array.isArray(users.users)) {
+      const results = users.users.filter(
+        (user) =>
+          user.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
+          user.tipoDeUsuario.toLowerCase().includes(buscador.toLowerCase())
+      );
+      setResultadoBusqueda(results);
+    }
+  }, [buscador]);
 
   return (
     <>
       <header className="contenedorBusqueda">
-        <input type="text" className="buscador" onChange={handleChange} />
+        <input
+          type="text"
+          className="buscador"
+          value={buscador}
+          onChange={handleChange}
+        />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           className="iconoBusquedaUserList"
-          //   hacer funcion de busqueda en el icono
         />
       </header>
       <section className="usuariosSection">
@@ -52,12 +67,21 @@ const ListaUsuarios = () => {
           modules={[EffectCoverflow, Navigation, Pagination]}
           className="swiper-container"
         >
-          {users.map((user, index) => (
-            <SwiperSlide>
-              <UsuarioCard name={user.name} rol={user.rol}></UsuarioCard>
-              <UsuarioCardBig />
-            </SwiperSlide>
-          ))}
+          {ResultadoBusqueda.length == 0 &&
+            !loading &&
+            users.users.map((user, index) => (
+              <SwiperSlide>
+                <UsuarioCard user={user}></UsuarioCard>
+                <UsuarioCardBig user={user} />
+              </SwiperSlide>
+            ))}
+          {ResultadoBusqueda.length > 0 &&
+            ResultadoBusqueda.map((user, index) => (
+              <SwiperSlide>
+                <UsuarioCard user={user}></UsuarioCard>
+                <UsuarioCardBig user={user} />
+              </SwiperSlide>
+            ))}
         </Swiper>
 
         <div className="slider-controler">

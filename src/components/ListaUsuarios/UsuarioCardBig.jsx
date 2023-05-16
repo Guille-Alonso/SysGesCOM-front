@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ModalBody } from "react-bootstrap";
 
-const UsuarioCardBig = () => {
+const UsuarioCardBig = ({ user }) => {
   const [changeIcon, setChangeIcon] = useState(false);
   const handleClick1 = () => {
     setChangeIcon(!changeIcon);
@@ -49,12 +49,18 @@ const UsuarioCardBig = () => {
           <div className="bigCardSuperior">
             <img
               variant="top"
-              src="src\assets\img\foto-tob.png"
+              src={
+                user.foto !== undefined
+                  ? user.foto
+                  : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
+              }
               className="imgUsuarioBig"
             />
             <div className="topicInformation">
-              <Card.Title className="titleTopicInfo">Tobias Alvarez</Card.Title>
-              <Card.Title className="titleTopicInfo">Area Tecnica</Card.Title>
+              <Card.Title className="titleTopicInfo">{user.nombre}</Card.Title>
+              <Card.Title className="titleTopicInfo">
+                {user.tipoDeUsuario}
+              </Card.Title>
             </div>
             <section>
               <FontAwesomeIcon
@@ -76,19 +82,19 @@ const UsuarioCardBig = () => {
           <div className="infoDiv">
             <div className="infoDeUsuarioCardBig1">
               <span className="spanBigCard">Email</span>
-              <p className="parrafoInfo">********@gmail.com</p>
+              <p className="parrafoInfo">{user.email}</p>
               <span className="spanBigCard">Usuario</span>
-              <p className="parrafoInfo">tsa.ortiz</p>
+              <p className="parrafoInfo">{user.nombreUsuario}</p>
               <span className="spanBigCard">DNI</span>
               <p className="parrafoInfo">**********</p>
             </div>
             <div className="infoDeUsuarioCardBig2">
               <span className="spanBigCard">Fecha de Nacimiento</span>
               <p className="parrafoInfo">20/12/1999</p>
-              <span className="spanBigCard">Num Afiliado</span>
-              <p className="parrafoInfo">28347</p>
+              <span className="spanBigCard">Foto</span>
+              <p className="parrafoInfo">{user.foto}</p>
               <span className="spanBigCard">Turno</span>
-              <p className="parrafoInfo">Tarde</p>
+              <p className="parrafoInfo">{user.turno}</p>
             </div>
           </div>
         </Modal.Body>

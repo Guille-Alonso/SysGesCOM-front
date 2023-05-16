@@ -22,12 +22,7 @@
     justify-content: center;
     align-items: center;
 }
-/* .bigCardSection{
-    width: 50%;
-    height: 60%;
-    position: absolute;
-    right: 0;
-} */
+
 .iconoBusquedaUserList{
     color: black;
     position: relative;
@@ -39,8 +34,15 @@
     justify-content: center;
     align-items: center;
     height: 60vh !important;
+    width: 100vh !important;
 }
 .swiper-button-next, .swiper-button-prev {
     top: var(--swiper-navigation-top-offset,85%) !important;
     width: calc(var(--swiper-navigation-size)/ 44 * 1000) !important;
+}
+
+@media screen and (max-width: 1024px) { 
+    .swiper-button-next, .swiper-button-prev{
+        display: none !important;
+    }
 }

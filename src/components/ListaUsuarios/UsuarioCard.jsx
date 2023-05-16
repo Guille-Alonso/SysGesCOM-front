@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import "./UsuarioCard.css";
 import Card from "react-bootstrap/Card";
 
-const UsuarioCard = ({ name, rol }) => {
+const UsuarioCard = ({ user }) => {
   return (
     <div className="usuarioCard">
       <img
         variant="top"
-        src="src\assets\img\foto-tob.png"
+        src={
+          user.foto !== undefined && user.foto !== ""
+            ? user.foto
+            : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
+        }
         className="imgUsuario"
       />
       <div className="infoDeUsuarioCard">
-        <Card.Title>{name}</Card.Title>
-        <Card.Text>{rol}</Card.Text>
+        <p>{user.nombre}</p>
+        <p>{user.tipoDeUsuario}</p>
       </div>
     </div>
   );

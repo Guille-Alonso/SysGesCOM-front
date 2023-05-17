@@ -8,6 +8,10 @@ tr:hover{
   color: white;
 }
 
+.botonEditar{
+  height: 16px;
+}
+
 .table-responsive{
   margin-left: 5%;
   margin-right: 5%;

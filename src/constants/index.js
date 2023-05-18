@@ -16,7 +16,11 @@ export const ALTA_CAMARA_VALUES = {
 export const REGISTER_ALTA_USUARIOS_VALUES = {
   name: "",
   userName: "",
+  dni:"",
+  numAfil:"",
   email: "",
+  fechaNac:"",
+  turno:"",
   password: "",
   repeatPassword: "",
   perfilAltaUsuarios: "",

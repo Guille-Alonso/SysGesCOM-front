@@ -119,8 +119,7 @@ const AltaUsuarios = () => {
                   onChange={handleChange}
                   value={values.dni}
                   name="dni"
-                  maxLength={30}
-                  minLength={2}
+                  length={8}
                   requireds
                 />
               </Form.Group>
@@ -133,8 +132,7 @@ const AltaUsuarios = () => {
                   onChange={handleChange}
                   value={values.numAfil}
                   name="numAfil"
-                  maxLength={30}
-                  minLength={2}
+                  length={5}
                   required
                 />
               </Form.Group>
@@ -163,8 +161,8 @@ const AltaUsuarios = () => {
                   onChange={handleChange}
                   value={values.fechaNac}
                   name="fechaNac"
-                  maxLength={30}
-                  minLength={2}
+                  min="1923-01-01"
+                  max="2005-12-31"
                   required
                 />
               </Form.Group>

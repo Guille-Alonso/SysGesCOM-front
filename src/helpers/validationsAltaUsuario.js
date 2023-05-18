@@ -42,5 +42,24 @@ export const validationAltaUsuario = (values) => {
         errors.photo = "URL no válida"
     }
 
+    if(!values.dni){
+        errors.dni = "El campo DNI es obligatorio"
+    }else if(values.dni.length != 8){
+        errors.dni = "El DNI contiene 8 números"
+    }else if( !/^\d+$/.test(values.dni)){
+        errors.dni = "El DNI solo contiene numeros ";
+    }
+
+    if(!values.numAfil){
+        errors.numAfil = "El campo Num Afiliado es obligatorio"
+    }else if(values.numAfil.length != 5){
+        errors.numAfil = "El Número de Afiliado contiene 5 números"
+    }else if( !/^\d+$/.test(values.numAfil)){
+        errors.numAfil = "El Num de Afiliado solo contiene numeros ";
+    }
+    
+    if(!values.fechaNac){
+        errors.fechaNac = "El campo Fecha Nacimiento es obligatorio"
+    }
     return errors;
 };

@@ -86,13 +86,13 @@ const UsuarioCardBig = ({ user }) => {
               <span className="spanBigCard">Usuario</span>
               <p className="parrafoInfo">{user.nombreUsuario}</p>
               <span className="spanBigCard">DNI</span>
-              <p className="parrafoInfo">**********</p>
+              <p className="parrafoInfo">{user.dni}</p>
             </div>
             <div className="infoDeUsuarioCardBig2">
+              <span className="spanBigCard">Num Afiliado</span>
+              <p className="parrafoInfo">{user.afiliado}</p>
               <span className="spanBigCard">Fecha de Nacimiento</span>
-              <p className="parrafoInfo">20/12/1999</p>
-              <span className="spanBigCard">Foto</span>
-              <p className="parrafoInfo">{user.foto}</p>
+              <p className="parrafoInfo">{user.nacimiento}</p>
               <span className="spanBigCard">Turno</span>
               <p className="parrafoInfo">{user.turno}</p>
             </div>

@@ -19,6 +19,12 @@ tr:hover{
 
 .generalTable{
   text-align: center;
-  
+  table-layout: fixed;
 
+}
+.generalTable th,
+.generalTable td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -97,7 +97,7 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                 onClick={() => setSelected(item._id)}
                 className={selected === item._id ? "row-selected" : ""}
               >
-                {Object.entries(item).map((elemento) => {
+                {Object.entries(item).slice(1).map((elemento) => {
                   if (elemento[0] !== "_id") {
                     return <td key={nanoid()}>{elemento[1]}</td>;
                   }

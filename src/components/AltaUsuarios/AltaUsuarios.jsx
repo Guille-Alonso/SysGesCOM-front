@@ -1,5 +1,6 @@
 import { Form, Button, Alert } from "react-bootstrap";
 import "./altaUsuarios.css";
+import "./iconoPasswordUsuarios.css";
 import useForm from "../../hooks/useForm";
 import { REGISTER_ALTA_USUARIOS_VALUES } from "../../constants";
 import { toast } from "react-toastify";
@@ -9,6 +10,7 @@ import { useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
+
 
 const AltaUsuarios = () => {
   const agregarUsuario = async () => {
@@ -107,61 +109,105 @@ const AltaUsuarios = () => {
               </Form.Group>
             </div>
 
-            <Form.Group className="inputBoxAltaUsuarios">
-              <Form.Label>Email</Form.Label>
+            <div className="conteAltaUsuarios col-md-12">
+              <Form.Group className="inputBoxAltaUsuarios col-md-6">
+                <Form.Label>DNI</Form.Label>
 
-              <Form.Control
-                type="email"
-                placeholder="Ingrese su email"
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                maxLength={40}
-                minLength={4}
-                required
-              />
-            </Form.Group>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese su DNI"
+                  onChange={handleChange}
+                  value={values.dni}
+                  name="dni"
+                  length={8}
+                  requireds
+                />
+              </Form.Group>
+              <Form.Group className="inputBoxAltaUsuarios col-md-6">
+                <Form.Label>N° de Afiliado</Form.Label>
 
-            <Form.Group className="inputBoxAltaUsuariosPassword">
-              <Form.Label>Contraseña</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese n° de afiliado"
+                  onChange={handleChange}
+                  value={values.numAfil}
+                  name="numAfil"
+                  length={5}
+                  required
+                />
+              </Form.Group>
+            </div>
 
-              <Form.Control
-                type={showPassword ? "text" : "password"}
-                placeholder="Ingrese su contraseña"
-                onChange={handleChange}
-                value={values.password}
-                name="password"
-                maxLength={30}
-                minLength={8}
-                required
-              />
-              <FontAwesomeIcon
-                icon={showPassword ? faEye : faEyeSlash}
-                onClick={handleShowPassword}
-                className="icono-password"
-              />
-            </Form.Group>
+            <div className="conteAltaUsuarios col-md-12">
+              <Form.Group className="inputBoxAltaUsuarios">
+                <Form.Label>Email</Form.Label>
 
-            <Form.Group className="inputBoxAltaUsuariosPassword">
-              <Form.Label>Confirmar contraseña</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Ingrese su email"
+                  onChange={handleChange}
+                  value={values.email}
+                  name="email"
+                  maxLength={40}
+                  minLength={4}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="inputBoxAltaUsuarios col-md-6">
+                <Form.Label>Fecha de Nacimiento</Form.Label>
 
-              <Form.Control
-                type={showPassword2 ? "text" : "password"}
-                placeholder="Ingrese su contraseña"
-                onChange={handleChange}
-                value={values.repeatPassword}
-                name="repeatPassword"
-                maxLength={30}
-                minLength={8}
-                required
-              />
-              <FontAwesomeIcon
-                icon={showPassword2 ? faEye : faEyeSlash}
-                onClick={handleShowPassword2}
-                className="icono-password"
-              />
-            </Form.Group>
+                <Form.Control
+                  type="date"
+                  onChange={handleChange}
+                  value={values.fechaNac}
+                  name="fechaNac"
+                  min="1923-01-01"
+                  max="2005-12-31"
+                  required
+                />
+              </Form.Group>
+            </div>
 
+            <div className="conteAltaUsuarios col-md-12">
+              <Form.Group className="inputBoxAltaUsuariosPassword">
+                <Form.Label>Contraseña</Form.Label>
+
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Ingrese su contraseña"
+                  onChange={handleChange}
+                  value={values.password}
+                  name="password"
+                  maxLength={30}
+                  minLength={8}
+                  required
+                />
+                <FontAwesomeIcon
+                  icon={showPassword ? faEye : faEyeSlash}
+                  onClick={handleShowPassword}
+                  className="iconoUsuarios-1"
+                />
+              </Form.Group>
+              <Form.Group className="inputBoxAltaUsuariosPassword">
+                <Form.Label>Confirmar contraseña</Form.Label>
+
+                <Form.Control
+                  type={showPassword2 ? "text" : "password"}
+                  placeholder="Ingrese su contraseña"
+                  onChange={handleChange}
+                  value={values.repeatPassword}
+                  name="repeatPassword"
+                  maxLength={30}
+                  minLength={8}
+                  required
+                />
+                <FontAwesomeIcon
+                  icon={showPassword2 ? faEye : faEyeSlash}
+                  onClick={handleShowPassword2}
+                  className="iconoUsuarios-2"
+                />
+              </Form.Group>
+            </div>
             <Form.Group className="inputBoxAltaUsuarios">
               <Form.Label>Perfil de usuario</Form.Label>
 

@@ -65,7 +65,7 @@ label {
 }
 @media screen and (max-width: 768px) {
     .contenedorAltaUsuarios {
-        width: 67%;
+        width: 85%;
     }
 
     .alertasAltaUsuario {
@@ -75,7 +75,7 @@ label {
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1100px) {
     .contenedorAltaUsuarios {
         width: 35%;
     }
@@ -87,9 +87,20 @@ label {
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
     .contenedorAltaUsuarios {
-        width: 35%;
+        width: 65%;
+    }
+
+    .alertasAltaUsuario {
+        position: absolute;
+        top: 7%;
+        left: 70%;
+    }
+}
+@media screen and (max-width: 1099px) {
+    .contenedorAltaUsuarios {
+        width: 65%;
     }
 
     .alertasAltaUsuario {

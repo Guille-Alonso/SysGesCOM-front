@@ -7,18 +7,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
-import { EffectCoverflow, Navigation, Pagination } from "swiper";
+import { EffectCoverflow, Pagination } from "swiper";
 import UsuarioCardBig from "./UsuarioCardBig";
 import useGet from "../../hooks/useGet";
 import axios from "../../config/axios";
 
 const ListaUsuarios = () => {
+  const [startIndex, setStartIndex] = useState(0); // Índice de inicio para la solicitud al backend
+  const [cardsToShow, setCardsToShow] = useState(5); // Número de cards a mostrar por vez
   const [users, loading] = useGet("/users/email", axios);
   const [buscador, setBuscador] = useState("");
-  const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]); // Usuarios filtrados
+  const [paginas, setPaginas] = useState(1);
+  const [numerosDePagina, setNumerosDePagina] = useState(0);
+
   const handleChange = (e) => {
     setBuscador(e.target.value);
+    setStartIndex(0);
   };
+
   useEffect(() => {
     if (Array.isArray(users.users)) {
       const results = users.users.filter(
@@ -26,9 +33,47 @@ const ListaUsuarios = () => {
           user.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
           user.tipoDeUsuario.toLowerCase().includes(buscador.toLowerCase())
       );
-      setResultadoBusqueda(results);
+      setFilteredUsers(results);
     }
-  }, [buscador]);
+  }, [buscador, users.users]);
+
+  const handleNextSlide = () => {
+    if (startIndex + cardsToShow < filteredUsers.length) {
+      setStartIndex(startIndex + cardsToShow);
+    }
+    if (paginas == numerosDePagina) return;
+    setPaginas(paginas + 1);
+  };
+
+  const handlePrevSlide = () => {
+    if (startIndex - cardsToShow >= 0) {
+      setStartIndex(startIndex - cardsToShow);
+    }
+    if (paginas == 1) return;
+    setPaginas(paginas - 1);
+  };
+
+  const renderUsuarios = () => {
+    const slicedUsers = filteredUsers.slice(
+      startIndex,
+      startIndex + cardsToShow
+    );
+    return slicedUsers.map((user, index) => (
+      <SwiperSlide key={index}>
+        <UsuarioCard user={user} />
+        <UsuarioCardBig user={user} />
+      </SwiperSlide>
+    ));
+  };
+
+  useEffect(() => {
+    if (Array.isArray(users.users)) {
+      const numeroUser = users.users.length;
+      const numerosDePagina = Math.ceil(numeroUser / cardsToShow);
+      setNumerosDePagina(numerosDePagina);
+      console.log(numeroUser);
+    }
+  }, [users.users, cardsToShow]);
 
   return (
     <>
@@ -43,6 +88,9 @@ const ListaUsuarios = () => {
           icon={faMagnifyingGlass}
           className="iconoBusquedaUserList"
         />
+        <div className="paginationCards">
+          {paginas} de {numerosDePagina}
+        </div>
       </header>
       <section className="usuariosSection">
         <Swiper
@@ -59,34 +107,16 @@ const ListaUsuarios = () => {
             slideShadows: false,
           }}
           pagination={{ el: ".swiper-pagination", clickable: true }}
-          navigation={{
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-            clickable: true,
-          }}
-          modules={[EffectCoverflow, Navigation, Pagination]}
+          modules={[EffectCoverflow, Pagination]}
           className="swiper-container"
+          initialSlide={2}
         >
-          {ResultadoBusqueda.length == 0 &&
-            !loading &&
-            users.users.map((user, index) => (
-              <SwiperSlide>
-                <UsuarioCard user={user}></UsuarioCard>
-                <UsuarioCardBig user={user} />
-              </SwiperSlide>
-            ))}
-          {ResultadoBusqueda.length > 0 &&
-            ResultadoBusqueda.map((user, index) => (
-              <SwiperSlide>
-                <UsuarioCard user={user}></UsuarioCard>
-                <UsuarioCardBig user={user} />
-              </SwiperSlide>
-            ))}
+          {renderUsuarios()}
+          <div className="swiper-pagination"></div>
         </Swiper>
-
         <div className="slider-controler">
-          <div className="swiper-button-prev slider-arrow"></div>
-          <div className="swiper-button-next slider-arrow"></div>
+          <div className="swiper-button-prev " onClick={handlePrevSlide}></div>
+          <div className="swiper-button-next " onClick={handleNextSlide}></div>
           <div className="swiper-pagination"></div>
         </div>
       </section>

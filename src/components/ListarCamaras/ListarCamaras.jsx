@@ -31,21 +31,20 @@ const ListarCamaras = () => {
   
   return (
     <>
-      <h3 className='text-light'>Tabla de camaras</h3>
+      {/* <h3 className=' titulo text-light'>Tabla de camaras</h3> */}
 
       <div className="contBusquedaCamaras">
         <input type="text" className="buscadorCamaras" value={buscador} onChange={handleChange} />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           className="iconoBusquedaCamaras"
-        //   hacer funcion de busqueda en el icono
         />
       </div>
 
       {
         loading ? <Spinner />
           :
-          <GeneralTable headings={['Nombre', 'Ubicacion', 'Tipo', 'Estado']} items={ResultadoBusaqueda} setSelected={setSelected} selected={selected} />
+          <GeneralTable headings={['Nombre', 'Ubicacion', 'Tipo']} items={ResultadoBusaqueda} setSelected={setSelected} selected={selected} />
       }
 
     </>

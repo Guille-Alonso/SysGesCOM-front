@@ -97,11 +97,12 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                 onClick={() => setSelected(item._id)}
                 className={selected === item._id ? "row-selected" : ""}
               >
-                {Object.entries(item).slice(1).map((elemento) => {
-                  if (elemento[0] !== "_id") {
+                {Object.entries(item).slice(2).map((elemento) => {
+                  // if (elemento[0] !== "_id") {
                     return <td key={nanoid()}>{elemento[1]}</td>;
-                  }
-                  return null;
+                    console.log(elemento)
+                  // }
+                  // return null;
                 })}
                 <td>
                   <FaEdit

@@ -15,7 +15,7 @@ import axios from "../../config/axios";
 const ListaUsuarios = () => {
   const [startIndex, setStartIndex] = useState(0); // Índice de inicio para la solicitud al backend
   const [cardsToShow, setCardsToShow] = useState(5); // Número de cards a mostrar por vez
-  const [users, loading] = useGet("/users/email", axios);
+  const [users, loading, getUsers] = useGet("/users/email", axios);
   const [buscador, setBuscador] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]); // Usuarios filtrados
   const [paginas, setPaginas] = useState(1);
@@ -33,6 +33,7 @@ const ListaUsuarios = () => {
           user.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
           user.tipoDeUsuario.toLowerCase().includes(buscador.toLowerCase())
       );
+      console.log(users.users);
       setFilteredUsers(results);
     }
   }, [buscador, users.users]);
@@ -54,14 +55,11 @@ const ListaUsuarios = () => {
   };
 
   const renderUsuarios = () => {
-    const slicedUsers = filteredUsers.slice(
-      startIndex,
-      startIndex + cardsToShow
-    );
+    let slicedUsers = filteredUsers.slice(startIndex, startIndex + cardsToShow);
     return slicedUsers.map((user, index) => (
       <SwiperSlide key={index}>
         <UsuarioCard user={user} />
-        <UsuarioCardBig user={user} />
+        <UsuarioCardBig user={user} getUsers={getUsers} />
       </SwiperSlide>
     ));
   };

@@ -7,41 +7,54 @@ import { faUserCheck, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ModalBody } from "react-bootstrap";
+import axios from "../../config/axios";
+import { toast } from "react-toastify";
 
-const UsuarioCardBig = ({ user }) => {
+const UsuarioCardBig = ({ user, getUsers }) => {
   const [changeIcon, setChangeIcon] = useState(false);
+  const [nombre, setNombre] = useState(user.nombre || ""); // Valor predeterminado: ""
+  const [email, setEmail] = useState(user.email || ""); // Valor predeterminado: ""
+  const [dni, setDni] = useState(user.dni || ""); // Valor predeterminado: ""
+  const [afiliado, setAfiliado] = useState(user.afiliado || ""); // Valor predeterminado: ""
+  const [nacimiento, setNacimiento] = useState(user.nacimiento || ""); // Valor predeterminado: ""
+  const [turno, setTurno] = useState(user.turno || ""); // Valor predeterminado: ""
+  const [show, setShow] = useState(false);
+
   const handleClick1 = () => {
     setChangeIcon(!changeIcon);
-    const paragraphs = document.querySelectorAll("p.parrafoInfo");
-
-    // Crea nuevos elementos <input> y reemplaza los elementos <p> existentes
-    paragraphs.forEach((p) => {
-      const inputElement = document.createElement("input");
-      inputElement.type = "text";
-      inputElement.value = p.textContent;
-      inputElement.className = p.className;
-      p.parentNode.replaceChild(inputElement, p);
-    });
   };
 
   const handleClick2 = () => {
     setChangeIcon(!changeIcon);
-    const inputElements = document.querySelectorAll(
-      'input[type="text"].parrafoInfo'
-    );
-
-    // Crea nuevos elementos <p> y reemplaza los elementos <input> existentes
-    inputElements.forEach((input) => {
-      const pElement = document.createElement("p");
-      pElement.textContent = input.value;
-      pElement.className = input.className;
-      input.parentNode.replaceChild(pElement, input);
-    });
   };
-  const [show, setShow] = useState(false);
+
+  const handleSave = () => {
+    handleClick2();
+
+    const updatedUser = {
+      nombre,
+      email,
+      dni,
+      afiliado,
+      nacimiento,
+      turno,
+    };
+
+    axios
+      .put(`/users/actualizarUsuario/${user._id}`, updatedUser)
+
+      .then(() => {
+        toast.success("Usuario actualizado");
+        getUsers();
+      })
+      .catch(() => {
+        toast.error("Error al actualizar el usuario");
+      });
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   return (
     <>
       <Modal size="lg" show={show} centered onHide={handleClose}>
@@ -57,7 +70,7 @@ const UsuarioCardBig = ({ user }) => {
               className="imgUsuarioBig"
             />
             <div className="topicInformation">
-              <Card.Title className="titleTopicInfo">{user.nombre}</Card.Title>
+              <Card.Title className="titleTopicInfo">{nombre}</Card.Title>
               <Card.Title className="titleTopicInfo">
                 {user.tipoDeUsuario}
               </Card.Title>
@@ -70,7 +83,7 @@ const UsuarioCardBig = ({ user }) => {
               />
               {changeIcon && (
                 <FontAwesomeIcon
-                  onClick={handleClick2}
+                  onClick={handleSave}
                   className="iconoEditUser2"
                   icon={faUserCheck}
                   style={{ color: "#46ce68" }}
@@ -82,19 +95,64 @@ const UsuarioCardBig = ({ user }) => {
           <div className="infoDiv">
             <div className="infoDeUsuarioCardBig1">
               <span className="spanBigCard">Email</span>
-              <p className="parrafoInfo">{user.email}</p>
+              {changeIcon ? (
+                <input
+                  type="text"
+                  className="parrafoInfo"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              ) : (
+                <p className="parrafoInfo">{email}</p>
+              )}
               <span className="spanBigCard">Usuario</span>
               <p className="parrafoInfo">{user.nombreUsuario}</p>
               <span className="spanBigCard">DNI</span>
-              <p className="parrafoInfo">{user.dni}</p>
+              {changeIcon ? (
+                <input
+                  type="text"
+                  className="parrafoInfo"
+                  value={dni}
+                  onChange={(e) => setDni(e.target.value)}
+                />
+              ) : (
+                <p className="parrafoInfo">{dni}</p>
+              )}
             </div>
             <div className="infoDeUsuarioCardBig2">
               <span className="spanBigCard">Num Afiliado</span>
-              <p className="parrafoInfo">{user.afiliado}</p>
+              {changeIcon ? (
+                <input
+                  type="text"
+                  className="parrafoInfo"
+                  value={afiliado}
+                  onChange={(e) => setAfiliado(e.target.value)}
+                />
+              ) : (
+                <p className="parrafoInfo">{afiliado}</p>
+              )}
               <span className="spanBigCard">Fecha de Nacimiento</span>
-              <p className="parrafoInfo">{user.nacimiento}</p>
+              {changeIcon ? (
+                <input
+                  type="text"
+                  className="parrafoInfo"
+                  value={nacimiento}
+                  onChange={(e) => setNacimiento(e.target.value)}
+                />
+              ) : (
+                <p className="parrafoInfo">{nacimiento}</p>
+              )}
               <span className="spanBigCard">Turno</span>
-              <p className="parrafoInfo">{user.turno}</p>
+              {changeIcon ? (
+                <input
+                  type="text"
+                  className="parrafoInfo"
+                  value={turno}
+                  onChange={(e) => setTurno(e.target.value)}
+                />
+              ) : (
+                <p className="parrafoInfo">{turno}</p>
+              )}
             </div>
           </div>
         </Modal.Body>

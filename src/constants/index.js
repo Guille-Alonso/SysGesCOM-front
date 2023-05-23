@@ -26,3 +26,16 @@ export const REGISTER_ALTA_USUARIOS_VALUES = {
   perfilAltaUsuarios: "",
   photo: ""
 };
+export const REGISTER_EDITAR_USUARIOS_VALUES = {
+  nombre: "",
+  nombreUsuario: "",
+  dni:"",
+  afiliado:"",
+  email: "",
+  nacimiento:"",
+  turno:"",
+  contraseña: "",
+  repeatPassword: "",
+  tipoDeUsuario: "",
+  foto: ""
+};

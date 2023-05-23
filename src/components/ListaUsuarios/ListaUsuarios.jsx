@@ -11,6 +11,8 @@ import { EffectCoverflow, Pagination } from "swiper";
 import UsuarioCardBig from "./UsuarioCardBig";
 import useGet from "../../hooks/useGet";
 import axios from "../../config/axios";
+import EditarUsuarios from "../EditarUsuarios/EditarUsuarios";
+import GeneralModal from "../common/GeneralModal/GeneralModal";
 
 const ListaUsuarios = () => {
   const [startIndex, setStartIndex] = useState(0); // Índice de inicio para la solicitud al backend
@@ -59,7 +61,13 @@ const ListaUsuarios = () => {
     return slicedUsers.map((user, index) => (
       <SwiperSlide key={index}>
         <UsuarioCard user={user} />
-        <UsuarioCardBig user={user} getUsers={getUsers} />
+        {/* <UsuarioCardBig user={user} getUsers={getUsers} /> */}
+        <GeneralModal
+            buttonText='Ver mas'
+            modalTitle={'Editar Usuario'}
+            modalBody={<EditarUsuarios user={user} getUsers={getUsers}/>}
+            variant="botonVerMas"
+            />
       </SwiperSlide>
     ));
   };

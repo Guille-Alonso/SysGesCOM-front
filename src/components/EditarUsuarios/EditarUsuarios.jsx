@@ -30,10 +30,7 @@ const EditarUsuarios = ({onClose,user,getUsers}) => {   //viene a reemplazar a U
             getUsers();
             onClose();
         } catch (error) {
-            if(error.response.data.errors){
-                toast.error(error.response.data.errors[0].msg)
-              
-              }else toast.error(error)
+            toast.error(error.response?.data.message || error.message)
         }
        
       }
@@ -50,7 +47,7 @@ const EditarUsuarios = ({onClose,user,getUsers}) => {   //viene a reemplazar a U
       },[])
 
   return (
-   <Form onSubmit={handleSubmit}>
+   <Form onSubmit={handleSubmit} className="usuarioCardBig">
     <div className="bigCardSuperior">
             <img
               variant="top"

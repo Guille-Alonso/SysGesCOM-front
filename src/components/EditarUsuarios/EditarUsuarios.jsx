@@ -30,9 +30,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
       getUsers();
       onClose();
     } catch (error) {
-      if (error.response.data.errors) {
-        toast.error(error.response.data.errors[0].msg);
-      } else toast.error(error);
+      toast.error(error.response?.data.message || error.message)
     }
   };
 

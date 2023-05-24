@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import { EffectCoverflow, Pagination } from "swiper";
-import UsuarioCardBig from "./UsuarioCardBig";
 import useGet from "../../hooks/useGet";
 import axios from "../../config/axios";
 import EditarUsuarios from "../EditarUsuarios/EditarUsuarios";
@@ -61,13 +60,12 @@ const ListaUsuarios = () => {
     return slicedUsers.map((user, index) => (
       <SwiperSlide key={index}>
         <UsuarioCard user={user} />
-        {/* <UsuarioCardBig user={user} getUsers={getUsers} /> */}
         <GeneralModal
-            buttonText='Ver mas'
-            modalTitle={'Editar Usuario'}
-            modalBody={<EditarUsuarios user={user} getUsers={getUsers}/>}
-            variant="botonVerMas"
-            />
+          buttonText="Ver mas"
+          modalTitle={"Editar Usuario"}
+          modalBody={<EditarUsuarios user={user} getUsers={getUsers} />}
+          variant="botonVerMas"
+        />
       </SwiperSlide>
     ));
   };

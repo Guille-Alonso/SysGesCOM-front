@@ -26,4 +26,18 @@
     align-items: center;
     width: 100%;
 }
-
+.modal-dialog {
+    max-width: 50% !important;
+    margin-right: auto;
+    margin-left: auto;
+}
+.modal-content{
+    background: transparent !important;
+    border: none !important;
+}
+.btn-close{
+    background-color: #fff !important;
+}
+.modal-header{
+    border-bottom: none !important;
+}

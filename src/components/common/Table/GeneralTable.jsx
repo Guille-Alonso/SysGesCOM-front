@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
-import { FaEdit } from "react-icons/fa"; // Importa el ícono de edición de React Icons
+import { FaEdit, FaTrashAlt } from "react-icons/fa"; // Importa el ícono de edición de React Icons
 import "./GeneralTable.css";
 import { Table, Button, Modal } from "react-bootstrap";
 
@@ -90,7 +90,7 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                 {heading}
               </th>
             ))}
-            <th scope="col">Editar</th>
+            <th scope="col"></th>
           </tr>
         </MDBTableHead>
         <MDBTableBody className="colorTabla">
@@ -114,8 +114,14 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                   <FaEdit
                     className="botonEditar"
                     onClick={() => handleEdit(item._id)}
+                    
+                  />
+                  <FaTrashAlt
+                    className="botonEditar"
+                    // onClick={() => handleEdit(item._id)}
                   />
                 </td>
+
               </tr>
             ))}
         </MDBTableBody>

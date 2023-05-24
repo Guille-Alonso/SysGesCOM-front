@@ -6,6 +6,8 @@ import axios from '../../config/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import './ListarCamaras.css';
+import GeneralModal from '../common/GeneralModal/GeneralModal';
+
 
 
 const ListarCamaras = () => {

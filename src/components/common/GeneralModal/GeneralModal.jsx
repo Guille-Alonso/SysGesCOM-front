@@ -1,9 +1,15 @@
 import { cloneElement, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { toast} from "react-toastify";
+import { toast } from "react-toastify";
 import "../../ListaUsuarios/UsuarioCardBig.css";
 
-const GeneralModal = ({buttonText, modalTitle, modalBody, variant, seleccion}) => {
+const GeneralModal = ({
+  buttonText,
+  modalTitle,
+  modalBody,
+  variant,
+  seleccion,
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -15,25 +21,30 @@ const GeneralModal = ({buttonText, modalTitle, modalBody, variant, seleccion}) =
 
   return (
     <>
-
-      <Button css={{zIndex: 0}} auto flat onClick={handleShow} className={variant}>
+      <Button
+        css={{ zIndex: 0 }}
+        auto
+        flat
+        onClick={handleShow}
+        className={variant}
+      >
         {buttonText}
       </Button>
 
-      <Modal 
-      show={show} 
-      onHide={handleClose} 
-      backdrop="static" 
-      keyboard={false}
-      centered>
-        <Modal.Header closeButton>
-          <Modal.Title>{modalTitle}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{cloneElement(modalBody,{onClose:handleClose})}</Modal.Body>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          {cloneElement(modalBody, { onClose: handleClose })}
+        </Modal.Body>
       </Modal>
-
     </>
   );
-}
- 
+};
+
 export default GeneralModal;

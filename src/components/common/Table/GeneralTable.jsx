@@ -1,13 +1,18 @@
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
-import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
-import { FaEdit } from 'react-icons/fa'; // Importa el ícono de edición de React Icons
-import './GeneralTable.css';
+import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
+import { FaEdit } from "react-icons/fa"; // Importa el ícono de edición de React Icons
+import "./GeneralTable.css";
 import { Table, Button, Modal } from "react-bootstrap";
 
-
-const EditModal = ({ show, onHide, onSave, editData, setSelectedItem, setShowModal }) => {
-  
+const EditModal = ({
+  show,
+  onHide,
+  onSave,
+  editData,
+  setSelectedItem,
+  setShowModal,
+}) => {
   const [editedData, setEditedData] = useState(editData);
 
   useEffect(() => {
@@ -55,7 +60,6 @@ const EditModal = ({ show, onHide, onSave, editData, setSelectedItem, setShowMod
 };
 
 const GeneralTable = ({ headings, items, setSelected, selected }) => {
-
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -65,7 +69,7 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
     setSelectedItem(itemToEdit);
     setShowModal(true);
   };
-  
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -97,13 +101,15 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                 onClick={() => setSelected(item._id)}
                 className={selected === item._id ? "row-selected" : ""}
               >
-                {Object.entries(item).slice(2).map((elemento) => {
-                  // if (elemento[0] !== "_id") {
+                {Object.entries(item)
+                  .slice(2)
+                  .map((elemento) => {
+                    // if (elemento[0] !== "_id") {
                     return <td key={nanoid()}>{elemento[1]}</td>;
-                    console.log(elemento)
-                  // }
-                  // return null;
-                })}
+                    console.log(elemento);
+                    // }
+                    // return null;
+                  })}
                 <td>
                   <FaEdit
                     className="botonEditar"

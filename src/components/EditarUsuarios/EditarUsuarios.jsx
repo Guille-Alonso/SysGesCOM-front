@@ -19,9 +19,18 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
     setChangeIcon(!changeIcon);
   };
 
-  const handleClick2 = () => {
-    setChangeIcon(!changeIcon);
-  };
+      const editarUsuario = async () => {
+        handleClick2();
+        try {
+            await axios.put(`/users/actualizarUsuario/${user._id}`,values);
+            toast.success("Usuario actualizado");
+            getUsers();
+            onClose();
+        } catch (error) {
+            toast.error(error.response?.data.message || error.message)
+        }
+       
+      }
 
   const editarUsuario = async () => {
     handleClick2();
@@ -49,31 +58,24 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   }, []);
 
   return (
-    <Form className="usuarioCardBig" onSubmit={handleSubmit}>
-      <div className="bigCardSuperior">
-        <img
-          variant="top"
-          src={
-            values.foto !== undefined
-              ? values.foto
-              : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
-          }
-          className="imgUsuarioBig"
-        />
-        <div className="topicInformation">
-          <Card.Title className="titleTopicInfo">{values.nombre}</Card.Title>
-          <Card.Title className="titleTopicInfo">
-            {values.tipoDeUsuario}
-          </Card.Title>
-        </div>
-        <section>
-          <FontAwesomeIcon
-            onClick={handleClick1}
-            className="iconoEditUser1"
-            icon={faUserPen}
-          />
-          {changeIcon && (
-            <button className="botonIconoEdit" type="submit">
+   <Form onSubmit={handleSubmit} className="usuarioCardBig">
+    <div className="bigCardSuperior">
+            <img
+              variant="top"
+              src={
+                values.foto !== undefined
+                  ? values.foto
+                  : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
+              }
+              className="imgUsuarioBig"
+            />
+            <div className="topicInformation">
+              <Card.Title className="titleTopicInfo">{values.nombre}</Card.Title>
+              <Card.Title className="titleTopicInfo">
+                {values.tipoDeUsuario}
+              </Card.Title>
+            </div>
+            <section>
               <FontAwesomeIcon
                 className="iconoEditUser2"
                 icon={faUserCheck}

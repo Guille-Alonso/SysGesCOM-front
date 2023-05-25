@@ -30,7 +30,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
       getUsers();
       onClose();
     } catch (error) {
-      toast.error(error.response?.data.message || error.message)
+      toast.error(error.response?.data.message || error.message);
     }
   };
 
@@ -57,12 +57,9 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
           }
           className="imgUsuarioBig"
         />
-        <div className="topicInformation">
-          <Card.Title className="titleTopicInfo">{values.nombre}</Card.Title>
-          <Card.Title className="titleTopicInfo">
-            {values.tipoDeUsuario}
-          </Card.Title>
-        </div>
+        <Card.Title className="tipoDeUsuario">
+          {values.tipoDeUsuario.toUpperCase()}
+        </Card.Title>
         <section>
           <FontAwesomeIcon
             onClick={handleClick1}
@@ -82,71 +79,100 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
         </section>
       </div>
       <div className="infoDiv">
-        <div className="infoDeUsuarioCardBig1">
-          <span className="spanBigCard">Email</span>
-          {changeIcon ? (
-            <input
-              name="email"
-              type="text"
-              className="parrafoInfo"
-              value={values.email}
-              onChange={handleChange}
-            />
-          ) : (
-            <p className="parrafoInfo">{values.email}</p>
-          )}
-          <span className="spanBigCard">Usuario</span>
-          <p className="parrafoInfo">{values.nombreUsuario}</p>
-          <span className="spanBigCard">DNI</span>
-          {changeIcon ? (
-            <input
-              name="dni"
-              type="text"
-              className="parrafoInfo"
-              value={values.dni}
-              onChange={handleChange}
-            />
-          ) : (
-            <p className="parrafoInfo">{values.dni}</p>
-          )}
+        <div className="topicInformation">
+          <Card.Title className="nameOfUser">{values.nombre}</Card.Title>
         </div>
-        <div className="infoDeUsuarioCardBig2">
-          <span className="spanBigCard">Num Afiliado</span>
-          {changeIcon ? (
-            <input
-              name="afiliado"
-              type="text"
-              className="parrafoInfo"
-              value={values.afiliado}
-              onChange={handleChange}
-            />
-          ) : (
-            <p className="parrafoInfo">{values.afiliado}</p>
-          )}
-          <span className="spanBigCard">Fecha de Nacimiento</span>
-          {changeIcon ? (
-            <input
-              name="nacimiento"
-              type="text"
-              className="parrafoInfo"
-              value={values.nacimiento}
-              onChange={handleChange}
-            />
-          ) : (
-            <p className="parrafoInfo">{values.nacimiento}</p>
-          )}
-          <span className="spanBigCard">Turno</span>
-          {changeIcon ? (
-            <input
-              name="turno"
-              type="text"
-              className="parrafoInfo"
-              value={values.turno}
-              onChange={handleChange}
-            />
-          ) : (
-            <p className="parrafoInfo">{values.turno}</p>
-          )}
+        <div className="formUsuario">
+          <div className="infoDeUsuarioCardBig1">
+            <span className="spanBigCard">Email</span>
+            {changeIcon ? (
+              <input
+                name="email"
+                type="text"
+                className="parrafoInfo"
+                value={values.email}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="parrafoInfo">{values.email}</p>
+            )}
+            <span className="spanBigCard">Usuario</span>
+            <p className="parrafoInfo">{values.nombreUsuario}</p>
+            <span className="spanBigCard">DNI</span>
+            {changeIcon ? (
+              <input
+                name="dni"
+                type="text"
+                className="parrafoInfo"
+                value={values.dni}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="parrafoInfo">{values.dni}</p>
+            )}
+            <span className="spanBigCard">Foto</span>
+            {changeIcon ? (
+              <input
+                name="foto"
+                type="text"
+                className="parrafoInfo"
+                value={values.foto}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="parrafoInfo">{values.foto}</p>
+            )}
+          </div>
+          <div className="infoDeUsuarioCardBig2">
+            <span className="spanBigCard">Num Afiliado</span>
+            {changeIcon ? (
+              <input
+                name="afiliado"
+                type="text"
+                className="parrafoInfo"
+                value={values.afiliado}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="parrafoInfo">{values.afiliado}</p>
+            )}
+            <span className="spanBigCard">Fecha de Nacimiento</span>
+            {changeIcon ? (
+              <input
+                name="nacimiento"
+                type="text"
+                className="parrafoInfo"
+                value={values.nacimiento}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="parrafoInfo">{values.nacimiento}</p>
+            )}
+            <span className="spanBigCard">Turno</span>
+            {changeIcon ? (
+              <input
+                name="turno"
+                type="text"
+                className="parrafoInfo"
+                value={values.turno}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="parrafoInfo">{values.turno}</p>
+            )}
+            <span className="spanBigCard">Area</span>
+            {changeIcon ? (
+              <input
+                name="tipoDeUsuario"
+                type="text"
+                className="parrafoInfo"
+                value={values.tipoDeUsuario}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="parrafoInfo">{values.tipoDeUsuario}</p>
+            )}
+          </div>
         </div>
       </div>
       {Object.keys(errors).length !== 0 &&

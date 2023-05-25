@@ -1,9 +1,8 @@
-
 .usuarioCardBig{
     width: 100%;
-    height: 400px;
+    height: 500px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     color: #000;
@@ -15,25 +14,32 @@
 }
 .bigCardSuperior{
     display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    height: 150px;
+    width: 30%;
+    height: 100%;
 }
 .imgUsuarioBig{
     height: 150px;
     width: 150px;
     border-radius: 50%;
     border: 2px solid #fff;
-    margin-left: 2%;
-    margin-top: 3%;
+    margin-top: 30px;
 }
 .infoDiv{
-    padding-top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+    height: 100%;
+    gap: 0;
+}
+.formUsuario{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    width: 90%;
+    width: 80%;
     height: 60%;
 }
 .infoDeUsuarioCardBig1{
@@ -54,17 +60,15 @@
 }
 .topicInformation{
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    width: 50%;
-    height: 100%;
-    padding-left: 2%;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    height: 50%;
     
 }
-.titleTopicInfo{
-    font-size: 25px !important;
-    
+.tipoDeUsuario{
+    font-size: 20px !important;
+    margin-top: 15px !important;
 }
 .iconoEditUser1{
     height: 30px;
@@ -81,14 +85,15 @@
     right: 9%;
 }
 .parrafoInfo{
-    width: 100%;
+    width: 90%;
     height: 25px;
-    overflow-x: auto;
+    overflow-x: hidden;
     margin: 0;
     border-bottom: 1px solid #000;
 }
 .spanBigCard{
     font-weight: 600;
+    overflow: hidden;
 }
 input.parrafoInfo{
     border-style: dotted;
@@ -107,4 +112,8 @@ input.parrafoInfo{
 }
 .botonIconoEdit{
     border: none;
+}
+.nameOfUser{
+    font-size: 32px !important;
+    max-width: 400px;
 }

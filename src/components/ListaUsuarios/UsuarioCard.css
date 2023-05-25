@@ -22,6 +22,7 @@
 .infoDeUsuarioCard{
     display: flex;
     flex-direction: column;
+    text-align: center;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -40,4 +41,10 @@
 }
 .modal-header{
     border-bottom: none !important;
+}
+.nameOfUserPrev{
+    font-size: 20px;
+}
+.infoTipoDeUsuario{
+    font-size: 15px;
 }

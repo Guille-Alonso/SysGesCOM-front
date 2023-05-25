@@ -21,13 +21,7 @@ const GeneralModal = ({
 
   return (
     <>
-      <Button
-        css={{ zIndex: 0 }}
-        auto
-        flat
-        onClick={handleShow}
-        className={variant}
-      >
+      <Button css={{ zIndex: 0 }} onClick={handleShow} className={variant}>
         {buttonText}
       </Button>
 

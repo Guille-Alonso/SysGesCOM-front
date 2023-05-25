@@ -15,8 +15,8 @@ const UsuarioCard = ({ user }) => {
         className="imgUsuario"
       />
       <div className="infoDeUsuarioCard">
-        <p>{user.nombre}</p>
-        <p>{user.tipoDeUsuario}</p>
+        <p className="nameOfUserPrev">{user.nombre}</p>
+        <p className="infoTipoDeUsuario">{user.tipoDeUsuario.toUpperCase()}</p>
       </div>
     </div>
   );

@@ -26,7 +26,6 @@ const ListaUsuarios = () => {
     setBuscador(e.target.value);
     setStartIndex(0);
   };
-
   useEffect(() => {
     if (Array.isArray(users.users)) {
       const results = users.users.filter(
@@ -34,7 +33,6 @@ const ListaUsuarios = () => {
           user.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
           user.tipoDeUsuario.toLowerCase().includes(buscador.toLowerCase())
       );
-      console.log(users.users);
       setFilteredUsers(results);
     }
   }, [buscador, users.users]);
@@ -61,7 +59,7 @@ const ListaUsuarios = () => {
       <SwiperSlide key={index}>
         <UsuarioCard user={user} />
         <GeneralModal
-          buttonText="Ver mas"
+          buttonText="Ver más"
           modalTitle={"Editar Usuario"}
           modalBody={<EditarUsuarios user={user} getUsers={getUsers} />}
           variant="botonVerMas"
@@ -75,7 +73,6 @@ const ListaUsuarios = () => {
       const numeroUser = users.users.length;
       const numerosDePagina = Math.ceil(numeroUser / cardsToShow);
       setNumerosDePagina(numerosDePagina);
-      console.log(numeroUser);
     }
   }, [users.users, cardsToShow]);
 

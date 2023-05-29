@@ -70,6 +70,18 @@ const AltaUsuarios = () => {
     setNombreCompleto(value);
   };
 
+  const mayoríaDeEdad = ()=>{
+    const fechaActual = new Date();
+
+    const año = fechaActual.getFullYear();
+    const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
+    const dia = ('0' + fechaActual.getDate()).slice(-2);
+    
+    const fechaFormateada = `${año-18}-${mes}-${dia}`;
+    
+    return fechaFormateada;
+  }
+
   return (
     <>
       <div className="contenedorPadre">
@@ -119,7 +131,7 @@ const AltaUsuarios = () => {
                   onChange={handleChange}
                   value={values.dni}
                   name="dni"
-                  length={8}
+                  maxLength={8}
                   requireds
                 />
               </Form.Group>
@@ -132,7 +144,7 @@ const AltaUsuarios = () => {
                   onChange={handleChange}
                   value={values.numAfil}
                   name="numAfil"
-                  length={5}
+                  maxLength={5}
                   required
                 />
               </Form.Group>
@@ -162,7 +174,7 @@ const AltaUsuarios = () => {
                   value={values.fechaNac}
                   name="fechaNac"
                   min="1923-01-01"
-                  max="2005-12-31"
+                  max={mayoríaDeEdad()}
                   required
                 />
               </Form.Group>

@@ -102,7 +102,7 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                 className={selected === item._id ? "row-selected" : ""}
               >
                 {Object.entries(item)
-                  .slice(2)
+                  .slice(1,-1)
                   .map((elemento) => {
                     // if (elemento[0] !== "_id") {
                     return <td key={nanoid()}>{elemento[1]}</td>;

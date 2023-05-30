@@ -207,7 +207,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
       </div>
       {Object.keys(errors).length !== 0 &&
         Object.values(errors).map((error, index) => (
-          <Alert variant="danger" className="mt-3" key={index}>
+          <Alert variant="danger" className="alertaEditarUsuario" key={index}>
             {error}
           </Alert>
         ))}

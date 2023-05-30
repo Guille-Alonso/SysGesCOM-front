@@ -16,11 +16,11 @@ export const ALTA_CAMARA_VALUES = {
 export const REGISTER_ALTA_USUARIOS_VALUES = {
   name: "",
   userName: "",
-  dni:"",
-  numAfil:"",
+  dni: "",
+  numAfil: "",
   email: "",
-  fechaNac:"",
-  turno:"",
+  fechaNac: "",
+  turno: "",
   password: "",
   repeatPassword: "",
   perfilAltaUsuarios: "",
@@ -29,11 +29,11 @@ export const REGISTER_ALTA_USUARIOS_VALUES = {
 export const REGISTER_EDITAR_USUARIOS_VALUES = {
   nombre: "",
   nombreUsuario: "",
-  dni:"",
-  afiliado:"",
+  dni: "",
+  afiliado: "",
   email: "",
-  nacimiento:"",
-  turno:"",
+  nacimiento: "",
+  turno: "",
   contraseña: "",
   repeatPassword: "",
   tipoDeUsuario: "",
@@ -43,4 +43,8 @@ export const EDITAR_CAMARA_VALUES = {
   nombre: "",
   tipo: "",
   ubicacion: ""
+};
+export const ALTA_CATEGORIAS_VALUES = {
+  categoria: "",
+  subcategoria: ""
 };

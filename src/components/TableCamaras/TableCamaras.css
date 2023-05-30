@@ -34,8 +34,24 @@ tr:hover{
   flex-direction: column;
   justify-content: center;
   align-items: space-evenly;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 1);
   width: 500px;
   height: 400px;
   border-radius: 15px;
+}
+.fondoModalEditCamara form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px ;
+}
+.fondoModalEditCamara label{
+  display: none;
+}
+.fondoModalEditCamara input{
+  margin: 30px;
+}
+.botonEditarCamara{
+  width: 40%;
 }

@@ -15,7 +15,7 @@ const EditModal = ({
   editData,
   setSelectedItem,
   setShowModal,
-  editForm
+  editForm,
 }) => {
   const [editedData, setEditedData] = useState(editData);
 
@@ -48,19 +48,23 @@ const EditModal = ({
         <Modal.Header closeButton>
           <h4>Editar Cámara</h4>
         </Modal.Header>
-        <div className="mensajeConfirmacion">
-          {editForm}
-        </div>
+        <div className="mensajeConfirmacion">{editForm}</div>
       </div>
     </Modal>
   );
 };
 
-const TableCamaras = ({ headings, items, setSelected, selected, getCamaras }) => {
+const TableCamaras = ({
+  headings,
+  items,
+  setSelected,
+  selected,
+  getCamaras,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const [modalDelete, setModalDelete]= useState(false)
+  const [modalDelete, setModalDelete] = useState(false);
 
   const handleEdit = (itemId) => {
     console.log("Edit item with ID:", itemId);
@@ -69,24 +73,24 @@ const TableCamaras = ({ headings, items, setSelected, selected, getCamaras }) =>
     setShowModal(true);
   };
 
-  const handleRemove = async() => {
+  const handleRemove = async () => {
     try {
-      await axios.delete('/camaras/',{data:{id:selected}});
-      toast.info('Dispositivo borrado con éxito');
+      await axios.delete("/camaras/", { data: { id: selected } });
+      toast.info("Dispositivo borrado con éxito");
       getCamaras();
-      setModalDelete(false)
+      setModalDelete(false);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
- };
+  };
 
- const handleCloseModal = () => {
-  setShowModal(false);
-};
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
-const handleOpen = () => {
-  setShowModal(true);
-};
+  const handleOpen = () => {
+    setShowModal(true);
+  };
 
   const handleSaveChanges = (editedData) => {
     // Realiza las acciones necesarias para guardar los cambios
@@ -96,10 +100,10 @@ const handleOpen = () => {
 
   return (
     <>
-    <Modal
+      <Modal
         className="modal-borrarUsuario"
         show={modalDelete}
-        onHide={()=>setModalDelete(false)}
+        onHide={() => setModalDelete(false)}
         backdrop="static"
         centered
       >
@@ -139,7 +143,7 @@ const handleOpen = () => {
                 // className={selected === item._id ? "row-selected" : ""}
               >
                 {Object.entries(item)
-                  .slice(1,-1)
+                  .slice(1, -1)
                   .map((elemento) => {
                     // if (elemento[0] !== "_id") {
                     return <td key={nanoid()}>{elemento[1]}</td>;
@@ -150,14 +154,12 @@ const handleOpen = () => {
                   <FaEdit
                     className="botonEditar"
                     onClick={() => handleEdit(item._id)}
-
                   />
                   <FaTrashAlt
                     className="botonEliminar"
-                    onClick={()=>setModalDelete(true)}
+                    onClick={() => setModalDelete(true)}
                   />
                 </td>
-
               </tr>
             ))}
         </MDBTableBody>
@@ -169,7 +171,14 @@ const handleOpen = () => {
         editData={selectedItem}
         handleCloseModal={handleCloseModal}
         handleSaveChanges={handleSaveChanges}
-        editForm={<EditarCamaras onClose = {handleCloseModal} getCamaras = {getCamaras} camara = {selectedItem}/>}
+        editForm={
+          <EditarCamaras
+            onClose={handleCloseModal}
+            getCamaras={getCamaras}
+            camara={selectedItem}
+            className="boton-editar"
+          />
+        }
       />
     </>
   );

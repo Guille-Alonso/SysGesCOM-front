@@ -150,3 +150,9 @@ input.parrafoInfo{
 .mensajeConfirmacion{
     margin: auto;
 }
+.alertaEditarUsuario{
+    position: absolute !important;
+    left: 800px !important;
+    width: 200px !important;
+    top: 20px !important;
+}

@@ -39,3 +39,8 @@ export const REGISTER_EDITAR_USUARIOS_VALUES = {
   tipoDeUsuario: "",
   foto: ""
 };
+export const EDITAR_CAMARA_VALUES = {
+  nombre: "",
+  tipo: "",
+  ubicacion: ""
+};

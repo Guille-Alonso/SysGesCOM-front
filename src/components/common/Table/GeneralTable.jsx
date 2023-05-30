@@ -4,6 +4,7 @@ import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { FaEdit, FaTrashAlt } from "react-icons/fa"; // Importa el ícono de edición de React Icons
 import "./GeneralTable.css";
 import { Table, Button, Modal } from "react-bootstrap";
+import EditarCamaras from "../../EditarCamaras/EditarCamaras";
 
 const EditModal = ({
   show,
@@ -12,6 +13,7 @@ const EditModal = ({
   editData,
   setSelectedItem,
   setShowModal,
+  editForm
 }) => {
   const [editedData, setEditedData] = useState(editData);
 
@@ -35,31 +37,15 @@ const EditModal = ({
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Editar elemento</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* Aquí puedes agregar los campos de edición */}
-        <input
-          type="text"
-          name="columna1"
-          value={editedData ? editedData.columna1 : ""}
-          onChange={handleChange}
-        />
-        {/* Agrega más campos de edición según tus necesidades */}
+        {editForm}
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          Cerrar
-        </Button>
-        <Button variant="primary" onClick={handleSave}>
-          Guardar cambios
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };
 
-const GeneralTable = ({ headings, items, setSelected, selected }) => {
+const GeneralTable = ({ headings, items, setSelected, selected, getCamaras }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -70,9 +56,24 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
     setShowModal(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  const handleRemove = async() => {
+    try {
+      await axios.delete('/camaras/',{data:{id:selected}});
+      toast.info('Dispositivo borrado con éxito');
+      getCamaras();
+      onClose();
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+ };
+
+ const handleCloseModal = () => {
+  setShowModal(false);
+};
+
+const handleOpen = () => {
+  setShowModal(true);
+};
 
   const handleSaveChanges = (editedData) => {
     // Realiza las acciones necesarias para guardar los cambios
@@ -106,7 +107,6 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                   .map((elemento) => {
                     // if (elemento[0] !== "_id") {
                     return <td key={nanoid()}>{elemento[1]}</td>;
-                    console.log(elemento);
                     // }
                     // return null;
                   })}
@@ -114,11 +114,11 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                   <FaEdit
                     className="botonEditar"
                     onClick={() => handleEdit(item._id)}
-                    
+
                   />
                   <FaTrashAlt
-                    className="botonEditar"
-                    // onClick={() => handleEdit(item._id)}
+                    className="botonEliminar"
+                    onClick={() => handleOpen(item._id)}
                   />
                 </td>
 
@@ -133,6 +133,7 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
         editData={selectedItem}
         handleCloseModal={handleCloseModal}
         handleSaveChanges={handleSaveChanges}
+        editForm={<EditarCamaras onClose = {handleCloseModal} getCamaras = {getCamaras} camara = {selectedItem}/>}
       />
     </>
   );

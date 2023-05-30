@@ -3,13 +3,21 @@ import { Alert, Button, Form } from 'react-bootstrap'
 import { EDITAR_CAMARA_VALUES } from '../../constants';
 import { validationsEditarCamara } from '../../helpers/validationsEditarCamara';
 import useForm from '../../hooks/useForm';
+import axios from '../../config/axios';
+import { toast } from 'react-toastify';
 
 const EditarCamaras = ({ onClose, getCamaras, camara }) => {
 
     const editarCamara = async ()=>{
         console.log(values);
-        // getCamaras();
-        // onClose();
+        try {
+          await axios.put(`/camaras/actualizarCamara/${camara._id}`, values);
+          toast.success("Dispositivo actualizado");
+          onClose();
+          getCamaras();
+        } catch (error) {
+          toast.error(error.response?.data.message || error.message);
+        }
     }
 
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(

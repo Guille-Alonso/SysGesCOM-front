@@ -12,7 +12,7 @@ import GeneralModal from '../common/GeneralModal/GeneralModal';
 
 const ListarCamaras = () => {
   const [selected, setSelected] = useState(undefined);
-  const [camara, loading] = useGet('/camaras/listar', axios);
+  const [camara, loading, getCamaras] = useGet('/camaras/listar', axios);
   const [buscador, setBuscador] = useState('');
   const [ResultadoBusaqueda, setResultadoBusaqueda] = useState([]);
   
@@ -46,7 +46,7 @@ const ListarCamaras = () => {
       {
         loading ? <Spinner />
           :
-          <GeneralTable headings={['Nombre', 'Ubicacion', 'Tipo']} items={ResultadoBusaqueda} setSelected={setSelected} selected={selected} />
+          <GeneralTable headings={['Nombre', 'Ubicacion', 'Tipo']} items={ResultadoBusaqueda} setSelected={setSelected} selected={selected} getCamaras={getCamaras}/>
       }
 
     </>

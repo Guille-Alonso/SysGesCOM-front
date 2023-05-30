@@ -6,18 +6,16 @@
     align-items: center;
     justify-content: space-between;
     color: #000;
-    background-image: url(/src/assets/img/split_background.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    box-shadow: 5px 5px 5px #181818;
     border-radius: 5px;
 }
-.bigCardSuperior{
+.bigCardLeft{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     width: 30%;
     height: 100%;
+    background-color: #4651e5;
 }
 .imgUsuarioBig{
     height: 150px;
@@ -33,6 +31,8 @@
     width: 70%;
     height: 100%;
     gap: 0;
+    background-color: #fff;
+    padding-left: 20px;
 }
 .formUsuario{
     display: flex;
@@ -69,6 +69,7 @@
 .tipoDeUsuario{
     font-size: 20px !important;
     margin-top: 15px !important;
+    color: #fff;
 }
 .iconoEditUser1{
     height: 30px;
@@ -116,4 +117,36 @@ input.parrafoInfo{
 .nameOfUser{
     font-size: 32px !important;
     max-width: 400px;
+}
+.borrarUsuario{
+    position: absolute;
+    z-index: 1;
+    top: 80%;
+    font-size: 30px;
+    width: 100px;
+    cursor: pointer;
+}
+.modal-borrarUsuario{
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+.fondoModal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-evenly;
+    background-color: #fff;
+    width: 500px;
+    height: 200px;
+    border-radius: 15px;
+}
+.btn-BorrarUsuario{
+    display: flex;
+    margin: auto;
+    width: 50%;
+}
+.mensajeConfirmacion{
+    margin: auto;
 }

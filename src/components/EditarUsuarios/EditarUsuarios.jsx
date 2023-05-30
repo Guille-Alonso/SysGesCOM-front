@@ -3,15 +3,34 @@ import "../ListaUsuarios/UsuarioCard.css";
 import Card from "react-bootstrap/Card";
 import "../ListaUsuarios/UsuarioCardBig.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCheck, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faUserCheck,
+  faUserPen,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "../../config/axios";
 import { toast } from "react-toastify";
 import { REGISTER_EDITAR_USUARIOS_VALUES } from "../../constants";
 import useForm from "../../hooks/useForm";
-import { Alert, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import { validationEditarUsuario } from "../../helpers/validationsEditarUsuario";
+import Modal from "react-bootstrap/Modal";
 
 const EditarUsuarios = ({ onClose, user, getUsers }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete("/users/", { data: { id: user._id } });
+      toast.info("Usuario borrado");
+      getUsers();
+      onClose();
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+  };
   //viene a reemplazar a UsuarioBigCard
   const [changeIcon, setChangeIcon] = useState(false);
 
@@ -47,7 +66,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
 
   return (
     <Form onSubmit={handleSubmit} className="usuarioCardBig">
-      <div className="bigCardSuperior">
+      <div className="bigCardLeft">
         <img
           variant="top"
           src={
@@ -60,6 +79,17 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
         <Card.Title className="tipoDeUsuario">
           {values.tipoDeUsuario.toUpperCase()}
         </Card.Title>
+        {changeIcon ? (
+          <FontAwesomeIcon
+            icon={faTrash}
+            bounce
+            style={{ color: "#e61e1e" }}
+            className="borrarUsuario"
+            onClick={handleShow}
+          />
+        ) : (
+          <div></div>
+        )}
         <section>
           <FontAwesomeIcon
             onClick={handleClick1}
@@ -181,6 +211,29 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
             {error}
           </Alert>
         ))}
+      <Modal
+        className="modal-borrarUsuario"
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        centered
+      >
+        <div className="fondoModal">
+          <Modal.Header closeButton>
+            <h4>Borrar Usuario</h4>
+          </Modal.Header>
+          <div className="mensajeConfirmacion">
+            Seguro que quieres borrar este Usuario?
+          </div>
+          <Button
+            className="btn-BorrarUsuario"
+            variant="danger"
+            onClick={deleteUser}
+          >
+            Confirmar
+          </Button>
+        </div>
+      </Modal>
     </Form>
   );
 };

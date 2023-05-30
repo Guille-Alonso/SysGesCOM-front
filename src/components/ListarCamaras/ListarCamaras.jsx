@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import GeneralTable from '../common/Table/GeneralTable';
+import TableCamaras from '../TableCamaras/TableCamaras';
 import useGet from '../../hooks/useGet';
 import { Spinner } from 'react-bootstrap';
 import axios from '../../config/axios';
@@ -46,7 +46,7 @@ const ListarCamaras = () => {
       {
         loading ? <Spinner />
           :
-          <GeneralTable headings={['Nombre', 'Ubicacion', 'Tipo']} items={ResultadoBusaqueda} setSelected={setSelected} selected={selected} getCamaras={getCamaras}/>
+          <TableCamaras headings={['Nombre', 'Ubicacion', 'Tipo']} items={ResultadoBusaqueda} setSelected={setSelected} selected={selected} getCamaras={getCamaras}/>
       }
 
     </>

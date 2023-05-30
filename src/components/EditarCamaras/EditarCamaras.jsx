@@ -71,7 +71,7 @@ const EditarCamaras = ({ onClose, getCamaras, camara }) => {
         minLength={8}
       />
 
-      <Button color="warning" shadow auto flat type="submit">
+      <Button className='mt-4' color="warning" shadow auto flat type="submit">
         Editar
       </Button>
     </Form>

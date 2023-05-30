@@ -2,9 +2,11 @@ import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { FaEdit, FaTrashAlt } from "react-icons/fa"; // Importa el ícono de edición de React Icons
-import "./GeneralTable.css";
+import "./TableCamaras.css";
 import { Table, Button, Modal } from "react-bootstrap";
-import EditarCamaras from "../../EditarCamaras/EditarCamaras";
+import EditarCamaras from "../EditarCamaras/EditarCamaras";
+import { toast } from "react-toastify";
+import axios from "../../config/axios";
 
 const EditModal = ({
   show,
@@ -35,19 +37,30 @@ const EditModal = ({
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
-      </Modal.Header>
-      <Modal.Body>
-        {editForm}
-      </Modal.Body>
+    <Modal
+      className="modal-borrarUsuario"
+      show={show}
+      onHide={onHide}
+      backdrop="static"
+      centered
+    >
+      <div className="fondoModalEditCamara">
+        <Modal.Header closeButton>
+          <h4>Editar Cámara</h4>
+        </Modal.Header>
+        <div className="mensajeConfirmacion">
+          {editForm}
+        </div>
+      </div>
     </Modal>
   );
 };
 
-const GeneralTable = ({ headings, items, setSelected, selected, getCamaras }) => {
+const TableCamaras = ({ headings, items, setSelected, selected, getCamaras }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const [modalDelete, setModalDelete]= useState(false)
 
   const handleEdit = (itemId) => {
     console.log("Edit item with ID:", itemId);
@@ -61,7 +74,7 @@ const GeneralTable = ({ headings, items, setSelected, selected, getCamaras }) =>
       await axios.delete('/camaras/',{data:{id:selected}});
       toast.info('Dispositivo borrado con éxito');
       getCamaras();
-      onClose();
+      setModalDelete(false)
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
@@ -83,6 +96,29 @@ const handleOpen = () => {
 
   return (
     <>
+    <Modal
+        className="modal-borrarUsuario"
+        show={modalDelete}
+        onHide={()=>setModalDelete(false)}
+        backdrop="static"
+        centered
+      >
+        <div className="fondoModal">
+          <Modal.Header closeButton>
+            <h4>Borrar Cámara</h4>
+          </Modal.Header>
+          <div className="mensajeConfirmacion">
+            Seguro que quieres borrar esta Cámara?
+          </div>
+          <Button
+            className="btn-BorrarUsuario"
+            variant="danger"
+            onClick={handleRemove}
+          >
+            Confirmar
+          </Button>
+        </div>
+      </Modal>
       <MDBTable responsive className="generalTable">
         <MDBTableHead className="colorTabla">
           <tr>
@@ -100,7 +136,7 @@ const handleOpen = () => {
               <tr
                 key={nanoid()}
                 onClick={() => setSelected(item._id)}
-                className={selected === item._id ? "row-selected" : ""}
+                // className={selected === item._id ? "row-selected" : ""}
               >
                 {Object.entries(item)
                   .slice(1,-1)
@@ -118,7 +154,7 @@ const handleOpen = () => {
                   />
                   <FaTrashAlt
                     className="botonEliminar"
-                    onClick={() => handleOpen(item._id)}
+                    onClick={()=>setModalDelete(true)}
                   />
                 </td>
 
@@ -139,4 +175,4 @@ const handleOpen = () => {
   );
 };
 
-export default GeneralTable;
+export default TableCamaras;

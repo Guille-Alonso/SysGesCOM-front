@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import "./UsuarioCard.css";
-import Card from "react-bootstrap/Card";
 
 const UsuarioCard = ({ user }) => {
   return (

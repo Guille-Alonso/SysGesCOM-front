@@ -22,25 +22,9 @@ export const validationEditarUsuario = (values) => {
         errors.email = "El email no debe poseer más de 30 caracteres";
     }
 
-    // if (!values.contraseña) {
-    //     errors.contraseña = "La contraseña es obligatoria";
-    // } else if (values.contraseña.length < 8) {
-    //     errors.contraseña = "La contraseña debe tener como mínimo 8 caracteres";
-    // } else if (values.contraseña.length > 30) {
-    //     errors.contraseña = "La contraseña no debe poseer más de 30 caracteres";
-    // }else if(!/^[a-zA-Z0-9]+$/.test(values.contraseña)){
-    //     errors.confirmcontraseña = "La contraseña no debe tener simbolos especiales";
-    // }else if(!/^(?=.*[A-Za-z])(?=.*\d)/.test(values.contraseña)){
-    //     errors.contraseña = "La contraseña debe tener al menos una mayúscula y números";
-    // }
-
-    // if (values.contraseña != values.repeatPassword) {
-    //     errors.contraseña = "Las contraseñas no coinciden";
-    // }
-
-    // if(values.foto !== '' && !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(values.foto)){
-    //     errors.foto = "URL no válida"
-    // }
+    if(values.foto !== '' && !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(values.foto)){
+        errors.foto = "URL no válida"
+    }
 
     if(!values.dni){
         errors.dni = "El campo DNI es obligatorio"

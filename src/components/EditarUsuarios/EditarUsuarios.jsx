@@ -21,7 +21,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const deleteUser = async () => {
+  const deleteUser = async () => { //BORRADO LOGICO
     try {
       await axios.delete("/users/", { data: { id: user._id } });
       toast.info("Usuario borrado");
@@ -31,25 +31,25 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
       toast.error(error.response?.data.message || error.message);
     }
   };
-  //viene a reemplazar a UsuarioBigCard
+
   const [changeIcon, setChangeIcon] = useState(false);
 
   const handleClick1 = () => {
     setChangeIcon(!changeIcon);
   };
-  const handleClick2 = () => {
-    setChangeIcon(!changeIcon);
-  };
+  // const handleClick2 = () => { 
+  //   setChangeIcon(!changeIcon);
+  // };
 
-  const editarUsuario = async () => {
-    handleClick2();
+  const editarUsuario = async () => { //EDITADO
+    // handleClick2();
     try {
       await axios.put(`/users/actualizarUsuario/${user._id}`, values);
       toast.success("Usuario actualizado");
       getUsers();
       onClose();
     } catch (error) {
-      toast.error(error.response?.data.message || error.message);
+      toast.error(error.response?.data.message ||error.response?.data.errorMje|| error.message);
     }
   };
 
@@ -60,8 +60,8 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   );
 
   useEffect(() => {
-    console.log(user);
-    setValues(user);
+    const { _id, ...userInfo } = user;
+    setValues(userInfo);
   }, []);
 
   return (
@@ -122,6 +122,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 className="parrafoInfo"
                 value={values.email}
                 onChange={handleChange}
+                required
               />
             ) : (
               <p className="parrafoInfo">{values.email}</p>
@@ -136,6 +137,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 className="parrafoInfo"
                 value={values.dni}
                 onChange={handleChange}
+                required
               />
             ) : (
               <p className="parrafoInfo">{values.dni}</p>
@@ -162,6 +164,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 className="parrafoInfo"
                 value={values.afiliado}
                 onChange={handleChange}
+                required
               />
             ) : (
               <p className="parrafoInfo">{values.afiliado}</p>
@@ -174,6 +177,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 className="parrafoInfo"
                 value={values.nacimiento}
                 onChange={handleChange}
+                required
               />
             ) : (
               <p className="parrafoInfo">{values.nacimiento}</p>
@@ -186,6 +190,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 className="parrafoInfo"
                 value={values.turno}
                 onChange={handleChange}
+                required
               />
             ) : (
               <p className="parrafoInfo">{values.turno}</p>
@@ -198,6 +203,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 className="parrafoInfo"
                 value={values.tipoDeUsuario}
                 onChange={handleChange}
+                required
               />
             ) : (
               <p className="parrafoInfo">{values.tipoDeUsuario}</p>

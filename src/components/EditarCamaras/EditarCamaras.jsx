@@ -15,7 +15,7 @@ const EditarCamaras = ({ onClose, getCamaras, camara }) => {
       onClose();
       getCamaras();
     } catch (error) {
-      toast.error(error.response?.data.message || error.message);
+      toast.error(error.response?.data.message ||error.response?.data.errorMje|| error.message);
     }
   };
 
@@ -26,8 +26,8 @@ const EditarCamaras = ({ onClose, getCamaras, camara }) => {
   );
 
   useEffect(() => {
-    console.log(camara);
-    setValues(camara);
+    const { _id, ...camaraInfo } = camara;
+    setValues(camaraInfo);
   }, []);
 
   return (

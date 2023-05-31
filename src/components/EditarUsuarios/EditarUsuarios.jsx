@@ -110,7 +110,19 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
       </div>
       <div className="infoDiv">
         <div className="topicInformation">
-          <Card.Title className="nameOfUser">{values.nombre}</Card.Title>
+          <Card.Title className="nameOfUser">
+          {changeIcon ? (
+              <input
+                name="nombre"
+                type="text"
+                value={values.nombre.toUpperCase()}
+                onChange={handleChange}
+                required
+              />
+            ) : (
+              values.nombre
+            )}
+            </Card.Title>
         </div>
         <div className="formUsuario">
           <div className="infoDeUsuarioCardBig1">

@@ -46,5 +46,14 @@ export const validationEditarUsuario = (values) => {
     if(!values.nacimiento){
         errors.nacimiento = "El campo Fecha Nacimiento es obligatorio"
     }
+
+    if(!values.turno){
+        errors.turno = "El Turno es obligatorio"
+    }
+
+    if(!values.tipoDeUsuario){
+        errors.tipoDeUsuario = "El Área es obligatoria"
+    }
+
     return errors;
 };

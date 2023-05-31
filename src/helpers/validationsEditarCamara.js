@@ -3,7 +3,7 @@ export const validationsEditarCamara = (values) => {
     let errors = {};
   
     if (!values.nombre) {
-      errors.nombre = "Campo obligatorio";
+      errors.nombre = "El nombre es obligatorio";
     } else if (values.nombre.length < 6) {
       errors.nombre = "El nombre de la cámara debe tener como mínimo 6 caracteres";
     } else if (values.nombre.length > 7) {
@@ -11,6 +11,7 @@ export const validationsEditarCamara = (values) => {
     } else if (!/^[a-zA-Z0-9 ]+$/.test(values.nombre)) {
       errors.nombre = "El nombre no debe tener simbolos especiales";
     }
+    
     if (!values.ubicacion) {
       errors.ubicacion = "La ubicacion es obligatoria";
     } else if (!/^[a-zA-Z0-9 ]+$/.test(values.ubicacion)) {

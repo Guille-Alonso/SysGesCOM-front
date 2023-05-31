@@ -61,5 +61,13 @@ export const validationAltaUsuario = (values) => {
     if(!values.fechaNac){
         errors.fechaNac = "El campo Fecha Nacimiento es obligatorio"
     }
+
+    if(!values.perfilAltaUsuarios){
+        errors.perfilAltaUsuarios = "El Perfil es obligatorio"
+    }
+
+    if(!values.turno){
+        errors.turno = "El Turno es obligatorio"
+    }
     return errors;
 };

@@ -3,7 +3,7 @@ export const validationsAltaCamara = (values) => {
   let errors = {};
 
   if (!values.nombre) {
-    errors.nombre = "Campo obligatorio";
+    errors.nombre = "El nombre es obligatorio";
   } else if (values.nombre.length < 6) {
     errors.nombre = "El nombre de la cámara debe tener como mínimo 6 caracteres";
   } else if (values.nombre.length > 7) {

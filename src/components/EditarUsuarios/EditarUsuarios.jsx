@@ -43,14 +43,21 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
 
   const editarUsuario = async () => { //EDITADO
     // handleClick2();
-    try {
-      await axios.put(`/users/actualizarUsuario/${user._id}`, values);
-      toast.success("Usuario actualizado");
-      getUsers();
-      onClose();
-    } catch (error) {
-      toast.error(error.response?.data.message ||error.response?.data.errorMje|| error.message);
-    }
+    const { _id, ...userInfo } = user;
+    if (JSON.stringify(userInfo) !== JSON.stringify(values)) {
+      try {
+        await axios.put(`/users/actualizarUsuario/${user._id}`, values);
+        toast.success("Usuario actualizado");
+        getUsers();
+        onClose();
+      } catch (error) {
+        toast.error(
+          error.response?.data.message ||
+            error.response?.data.errorMje ||
+            error.message
+        );
+      }
+    } else onClose();
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(

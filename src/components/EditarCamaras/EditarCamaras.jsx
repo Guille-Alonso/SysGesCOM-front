@@ -7,16 +7,23 @@ import axios from "../../config/axios";
 import { toast } from "react-toastify";
 
 const EditarCamaras = ({ onClose, getCamaras, camara }) => {
+
   const editarCamara = async () => {
-    console.log(values);
-    try {
-      await axios.put(`/camaras/actualizarCamara/${camara._id}`, values);
-      toast.success("Dispositivo actualizado");
-      onClose();
-      getCamaras();
-    } catch (error) {
-      toast.error(error.response?.data.message ||error.response?.data.errorMje|| error.message);
-    }
+   const { _id, ...camaraInfo } = camara;
+   if (JSON.stringify(camaraInfo) !== JSON.stringify(values)) {
+     try {
+       await axios.put(`/camaras/actualizarCamara/${camara._id}`, values);
+       toast.success("Dispositivo actualizado");
+       onClose();
+       getCamaras();
+     } catch (error) {
+       toast.error(
+         error.response?.data.message ||
+           error.response?.data.errorMje ||
+           error.message
+       );
+     }
+   } else onClose();
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(

@@ -88,10 +88,6 @@ const TableCamaras = ({
     setShowModal(false);
   };
 
-  const handleOpen = () => {
-    setShowModal(true);
-  };
-
   const handleSaveChanges = (editedData) => {
     // Realiza las acciones necesarias para guardar los cambios
     console.log("Save changes:", editedData);
@@ -140,13 +136,13 @@ const TableCamaras = ({
               <tr
                 key={nanoid()}
                 onClick={() => setSelected(item._id)}
-                // className={selected === item._id ? "row-selected" : ""}
+                // className={selected === item._id ? "row-(selected" : ""}
               >
                 {Object.entries(item)
                   .slice(1, -1)
                   .map((elemento) => {
                     // if (elemento[0] !== "_id") {
-                    return <td key={nanoid()}>{elemento[1]}</td>;
+                    return <td key={nanoid()}>{elemento[1].toUpperCase()}</td>;
                     // }
                     // return null;
                   })}

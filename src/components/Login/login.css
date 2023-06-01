@@ -4,6 +4,9 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.contenedorPadreLogin{
+    height: 80vh;
+}
 .box {
     position: relative;
     width: 380px;
@@ -12,6 +15,7 @@
     border-radius: 8px;
     overflow: hidden;
     z-index: 1;
+    top: 10%;
 
 }
 

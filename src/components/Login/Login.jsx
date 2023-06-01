@@ -33,53 +33,54 @@ export const Login = () => {
 
   return (
     <>
-      <div className="box">
-        <span className="borderLine"></span>
-        <form onSubmit={handleSubmit}>
-          <img src={logoCom} alt="logo del com" />
-          <div className="inputBox">
-            <input
-              name="nombreUsuario"
-              value={values.nombreUsuario}
-              onChange={handleChange}
-              type="text"
-              required="required"
-              maxLength={15}
-            />
-            <span>Nombre de Usuario</span>
-            <i></i>
-          </div>
-          <div className="inputBox">
-            <input
-              name="contraseña"
-              value={values.contraseña}
-              onChange={handleChange}
-              type={showPassword ? "text" : "password"}
-              required="required"
-              maxLength={30}
-            />
-            {values.contraseña && (
-            
-            <FontAwesomeIcon
-                    icon={showPassword ? faEye : faEyeSlash}
-                    onClick={handleShowPassword}
-                    className="icono-password-login"
-                    />
-                  )}
-            <span>Contraseña</span>
-            <i></i>
-          </div>
-          <div className="links">
-            <a href="#">Olvidaste tu contraseña?</a>
-          </div>
-          {Object.keys(errors).length !== 0 &&
-            Object.values(errors).map((error, index) => (
-              <Alert variant="danger" className="mt-3" key={index}>
-                {error}
-              </Alert>
-            ))}
-          <input type="submit" value="Entrar" />
-        </form>
+      <div className="contenedorPadreLogin">
+        <div className="box">
+          <span className="borderLine"></span>
+          <form onSubmit={handleSubmit}>
+            <img src={logoCom} alt="logo del com" />
+            <div className="inputBox">
+              <input
+                name="nombreUsuario"
+                value={values.nombreUsuario}
+                onChange={handleChange}
+                type="text"
+                required="required"
+                maxLength={15}
+              />
+              <span>Nombre de Usuario</span>
+              <i></i>
+            </div>
+            <div className="inputBox">
+              <input
+                name="contraseña"
+                value={values.contraseña}
+                onChange={handleChange}
+                type={showPassword ? "text" : "password"}
+                required="required"
+                maxLength={30}
+              />
+              {values.contraseña && (
+                <FontAwesomeIcon
+                  icon={showPassword ? faEye : faEyeSlash}
+                  onClick={handleShowPassword}
+                  className="icono-password-login"
+                />
+              )}
+              <span>Contraseña</span>
+              <i></i>
+            </div>
+            <div className="links">
+              <a href="#">Olvidaste tu contraseña?</a>
+            </div>
+            {Object.keys(errors).length !== 0 &&
+              Object.values(errors).map((error, index) => (
+                <Alert variant="danger" className="mt-3" key={index}>
+                  {error}
+                </Alert>
+              ))}
+            <input type="submit" value="Entrar" />
+          </form>
+        </div>
       </div>
     </>
   );

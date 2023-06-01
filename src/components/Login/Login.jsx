@@ -3,10 +3,12 @@ import { LOGIN_VALUES } from "../../constants";
 import { validationLogin } from "../../helpers/validationsLogin";
 import useForm from "../../hooks/useForm";
 import "./login.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { COMContext } from "../../context/COMContext";
 import { useNavigate } from "react-router-dom";
 import logoCom from "../../assets/img/logo_comm_marca_de_agua.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export const Login = () => {
   const { login, authenticated } = useContext(COMContext);
@@ -16,6 +18,10 @@ export const Login = () => {
     login,
     validationLogin
   );
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const navigate = useNavigate();
 
@@ -48,10 +54,18 @@ export const Login = () => {
               name="contraseña"
               value={values.contraseña}
               onChange={handleChange}
-              type="password"
+              type={showPassword ? "text" : "password"}
               required="required"
               maxLength={30}
             />
+            {values.contraseña && (
+            
+            <FontAwesomeIcon
+                    icon={showPassword ? faEye : faEyeSlash}
+                    onClick={handleShowPassword}
+                    className="icono-password-login"
+                    />
+                  )}
             <span>Contraseña</span>
             <i></i>
           </div>

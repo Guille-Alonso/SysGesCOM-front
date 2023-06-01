@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;900&display=swap');
 
-*{
+* {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -45,7 +45,7 @@
 .borderLine {
     position: absolute;
     top: 0;
-    inset: 0;   
+    inset: 0;
 }
 
 .borderLine::before {
@@ -141,6 +141,8 @@
     color: #fff;
     font-size: 0.75em;
     transform: translateY(-34px);
+    z-index: 0;
+
 }
 
 .box form .inputBox i {
@@ -189,9 +191,18 @@
     font-weight: 600;
     width: 100px;
     margin-top: 10px;
+    z-index: 0;
 }
 
 .box form input[type="submit"]:active {
     opacity: 0.8;
+}
 
+.icono-password-login {
+    left: 270px;
+    bottom: 14px;
+    color: #23242a;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
 }

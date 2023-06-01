@@ -12,7 +12,7 @@ import axios from "../../config/axios";
 import { toast } from "react-toastify";
 import { REGISTER_EDITAR_USUARIOS_VALUES } from "../../constants";
 import useForm from "../../hooks/useForm";
-import { Alert, Button, Form } from "react-bootstrap";
+import { Alert, Button, Form, FormSelect } from "react-bootstrap";
 import { validationEditarUsuario } from "../../helpers/validationsEditarUsuario";
 import Modal from "react-bootstrap/Modal";
 
@@ -21,7 +21,8 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const deleteUser = async () => { //BORRADO LOGICO
+  const deleteUser = async () => {
+    //BORRADO LOGICO
     try {
       await axios.delete("/users/", { data: { id: user._id } });
       toast.info("Usuario borrado");
@@ -37,11 +38,12 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   const handleClick1 = () => {
     setChangeIcon(!changeIcon);
   };
-  // const handleClick2 = () => { 
+  // const handleClick2 = () => {
   //   setChangeIcon(!changeIcon);
   // };
 
-  const editarUsuario = async () => { //EDITADO
+  const editarUsuario = async () => {
+    //EDITADO
     // handleClick2();
     const { _id, ...userInfo } = user;
     if (JSON.stringify(userInfo) !== JSON.stringify(values)) {
@@ -117,19 +119,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
       </div>
       <div className="infoDiv">
         <div className="topicInformation">
-          <Card.Title className="nameOfUser">
-          {changeIcon ? (
-              <input
-                name="nombre"
-                type="text"
-                value={values.nombre.toUpperCase()}
-                onChange={handleChange}
-                required
-              />
-            ) : (
-              values.nombre
-            )}
-            </Card.Title>
+          <Card.Title className="nameOfUser">{values.nombre}</Card.Title>
         </div>
         <div className="formUsuario">
           <div className="infoDeUsuarioCardBig1">
@@ -192,7 +182,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
             {changeIcon ? (
               <input
                 name="nacimiento"
-                type="text"
+                type="date"
                 className="parrafoInfo"
                 value={values.nacimiento}
                 onChange={handleChange}
@@ -203,27 +193,35 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
             )}
             <span className="spanBigCard">Turno</span>
             {changeIcon ? (
-              <input
+              <FormSelect
                 name="turno"
-                type="text"
-                className="parrafoInfo"
                 value={values.turno}
                 onChange={handleChange}
                 required
-              />
+                className="parrafoInfo"
+              >
+                <option value="">-----Seleccionar-----</option>
+                <option>mañana</option>
+                <option>tarde</option>
+                <option>noche</option>
+              </FormSelect>
             ) : (
               <p className="parrafoInfo">{values.turno}</p>
             )}
             <span className="spanBigCard">Area</span>
             {changeIcon ? (
-              <input
-                name="tipoDeUsuario"
-                type="text"
-                className="parrafoInfo"
-                value={values.tipoDeUsuario}
+              <FormSelect
+                name="area"
+                value={values.area}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="">-----Seleccionar-----</option>
+                <option>admin</option>
+                <option>estadística</option>
+                <option>supervisor</option>
+                <option>visualizador</option>
+              </FormSelect>
             ) : (
               <p className="parrafoInfo">{values.tipoDeUsuario}</p>
             )}

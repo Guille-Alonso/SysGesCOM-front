@@ -1,10 +1,10 @@
-import React from 'react'
-import Login from '../components/Login/Login'
-import { Container, Col, Row } from 'react-bootstrap'
+import React from "react";
+import Login from "../components/Login/Login";
+import { Container, Col, Row } from "react-bootstrap";
 
 const LoginPage = () => {
   return (
-    <Container className="d-flex justify-content-center align-items-center h-100">
+    <Container className="d-flex justify-content-center align-items-center">
       <Row>
         <Col>
           <Login />
@@ -12,6 +12,6 @@ const LoginPage = () => {
       </Row>
     </Container>
   );
-}
+};
 
-export default LoginPage
+export default LoginPage;

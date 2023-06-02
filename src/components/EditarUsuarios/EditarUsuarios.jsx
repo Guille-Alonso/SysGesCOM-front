@@ -211,8 +211,8 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
             <span className="spanBigCard">Area</span>
             {changeIcon ? (
               <FormSelect
-                name="area"
-                value={values.area}
+                name="tipoDeUsuario"
+                value={values.tipoDeUsuario}
                 onChange={handleChange}
                 required
               >

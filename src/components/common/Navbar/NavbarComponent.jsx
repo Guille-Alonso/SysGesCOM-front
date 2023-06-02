@@ -41,6 +41,7 @@ function NavbarComponent() {
 					}
 						
 						<Nav.Link><Link to='/listar-camaras'>Cámaras</Link></Nav.Link>
+						<Nav.Link><Link to='/alta-categoria'>Categorías</Link></Nav.Link>
 						
 					</Nav>
 					{

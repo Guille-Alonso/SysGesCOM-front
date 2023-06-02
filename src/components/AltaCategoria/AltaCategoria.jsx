@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import axios from "../../config/axios";
@@ -9,6 +9,7 @@ import GeneralTable from "../common/Table/GeneralTable";
 import useGet from "../../hooks/useGet";
 
 const AltaCategoria = () => {
+  const [naturalezas, setNaturalezas] = useState([])
   const [selected, setSelected] = useState(undefined);
   const [categorias, loading, getCategorias] = useGet(
     "/categorias/listar",
@@ -35,10 +36,11 @@ const AltaCategoria = () => {
 
   const enviarDatos = async () => {
     try {
-      const respuesta = await axios.post("/categorias/alta", values);
-      console.log(respuesta);
-      setValues(ALTA_CATEGORIAS_VALUES);
-      toast.success("Cámara registrada con éxito");
+      // const respuesta = await axios.post("/categorias/alta", values);
+      // console.log(respuesta);
+      // setValues(ALTA_CATEGORIAS_VALUES);
+      // toast.success("Cámara registrada con éxito");
+      console.log(values);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
@@ -48,6 +50,22 @@ const AltaCategoria = () => {
     ALTA_CATEGORIAS_VALUES,
     enviarDatos
   );
+
+  const getNaturalezaEventos = async ()=>{
+    try {
+      const {data} = await axios.get('/naturaleza/listar');
+      
+      setNaturalezas(data.naturalezas)
+    
+      
+    } catch (error) {
+      toast.error("Error en la conexión");
+    }
+  }
+
+  useEffect(()=>{
+  getNaturalezaEventos()
+  },[])
 
   return (
     <>
@@ -76,8 +94,17 @@ const AltaCategoria = () => {
                 required
               >
                 <option value="">Seleccione una opción</option>
-                <option>Municipal</option>
-                <option>Seguridad</option>
+                {/* <option>Municipal</option>
+                <option>Seguridad</option> */}
+                {naturalezas.map((item) => {
+                 
+                    return (
+                      <option key={item._id}>
+                        {item.nombre}
+                      </option>
+                    );
+                  
+                })}
               </Form.Select>
               <div>
                 <Button

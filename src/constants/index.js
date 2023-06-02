@@ -46,5 +46,5 @@ export const EDITAR_CAMARA_VALUES = {
 };
 export const ALTA_CATEGORIAS_VALUES = {
   categoria: "",
-  subcategoria: ""
+  tipoDeCategoria: ""
 };

@@ -120,3 +120,44 @@ label {
         left: 70%;
     }
 }
+@media screen and (max-height: 726px){
+    .contenedorAltaUsuarios{
+        width: 100%;
+        height: 80%;
+        display: flex;
+        justify-content: space-between;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .formAltaUsuarios{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+    input{
+        display: flex;
+        flex-direction: column;
+        width: 200px !important;
+    }
+    .inputBoxAltaUsuarios{
+        width: fit-content !important;
+    }
+    .inputBoxAltaUsuarios2{
+        position: absolute;
+        top: 20%;
+        right: 10%;
+    }
+    .inputBoxFotoAltaUsuarios{
+        position: absolute;
+        top: 35%;
+        right: 10%;
+        width: 300px;
+    }
+    .inputBoxTurnoAltaUsuarios{
+        position: absolute;
+        top: 55%;
+        right: 10%;
+        width: 300px;
+    }
+}

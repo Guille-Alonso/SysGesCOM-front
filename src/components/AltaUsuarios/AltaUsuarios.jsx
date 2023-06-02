@@ -11,7 +11,6 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 
-
 const AltaUsuarios = () => {
   const agregarUsuario = async () => {
     try {
@@ -43,9 +42,12 @@ const AltaUsuarios = () => {
   };
   const generateUserName = (nombreCompleto) => {
     if (nombreCompleto !== "") {
-
       const names = nombreCompleto.trim().split(" ");
-      const initials = names.slice(0, -1).map((name) => name[0]).join("") + ".";
+      const initials =
+        names
+          .slice(0, -1)
+          .map((name) => name[0])
+          .join("") + ".";
       const lastName = names[names.length - 1];
       const userName = `${initials}${lastName}`;
 
@@ -61,26 +63,24 @@ const AltaUsuarios = () => {
     const userName = generateUserName(nombreCompleto);
 
     setValues((prevValues) => ({ ...prevValues, userName }));
-  },
-    [nombreCompleto, setValues]
-  );
+  }, [nombreCompleto, setValues]);
 
   const handleNombreCompletoBlur = (event) => {
     const { value } = event.target;
     setNombreCompleto(value);
   };
 
-  const mayoríaDeEdad = ()=>{
+  const mayoríaDeEdad = () => {
     const fechaActual = new Date();
 
     const año = fechaActual.getFullYear();
-    const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
-    const dia = ('0' + fechaActual.getDate()).slice(-2);
-    
-    const fechaFormateada = `${año-18}-${mes}-${dia}`;
-    
+    const mes = ("0" + (fechaActual.getMonth() + 1)).slice(-2);
+    const dia = ("0" + fechaActual.getDate()).slice(-2);
+
+    const fechaFormateada = `${año - 18}-${mes}-${dia}`;
+
     return fechaFormateada;
-  }
+  };
 
   return (
     <>
@@ -220,7 +220,7 @@ const AltaUsuarios = () => {
                 />
               </Form.Group>
             </div>
-            <Form.Group className="inputBoxAltaUsuarios">
+            <Form.Group className="inputBoxAltaUsuarios2">
               <Form.Label>Perfil de usuario</Form.Label>
 
               <Form.Select
@@ -241,7 +241,6 @@ const AltaUsuarios = () => {
             </Form.Group>
 
             <div className="conteAltaUsuarios">
-
               <Form.Group className="inputBoxFotoAltaUsuarios">
                 <Form.Label>Fotografía</Form.Label>
 
@@ -265,9 +264,7 @@ const AltaUsuarios = () => {
                   name="turno"
                   required
                 >
-                  <option value="">
-                    ------------
-                  </option>
+                  <option value="">------------</option>
                   <option>mañana</option>
                   <option>tarde</option>
                   <option>noche</option>

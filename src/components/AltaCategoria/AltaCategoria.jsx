@@ -90,7 +90,7 @@ const AltaCategoria = () => {
                 </Button>
               </div>
             </Form>
-            <GeneralTable headings={["Categorias", "Tipo"]}></GeneralTable>
+            {/* <GeneralTable headings={["Categorias", "Tipo"]}></GeneralTable> */}
           </Col>
         </Row>
         <div className="alertaError">

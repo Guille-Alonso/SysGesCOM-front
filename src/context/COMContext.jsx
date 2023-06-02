@@ -43,6 +43,7 @@ const ProviderCOM = ({children}) => {
       value={{
         user,
         authenticated,
+        setAuthenticated,
         loading,
         login,
         getAuth,

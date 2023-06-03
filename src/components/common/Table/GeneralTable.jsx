@@ -10,7 +10,7 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
       <MDBTableHead className="colorTabla">
         <tr>
           {headings.map((heading) => (
-            <th scope="col" key={nanoid()}>
+            <th scope="col" key={nanoid()} stickyTop>
               {heading}
             </th>
           ))}
@@ -24,13 +24,18 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
               onClick={() => setSelected(item._id)}
               className={selected === item._id ? "row-selected" : ""}
             >
-              {Object.entries(item).map((elemento) => {
-                if (elemento[0] !== "_id") {
-                  return <td key={nanoid()}>{elemento[1]}</td>;
-                }
+              {Object.values(item).map((value) => {
+                if (typeof value === "object" && value !== null) {
+                  return <td key={nanoid()}>{value?.nombre}</td>;
+                } else if (value === true) {
+                  return <td key={nanoid}>Activo</td>;
+                } else if (value === false) {
+                  return <td key={nanoid}>Inactivo</td>;
+                } else return <td key={nanoid()}>{value}</td>;
               })}
             </tr>
           ))}
+        {console.log(items)}
       </MDBTableBody>
     </MDBTable>
   );

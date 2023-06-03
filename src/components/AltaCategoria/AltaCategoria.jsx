@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import axios from "../../config/axios";
 import { toast } from "react-toastify";
@@ -7,16 +7,17 @@ import { ALTA_CATEGORIAS_VALUES } from "../../constants";
 import "../AltaCategoria/AltaCategoria.css";
 import GeneralTable from "../common/Table/GeneralTable";
 import useGet from "../../hooks/useGet";
+import { FaEdit } from "react-icons/fa";
 
 const AltaCategoria = () => {
-  const [naturalezas, setNaturalezas] = useState([])
+  const [naturalezas, setNaturalezas] = useState([]);
   const [selected, setSelected] = useState(undefined);
   const [categorias, loading, getCategorias] = useGet(
     "/categorias/listar",
     axios
   );
   const [buscador, setBuscador] = useState("");
-  const [ResultadoBusaqueda, setResultadoBusaqueda] = useState([]);
+  const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
 
   //   const handleChange = (event) => {
   //     setBuscador(event.target.value);
@@ -30,16 +31,17 @@ const AltaCategoria = () => {
   //           camara.ubicacion.toLowerCase().includes(buscador.toLowerCase()) ||
   //           camara.tipo.toLowerCase().includes(buscador.toLowerCase())
   //       );
-  //       setResultadoBusaqueda(results);
+  //       setResultadoBusqueda(results);
   //     }
   //   }, [categoria.tipoDeCategoria, buscador]);
 
   const enviarDatos = async () => {
     try {
-      // const respuesta = await axios.post("/categorias/alta", values);
-      // console.log(respuesta);
-      // setValues(ALTA_CATEGORIAS_VALUES);
-      // toast.success("Cámara registrada con éxito");
+      const respuesta = await axios.post("/categorias/alta", values);
+      getCategorias();
+      console.log(respuesta);
+      setValues(ALTA_CATEGORIAS_VALUES);
+      toast.success("Categoria registrada con éxito");
       console.log(values);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
@@ -51,27 +53,25 @@ const AltaCategoria = () => {
     enviarDatos
   );
 
-  const getNaturalezaEventos = async ()=>{
+  const getNaturalezaEventos = async () => {
     try {
-      const {data} = await axios.get('/naturaleza/listar');
-      
-      setNaturalezas(data.naturalezas)
-    
-      
+      const { data } = await axios.get("/naturaleza/listar");
+
+      setNaturalezas(data.naturalezas);
     } catch (error) {
       toast.error("Error en la conexión");
     }
-  }
+  };
 
-  useEffect(()=>{
-  getNaturalezaEventos()
-  },[])
+  useEffect(() => {
+    getNaturalezaEventos();
+  }, []);
 
   return (
     <>
       <div className="container-fluid">
         <Row>
-          <Col xs={6} className="container-fluid">
+          <Col xs={12} className="container-fluid">
             <Form className="container-form-categoria" onSubmit={handleSubmit}>
               <Form.Label>Categoria Nueva</Form.Label>
               <Form.Control
@@ -89,21 +89,19 @@ const AltaCategoria = () => {
               <Form.Select
                 onChange={handleChange}
                 className="inputAltaDeCamara"
-                name="tipoDeCategoria"
-                value={values.tipoDeCategoria}
+                name="naturaleza"
+                value={values.naturaleza}
                 required
               >
                 <option value="">Seleccione una opción</option>
                 {/* <option>Municipal</option>
                 <option>Seguridad</option> */}
                 {naturalezas.map((item) => {
-                 
-                    return (
-                      <option key={item._id}>
-                        {item.nombre}
-                      </option>
-                    );
-                  
+                  return (
+                    <option key={item._id} value={item._id}>
+                      {item.nombre}
+                    </option>
+                  );
                 })}
               </Form.Select>
               <div>
@@ -117,7 +115,34 @@ const AltaCategoria = () => {
                 </Button>
               </div>
             </Form>
-            {/* <GeneralTable headings={["Categorias", "Tipo"]}></GeneralTable> */}
+            {loading ? (
+              <Spinner />
+            ) : (
+              <Container fluid>
+                <Row>
+                  <Col xl={6} className="tabla-Municipal">
+                    <GeneralTable
+                      headings={["ID", "Categorias", "Estado", "Tipo"]}
+                      items={categorias.categorias.filter(
+                        (cat) => cat.naturaleza.nombre == "Seguridad"
+                      )}
+                      selected={selected}
+                      setSelected={setSelected}
+                    ></GeneralTable>
+                  </Col>
+                  <Col xl={6} className="tabla-Municipal">
+                    <GeneralTable
+                      headings={["ID", "Categorias", "Estado", "Tipo"]}
+                      items={categorias.categorias.filter(
+                        (cat) => cat.naturaleza.nombre == "Municipal"
+                      )}
+                      selected={selected}
+                      setSelected={setSelected}
+                    ></GeneralTable>
+                  </Col>
+                </Row>
+              </Container>
+            )}
           </Col>
         </Row>
         <div className="alertaError">

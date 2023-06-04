@@ -10,24 +10,18 @@ import "./iconoPassword.css";
 import { useState } from "react";
 import axios from "../../config/axios";
 import { toast } from "react-toastify";
-import { COMContext } from "../../context/COMContext";
-import ButtonConfirm from "../CustomButtons/ButtonConfirm";
 
 const CambiarContraseña = () => {
-  const { user } = useContext(COMContext);
+
   const enviarDatos = async () => {
-    const objetoCompleto = {
-      // password: values.password,
-      confirmPassword: values.confirmPassword,
-      confirmPasswordRepeat: values.confirmPasswordRepeat,
-      idUsuario: user._id,
-    };
+  
     try {
-      const {data} = await axios.put("/users/editPassword", objetoCompleto);
+      const {data} = await axios.put("/users/editPassword", values);
       toast.success(data.mensaje)
       setValues(CHANGE_PASSWORD_VALUES)
     } catch (error) {
-      toast.error(error.response?.data.message || error.message);
+      toast.error(error.response?.data.mensaje || error.message);
+      console.log(error);
     }
   };
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -55,25 +49,19 @@ const CambiarContraseña = () => {
           <Row>
             <Col xs={12} className="columnaForm">
               <Form onSubmit={handleSubmit} className="formChangePassword">
-                {/* <Form.Group>
-                  <Form.Label>Contraseña actual</Form.Label>
+                <Form.Group>
+                  <Form.Label>Nombre de Usuario</Form.Label>
                   <Form.Control
-                    maxLength={30}
-                    minLength={8}
+                    maxLength={15}
+                    minLength={4}
                     required
-                    value={values.password}
+                    value={values.userName}
                     onChange={handleChange}
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Contraseña actual"
-                    className="inputBoxPasswordChange"
+                    name="userName"
+                    placeholder="j.alvarez"
+                    className="inputBoxPasswordChange mb-3"
                   />
-                  <FontAwesomeIcon
-                    icon={showPassword ? faEye : faEyeSlash}
-                    onClick={handleShowPassword}
-                    className="icono-password"
-                  />
-                </Form.Group> */}
+                </Form.Group>
                 <Form.Group>
                   <Form.Label>Constraseña nueva</Form.Label>
                   <Form.Control

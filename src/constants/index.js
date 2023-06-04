@@ -7,6 +7,7 @@ export const CHANGE_PASSWORD_VALUES = {
   // password: "",
   confirmPassword: "",
   confirmPasswordRepeat: "",
+  userName:"",
 };
 export const ALTA_CAMARA_VALUES = {
   nombre: "",

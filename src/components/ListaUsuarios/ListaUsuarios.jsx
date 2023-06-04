@@ -12,6 +12,8 @@ import useGet from "../../hooks/useGet";
 import axios from "../../config/axios";
 import EditarUsuarios from "../EditarUsuarios/EditarUsuarios";
 import GeneralModal from "../common/GeneralModal/GeneralModal";
+import { Button, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const ListaUsuarios = () => {
   const [startIndex, setStartIndex] = useState(0); // Índice de inicio para la solicitud al backend
@@ -76,6 +78,11 @@ const ListaUsuarios = () => {
     }
   }, [users.users, cardsToShow]);
 
+  const navigate = useNavigate();
+  const nuevoUsuario = ()=>{
+    navigate("/alta-usuarios")
+  }
+
   return (
     <>
       <header className="contenedorBusqueda">
@@ -93,6 +100,9 @@ const ListaUsuarios = () => {
           {paginas} de {numerosDePagina}
         </div>
       </header>
+      <div className="container">
+      <Button variant="success" onClick={nuevoUsuario}>Nuevo Usuario</Button>
+      </div>
       <section className="usuariosSection">
         <Swiper
           effect={"coverflow"}
@@ -112,7 +122,10 @@ const ListaUsuarios = () => {
           className="swiper-container"
           initialSlide={2}
         >
-          {renderUsuarios()}
+          {loading?
+          <Spinner/>
+          :
+          renderUsuarios()}
           <div className="swiper-pagination"></div>
         </Swiper>
         <div className="slider-controler">

@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "./navBar.css"
 import { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { COMContext } from '../../../context/COMContext';
 
 function NavbarComponent() {
@@ -15,6 +15,15 @@ function NavbarComponent() {
     setAuthenticated(false);
   };
 
+const navigate = useNavigate();
+const settings = () => {
+  navigate("/cambiar-contraseña");
+};
+
+const home = () => {
+  navigate("/home");
+};
+
 	useEffect(() => {
 		getAuth();
 	  }, []);
@@ -22,7 +31,7 @@ function NavbarComponent() {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="" variant="dark">
 			<Container fluid className='mx-4'>
-				<Navbar.Brand href="#home" className='align-content-start'>
+				<Navbar.Brand onClick={home} href="#home" className='align-content-start'>
 					<img
 						src="src\assets\img\logo_comm_marca_de_agua.png"
 						width="150"
@@ -53,7 +62,7 @@ function NavbarComponent() {
 						</Nav>
 					
 						<NavDropdown title={user.nombre} id="collasible-nav-dropdown" className='my-2 profileCard align-content-end'>
-							<NavDropdown.Item href="#" className='navigation'>
+							<NavDropdown.Item onClick={settings} className='navigation'>
 								<ion-icon name="person-outline" className="icons-drop"></ion-icon>
 								Editar Perfil
 							</NavDropdown.Item>

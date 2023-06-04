@@ -4,7 +4,7 @@ export const LOGIN_VALUES = {
 };
 
 export const CHANGE_PASSWORD_VALUES = {
-  password: "",
+  // password: "",
   confirmPassword: "",
   confirmPasswordRepeat: "",
 };

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import TableCamaras from "../TableCamaras/TableCamaras";
 import useGet from "../../hooks/useGet";
-import { Spinner } from "react-bootstrap";
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import axios from "../../config/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "./ListarCamaras.css";
 import GeneralModal from "../common/GeneralModal/GeneralModal";
+import { useNavigate } from "react-router-dom";
 
 const ListarCamaras = () => {
   const [selected, setSelected] = useState(undefined);
@@ -30,10 +31,15 @@ const ListarCamaras = () => {
     }
   }, [camara.camaras, buscador]);
 
+  const navigate = useNavigate();
+  const nuevaCamara = ()=>{
+    navigate("/alta-camara")
+  }
+
   return (
     <>
       {/* <h3 className=' titulo text-light'>Tabla de camaras</h3> */}
-
+    <Container fluid>
       <div className="contBusquedaCamaras">
         <input
           type="text"
@@ -46,7 +52,13 @@ const ListarCamaras = () => {
           className="iconoBusquedaCamaras"
         />
       </div>
-
+      <Row>
+        <Col className="ms-5 my-4">
+        <Button onClick={nuevaCamara} variant="success">Nueva Cámara</Button>
+        </Col>
+      </Row>
+    </Container>
+    
       {loading ? (
         <Spinner />
       ) : (

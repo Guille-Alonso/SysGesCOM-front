@@ -17,16 +17,17 @@ const CambiarContraseña = () => {
   const { user } = useContext(COMContext);
   const enviarDatos = async () => {
     const objetoCompleto = {
-      password: values.password,
+      // password: values.password,
       confirmPassword: values.confirmPassword,
       confirmPasswordRepeat: values.confirmPasswordRepeat,
       idUsuario: user._id,
     };
     try {
-      const respuesta = await axios.put("/users/editPassword", objetoCompleto);
-      console.log(respuesta);
+      const {data} = await axios.put("/users/editPassword", objetoCompleto);
+      toast.success(data.mensaje)
+      setValues(CHANGE_PASSWORD_VALUES)
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data.message || error.message);
     }
   };
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -54,7 +55,7 @@ const CambiarContraseña = () => {
           <Row>
             <Col xs={12} className="columnaForm">
               <Form onSubmit={handleSubmit} className="formChangePassword">
-                <Form.Group>
+                {/* <Form.Group>
                   <Form.Label>Contraseña actual</Form.Label>
                   <Form.Control
                     maxLength={30}
@@ -72,7 +73,7 @@ const CambiarContraseña = () => {
                     onClick={handleShowPassword}
                     className="icono-password"
                   />
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group>
                   <Form.Label>Constraseña nueva</Form.Label>
                   <Form.Control
@@ -120,14 +121,14 @@ const CambiarContraseña = () => {
                 </button>
                 {/* <ButtonConfirm title="Confirmar" /> */}
               </Form>
-              <div className="alertaError">
+              {/* <div className="alertaError"> */}
                 {Object.keys(errors).length !== 0 &&
                   Object.values(errors).map((error, index) => (
                     <Alert variant="danger" key={index}>
                       {error}
                     </Alert>
                   ))}
-              </div>
+              {/* </div> */}
             </Col>
           </Row>
         </div>

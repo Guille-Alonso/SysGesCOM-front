@@ -8,6 +8,7 @@ import "../AltaCategoria/AltaCategoria.css";
 import GeneralTable from "../common/Table/GeneralTable";
 import useGet from "../../hooks/useGet";
 import { FaEdit } from "react-icons/fa";
+import GeneralModal from "../common/GeneralModal/GeneralModal";
 
 const AltaCategoria = () => {
   const [naturalezas, setNaturalezas] = useState([]);
@@ -39,10 +40,8 @@ const AltaCategoria = () => {
     try {
       const respuesta = await axios.post("/categorias/alta", values);
       getCategorias();
-      console.log(respuesta);
       setValues(ALTA_CATEGORIAS_VALUES);
       toast.success("Categoria registrada con éxito");
-      console.log(values);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
@@ -72,49 +71,6 @@ const AltaCategoria = () => {
       <div className="container-fluid">
         <Row>
           <Col xs={12} className="container-fluid">
-            <Form className="container-form-categoria" onSubmit={handleSubmit}>
-              <Form.Label>Categoria Nueva</Form.Label>
-              <Form.Control
-                className="inputAltaDeCamara"
-                type="text"
-                placeholder="Ej... Violencia"
-                value={values.categoria}
-                name="categoria"
-                onChange={handleChange}
-                required
-                maxLength={20}
-                minLength={3}
-              />
-              <Form.Label className="mt-2">Tipo</Form.Label>
-              <Form.Select
-                onChange={handleChange}
-                className="inputAltaDeCamara"
-                name="naturaleza"
-                value={values.naturaleza}
-                required
-              >
-                <option value="">Seleccione una opción</option>
-                {/* <option>Municipal</option>
-                <option>Seguridad</option> */}
-                {naturalezas.map((item) => {
-                  return (
-                    <option key={item._id} value={item._id}>
-                      {item.nombre}
-                    </option>
-                  );
-                })}
-              </Form.Select>
-              <div>
-                <Button
-                  variant="success"
-                  className="mt-3 col-12 mb-3"
-                  size="lg"
-                  type="submit"
-                >
-                  Agregar
-                </Button>
-              </div>
-            </Form>
             {loading ? (
               <Spinner />
             ) : (
@@ -122,7 +78,7 @@ const AltaCategoria = () => {
                 <Row>
                   <Col xl={6} className="tabla-Municipal">
                     <GeneralTable
-                      headings={["ID", "Categorias", "Estado", "Tipo"]}
+                      headings={["Categorias", "Tipo"]}
                       items={categorias.categorias.filter(
                         (cat) => cat.naturaleza.nombre == "Seguridad"
                       )}
@@ -132,7 +88,7 @@ const AltaCategoria = () => {
                   </Col>
                   <Col xl={6} className="tabla-Municipal">
                     <GeneralTable
-                      headings={["ID", "Categorias", "Estado", "Tipo"]}
+                      headings={["Categorias", "Tipo"]}
                       items={categorias.categorias.filter(
                         (cat) => cat.naturaleza.nombre == "Municipal"
                       )}
@@ -154,6 +110,56 @@ const AltaCategoria = () => {
             ))}
         </div>
       </div>
+      <GeneralModal
+        buttonText={"+"}
+        clase={"claseModalCategoria"}
+        variant={"botonAgregarCategoria"}
+        modalTitle={"Añadir Categoria"}
+        modalBody={
+          <Form className="container-form-categoria" onSubmit={handleSubmit}>
+            <Form.Label>Categoria Nueva</Form.Label>
+            <Form.Control
+              className="inputAltaDeCamara"
+              type="text"
+              placeholder="Ej... Violencia"
+              value={values.categoria}
+              name="categoria"
+              onChange={handleChange}
+              required
+              maxLength={20}
+              minLength={3}
+            />
+            <Form.Label className="mt-2">Tipo</Form.Label>
+            <Form.Select
+              onChange={handleChange}
+              className="inputAltaDeCamara"
+              name="naturaleza"
+              value={values.naturaleza}
+              required
+            >
+              <option value="">Seleccione una opción</option>
+
+              {naturalezas.map((item) => {
+                return (
+                  <option key={item._id} value={item._id}>
+                    {item.nombre}
+                  </option>
+                );
+              })}
+            </Form.Select>
+            <div>
+              <Button
+                variant="success"
+                className="mt-3 col-12 mb-3"
+                size="lg"
+                type="submit"
+              >
+                Agregar
+              </Button>
+            </div>
+          </Form>
+        }
+      />
     </>
   );
 };

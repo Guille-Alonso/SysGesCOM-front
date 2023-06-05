@@ -1,19 +1,26 @@
 .container-form-categoria{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    height: 300px;
 }
 .tabla-Municipal{
     overflow: auto;
     height: 400px;
 }
-::-webkit-scrollbar {
-    width: 8px;
-    border: 1px solid #fff;
-    border-radius: 30px;
+
+.botonAgregarCategoria{
+    border-radius: 50% !important;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    position: relative;
+    left: 2%;
+    top: 20%;    
 }
-::-webkit-scrollbar-thumb {
-    background-color: #9385ba;
-    border-radius: 4px;
+.claseModalCategoria{
+    background-color: rgba(0, 0, 0 , .7);
 }

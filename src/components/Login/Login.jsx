@@ -69,9 +69,6 @@ export const Login = () => {
               <span>Contraseña</span>
               <i></i>
             </div>
-            <div className="links">
-              <a href="#">Olvidaste tu contraseña?</a>
-            </div>
             {Object.keys(errors).length !== 0 &&
               Object.values(errors).map((error, index) => (
                 <Alert variant="danger" className="mt-3" key={index}>

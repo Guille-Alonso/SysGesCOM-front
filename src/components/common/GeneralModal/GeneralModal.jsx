@@ -9,6 +9,7 @@ const GeneralModal = ({
   modalBody,
   variant,
   seleccion,
+  clase,
 }) => {
   const [show, setShow] = useState(false);
 
@@ -31,6 +32,7 @@ const GeneralModal = ({
         backdrop="static"
         keyboard={false}
         centered
+        className={clase}
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>

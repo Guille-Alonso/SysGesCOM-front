@@ -10,12 +10,14 @@ import { COMContext } from '../../../context/COMContext';
 function NavbarComponent() {
 	const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
 
+  const navigate = useNavigate();
+
 	const logOut = () => {
     localStorage.removeItem("token");
     setAuthenticated(false);
+    navigate('/login')
   };
 
-const navigate = useNavigate();
 const settings = () => {
   navigate("/cambiar-contraseña");
 };
@@ -48,19 +50,21 @@ const home = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {authenticated && user.tipoDeUsuario == "admin" && (
+              <>
               <Nav.Link>
                 <Link to="/lista-usuarios">Usuarios</Link>
               </Nav.Link>
-            )}
-
-            <Nav.Link>
-              <Link to="/listar-camaras">Cámaras</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/alta-categoria">Categorías</Link>
-            </Nav.Link>
+               <Nav.Link>
+               <Link to="/listar-camaras">Cámaras</Link>
+             </Nav.Link>
+             <Nav.Link>
+               <Link to="/alta-categoria">Categorías</Link>
+             </Nav.Link>
+             </>
+            )}           
           </Nav>
-          {authenticated && (
+    
+          {authenticated? (
             <Nav>
               <Nav>
                 <img
@@ -115,8 +119,12 @@ const home = () => {
                   Cerrar Sesión
                 </NavDropdown.Item>
               </NavDropdown>
-            </Nav>
-          )}
+            </Nav>)
+             :
+             <Nav.Link>
+              <Link to="/login">Iniciar Sesión</Link>
+            </Nav.Link>  
+          }
         </Navbar.Collapse>
       </Container>
     </Navbar>

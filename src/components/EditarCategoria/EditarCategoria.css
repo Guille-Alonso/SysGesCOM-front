@@ -1,0 +1,27 @@
+.container-form-alta-categoria{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.botones-End{
+    gap: 10px;
+}
+.modalEliminarSubcategoria{
+    background-color: rgba(0, 0, 0, .9);
+    width: 100%;
+    display: flex;
+}
+.modalEditarSubcategoria{
+    background-color: rgba(0, 0, 0, .9);
+    width: 100%;
+    display: flex;
+}
+.modalAgregarSubcategoria{
+    background-color: rgba(0, 0, 0, .9);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

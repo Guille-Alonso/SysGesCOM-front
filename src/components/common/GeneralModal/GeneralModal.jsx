@@ -14,15 +14,15 @@ const GeneralModal = ({
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  // const handleShow = ()=>{
-  //   if(seleccion) setShow(true)
-  //   else  toast.error("debes seleccionar un elemento")
-  // }
+  // const handleShow = () => setShow(true);
+  const handleShow = ()=>{
+    if(seleccion || seleccion===false) setShow(true)
+    else toast.error("debes seleccionar un elemento")
+  }
 
   return (
     <>
-      <Button css={{ zIndex: 0 }} onClick={handleShow} className={variant}>
+      <Button css={{ zIndex: 0 }} onClick={handleShow} variant={variant} className="mx-1">
         {buttonText}
       </Button>
 

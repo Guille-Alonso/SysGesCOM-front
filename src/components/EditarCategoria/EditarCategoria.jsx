@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { EDITAR_CATEGORIAS_VALUES } from '../../constants';
 import useForm from '../../hooks/useForm';
 import axios from '../../config/axios';
 import { toast } from 'react-toastify';
 import GeneralTable from '../common/Table/GeneralTable';
+import GeneralModal from '../common/GeneralModal/GeneralModal';
+import DeleteConfirmation from '../common/DeleteConfirmation/DeleteConfirmation'
+import useGet from '../../hooks/useGet';
+import EditarSubcategoria from '../EditarSubcategoria/EditarSubcategoria';
+import AltaSubcategoria from '../AltaSubcategoria/AltaSubcategoria';
 
 const EditarCategoria = () => {
     const location = useLocation();
     const datos = location.state;
     const [selected, setSelected] = useState(undefined);
     const navigate = useNavigate();
+    const [subcategorias, loading, getSubcategorias] = useGet(
+        `/subcategorias/listar/${datos.categoria._id}`,
+        axios
+      );
 
     const editarCategoria = async () => {
         const { _id, ...categoriaInfo } = datos.categoria;
@@ -30,13 +39,22 @@ const EditarCategoria = () => {
         } else toast.error('No hiciste cambios')
        };
 
+       const borrarSubcategoria = async ()=>{
+        try {
+            await axios.delete("/subcategorias/", { data: { id: selected._id } });
+            toast.info("Subcategoría borrada");
+            getSubcategorias();
+          } catch (error) {
+            toast.error(error.response?.data.message || error.message);
+          }
+       }
+
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(
         EDITAR_CATEGORIAS_VALUES,
         editarCategoria
       ); // AGREGAR VALIDACIONES JS
 
     useEffect(()=>{
-        console.log(datos.categoria);
         const { _id, ...categoriaInfo } = datos.categoria;
         setValues(categoriaInfo)
     },[])
@@ -91,14 +109,38 @@ const EditarCategoria = () => {
         </Row>
         <Row className='mt-5'>
             <Col className='d-flex justify-content-end'>
-            <Button variant='success'>Agregar</Button>
-            <Button variant='warning' className='mx-2'>Editar</Button>
-            <Button variant='danger'>Quitar</Button>
+            <GeneralModal
+          buttonText='Eliminar'
+          modalTitle={'Eliminar Subcategoría'}
+          modalBody={<DeleteConfirmation deleteFunction={borrarSubcategoria}/>}
+          variant="danger"
+          seleccion={selected}
+          />
+          <GeneralModal
+          buttonText='Editar'
+          modalTitle={'Editar Subcategoría'}
+          modalBody={<EditarSubcategoria selected={selected} getSubcategorias={getSubcategorias} setSelected={setSelected}/>}
+          variant="warning"
+          seleccion={selected}
+          />
+          <GeneralModal
+          buttonText='Agregar'
+          modalTitle={'Agregar Subcategoría'}
+          modalBody={<AltaSubcategoria getSubcategorias={getSubcategorias} idCategoria={datos.categoria._id}/>}
+          variant="success"
+          seleccion={false}
+          />
             </Col>
         </Row>
         <Row>
             <Col>
-                <GeneralTable headings={["nombre"]} items={datos.naturalezas} setSelected={setSelected} selected={selected}/>
+            {
+                loading?
+                <Spinner/>
+                :
+                <GeneralTable headings={["id","nombre"]} items={subcategorias.subcategorias} setSelected={setSelected} selected={selected}/>
+            }
+               
             </Col>
         </Row>
     </Container>

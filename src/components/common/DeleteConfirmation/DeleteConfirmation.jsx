@@ -1,4 +1,4 @@
-import {Button} from "@nextui-org/react";
+import { Button } from "react-bootstrap";
 
 const DeleteConfirmation = ({onClose, deleteFunction}) => {
 

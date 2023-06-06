@@ -71,7 +71,7 @@ const AltaCategoria = () => {
   return (
     <>
       <div className="container-fluid">
-        <header className="contenedorBusqueda">
+        <header className="contenedorBusquedaCategoria">
           <input
             type="text"
             className="buscador"

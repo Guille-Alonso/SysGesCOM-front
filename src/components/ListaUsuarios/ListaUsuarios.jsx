@@ -12,7 +12,7 @@ import useGet from "../../hooks/useGet";
 import axios from "../../config/axios";
 import EditarUsuarios from "../EditarUsuarios/EditarUsuarios";
 import GeneralModal from "../common/GeneralModal/GeneralModal";
-import { Button, Spinner } from "react-bootstrap";
+import { Button, Container, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const ListaUsuarios = () => {
@@ -79,61 +79,74 @@ const ListaUsuarios = () => {
   }, [users.users, cardsToShow]);
 
   const navigate = useNavigate();
-  const nuevoUsuario = ()=>{
-    navigate("/alta-usuarios")
-  }
+  const nuevoUsuario = () => {
+    navigate("/alta-usuarios");
+  };
 
   return (
     <>
-      <header className="contenedorBusqueda">
-        <input
-          type="text"
-          className="buscador"
-          value={buscador}
-          onChange={handleChange}
-        />
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className="iconoBusquedaUserList"
-        />
-        <div className="paginationCards">
-          {paginas} de {numerosDePagina}
-        </div>
-      </header>
-      <div className="container">
-      <Button variant="success" onClick={nuevoUsuario}>Nuevo Usuario</Button>
-      </div>
-      <section className="usuariosSection">
-        <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          loop={false}
-          slidesPerView={"auto"}
-          coverflowEffect={{
-            rotate: 5,
-            stretch: 200,
-            depth: 100,
-            modifier: 2.5,
-            slideShadows: false,
-          }}
-          pagination={{ el: ".swiper-pagination", clickable: true }}
-          modules={[EffectCoverflow, Pagination]}
-          className="swiper-container"
-          initialSlide={2}
-        >
-          {loading?
-          <Spinner/>
-          :
-          renderUsuarios()}
-          <div className="swiper-pagination"></div>
-        </Swiper>
-        <div className="slider-controler">
-          <div className="swiper-button-prev " onClick={handlePrevSlide}></div>
-          <div className="swiper-button-next " onClick={handleNextSlide}></div>
-          <div className="swiper-pagination"></div>
-        </div>
-      </section>
+      <Container fluid>
+        <header className="contenedorBusqueda">
+          <input
+            type="text"
+            className="buscador"
+            value={buscador}
+            onChange={handleChange}
+          />
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className="iconoBusquedaUserList"
+          />
+          <Button
+            onClick={nuevoUsuario}
+            style={{
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+            }}
+          >
+            +
+          </Button>
+          <div className="paginationCards">
+            {paginas} de {numerosDePagina}
+          </div>
+        </header>
+        <div className="container"></div>
+        <section className="usuariosSection">
+          <Swiper
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            loop={false}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 5,
+              stretch: 200,
+              depth: 100,
+              modifier: 2.5,
+              slideShadows: false,
+            }}
+            pagination={{ el: ".swiper-pagination", clickable: true }}
+            modules={[EffectCoverflow, Pagination]}
+            className="swiper-container"
+            initialSlide={2}
+          >
+            {loading ? <Spinner /> : renderUsuarios()}
+            <div className="swiper-pagination"></div>
+          </Swiper>
+          <div className="slider-controler">
+            <div
+              className="swiper-button-prev "
+              onClick={handlePrevSlide}
+            ></div>
+            <div
+              className="swiper-button-next "
+              onClick={handleNextSlide}
+            ></div>
+            <div className="swiper-pagination"></div>
+          </div>
+        </section>
+      </Container>
     </>
   );
 };

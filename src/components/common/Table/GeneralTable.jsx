@@ -6,13 +6,11 @@ import "./GeneralTable.css";
 
 const GeneralTable = ({ headings, items, setSelected, selected }) => {
   return (
-    <MDBTable responsive className="generalTable">
+    <MDBTable responsive>
       <MDBTableHead className="colorTabla">
         <tr>
           {headings.map((heading) => (
-            <th scope="col" key={nanoid()}>
-              {heading}
-            </th>
+            <th key={nanoid()}>{heading}</th>
           ))}
         </tr>
       </MDBTableHead>
@@ -20,19 +18,16 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
         {items.length !== 0 &&
           items.map((item) => (
             <tr
+              key={nanoid()}
               onClick={() => setSelected(item._id)}
               className={selected === item._id ? "row-selected" : ""}
             >
-              {Object.values(item).map((value) => {
-                if (typeof value === "object" && value !== null) {
-                  return (
-                    <>
-                      <td>{item.nombre}</td>
-                      <td>{value?.nombre}</td>
-                    </>
-                  );
+              {Object.entries(item).map((elemento) => {
+                if (elemento[0] !== "_id") {
+                  return <td key={nanoid()}>{elemento[1]}</td>;
                 }
               })}
+              editar
             </tr>
           ))}
       </MDBTableBody>

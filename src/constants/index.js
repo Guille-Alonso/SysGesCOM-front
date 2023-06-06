@@ -53,3 +53,7 @@ export const EDITAR_CATEGORIAS_VALUES = {
   nombre: "",
   naturaleza: ""
 };
+export const SUBCATEGORIAS_VALUES = {
+  nombre: "",
+  categoria: ""
+};

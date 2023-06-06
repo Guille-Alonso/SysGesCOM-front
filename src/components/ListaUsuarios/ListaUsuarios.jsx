@@ -65,6 +65,7 @@ const ListaUsuarios = () => {
           modalTitle={"Editar Usuario"}
           modalBody={<EditarUsuarios user={user} getUsers={getUsers} />}
           variant="botonVerMas"
+          seleccion={false}
         />
       </SwiperSlide>
     ));

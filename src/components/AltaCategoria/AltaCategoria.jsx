@@ -87,6 +87,7 @@ const AltaCategoria = () => {
             clase={"claseModalCategoria"}
             variant={"botonAgregarCategoria"}
             modalTitle={"Añadir Categoria"}
+            seleccion={false}
             modalBody={
               <Form
                 className="container-form-categoria"

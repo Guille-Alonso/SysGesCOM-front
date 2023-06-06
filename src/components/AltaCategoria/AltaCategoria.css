@@ -9,18 +9,18 @@
 }
 .tabla-Municipal{
     overflow: auto;
-    height: 400px;
+    height: auto;
 }
 
 .botonAgregarCategoria{
     border-radius: 50% !important;
-    height: 50px;
-    width: 50px;
-    font-size: 30px;
-    position: relative;
-    left: 2%;
-    top: 20%;    
+    height: 40px;
+    width: 40px;
+    font-size: 30px; 
 }
 .claseModalCategoria{
     background-color: rgba(0, 0, 0 , .7);
+}
+.contenedorBusquedaCategoria{
+    margin-bottom: 20px;
 }

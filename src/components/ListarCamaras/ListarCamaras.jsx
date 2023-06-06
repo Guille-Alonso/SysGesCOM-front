@@ -32,33 +32,41 @@ const ListarCamaras = () => {
   }, [camara.camaras, buscador]);
 
   const navigate = useNavigate();
-  const nuevaCamara = ()=>{
-    navigate("/alta-camara")
-  }
+  const nuevaCamara = () => {
+    navigate("/alta-camara");
+  };
 
   return (
     <>
       {/* <h3 className=' titulo text-light'>Tabla de camaras</h3> */}
-    <Container fluid>
-      <div className="contBusquedaCamaras">
-        <input
-          type="text"
-          className="buscadorCamaras"
-          value={buscador}
-          onChange={handleChange}
-        />
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className="iconoBusquedaCamaras"
-        />
-      </div>
-      <Row>
-        <Col className="ms-5 my-4">
-        <Button onClick={nuevaCamara} variant="success">Nueva Cámara</Button>
-        </Col>
-      </Row>
-    </Container>
-    
+      <Container fluid>
+        <div className="contBusquedaCamaras">
+          <input
+            type="text"
+            className="buscadorCamaras"
+            value={buscador}
+            onChange={handleChange}
+          />
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className="iconoBusquedaCamaras"
+          />
+          <Button
+            onClick={nuevaCamara}
+            style={{
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+            }}
+          >
+            +
+          </Button>
+        </div>
+        <Row>
+          <Col className="ms-5 my-4"></Col>
+        </Row>
+      </Container>
+
       {loading ? (
         <Spinner />
       ) : (

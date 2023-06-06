@@ -52,7 +52,7 @@ const AltaCategoria = () => {
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     ALTA_CATEGORIAS_VALUES,
     enviarDatos
-  );
+  ); // AGREGAR VALIDACIONES JS
 
   const getNaturalezaEventos = async () => {
     try {
@@ -151,6 +151,8 @@ const AltaCategoria = () => {
                       )}
                       selected={selected}
                       setSelected={setSelected}
+                      getCategorias={getCategorias}
+                      naturalezas={naturalezas}
                     ></TableCategoria>
                   </Col>
                   <Col xl={6} className="tabla-Municipal">
@@ -161,6 +163,8 @@ const AltaCategoria = () => {
                       )}
                       selected={selected}
                       setSelected={setSelected}
+                      getCategorias={getCategorias}
+                      naturalezas={naturalezas}
                     ></TableCategoria>
                   </Col>
                 </Row>

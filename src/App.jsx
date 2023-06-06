@@ -10,6 +10,7 @@ import AltaUsuarios from "./components/AltaUsuarios/AltaUsuarios";
 import ListaUsuarios from "./components/ListaUsuarios/ListaUsuarios";
 import ListarCamaras from "./components/ListarCamaras/ListarCamaras";
 import AltaCategoria from "./components/AltaCategoria/AltaCategoria";
+import EditarCategoria from "./components/EditarCategoria/EditarCategoria";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/alta-usuarios" element={<AltaUsuarios />} />
             <Route path="/*" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/editarCategoria" element={<EditarCategoria />} />
           </Routes>
           <ToastContainer />
         </Layout>

@@ -49,3 +49,7 @@ export const ALTA_CATEGORIAS_VALUES = {
   categoria: "",
   naturaleza: ""
 };
+export const EDITAR_CATEGORIAS_VALUES = {
+  nombre: "",
+  naturaleza: ""
+};

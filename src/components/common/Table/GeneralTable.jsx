@@ -27,7 +27,7 @@ const GeneralTable = ({ headings, items, setSelected, selected }) => {
                   return <td key={nanoid()}>{elemento[1]}</td>;
                 }
               })}
-              editar
+          
             </tr>
           ))}
       </MDBTableBody>

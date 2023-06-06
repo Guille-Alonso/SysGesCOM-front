@@ -22,7 +22,7 @@ const GeneralModal = ({
 
   return (
     <>
-      <Button css={{ zIndex: 0 }} onClick={handleShow} variant={variant} className="mx-1">
+      <Button css={{ zIndex: 0 }} onClick={handleShow} className={variant}>
         {buttonText}
       </Button>
 

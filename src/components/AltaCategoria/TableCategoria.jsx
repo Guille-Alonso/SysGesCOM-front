@@ -9,8 +9,14 @@ import axios from "../../config/axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 
-const TableCategoria = ({ headings, items, setSelected, selected ,getCategorias,naturalezas}) => {
-
+const TableCategoria = ({
+  headings,
+  items,
+  setSelected,
+  selected,
+  getCategorias,
+  naturalezas,
+}) => {
   const [modalDelete, setModalDelete] = useState(false);
 
   const handleRemove = async () => {
@@ -26,10 +32,10 @@ const TableCategoria = ({ headings, items, setSelected, selected ,getCategorias,
 
   const navigate = useNavigate();
 
-  const handleNavigate=(item)=>{
-    const props = {categoria:item,naturalezas:naturalezas}
-    navigate('/editarCategoria', { state: props });
-  }
+  const handleNavigate = (item) => {
+    const props = { categoria: item, naturalezas: naturalezas };
+    navigate("/editarCategoria", { state: props });
+  };
 
   return (
     <>
@@ -56,49 +62,48 @@ const TableCategoria = ({ headings, items, setSelected, selected ,getCategorias,
           </Button>
         </div>
       </Modal>
-   
-    <MDBTable responsive className="generalTable">
-      <MDBTableHead className="colorTabla">
-        <tr>
-          {headings.map((heading) => (
-            <th scope="col" key={nanoid()}>
-              {heading}
-            </th>
-          ))}
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody className="colorTabla">
-        {items.length !== 0 &&
-          items.map((item) => (
-            <tr
-              onClick={() => setSelected(item._id)}
-              // className={selected === item._id ? "row-selected" : ""}
-            >
-              {Object.values(item).map((value) => {
-                if (typeof value === "object" && value !== null) {
-                  return (
-                    <>
-                      <td>{item.nombre}</td>
-                      <td>{value?.nombre}</td>
-                      <td>
-                     
-                        <FaEdit
-                          className="botonEditar"
-                          onClick={()=>handleNavigate(item)}
-                        />
-                        <FaTrashAlt
-                          className="botonEliminar"
-                          onClick={() => setModalDelete(true)}
-                        />
-                      </td>
-                    </>
-                  );
-                }
-              })}
-            </tr>
-          ))}
-      </MDBTableBody>
-    </MDBTable>
+
+      <MDBTable responsive className="generalTable">
+        <MDBTableHead className="colorTabla">
+          <tr>
+            {headings.map((heading) => (
+              <th scope="col" key={nanoid()}>
+                {heading}
+              </th>
+            ))}
+          </tr>
+        </MDBTableHead>
+        <MDBTableBody className="colorTabla">
+          {items.length !== 0 &&
+            items.map((item) => (
+              <tr
+                onClick={() => setSelected(item._id)}
+                // className={selected === item._id ? "row-selected" : ""}
+              >
+                {Object.values(item).map((value) => {
+                  if (typeof value === "object" && value !== null) {
+                    return (
+                      <>
+                        <td>{item.nombre}</td>
+                        <td>{value?.nombre}</td>
+                        <td>
+                          <FaEdit
+                            className="botonEditar"
+                            onClick={() => handleNavigate(item)}
+                          />
+                          <FaTrashAlt
+                            className="botonEliminar"
+                            onClick={() => setModalDelete(true)}
+                          />
+                        </td>
+                      </>
+                    );
+                  }
+                })}
+              </tr>
+            ))}
+        </MDBTableBody>
+      </MDBTable>
     </>
   );
 };

@@ -22,21 +22,20 @@ const AltaCategoria = () => {
   const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
 
-  //   const handleChange = (event) => {
-  //     setBuscador(event.target.value);
-  //   }
+    const handleBuscador = (event) => {
+      setBuscador(event.target.value);
+    }
 
-  //   useEffect(() => {
-  //     if (Array.isArray(camara.camaras)) {
-  //       const results = camara.camaras.filter(
-  //         (camara) =>
-  //           camara.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
-  //           camara.ubicacion.toLowerCase().includes(buscador.toLowerCase()) ||
-  //           camara.tipo.toLowerCase().includes(buscador.toLowerCase())
-  //       );
-  //       setResultadoBusqueda(results);
-  //     }
-  //   }, [categoria.tipoDeCategoria, buscador]);
+    useEffect(() => {
+      if (Array.isArray(categorias.categorias)) {
+        const results = categorias.categorias.filter(
+          (cat) =>
+          cat.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
+          cat.naturaleza.nombre.toLowerCase().includes(buscador.toLowerCase()) 
+        );
+        setResultadoBusqueda(results);
+      }
+    }, [categorias, buscador]);
 
   const enviarDatos = async () => {
     try {
@@ -76,7 +75,7 @@ const AltaCategoria = () => {
             type="text"
             className="buscador"
             value={buscador}
-            onChange={handleChange}
+            onChange={handleBuscador}
           />
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
@@ -138,16 +137,16 @@ const AltaCategoria = () => {
           />
         </header>
         <Row>
-          <Col xs={12} className="container-fluid">
+          <Col xs={12} className="container-fluid d-flex justify-content-center">
             {loading ? (
-              <Spinner />
+              <Spinner/>
             ) : (
               <Container fluid>
                 <Row>
                   <Col xl={6} className="tabla-Municipal">
                     <TableCategoria
                       headings={["Categorias", "Tipo", ""]}
-                      items={categorias.categorias.filter(
+                      items={ResultadoBusqueda.filter(
                         (cat) => cat.naturaleza.nombre == "Seguridad"
                       )}
                       selected={selected}
@@ -159,7 +158,7 @@ const AltaCategoria = () => {
                   <Col xl={6} className="tabla-Municipal">
                     <TableCategoria
                       headings={["Categorias", "Tipo", ""]}
-                      items={categorias.categorias.filter(
+                      items={ResultadoBusqueda.filter(
                         (cat) => cat.naturaleza.nombre == "Municipal"
                       )}
                       selected={selected}

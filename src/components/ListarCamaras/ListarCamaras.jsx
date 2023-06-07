@@ -38,9 +38,8 @@ const ListarCamaras = () => {
 
   return (
     <>
-      {/* <h3 className=' titulo text-light'>Tabla de camaras</h3> */}
       <Container fluid>
-        <div className="contBusquedaCamaras">
+        <div className="contenedorBusquedaCategoria">
           <input
             type="text"
             className="buscadorCamaras"
@@ -62,22 +61,23 @@ const ListarCamaras = () => {
             +
           </Button>
         </div>
+  
         <Row>
-          <Col className="ms-5 my-4"></Col>
+          <Col className="d-flex justify-content-center">
+            {loading ? (
+              <Spinner />
+            ) : (
+              <TableCamaras
+                headings={["Nombre", "Ubicacion", "Tipo"]}
+                items={ResultadoBusqueda}
+                setSelected={setSelected}
+                selected={selected}
+                getCamaras={getCamaras}
+              />
+            )}
+          </Col>
         </Row>
       </Container>
-
-      {loading ? (
-        <Spinner />
-      ) : (
-        <TableCamaras
-          headings={["Nombre", "Ubicacion", "Tipo"]}
-          items={ResultadoBusqueda}
-          setSelected={setSelected}
-          selected={selected}
-          getCamaras={getCamaras}
-        />
-      )}
     </>
   );
 };

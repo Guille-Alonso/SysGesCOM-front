@@ -4,13 +4,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "./navBar.css"
 import { useContext, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { COMContext } from '../../../context/COMContext';
 
 function NavbarComponent() {
 	const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
 	const logOut = () => {
     localStorage.removeItem("token");
@@ -120,10 +121,13 @@ const home = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>)
-             :
+             : location.pathname !== "/login"?
+             
              <Nav.Link>
               <Link to="/login">Iniciar Sesión</Link>
             </Nav.Link>  
+            :
+            <></>
           }
         </Navbar.Collapse>
       </Container>

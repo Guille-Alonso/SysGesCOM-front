@@ -10,10 +10,17 @@ const GeneralModal = ({
   variant,
   seleccion,
   clase,
+  setValues
 }) => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    if(setValues){
+      setValues("")
+    }
+    
+    setShow(false);
+  }
   // const handleShow = () => setShow(true);
   const handleShow = ()=>{
     if(seleccion || seleccion===false) setShow(true)

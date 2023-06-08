@@ -41,7 +41,7 @@ const AltaDeCamara = () => {
                   name="nombre"
                   onChange={handleChange}
                   required
-                  maxLength={7}
+                  maxLength={6}
                   minLength={6}
                 />
                 <Form.Label className="mt-4">Tipo de Cámara</Form.Label>

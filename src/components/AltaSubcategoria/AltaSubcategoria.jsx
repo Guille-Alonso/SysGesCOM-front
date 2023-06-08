@@ -3,7 +3,8 @@ import axios from "../../config/axios";
 import { toast } from "react-toastify";
 import { SUBCATEGORIAS_VALUES } from "../../constants";
 import useForm from "../../hooks/useForm";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { validationsAltaSubcategoria } from "../../helpers/validationsAltaSubcategoria";
 
 const AltaSubcategoria = ({ onClose, getSubcategorias, idCategoria }) => {
   const nuevaSubcategoria = async () => {
@@ -21,8 +22,9 @@ const AltaSubcategoria = ({ onClose, getSubcategorias, idCategoria }) => {
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     SUBCATEGORIAS_VALUES,
-    nuevaSubcategoria
-  ); // AGREGAR VALIDACIONES JS
+    nuevaSubcategoria,
+    validationsAltaSubcategoria
+  ); 
 
   return (
     <Container>
@@ -30,6 +32,16 @@ const AltaSubcategoria = ({ onClose, getSubcategorias, idCategoria }) => {
         <Col>
           <Form onSubmit={handleSubmit}>
             <h2 className="mb-5 text-light">Subcategoría Nueva</h2>
+            <Row>
+            <Col xs={12} className="d-flex">
+              {Object.keys(errors).length !== 0 &&
+                Object.values(errors).map((error, index) => (
+                  <Alert className="me-1" variant="danger" key={index}>
+                    {error}
+                  </Alert>
+                ))}
+            </Col>
+          </Row>
             <Form.Control
               className="modalAgregarSubcategoria"
               type="text"

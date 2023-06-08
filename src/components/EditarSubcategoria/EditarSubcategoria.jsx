@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "../../config/axios";
 import { SUBCATEGORIAS_VALUES } from "../../constants";
-import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import useGet from "../../hooks/useGet";
 import useForm from "../../hooks/useForm";
+import { validationsEditarSubcategoria } from "../../helpers/validationsEditarSubcategoria";
 
 const EditarSubcategoria = ({
   onClose,
@@ -41,8 +42,9 @@ const EditarSubcategoria = ({
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     SUBCATEGORIAS_VALUES,
-    editarSubcategoria
-  ); // AGREGAR VALIDACIONES JS
+    editarSubcategoria,
+    validationsEditarSubcategoria
+  ); 
 
   useEffect(() => {
     const { _id, ...subcategoriaInfo } = selected;
@@ -100,6 +102,16 @@ const EditarSubcategoria = ({
                   Editar
                 </Button>
               </div>
+              <Row>
+            <Col xs={12} className="d-flex">
+              {Object.keys(errors).length !== 0 &&
+                Object.values(errors).map((error, index) => (
+                  <Alert className="me-1" variant="danger" key={index}>
+                    {error}
+                  </Alert>
+                ))}
+            </Col>
+          </Row>
             </Form>
           </Col>
         </Row>

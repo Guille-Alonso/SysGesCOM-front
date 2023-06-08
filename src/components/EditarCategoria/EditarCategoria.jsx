@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EDITAR_CATEGORIAS_VALUES } from "../../constants";
 import useForm from "../../hooks/useForm";
@@ -12,6 +12,7 @@ import useGet from "../../hooks/useGet";
 import EditarSubcategoria from "../EditarSubcategoria/EditarSubcategoria";
 import AltaSubcategoria from "../AltaSubcategoria/AltaSubcategoria";
 import "./EditarCategoria.css";
+import { validationsEditarCategoria } from "../../helpers/validationsEditarCategoria";
 
 const EditarCategoria = () => {
   const location = useLocation();
@@ -55,8 +56,9 @@ const EditarCategoria = () => {
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     EDITAR_CATEGORIAS_VALUES,
-    editarCategoria
-  ); // AGREGAR VALIDACIONES JS
+    editarCategoria,
+    validationsEditarCategoria
+  );
 
   useEffect(() => {
     const { _id, ...categoriaInfo } = datos.categoria;
@@ -114,6 +116,16 @@ const EditarCategoria = () => {
           </Form>
         </Col>
       </Row>
+      <Row>
+            <Col xs={12} className="d-flex">
+              {Object.keys(errors).length !== 0 &&
+                Object.values(errors).map((error, index) => (
+                  <Alert className="me-1" variant="danger" key={index}>
+                    {error}
+                  </Alert>
+                ))}
+            </Col>
+          </Row>
       <Row className="mt-5">
         <Col className="d-flex justify-content-end botones-End">
           <GeneralModal

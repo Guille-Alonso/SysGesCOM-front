@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import axios from "../../config/axios";
 import { toast } from "react-toastify";
@@ -11,6 +11,7 @@ import { FaEdit } from "react-icons/fa";
 import GeneralModal from "../common/GeneralModal/GeneralModal";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { validationsAltaCategoria } from "../../helpers/validationsAltaCategoria";
 
 const AltaCategoria = () => {
   const [naturalezas, setNaturalezas] = useState([]);
@@ -30,8 +31,7 @@ const AltaCategoria = () => {
       if (Array.isArray(categorias.categorias)) {
         const results = categorias.categorias.filter(
           (cat) =>
-          cat.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
-          cat.naturaleza.nombre.toLowerCase().includes(buscador.toLowerCase()) 
+          cat.nombre.toLowerCase().includes(buscador.toLowerCase()) 
         );
         setResultadoBusqueda(results);
       }
@@ -50,8 +50,9 @@ const AltaCategoria = () => {
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     ALTA_CATEGORIAS_VALUES,
-    enviarDatos
-  ); // AGREGAR VALIDACIONES JS
+    enviarDatos,
+    validationsAltaCategoria
+  ); 
 
   const getNaturalezaEventos = async () => {
     try {
@@ -87,6 +88,7 @@ const AltaCategoria = () => {
             variant={"botonAgregarCategoria"}
             modalTitle={"Añadir Categoria"}
             seleccion={false}
+            setValues={setValues}
             modalBody={
               <Form
                 className="container-form-categoria"
@@ -132,14 +134,29 @@ const AltaCategoria = () => {
                     Agregar
                   </Button>
                 </div>
+                <Container>
+          <Row>
+            <Col xs={12} className="d-flex">
+              {Object.keys(errors).length !== 0 &&
+                Object.values(errors).map((error, index) => (
+                  <Alert className="me-1" variant="danger" key={index}>
+                    {error}
+                  </Alert>
+                ))}
+            </Col>
+          </Row>
+        </Container>
               </Form>
             }
           />
         </header>
         <Row>
-          <Col xs={12} className="container-fluid d-flex justify-content-center">
+          <Col
+            xs={12}
+            className="container-fluid d-flex justify-content-center"
+          >
             {loading ? (
-              <Spinner/>
+              <Spinner />
             ) : (
               <Container fluid>
                 <Row>
@@ -172,14 +189,7 @@ const AltaCategoria = () => {
             )}
           </Col>
         </Row>
-        <div className="alertaError">
-          {Object.keys(errors).length !== 0 &&
-            Object.values(errors).map((error, index) => (
-              <Alert variant="danger" key={index}>
-                {error}
-              </Alert>
-            ))}
-        </div>
+       
       </div>
     </>
   );

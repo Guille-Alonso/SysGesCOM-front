@@ -1,35 +1,46 @@
-.row-selected{
+.row-selected {
   background-color: deepskyblue;
 }
-tr:hover{
+
+tr:hover {
   cursor: pointer;
 }
-.colorTabla{
+
+.colorTablaCamaras {
+  max-height: 451px;
   color: white;
 }
 
-.botonEditar{
+.bodyTabla {
+  max-height: 451px;
+  overflow-y: scroll;
+  color: white;
+}
+
+.botonEditar {
   height: 16px;
   margin-right: 20px;
 }
 
-.table-responsive{
+.table-responsive {
   margin-left: 5%;
   margin-right: 5%;
 }
 
-.generalTable{
-  text-align:  center;
+.camaraTable {
+  text-align: center;
   table-layout: fixed;
 
 }
-.generalTable th,
-.generalTable td {
+
+.camaraTable th,
+.camaraTable td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.fondoModalEditCamara{
+
+.fondoModalEditCamara {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,19 +50,52 @@ tr:hover{
   height: 400px;
   border-radius: 15px;
 }
+
 .fondoModalEditCamara form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 10px ;
+  padding-bottom: 10px;
 }
-.fondoModalEditCamara label{
+
+.fondoModalEditCamara label {
   display: none;
 }
-.fondoModalEditCamara input{
+
+.fondoModalEditCamara input {
   margin: 30px;
 }
-.botonEditarCamara{
+
+.botonEditarCamara {
   width: 40%;
+}
+
+.tableCont{
+  position: relative;
+  width: 100%;
+}
+
+.paginacionCont{
+  position: fixed;
+  width: 100%;
+  position: absolute;
+   bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  /* display:grid;  
+  margin-top: 28.4%;
+  align-items: center;
+  justify-content: center; */
+}
+.paginacionText{
+  text-align: center;
+  color: white;
+}
+
+.paginacionBtn{
+  
+  margin-top: 2%;
+  padding-top: 0.4% !important;
 }

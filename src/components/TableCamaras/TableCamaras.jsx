@@ -36,6 +36,7 @@ const EditModal = ({
     setShowModal(false);
   };
 
+
   return (
     <Modal
       className="modal-borrarUsuario"
@@ -61,10 +62,24 @@ const TableCamaras = ({
   selected,
   getCamaras,
 }) => {
+
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-
   const [modalDelete, setModalDelete] = useState(false);
+  const [paginacion, setPaginacion] = useState(1);
+  const itemPag = 10;
+  const indexUltimoItem = paginacion * itemPag;
+  const indexPrimerItem = indexUltimoItem - itemPag;
+  const currentItems = items.slice(indexPrimerItem, indexUltimoItem);
+  const totalPages = Math.ceil(items.length / itemPag);
+
+  const handleNextPage = () => {
+    setPaginacion((prevPag) => prevPag + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setPaginacion((prevPag) => prevPag - 1);
+  };
 
   const handleEdit = (itemId) => {
     console.log("Edit item with ID:", itemId);
@@ -94,8 +109,11 @@ const TableCamaras = ({
     setShowModal(false);
   };
 
+
   return (
     <>
+    <div className="tableCont">
+
       <Modal
         className="modal-borrarUsuario"
         show={modalDelete}
@@ -119,8 +137,8 @@ const TableCamaras = ({
           </Button>
         </div>
       </Modal>
-      <MDBTable responsive className="generalTable">
-        <MDBTableHead className="colorTabla">
+      <MDBTable responsive className="camaraTable">
+        <MDBTableHead className="colorTablaCamaras">
           <tr>
             {headings.map((heading) => (
               <th scope="col" key={nanoid()}>
@@ -130,13 +148,13 @@ const TableCamaras = ({
             <th scope="col"></th>
           </tr>
         </MDBTableHead>
-        <MDBTableBody className="colorTabla">
-          {items.length !== 0 &&
-            items.map((item) => (
+        <MDBTableBody responsive className="bodyTabla">
+          {currentItems.length !== 0 &&
+            currentItems.map((item) => (
               <tr
                 key={nanoid()}
                 onClick={() => setSelected(item._id)}
-                // className={selected === item._id ? "row-(selected" : ""}
+              // className={selected === item._id ? "row-(selected" : ""}
               >
                 {Object.entries(item)
                   .slice(1, -1)
@@ -176,6 +194,30 @@ const TableCamaras = ({
           />
         }
       />
+    </div>
+
+      <div className="paginacionCont">
+
+        <div className="paginacionText">
+        Página {paginacion} de {totalPages}
+        </div>
+        <div className="paginacion">
+          <Button
+            className="paginacionBtn"
+            disabled={paginacion === 1}
+            onClick={handlePreviousPage}
+          >
+            Anterior
+          </Button>
+          <Button
+            className="paginacionBtn"
+            disabled={paginacion === totalPages}
+            onClick={handleNextPage}
+          >
+            Siguiente
+          </Button>
+        </div>
+      </div>
     </>
   );
 };

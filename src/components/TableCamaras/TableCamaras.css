@@ -77,25 +77,29 @@ tr:hover {
 }
 
 .paginacionCont{
+  display: flex;
   position: fixed;
-  width: 100%;
-  position: absolute;
-   bottom: 0;
-  left: 0;
-  right: 0;
+  width:100%;
+  bottom: 8%;
   padding: 10px;
-  /* display:grid;  
-  margin-top: 28.4%;
   align-items: center;
-  justify-content: center; */
+  justify-content: center;
+  /*   
+  display:grid;
+  margin-top: 28.4%;
+  align-items: center; */
 }
 .paginacionText{
   text-align: center;
   color: white;
 }
 
-.paginacionBtn{
-  
-  margin-top: 2%;
+.paginacionBtnPrev{
+  margin-right: 27.9%;
+  padding-top: 0.4% !important;
+}
+
+.paginacionBtnNext{
+  margin-left: 27.9%;
   padding-top: 0.4% !important;
 }

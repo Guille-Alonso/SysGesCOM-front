@@ -23,6 +23,10 @@ const settings = () => {
   navigate("/cambiar-contraseña");
 };
 
+const userProfile = () => {
+  //navigate
+}
+
 const home = () => {
   navigate("/home");
 };
@@ -52,20 +56,20 @@ const home = () => {
           <Nav className="me-auto">
             {authenticated && user.tipoDeUsuario == "admin" && (
               <>
-              <Nav.Link>
-                <Link to="/lista-usuarios">Usuarios</Link>
-              </Nav.Link>
-               <Nav.Link>
-               <Link to="/listar-camaras">Cámaras</Link>
-             </Nav.Link>
-             <Nav.Link>
-               <Link to="/alta-categoria">Categorías</Link>
-             </Nav.Link>
-             </>
-            )}           
+                <Nav.Link>
+                  <Link to="/lista-usuarios">Usuarios</Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/listar-camaras">Cámaras</Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/alta-categoria">Categorías</Link>
+                </Nav.Link>
+              </>
+            )}
           </Nav>
-    
-          {authenticated? (
+
+          {authenticated ? (
             <Nav>
               <Nav>
                 <img
@@ -80,6 +84,14 @@ const home = () => {
                 id="collasible-nav-dropdown"
                 className="my-2 profileCard align-content-end"
               >
+                <NavDropdown.Item onClick={userProfile} className="navigation">
+                  <ion-icon
+                    name="help-circle-outline"
+                    className="icons-drop"
+                  ></ion-icon>
+                <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
                 {user.tipoDeUsuario == "admin" && (
                   <NavDropdown.Item onClick={settings} className="navigation">
                     <ion-icon
@@ -104,13 +116,6 @@ const home = () => {
                   ></ion-icon>
                   Opciones
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#" className="navigation">
-                  <ion-icon
-                    name="help-circle-outline"
-                    className="icons-drop"
-                  ></ion-icon>
-                  Ayuda
-                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logOut} className="navigation">
                   <ion-icon
@@ -120,15 +125,14 @@ const home = () => {
                   Cerrar Sesión
                 </NavDropdown.Item>
               </NavDropdown>
-            </Nav>)
-             : location.pathname !== "/login"?
-             
-             <Nav.Link>
+            </Nav>
+          ) : location.pathname !== "/login" ? (
+            <Nav.Link>
               <Link to="/login">Iniciar Sesión</Link>
-            </Nav.Link>  
-            :
+            </Nav.Link>
+          ) : (
             <></>
-          }
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

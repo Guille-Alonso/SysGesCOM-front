@@ -20,8 +20,7 @@ const CambiarContraseña = () => {
       toast.success(data.mensaje)
       setValues(CHANGE_PASSWORD_VALUES)
     } catch (error) {
-      toast.error(error.response?.data.mensaje || error.message);
-      console.log(error);
+      toast.error(error.response?.data.message || error.message);
     }
   };
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(

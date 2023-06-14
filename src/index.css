@@ -9,3 +9,7 @@ body{
 	/* background-color: #141f27 !important; */
 	background: linear-gradient(45deg ,#141f27, #1b384a);
 }
+
+.layoutHeight{
+    min-height: 70vh;
+}

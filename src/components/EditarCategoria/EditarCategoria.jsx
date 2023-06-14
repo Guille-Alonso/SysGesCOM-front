@@ -66,7 +66,7 @@ const EditarCategoria = () => {
   }, []);
 
   return (
-    <Container>
+    <Container className="layoutHeight">
       <Row className="mt-3">
         <Col>
           <Form

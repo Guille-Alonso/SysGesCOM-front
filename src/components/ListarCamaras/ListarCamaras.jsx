@@ -38,7 +38,7 @@ const ListarCamaras = () => {
 
   return (
     <>
-      <Container fluid>
+      <Container fluid className="layoutHeight">
         <div className="contenedorBusquedaCategoria">
           <input
             type="text"

@@ -16,6 +16,7 @@ const ProviderCOM = ({children}) => {
       setAuthenticated(!!data.user);
       setUser(data.user);
       localStorage.setItem("token", data.token);
+      axios.defaults.headers.common["Authorization"] = data.token;
     } catch (error) {
       toast.error(error.response?.data.message || error.message)
     }

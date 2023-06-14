@@ -6,6 +6,8 @@ import "./navBar.css"
 import { useContext, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { COMContext } from '../../../context/COMContext';
+import UsuarioCard from '../../ListaUsuarios/UsuarioCard';
+
 
 function NavbarComponent() {
 	const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
@@ -98,7 +100,7 @@ const home = () => {
                       name="person-outline"
                       className="icons-drop"
                     ></ion-icon>
-                    Editar Perfil
+                    Editar Contraseña
                   </NavDropdown.Item>
                 )}
 

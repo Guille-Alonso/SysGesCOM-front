@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 
 const HomePage = () => {
-  return <h1 className="text-light">Bienvenido</h1>;
+  return (
+    <div className="layoutHeight">
+      <h1 className="text-light">Bienvenido</h1>;
+    </div>
+  );
+
 };
 
 export default HomePage

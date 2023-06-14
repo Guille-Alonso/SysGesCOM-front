@@ -7,14 +7,14 @@ tr:hover {
 }
 
 .colorTablaCamaras {
-  max-height: 451px;
   color: white;
+  max-height: 451px;
 }
 
 .bodyTabla {
+  color: white;
   max-height: 451px;
   overflow-y: scroll;
-  color: white;
 }
 
 .botonEditar {
@@ -35,28 +35,28 @@ tr:hover {
 
 .camaraTable th,
 .camaraTable td {
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .fondoModalEditCamara {
+  width: 500px;
+  height: 400px;
   display: flex;
+  border-radius: 15px;
   flex-direction: column;
   justify-content: center;
   align-items: space-evenly;
   background-color: rgba(255, 255, 255, 1);
-  width: 500px;
-  height: 400px;
-  border-radius: 15px;
 }
 
 .fondoModalEditCamara form {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding-bottom: 10px;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .fondoModalEditCamara label {
@@ -72,16 +72,17 @@ tr:hover {
 }
 
 .tableCont{
-  position: relative;
   width: 100%;
+  position: relative;
+}
+
+.pagCont{
+position: relative;
 }
 
 .paginacionCont{
-  display: flex;
-  position: fixed;
   width:100%;
-  bottom: 8%;
-  padding: 10px;
+  display: flex;
   align-items: center;
   justify-content: center;
   /*   
@@ -90,8 +91,8 @@ tr:hover {
   align-items: center; */
 }
 .paginacionText{
-  text-align: center;
   color: white;
+  text-align: center;
 }
 
 .paginacionBtnPrev{

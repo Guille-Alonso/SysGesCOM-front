@@ -11,6 +11,7 @@ import ListaUsuarios from "./components/ListaUsuarios/ListaUsuarios";
 import ListarCamaras from "./components/ListarCamaras/ListarCamaras";
 import AltaCategoria from "./components/AltaCategoria/AltaCategoria";
 import EditarCategoria from "./components/EditarCategoria/EditarCategoria";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   return (
@@ -18,15 +19,15 @@ function App() {
       <ProviderCOM>
         <Layout>
           <Routes>
-            <Route path="/alta-categoria" element={<AltaCategoria />} />
-            <Route path="/lista-usuarios" element={<ListaUsuarios />} />
-            <Route path="/alta-camara" element={<AltaDeCamara />} />
-            <Route path="/cambiar-contraseña" element={<CambiarContraseña />} />
-            <Route path="/listar-camaras" element={<ListarCamaras />} />
-            <Route path="/alta-usuarios" element={<AltaUsuarios />} />
+            <Route path="/alta-categoria" element={<PrivateRoute><AltaCategoria /></PrivateRoute>} />
+            <Route path="/lista-usuarios" element={<PrivateRoute><ListaUsuarios /></PrivateRoute>} />
+            <Route path="/alta-camara" element={<PrivateRoute><AltaDeCamara /></PrivateRoute>} />
+            <Route path="/cambiar-contraseña" element={<PrivateRoute><CambiarContraseña /></PrivateRoute>} />
+            <Route path="/listar-camaras" element={<PrivateRoute><ListarCamaras /></PrivateRoute>} />
+            <Route path="/alta-usuarios" element={<PrivateRoute><AltaUsuarios /></PrivateRoute>} />
             <Route path="/*" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/editarCategoria" element={<EditarCategoria />} />
+            <Route path="/editarCategoria" element={<PrivateRoute><EditarCategoria /></PrivateRoute>} />
           </Routes>
           <ToastContainer />
         </Layout>

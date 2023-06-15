@@ -6,38 +6,37 @@ import "./navBar.css"
 import { useContext, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { COMContext } from '../../../context/COMContext';
-import UsuarioCard from '../../ListaUsuarios/UsuarioCard';
-
+import EditarUsuarios from '../../EditarUsuarios/EditarUsuarios';
 
 function NavbarComponent() {
-	const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
+  const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-	const logOut = () => {
+  const logOut = () => {
     localStorage.removeItem("token");
     setAuthenticated(false);
     navigate('/login')
   };
 
-const settings = () => {
-  navigate("/cambiar-contraseña");
-};
+  const settings = () => {
+    navigate("/cambiar-contraseña");
+  };
 
-const userProfile = () => {
-  //navigate
-}
+  const userProfile = () => {
+    navigate("/perfil-usuario");
+  };
 
-const home = () => {
-  navigate("/home");
-};
+  const home = () => {
+    navigate("/home");
+  };
 
-	useEffect(() => {
-		getAuth();
-	  }, []);
+  useEffect(() => {
+    getAuth();
+  }, []);
 
-	return (
+  return (
     <Navbar collapseOnSelect expand="lg" bg="" variant="dark">
       <Container fluid className="mx-4">
         <Navbar.Brand
@@ -91,7 +90,7 @@ const home = () => {
                     name="help-circle-outline"
                     className="icons-drop"
                   ></ion-icon>
-                <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
+                  <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 {user.tipoDeUsuario == "admin" && (

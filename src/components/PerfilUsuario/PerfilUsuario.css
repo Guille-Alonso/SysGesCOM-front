@@ -1,0 +1,19 @@
+.contPadrePerfilUser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 69vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.inputPerfilUser {
+    border: solid;
+    margin: auto;
+    border-radius: 15px;
+    border-color: #ffffff28;
+    width: 90%;
+    padding: 10px;
+  }

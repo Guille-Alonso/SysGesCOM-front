@@ -12,6 +12,7 @@ import ListarCamaras from "./components/ListarCamaras/ListarCamaras";
 import AltaCategoria from "./components/AltaCategoria/AltaCategoria";
 import EditarCategoria from "./components/EditarCategoria/EditarCategoria";
 import PrivateRoute from "./routes/PrivateRoute";
+import { PerfilUsuario } from "./components/PerfilUsuario/PerfilUsuario";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/*" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/editarCategoria" element={<PrivateRoute><EditarCategoria /></PrivateRoute>} />
+            <Route path="/perfil-usuario" element={<PrivateRoute><PerfilUsuario/></PrivateRoute>} />
           </Routes>
           <ToastContainer />
         </Layout>

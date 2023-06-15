@@ -6,10 +6,6 @@ import "./navBar.css"
 import { useContext, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { COMContext } from '../../../context/COMContext';
-<<<<<<< HEAD
-=======
-import EditarUsuarios from '../../EditarUsuarios/EditarUsuarios';
->>>>>>> b4e07d0aa56e1b2dd053fe200bf732a7bf2d2c8f
 
 function NavbarComponent() {
   const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);

@@ -1,34 +1,35 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./PerfilUsuario.css";
-import { Form } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import useForm from '../../hooks/useForm';
 import axios from '../../config/axios';
 import useGet from '../../hooks/useGet';
-
-
+import { COMContext } from '../../context/COMContext';
 
 export const PerfilUsuario = () => {
 
-    
+    const { user } = useContext(COMContext);
     
     return (
-        <>
-            <div className='contPadrePerfilUser'>
-
-                {/* <img src={
-            values.foto !== undefined
-              ? values.foto
+        <Container className='layoutHeight'>
+            <Row>
+                <Col className='d-flex justify-content-center my-3'>
+                <img className='imgProfile' src={
+            user.foto !== undefined
+              ? user.foto
               : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
-          } /> */}
-
+                } />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                 <Form.Group className="inputPerfilUser">
                     <Form.Label>Nombre</Form.Label>
 
                     <Form.Control
                         type="text"
                         placeholder="Nombre"
-                        // value={values.nombre}
-                        // onChange={handleChange}
+                        value={user.nombre}
                         name="nombre"
                         disabled
                     />
@@ -39,8 +40,7 @@ export const PerfilUsuario = () => {
                     <Form.Control
                         type="text"
                         placeholder="Usuario"
-                        //   value={values.user}
-                        // onChange={handleChange}
+                          value={user.nombreUsuario}
                         name="user"
                         disabled
                     />
@@ -51,8 +51,7 @@ export const PerfilUsuario = () => {
                     <Form.Control
                         type="text"
                         placeholder="DNI"
-                        //   value={values.dni}
-                        // onChange={handleChange}
+                          value={user.dni}
                         name="dni"
                         disabled
                     />
@@ -63,20 +62,20 @@ export const PerfilUsuario = () => {
                     <Form.Control
                         type="text"
                         placeholder="Fecha Nacimiento"
-                        //   value={values.fechaNac}
-                        // onChange={handleChange}
+                          value={user.nacimiento}
                         name="fechaNac"
                         disabled
                     />
                 </Form.Group>
+                </Col>
+                <Col>
                 <Form.Group className="inputPerfilUser">
                     <Form.Label>Email</Form.Label>
 
                     <Form.Control
                         type="text"
                         placeholder="Email"
-                        //   value={values.email}
-                        // onChange={handleChange}
+                          value={user.email}
                         name="email"
                         disabled
                     />
@@ -87,8 +86,7 @@ export const PerfilUsuario = () => {
                     <Form.Control
                         type="text"
                         placeholder="N° Afiliado"
-                        //   value={values.numAfil}
-                        // onChange={handleChange}
+                          value={user.afiliado}
                         name="numAfil"
                         disabled
                     />
@@ -99,8 +97,7 @@ export const PerfilUsuario = () => {
                     <Form.Control
                         type="text"
                         placeholder="Turno"
-                        //   value={values.turno}
-                        // onChange={handleChange}
+                          value={user.turno}
                         name="turno"
                         disabled
                     />
@@ -111,13 +108,13 @@ export const PerfilUsuario = () => {
                     <Form.Control
                         type="text"
                         placeholder="Tipo de Usuario"
-                        //   value={values.tipoDeUsuario}
-                        // onChange={handleChange}
+                          value={user.tipoDeUsuario}
                         name="tipoDeUsuario"
                         disabled
                     />
                 </Form.Group>
-            </div>
-        </>
+                </Col>
+            </Row>
+        </Container>
     )
 }

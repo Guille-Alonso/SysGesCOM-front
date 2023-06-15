@@ -6,8 +6,6 @@ import "./navBar.css"
 import { useContext, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { COMContext } from '../../../context/COMContext';
-import UsuarioCard from '../../ListaUsuarios/UsuarioCard';
-
 
 function NavbarComponent() {
 	const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);

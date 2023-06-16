@@ -42,14 +42,23 @@ const AltaUsuarios = () => {
   };
   const generateUserName = (nombreCompleto) => {
     if (nombreCompleto !== "") {
-      const names = nombreCompleto.trim().split(" ");
+
+      const normalizedNombreCompleto = nombreCompleto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+      const names = normalizedNombreCompleto.trim().split(" ");
+
       const initials =
         names
           .slice(0, -1)
           .map((name) => name[0])
           .join("") + ".";
+
       const lastName = names[names.length - 1];
-      const userName = `${initials}${lastName}`;
+
+      // Reemplazar caracteres especiales por sus equivalentes sin tilde
+      const normalizedLastName = lastName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+      const userName = `${initials}${normalizedLastName}`;
 
       return userName.toLowerCase();
     } else {

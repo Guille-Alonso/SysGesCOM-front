@@ -65,8 +65,18 @@ function NavbarComponent() {
                 <Nav.Link>
                   <Link to="/alta-categoria">Categorías</Link>
                 </Nav.Link>
+                <Nav.Link>
+                  <Link to="/alta-reporte">Reportes</Link>
+                </Nav.Link>
               </>
             )}
+            {authenticated &&
+              (user.tipoDeUsuario == "visualizador" ||
+                user.tipoDeUsuario == "supervisor") && (
+                <Nav.Link>
+                  <Link to="/alta-reporte">Reportes</Link>
+                </Nav.Link>
+              )}
           </Nav>
 
           {authenticated ? (

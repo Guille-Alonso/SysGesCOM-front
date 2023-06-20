@@ -13,6 +13,8 @@ import AltaCategoria from "./components/AltaCategoria/AltaCategoria";
 import EditarCategoria from "./components/EditarCategoria/EditarCategoria";
 import PrivateRoute from "./routes/PrivateRoute";
 import { PerfilUsuario } from "./components/PerfilUsuario/PerfilUsuario";
+import AltaEvento from "./components/AltaEvento/AltaEvento";
+
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/editarCategoria" element={<PrivateRoute><EditarCategoria /></PrivateRoute>} />
             <Route path="/perfil-usuario" element={<PrivateRoute><PerfilUsuario/></PrivateRoute>} />
+            <Route path="/alta-reporte" element={<AltaEvento/>} />
           </Routes>
           <ToastContainer />
         </Layout>

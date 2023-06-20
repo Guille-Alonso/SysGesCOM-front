@@ -57,3 +57,13 @@ export const SUBCATEGORIAS_VALUES = {
   nombre: "",
   categoria: ""
 };
+export const ALTA_REPORTES_VALUES = {
+  fecha: "",
+  detalle: "",
+  naturaleza: "",
+  usuario: "",
+  categoria: "",
+  subcategoria: "",
+  dispositivo: "",
+  photo: ""
+};

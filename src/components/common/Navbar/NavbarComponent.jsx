@@ -66,7 +66,7 @@ function NavbarComponent() {
                   <Link to="/alta-categoria">Categorías</Link>
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to="/alta-reporte">Reportes</Link>
+                  <Link to="/reportes">Reportes</Link>
                 </Nav.Link>
               </>
             )}
@@ -74,7 +74,7 @@ function NavbarComponent() {
               (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor") && (
                 <Nav.Link>
-                  <Link to="/alta-reporte">Reportes</Link>
+                  <Link to="/reportes">Reportes</Link>
                 </Nav.Link>
               )}
           </Nav>

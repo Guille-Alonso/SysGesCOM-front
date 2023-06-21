@@ -6,6 +6,7 @@ import useGet from '../../hooks/useGet';
 import useForm from '../../hooks/useForm';
 import { ALTA_REPORTES_VALUES } from '../../constants';
 import axios from '../../config/axios';
+import "./AltaEvento.css"
 
 const AltaEvento = () => {
 const [naturalezas,setNaturalezas]= useState([])

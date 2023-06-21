@@ -177,7 +177,7 @@ const handleInputChange = (e) => {
             name="subcategoria"
             value={values.subcategoria}
             required={subcategorias.filter(subcat=>subcat.categoria._id==catSelected)!= ""? true : false}
-            disabled={catSelected == undefined? true : false}
+            disabled={subcategorias.filter(subcat=>subcat.categoria._id==catSelected)== ""? true : false}
           >
             <option value="">Seleccione una opción</option>
 

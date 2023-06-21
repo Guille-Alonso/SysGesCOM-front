@@ -32,7 +32,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/editarCategoria" element={<PrivateRoute><EditarCategoria /></PrivateRoute>} />
             <Route path="/perfil-usuario" element={<PrivateRoute><PerfilUsuario/></PrivateRoute>} />
-            <Route path="/alta-reporte" element={<AltaEvento/>} />
+            <Route path="/alta-reporte" element={<PrivateRoute><AltaEvento/></PrivateRoute>} />
           </Routes>
           <ToastContainer />
         </Layout>

@@ -32,8 +32,8 @@ export const Login = () => {
   }, [authenticated]);
 
   return (
-    <>
-      <div className="contenedorPadreLogin">
+
+      <div className="d-flex justify-content-center align-items-center layoutHeight">
         <div className="box">
           <span className="borderLine"></span>
           <form onSubmit={handleSubmit}>
@@ -79,7 +79,7 @@ export const Login = () => {
           </form>
         </div>
       </div>
-    </>
+   
   );
 };
 

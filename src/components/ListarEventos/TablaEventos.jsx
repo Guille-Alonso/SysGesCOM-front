@@ -26,7 +26,7 @@ const TablaEventos = ({ headings, items }) => {
                 <td>{item.usuario.nombreUsuario}</td>
                 <td>{item.naturaleza.nombre.toUpperCase()}</td>
                 <td>{item.categoria.nombre}</td>
-                <td>{item.subcategoria.nombre}</td>
+                <td>{item.subcategoria?.nombre}</td>
                 <td className="contenedorImagenReporte">
                   <img
                     className="fotoReporte"

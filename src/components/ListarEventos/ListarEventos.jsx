@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import useGet from "../../hooks/useGet";
 import axios from "../../config/axios";
 import TablaEventos from "./TablaEventos";
 import { useNavigate } from "react-router-dom";
+import { COMContext } from "../../context/COMContext";
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
+  const { user} = useContext(COMContext);
+ 
   const navigate = useNavigate();
 
   const nuevoReporte = () => {
@@ -14,12 +17,17 @@ const ListarEventos = () => {
   };
 
   return (
-    <Container className="layoutHeight">
-      <Button onClick={nuevoReporte}>Nuevo Reporte</Button>
-      <Row>
-        <Col className="mt-5">
-          {loading ? (
+    
+    <Container fluid className="layoutHeight">
+     
+        <Button className="ms-5 mt-2" onClick={nuevoReporte}>Nuevo Reporte</Button>
+
+      <Row className="mt-5">
+        <Col>
+          {loading? (
+            <Col className="d-flex justify-content-center">
             <Spinner />
+            </Col>
           ) : (
             <TablaEventos
               headings={[
@@ -38,6 +46,7 @@ const ListarEventos = () => {
         </Col>
       </Row>
     </Container>
+  
   );
 };
 

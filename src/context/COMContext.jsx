@@ -10,13 +10,14 @@ const ProviderCOM = ({children}) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const [listadoReportes, setListadoReportes]= useState(true);
+
   const login = async (values) => {
     try {
       const { data } = await axios.post("/users/login", values);
       setAuthenticated(!!data.user);
       setUser(data.user);
       localStorage.setItem("token", data.token);
-      // axios.defaults.headers.common["Authorization"] = data.token;
     } catch (error) {
       toast.error(error.response?.data.message || error.message)
     }

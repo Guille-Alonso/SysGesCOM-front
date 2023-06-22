@@ -7,8 +7,10 @@ import useForm from '../../hooks/useForm';
 import { ALTA_REPORTES_VALUES } from '../../constants';
 import axios from '../../config/axios';
 import "./AltaEvento.css"
+import { Navigate } from 'react-router-dom';
 
 const AltaEvento = () => {
+
 const [naturalezas,setNaturalezas]= useState([])
 const [categorias,setCategorias]= useState([])
 const [subcategorias,setSubcategorias]= useState([])
@@ -16,7 +18,8 @@ const [subcategorias,setSubcategorias]= useState([])
 const [natuSelected, setNatuSelected]= useState(undefined)
 const [catSelected, setCatSelected]= useState(undefined)
 
-const { user } = useContext(COMContext);
+const { user} = useContext(COMContext);
+const [volver, setVolver]= useState(false)
 
 const [searchTerm, setSearchTerm] = useState('');
 const [suggestions, setSuggestions] = useState([]);
@@ -40,8 +43,8 @@ const [suggestions, setSuggestions] = useState([]);
             formData.append("photo", values.photo);
 
           const respuesta = await axios.post("/reportes/alta", formData);
-          setValues(ALTA_REPORTES_VALUES);
           toast.success("Reporte registrado con éxito");
+          setVolver(true);
         } catch (error) {
           toast.error(error.response?.data.message || error.message);
         }
@@ -50,7 +53,7 @@ const [suggestions, setSuggestions] = useState([]);
       const { handleChange, handleSubmit, values, setValues, errors } = useForm(
         ALTA_REPORTES_VALUES,
         enviarDatos,
-        // validationsAltaCamara
+        // validationsAltaEvento
       );
 
       const handleFileInputChange = (e) => {
@@ -234,10 +237,9 @@ const handleInputChange = (e) => {
             title="Suba una imágen"
             onChange={handleFileInputChange}
             name="photo"
-            required
             accept="image/*"
           />
-         
+           
             <Button
             variant="success"
             className="mt-5 col-12 mb-3"
@@ -246,7 +248,9 @@ const handleInputChange = (e) => {
           >
             Agregar
           </Button>
-       
+          {
+            volver && <Navigate to="/reportes" />
+          }
         
         </Form>
       </Col>

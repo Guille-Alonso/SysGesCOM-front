@@ -37,7 +37,6 @@ const ListarEventos = () => {
                 "Evento",
                 "Categoria",
                 "Subcategoria",
-                "Captura",
                 "",
               ]}
               items={reportes.reportes}

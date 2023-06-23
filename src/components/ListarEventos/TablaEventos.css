@@ -5,3 +5,11 @@
     width: fit-content;
     height: 30px;
 }
+.botonVer{
+    height: 16px;
+    margin-right: 20px;
+}
+.botonVer:hover{
+    transform: scale(1.8);
+    color: orange;
+  }

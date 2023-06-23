@@ -3,10 +3,17 @@ import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { Table } from "react-bootstrap";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt ,FaEye} from "react-icons/fa";
 import "./TablaEventos.css";
+import { useNavigate } from "react-router-dom";
 
 const TablaEventos = ({ headings, items }) => {
+  const navigate = useNavigate();
+
+  const verDetalle=(reporte)=>{
+  const props = { reporte: reporte };
+  navigate("/img", { state: props });
+  }
   return (
     <>
       <MDBTable responsive>
@@ -27,14 +34,8 @@ const TablaEventos = ({ headings, items }) => {
                 <td>{item.naturaleza.nombre.toUpperCase()}</td>
                 <td>{item.categoria.nombre}</td>
                 <td>{item.subcategoria?.nombre}</td>
-                <td className="contenedorImagenReporte">
-                  <img
-                    className="fotoReporte"
-                    alt="Foto del Reporte"
-                    src={item.rutaImagen}
-                  />
-                </td>
                 <td>
+                  <FaEye onClick={()=>verDetalle(item)} className="botonVer"/>
                   <FaEdit className="botonEditar" />
                   <FaTrashAlt className="botonEliminar" />
                 </td>

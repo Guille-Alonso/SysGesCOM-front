@@ -15,6 +15,7 @@ import { PerfilUsuario } from "./components/PerfilUsuario/PerfilUsuario";
 import AltaEvento from "./components/AltaEvento/AltaEvento";
 import ListarEventos from "./components/ListarEventos/ListarEventos";
 import Login from "./components/Login/Login";
+import MyComponent from "./components/MyComponent";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/perfil-usuario" element={<PrivateRoute><PerfilUsuario/></PrivateRoute>} />
             <Route path="/alta-reporte" element={<PrivateRoute><AltaEvento/></PrivateRoute>} />
             <Route path="/reportes" element={<PrivateRoute><ListarEventos/></PrivateRoute>} />
+            <Route path="/img" element={<PrivateRoute><MyComponent/></PrivateRoute>} />
           </Routes>
           <ToastContainer />
         </Layout>

@@ -12,7 +12,7 @@ const TablaEventos = ({ headings, items }) => {
 
   const verDetalle=(reporte)=>{
   const props = { reporte: reporte };
-  navigate("/img", { state: props });
+  navigate("/detalleEvento", { state: props });
   }
   return (
     <>

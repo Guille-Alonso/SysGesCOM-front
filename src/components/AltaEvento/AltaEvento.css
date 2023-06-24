@@ -12,25 +12,36 @@
     padding: 0;
     margin: 0;
     z-index: 1;
-    
+    display: none;
+}
+.inputDispositivosReportes2 {
+    position: absolute;
+    width: 510px;
+    max-height: 268px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
 }
 
 .inputDispositivosReportes li{
-    padding: 10px;
+    width: 300px;
 }
 
 .inputDispositivosReportes :hover{
     background-color: rgba(2, 29, 117, 0.443);
+
 }
 
 .contInputFecha {
     display: flex;
-    padding-left: 0;
-    margin-left: 58%;
 }
 
 .inputFecha {
-    position: fixed;
+    position: flex;
+    height: 30px;
     color: white !important;
     background: transparent !important;
     border: none !important;

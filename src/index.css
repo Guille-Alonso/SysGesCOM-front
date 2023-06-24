@@ -2,14 +2,16 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
 }
 
 body{
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	/* background-color: #141f27 !important; */
 	background: linear-gradient(45deg ,#141f27, #1b384a);
+	height: 100vh;
 }
 
 .layoutHeight{
-	min-height: 80vh;
+	height: 70vh;
 }

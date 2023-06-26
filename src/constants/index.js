@@ -65,5 +65,6 @@ export const ALTA_REPORTES_VALUES = {
   categoria: "",
   subcategoria: "",
   dispositivo: "",
-  photo: ""
+  photo: "",
+  ubicacion:""
 };

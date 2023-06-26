@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { COMContext } from "../../context/COMContext";
 import useGet from "../../hooks/useGet";
@@ -8,6 +8,7 @@ import { ALTA_REPORTES_VALUES } from "../../constants";
 import axios from "../../config/axios";
 import "./AltaEvento.css";
 import { Navigate } from "react-router-dom";
+import { validationsAltaEvento } from "../../helpers/ValidationsAltaEvento";
 
 const AltaEvento = () => {
   const [naturalezas, setNaturalezas] = useState([]);
@@ -70,7 +71,7 @@ const AltaEvento = () => {
   const enviarDatos = async () => {
     try {
       const formData = new FormData();
-      formData.append("fecha", values.fechaSinZonaHoraria);
+      formData.append("fecha", fechaSinZonaHoraria);
       formData.append("detalle", values.detalle);
       formData.append("naturaleza", values.naturaleza);
       formData.append("usuario", user._id);
@@ -90,8 +91,8 @@ const AltaEvento = () => {
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     ALTA_REPORTES_VALUES,
-    enviarDatos
-    // validationsAltaEvento
+    enviarDatos,
+    validationsAltaEvento
   );
 
   const handleFileInputChange = (e) => {
@@ -104,10 +105,6 @@ const AltaEvento = () => {
 
   const handleInputChange = (e) => {
     setChangeClass(!changeClass);
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
 
     const value = e.target.value;
     setSearchTerm(value);
@@ -127,6 +124,7 @@ const AltaEvento = () => {
     setValues({
       ...values,
       dispositivo: suggestion._id,
+      ubicacion: suggestion.ubicacion
     });
 
     setSearchTerm(suggestion);
@@ -279,7 +277,7 @@ const AltaEvento = () => {
                 <Form.Control
                   type="text"
                   value={searchTerm.nombre}
-                  onChange={(e) => handleInputChange(e, searchTerm._id)}
+                  onChange={(e) => handleInputChange(e)}
                   name="dispositivo"
                   required
                   maxLength={6}
@@ -308,9 +306,10 @@ const AltaEvento = () => {
                 <Form.Label className="mt-2">Ubicación</Form.Label>
                 <Form.Control
                   type="text"
-                  value={searchTerm.ubicacion}
+                  value={values.ubicacion}
                   disabled
                   required
+                  name="ubicacion"
                 />
               </Form.Group>
 
@@ -349,7 +348,18 @@ const AltaEvento = () => {
             </Form>
           </Col>
         </Row>
+        
       </div>
+      <Row>
+            <Col xs={12} className="d-flex justify-content-center">
+              {Object.keys(errors).length !== 0 &&
+                Object.values(errors).map((error, index) => (
+                  <Alert className="me-1" variant="danger" key={index}>
+                    {error}
+                  </Alert>
+                ))}
+            </Col>
+          </Row>
     </Container>
   );
 };

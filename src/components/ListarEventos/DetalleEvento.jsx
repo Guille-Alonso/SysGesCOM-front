@@ -26,12 +26,15 @@ const DetalleEvento = () => {
       const url = URL.createObjectURL(blob);
       setImageUrl(url);
     } catch (error) {
-      toast.error(error.response?.data.message || error.message);
+      toast.error("Imágen no encontrada");
     }
   };
 
   useEffect(() => {
-    getImg();
+    if(datos.reporte.rutaImagen !== ""){
+      getImg();
+    }
+
   }, []);
 
   return (
@@ -45,18 +48,27 @@ const DetalleEvento = () => {
           {datos.reporte.naturaleza.nombre.toUpperCase()}
         </label>
         <label className="mb-2">
+          <strong>Categoria: </strong>
+          {datos.reporte.categoria.nombre}
+        </label>
+        <label className="mb-2">
           <strong>Subcategoria: </strong>
-          {datos.reporte.subcategoria.nombre}
+          {datos.reporte.subcategoria?.nombre? datos.reporte.subcategoria.nombre : ""}
+        </label>
+        <label className="mb-2">
+          <strong>Dispositivo: </strong>
+          {datos.reporte.dispositivo.nombre}
         </label>
         <label className="mb-5">
           <strong>Detalle: </strong>
           {datos.reporte.detalle}
         </label>
+        
         <img
           className="fotoReporteDetalle"
           style={styles}
           src={imageUrl}
-          alt="Imagen"
+          alt="Captura del evento"
         />
       </div>
     </div>

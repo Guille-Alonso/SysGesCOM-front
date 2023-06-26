@@ -5,10 +5,18 @@ import axios from "../../config/axios";
 import TablaEventos from "./TablaEventos";
 import { useNavigate } from "react-router-dom";
 import { COMContext } from "../../context/COMContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
   const { user} = useContext(COMContext);
+  const [buscador, setBuscador] = useState("");
+  const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
+
+  const handleChange = (event) => {
+    setBuscador(event.target.value);
+  };
  
   const navigate = useNavigate();
 
@@ -16,17 +24,49 @@ const ListarEventos = () => {
     navigate("/alta-reporte");
   };
 
+  useEffect(() => {
+    if (Array.isArray(reportes.reportes)) {
+      const results = reportes.reportes.filter(
+        (reporte) =>
+        reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
+        reporte.usuario.nombreUsuario.toLowerCase().includes(buscador.toLowerCase()) ||
+        reporte.categoria.nombre.toLowerCase().includes(buscador.toLowerCase())
+      );
+      setResultadoBusqueda(results);
+    }
+  }, [reportes, buscador]);
+
   return (
-    
     <Container fluid className="layoutHeight">
-     
-        <Button className="ms-5 mt-2" onClick={nuevoReporte}>Nuevo Reporte</Button>
+      <div className="contenedorBusquedaCategoria">
+        <input
+          type="text"
+          className="buscadorCamaras"
+          value={buscador}
+          onChange={handleChange}
+        />
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          className="iconoBusquedaCamaras"
+        />
+        <Button
+          onClick={nuevoReporte}
+          style={{
+            borderRadius: "50%",
+            width: "40px",
+            height: "40px",
+          }}
+        >
+          +
+        </Button>
+      </div>
+      {/* <Button className="ms-5 mt-2" onClick={nuevoReporte}>Nuevo Reporte</Button> */}
 
       <Row className="mt-5">
         <Col>
-          {loading? (
+          {loading ? (
             <Col className="d-flex justify-content-center">
-            <Spinner />
+              <Spinner />
             </Col>
           ) : (
             <TablaEventos
@@ -39,13 +79,12 @@ const ListarEventos = () => {
                 "Subcategoria",
                 "",
               ]}
-              items={reportes.reportes}
+              items={user.tipoDeUsuario == "visualizador"? ResultadoBusqueda.filter(rep=>rep.usuario._id == user._id) : ResultadoBusqueda}
             />
           )}
         </Col>
       </Row>
     </Container>
-  
   );
 };
 

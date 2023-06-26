@@ -10,14 +10,14 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
-  const { user} = useContext(COMContext);
+  const { user } = useContext(COMContext);
   const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
 
   const handleChange = (event) => {
     setBuscador(event.target.value);
   };
- 
+
   const navigate = useNavigate();
 
   const nuevoReporte = () => {
@@ -28,9 +28,13 @@ const ListarEventos = () => {
     if (Array.isArray(reportes.reportes)) {
       const results = reportes.reportes.filter(
         (reporte) =>
-        reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
-        reporte.usuario.nombreUsuario.toLowerCase().includes(buscador.toLowerCase()) ||
-        reporte.categoria.nombre.toLowerCase().includes(buscador.toLowerCase())
+          reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
+          reporte.usuario.nombreUsuario
+            .toLowerCase()
+            .includes(buscador.toLowerCase()) ||
+          reporte.categoria.nombre
+            .toLowerCase()
+            .includes(buscador.toLowerCase())
       );
       setResultadoBusqueda(results);
     }
@@ -70,6 +74,7 @@ const ListarEventos = () => {
             </Col>
           ) : (
             <TablaEventos
+              getReportes={getReportes}
               headings={[
                 "Fecha",
                 "Detalle",
@@ -79,7 +84,13 @@ const ListarEventos = () => {
                 "Subcategoria",
                 "",
               ]}
-              items={user.tipoDeUsuario == "visualizador"? ResultadoBusqueda.filter(rep=>rep.usuario._id == user._id) : ResultadoBusqueda}
+              items={
+                user.tipoDeUsuario == "visualizador"
+                  ? ResultadoBusqueda.filter(
+                      (rep) => rep.usuario._id == user._id
+                    )
+                  : ResultadoBusqueda
+              }
             />
           )}
         </Col>

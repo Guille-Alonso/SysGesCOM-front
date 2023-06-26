@@ -112,7 +112,7 @@
 .box form .inputBox input {
     position: relative;
     width: 100%;
-    padding: 20px 10px 10px;
+    padding: 10px 10px 10px;
     background: transparent;
     outline: none;
     border: none;
@@ -127,7 +127,7 @@
 .box form .inputBox span {
     position: absolute;
     left: 0;
-    padding: 20px 0px 10px;
+    padding: 10px 0px 10px;
     pointer-events: none;
     color: #8f8f8f;
     font-size: 1em;

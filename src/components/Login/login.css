@@ -205,3 +205,41 @@
     position: absolute;
     z-index: 10;
 }
+
+@media (max-height: 768px) {
+
+    .box form .inputBox span {
+        position: absolute;
+        left: 0;
+        padding: 10px 0px 10px;
+        pointer-events: none;
+        color: #8f8f8f;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+        top: -2px;
+    }
+
+    .box form .inputBox input:valid~span,
+    .box form .inputBox input:focus~span {
+        color: #fff;
+        font-size: 0.75em;
+        transform: translateY(-32px);
+        z-index: 0;
+    }
+
+    .box form input[type="submit"] {
+        border: none;
+        outline: none;
+        padding: 9px 25px;
+        background: #ffffff;
+        cursor: pointer;
+        font-size: 0.9em;
+        border-radius: 4px;
+        font-weight: 600;
+        width: 100px !important;
+        margin-top: 25px;
+        z-index: 0;
+    }
+
+}

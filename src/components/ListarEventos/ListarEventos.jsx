@@ -74,7 +74,6 @@ const ListarEventos = () => {
             </Col>
           ) : (
             <TablaEventos
-              getReportes={getReportes}
               headings={[
                 "Fecha",
                 "Detalle",
@@ -91,6 +90,7 @@ const ListarEventos = () => {
                     )
                   : ResultadoBusqueda
               }
+              getReportes={getReportes}
             />
           )}
         </Col>

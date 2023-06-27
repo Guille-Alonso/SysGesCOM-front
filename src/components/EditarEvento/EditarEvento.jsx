@@ -160,10 +160,10 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
   };
 
   useEffect(() => {
+    getDatos();
     const { _id, ...eventoInfo } = reporte;
     console.log(reporte);
     setValues(eventoInfo);
-    getDatos();
   }, []);
 
   return (
@@ -192,7 +192,7 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                         onChange={handleChangeNaturaleza}
                         className="inputSelectAltaEvento"
                         name="naturaleza"
-                        value={values.naturaleza}
+                        value={values.naturaleza._id}
                         required
                       >
                         <option value="">Seleccione una opción</option>
@@ -215,14 +215,14 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                         onChange={handleChangeCategoria}
                         className="inputSelectAltaEvento"
                         name="categoria"
-                        value={values.categoria}
+                        value={values.categoria._id}
                         required
-                        disabled={natuSelected == undefined ? true : false}
+                        // disabled={natuSelected == undefined ? true : false}
                       >
                         <option value="">Seleccione una opción</option>
 
                         {categorias
-                          .filter((cat) => cat.naturaleza._id == natuSelected)
+                          // .filter((cat) => cat.naturaleza._id == natuSelected)
                           .map((item) => {
                             return (
                               <option key={item._id} value={item._id}>
@@ -241,7 +241,7 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                         onChange={handleChange}
                         className="inputSelectAltaEvento"
                         name="subcategoria"
-                        value={values.subcategoria}
+                        value={values.subcategoria?._id}
                         required={
                           subcategorias.filter(
                             (subcat) => subcat.categoria._id == catSelected
@@ -249,20 +249,20 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                             ? true
                             : false
                         }
-                        disabled={
-                          subcategorias.filter(
-                            (subcat) => subcat.categoria._id == catSelected
-                          ) == ""
-                            ? true
-                            : false
-                        }
+                        // disabled={
+                        //   subcategorias.filter(
+                        //     (subcat) => subcat.categoria._id == catSelected
+                        //   ) == ""
+                        //     ? true
+                        //     : false
+                        // }
                       >
                         <option value="">Seleccione una opción</option>
 
                         {subcategorias
-                          .filter(
-                            (subcat) => subcat.categoria._id == catSelected
-                          )
+                          // .filter(
+                          //   (subcat) => subcat.categoria._id == catSelected
+                          // )
                           .map((item) => {
                             return (
                               <option key={item._id} value={item._id}>
@@ -279,7 +279,7 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                   <Form.Label className="mt-2">Dispositivo</Form.Label>
                   <Form.Control
                     type="text"
-                    value={searchTerm.nombre}
+                    value={values.dispositivo.nombre}
                     onChange={(e) => handleInputChange(e)}
                     name="dispositivo"
                     required
@@ -309,7 +309,7 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                   <Form.Label className="mt-2">Ubicación</Form.Label>
                   <Form.Control
                     type="text"
-                    value={values.ubicacion}
+                    value={values.dispositivo.ubicacion}
                     disabled
                     required
                     name="ubicacion"

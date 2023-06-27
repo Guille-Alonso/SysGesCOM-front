@@ -127,7 +127,7 @@ const TablaEventos = ({ headings, items, getReportes }) => {
                     className="botonVer"
                   />
                   <FaEdit
-                    onClick={() => handleEdit(item)}
+                    onClick={() => handleEdit(item._id)}
                     className="botonEditar"
                   />
                   <FaTrashAlt

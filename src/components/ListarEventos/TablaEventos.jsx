@@ -6,52 +6,6 @@ import { Button, Modal, Table } from "react-bootstrap";
 import { FaEdit, FaTrashAlt, FaEye } from "react-icons/fa";
 import "./TablaEventos.css";
 import { useNavigate } from "react-router-dom";
-import EditarEvento from "../EditarEvento/EditarEvento";
-
-const EditModal = ({
-  show,
-  onHide,
-  onSave,
-  editData,
-  setSelectedItem,
-  setShowModal,
-  editForm,
-}) => {
-  const [editedData, setEditedData] = useState(editData);
-
-  useEffect(() => {
-    setEditedData(editData);
-  }, [editData]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setEditedData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSave = () => {
-    onSave(editedData);
-    setShowModal(false);
-  };
-  return (
-    <Modal
-      className="modal-borrarUsuario"
-      show={show}
-      onHide={onHide}
-      backdrop="static"
-      centered
-    >
-      <div className="fondoModalEditCamara">
-        <Modal.Header closeButton>
-          <h4>Editar Reporte</h4>
-        </Modal.Header>
-        <div className="mensajeConfirmacion">{editForm}</div>
-      </div>
-    </Modal>
-  );
-};
 
 const TablaEventos = ({ headings, items, getReportes }) => {
   const navigate = useNavigate();
@@ -61,17 +15,8 @@ const TablaEventos = ({ headings, items, getReportes }) => {
   const indexPrimerItem = indexUltimoItem - itemPag;
   const currentItems = items.slice(indexPrimerItem, indexUltimoItem);
   const totalPages = Math.ceil(items.length / itemPag);
-  const [showModal, setShowModal] = useState(false);
+ 
   const [modalDelete, setModalDelete] = useState(false);
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-  const [selectedItem, setSelectedItem] = useState(null);
-  const handleSaveChanges = (editedData) => {
-    // Realiza las acciones necesarias para guardar los cambios
-    console.log("Save changes:", editedData);
-    setShowModal(false);
-  };
 
   const handleNextPage = () => {
     setPaginacion((prevPag) => prevPag + 1);
@@ -80,11 +25,11 @@ const TablaEventos = ({ headings, items, getReportes }) => {
   const handlePreviousPage = () => {
     setPaginacion((prevPag) => prevPag - 1);
   };
-  const handleEdit = (itemId) => {
-    const itemToEdit = items.find((item) => item._id === itemId);
-    setSelectedItem(itemToEdit);
-    setShowModal(true);
-  };
+  // const handleEdit = (itemId) => {
+  //   const itemToEdit = items.find((item) => item._id === itemId);
+  //   setSelectedItem(itemToEdit);
+  //   setShowModal(true);
+  // };
   const handleRemove = async () => {
     try {
       await axios.delete("/camaras/", { data: { id: selected } });
@@ -126,35 +71,20 @@ const TablaEventos = ({ headings, items, getReportes }) => {
                     onClick={() => verDetalle(item)}
                     className="botonVer"
                   />
-                  <FaEdit
+                  {/* <FaEdit
                     onClick={() => handleEdit(item._id)}
                     className="botonEditar"
                   />
                   <FaTrashAlt
                     onClick={() => setModalDelete(true)}
                     className="botonEliminar"
-                  />
+                  /> */}
                 </td>
               </tr>
             ))}
         </MDBTableBody>
       </MDBTable>
-      <EditModal
-        show={showModal}
-        onHide={handleCloseModal}
-        onSave={handleSaveChanges}
-        editData={selectedItem}
-        handleCloseModal={handleCloseModal}
-        handleSaveChanges={handleSaveChanges}
-        editForm={
-          <EditarEvento
-            onClose={handleCloseModal}
-            getReportes={getReportes}
-            reporte={selectedItem}
-            className="boton-editar"
-          />
-        }
-      />
+
       <div className="paginacionCont">
         <Button
           className="paginacionBtnPrev"

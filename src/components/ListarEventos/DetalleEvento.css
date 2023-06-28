@@ -6,4 +6,18 @@
 }
 .contenedorDetalleReporte{
     height: 75vh;
+    border: 1px solid white;
+}
+.detalleEditReporte{
+    color: #fff;
+    display: flex;
+    border: 1px solid white;
+}
+.labelEditReporte{
+    min-height: 40px;
+}
+.inputEditReporte{
+    width: fit-content !important;
+    margin-left: 10px;
+    margin-right: 10px;
 }

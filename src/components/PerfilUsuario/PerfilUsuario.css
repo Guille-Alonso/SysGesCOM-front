@@ -1,13 +1,13 @@
 .inputPerfilUser {
     border: solid;
-    margin: auto;
+    margin: 10px;
     border-radius: 15px;
     border-color: #ffffff28;
     width: 90%;
-    padding: 10px;
+    padding: 7px;
   }
 
 .imgProfile{
     border-radius: 20px;
-    height: 290px;
+    height: 200px;
 }

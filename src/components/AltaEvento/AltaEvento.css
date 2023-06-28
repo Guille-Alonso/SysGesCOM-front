@@ -49,8 +49,6 @@
 
 .inputAltaEvento {
     margin: auto;
-    border-radius: 15px;
-    padding-bottom: 5px;
 }
 
 .contAltaEvento {
@@ -62,4 +60,24 @@
 .row.no-gutters .col {
     padding-right: 0px;
     padding-left: 0px;
+}
+.contenedorEdit{
+    height: 70vh;
+}
+.inputDatoEvento{
+    margin-right: 30px !important;
+    height: 40px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.centered-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.detalleEventoEdit{
+    width: 100%;
 }

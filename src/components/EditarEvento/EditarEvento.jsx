@@ -169,28 +169,24 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
   return (
     <>
       <Container>
-        <div className="contAltaEvento">
+        <input
+          type="text"
+          value={`${fecha} - ${hora}`}
+          name="fecha"
+          required
+          disabled
+          className="inputFecha"
+        />
+        <div className="contenedorEdit ">
           <Row>
             <Col>
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="contInputFecha">
-                  <Form.Control
-                    type="text"
-                    value={`${fecha} - ${hora}`}
-                    name="fecha"
-                    required
-                    disabled
-                    className="inputFecha"
-                  />
-                </Form.Group>
-
-                <Row className="fila1">
+                <Row>
                   <Col xs={12} sm={4}>
-                    <Form.Group className="inputAltaEvento col-xs-6">
-                      <Form.Label className="mt-2 ">Tipo de Evento</Form.Label>
+                    <Form.Group className="col-xs-6">
                       <Form.Select
                         onChange={handleChangeNaturaleza}
-                        className="inputSelectAltaEvento"
+                        className="inputDatoEvento"
                         name="naturaleza"
                         value={values.naturaleza._id}
                         required
@@ -209,11 +205,10 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                   </Col>
 
                   <Col xs={12} sm={4}>
-                    <Form.Group className="inputAltaEvento col-xs-6">
-                      <Form.Label className="mt-2">Categoria</Form.Label>
+                    <Form.Group className="col-xs-6">
                       <Form.Select
                         onChange={handleChangeCategoria}
-                        className="inputSelectAltaEvento"
+                        className="inputDatoEvento"
                         name="categoria"
                         value={values.categoria._id}
                         required
@@ -235,11 +230,10 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                   </Col>
 
                   <Col xs={12} sm={4}>
-                    <Form.Group className="inputAltaEvento">
-                      <Form.Label className="mt-2">Subcategoría</Form.Label>
+                    <Form.Group className="">
                       <Form.Select
                         onChange={handleChange}
-                        className="inputSelectAltaEvento"
+                        className="inputDatoEvento"
                         name="subcategoria"
                         value={values.subcategoria?._id}
                         required={
@@ -274,51 +268,54 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                     </Form.Group>
                   </Col>
                 </Row>
-
-                <Form.Group className="inputAltaEvento">
-                  <Form.Label className="mt-2">Dispositivo</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={values.dispositivo.nombre}
-                    onChange={(e) => handleInputChange(e)}
-                    name="dispositivo"
-                    required
-                    maxLength={6}
-                    minLength={6}
-                  />
-                  <ul
-                    className={
-                      changeClass
-                        ? "inputDispositivosReportes2"
-                        : "inputDispositivosReportes"
-                    }
-                    ref={suggestionsRef}
-                  >
-                    {suggestions.map((suggestion, index) => (
-                      <li
-                        key={index}
-                        onClick={() => handleSuggestionClick(suggestion)}
+                <Row>
+                  <Col xs={12} sm={6}>
+                    <Form.Group>
+                      <input
+                        className="inputDatoEvento"
+                        type="text"
+                        value={values.dispositivo.nombre}
+                        onChange={(e) => handleInputChange(e)}
+                        name="dispositivo"
+                        required
+                        maxLength={6}
+                        minLength={6}
+                      />
+                      <ul
+                        className={
+                          changeClass
+                            ? "inputDispositivosReportesEdit2"
+                            : "inputDispositivosReportesEdit"
+                        }
+                        ref={suggestionsRef}
                       >
-                        {suggestion.nombre}
-                      </li>
-                    ))}
-                  </ul>
-                </Form.Group>
+                        {suggestions.map((suggestion, index) => (
+                          <li
+                            key={index}
+                            onClick={() => handleSuggestionClick(suggestion)}
+                          >
+                            {suggestion.nombre}
+                          </li>
+                        ))}
+                      </ul>
+                    </Form.Group>
+                  </Col>
+                  <Col xs={12} sm={6}>
+                    <Form.Group>
+                      <input
+                        className="inputDatoEvento"
+                        type="text"
+                        value={values.dispositivo.ubicacion}
+                        disabled
+                        required
+                        name="ubicacion"
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-                <Form.Group className="inputAltaEvento">
-                  <Form.Label className="mt-2">Ubicación</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={values.dispositivo.ubicacion}
-                    disabled
-                    required
-                    name="ubicacion"
-                  />
-                </Form.Group>
-
-                <Form.Group className="inputAltaEvento">
-                  <Form.Label className="mt-2">Detalle</Form.Label>
-                  <Form.Control
+                <Form.Group className="detalleEventoEdit">
+                  <textarea
                     type="text"
                     onChange={handleChange}
                     value={values.detalle}
@@ -328,9 +325,9 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
                   />
                 </Form.Group>
 
-                <Form.Group className="inputAltaEvento">
-                  <Form.Label className="mt-2">Captura</Form.Label>
+                <Form.Group className="inputDatoEvento">
                   <Form.Control
+                    className="col-12"
                     type="file"
                     title="Suba una imágen"
                     onChange={handleFileInputChange}
@@ -341,7 +338,7 @@ const EditarEvento = ({ onClose, getReporte, reporte }) => {
 
                 <Button
                   variant="success"
-                  className="mt-5 col-12 mb-3"
+                  className="col-12 mt-5"
                   size="lg"
                   type="submit"
                 >

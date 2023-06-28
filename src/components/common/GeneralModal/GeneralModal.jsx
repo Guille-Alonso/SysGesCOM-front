@@ -10,22 +10,22 @@ const GeneralModal = ({
   variant,
   seleccion,
   clase,
-  setValues
+  setValues,
 }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
-    if(setValues){
-      setValues("")
+    if (setValues) {
+      setValues("");
     }
-    
+
     setShow(false);
-  }
+  };
   // const handleShow = () => setShow(true);
-  const handleShow = ()=>{
-    if(seleccion || seleccion===false) setShow(true)
-    else toast.error("debes seleccionar un elemento")
-  }
+  const handleShow = () => {
+    if (seleccion || seleccion === false) setShow(true);
+    else toast.error("debes seleccionar un elemento");
+  };
 
   return (
     <>

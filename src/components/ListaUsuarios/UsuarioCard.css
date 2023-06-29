@@ -1,0 +1,50 @@
+.usuarioCard{
+    width: 230px;
+    height: 350px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    color: #000;
+    background-image: url(/src/assets/img/split_background.png);
+    background-size: 240px 380px;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 5px #181818;
+    z-index: 10;
+}
+.imgUsuario{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+.infoDeUsuarioCard{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.modal-dialog {
+    max-width: 50% !important;
+    margin-right: auto;
+    margin-left: auto;
+}
+.modal-content{
+    background: transparent !important;
+    border: none !important;
+}
+.btn-close{
+    background-color: #fff !important;
+}
+.modal-header{
+    border-bottom: none !important;
+}
+.nameOfUserPrev{
+    font-size: 20px;
+}
+.infoTipoDeUsuario{
+    font-size: 15px;
+}

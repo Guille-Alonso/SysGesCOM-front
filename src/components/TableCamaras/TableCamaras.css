@@ -1,0 +1,106 @@
+.row-selected {
+  background-color: deepskyblue;
+}
+
+tr:hover {
+  cursor: pointer;
+}
+
+.colorTablaCamaras {
+  color: white;
+  max-height: 451px;
+}
+
+.bodyTabla {
+  color: white;
+  max-height: 451px;
+  overflow-y: scroll;
+}
+
+.botonEditar {
+  height: 16px;
+  margin-right: 20px;
+}
+
+.table-responsive {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.camaraTable {
+  text-align: center;
+  table-layout: fixed;
+
+}
+
+.camaraTable th,
+.camaraTable td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fondoModalEditCamara {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-evenly;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.fondoModalEditCamara form {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fondoModalEditCamara label {
+  display: none;
+}
+
+.fondoModalEditCamara input {
+  margin: 30px;
+}
+
+.botonEditarCamara {
+  width: 40%;
+}
+
+.tableCont{
+  width: 100%;
+  position: relative;
+}
+
+.pagCont{
+position: relative;
+}
+
+.paginacionCont{
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*   
+  display:grid;
+  margin-top: 28.4%;
+  align-items: center; */
+}
+.paginacionText{
+  color: white;
+  text-align: center;
+}
+
+.paginacionBtnPrev{
+  margin-right: 27.9%;
+  padding-top: 0.4% !important;
+}
+
+.paginacionBtnNext{
+  margin-left: 27.9%;
+  padding-top: 0.4% !important;
+}

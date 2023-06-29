@@ -1,0 +1,36 @@
+@import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+
+.footer1 {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	width: 100%;
+}
+
+.movFooter {
+	position: fixed;
+	width: 100%;
+	background: inherit;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-top: 2px solid #FFFFFF28;
+	height: 5vh;
+	bottom: 10px;
+}
+
+.movFooter p {
+	color: #fff;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-weight: 300;
+}
+
+@media screen and (max-height: 768px) {
+	.movFooter{
+		display: none;
+	}
+}

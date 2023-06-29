@@ -1,0 +1,83 @@
+.fila1{
+    margin-top: 30px !important;
+}
+
+.inputDispositivosReportes {
+    position: absolute;
+    width: 510px;
+    max-height: 268px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+    display: none;
+}
+.inputDispositivosReportes2 {
+    position: absolute;
+    width: 510px;
+    max-height: 268px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+}
+
+.inputDispositivosReportes li{
+    width: 300px;
+}
+
+.inputDispositivosReportes :hover{
+    background-color: rgba(2, 29, 117, 0.443);
+
+}
+
+.contInputFecha {
+    display: flex;
+}
+
+.inputFecha {
+    position: flex;
+    height: 30px;
+    color: white !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.inputAltaEvento {
+    margin: auto;
+}
+
+.contAltaEvento {
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+}
+
+.row.no-gutters .col {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.contenedorEdit{
+    height: 70vh;
+}
+.inputDatoEvento{
+    margin-right: 30px !important;
+    height: 40px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.centered-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.detalleEventoEdit{
+    width: 100%;
+}

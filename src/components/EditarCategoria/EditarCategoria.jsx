@@ -1,0 +1,188 @@
+import React, { useEffect, useState } from "react";
+import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import { EDITAR_CATEGORIAS_VALUES } from "../../constants";
+import useForm from "../../hooks/useForm";
+import axios from "../../config/axios";
+import { toast } from "react-toastify";
+import GeneralTable from "../common/Table/GeneralTable";
+import GeneralModal from "../common/GeneralModal/GeneralModal";
+import DeleteConfirmation from "../common/DeleteConfirmation/DeleteConfirmation";
+import useGet from "../../hooks/useGet";
+import EditarSubcategoria from "../EditarSubcategoria/EditarSubcategoria";
+import AltaSubcategoria from "../AltaSubcategoria/AltaSubcategoria";
+import "./EditarCategoria.css";
+import { validationsEditarCategoria } from "../../helpers/validationsEditarCategoria";
+
+const EditarCategoria = () => {
+  const location = useLocation();
+  const datos = location.state;
+  const [selected, setSelected] = useState(undefined);
+  const navigate = useNavigate();
+  const [subcategorias, loading, getSubcategorias] = useGet(
+    `/subcategorias/listar/${datos.categoria._id}`,
+    axios
+  );
+
+  const editarCategoria = async () => {
+    const { _id, ...categoriaInfo } = datos.categoria;
+    if (JSON.stringify(categoriaInfo) !== JSON.stringify(values)) {
+      try {
+        await axios.put(
+          `/categorias/actualizarCategoria/${datos.categoria._id}`,
+          values
+        );
+        toast.success("Categoría actualizada");
+        navigate("/alta-categoria");
+      } catch (error) {
+        toast.error(
+          error.response?.data.message ||
+            error.response?.data.errorMje ||
+            error.message
+        );
+      }
+    } else toast.error("No hiciste cambios");
+  };
+
+  const borrarSubcategoria = async () => {
+    try {
+      await axios.delete("/subcategorias/", { data: { id: selected._id } });
+      toast.info("Subcategoría borrada");
+      getSubcategorias();
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const { handleChange, handleSubmit, values, setValues, errors } = useForm(
+    EDITAR_CATEGORIAS_VALUES,
+    editarCategoria,
+    validationsEditarCategoria
+  );
+
+  useEffect(() => {
+    const { _id, ...categoriaInfo } = datos.categoria;
+    setValues(categoriaInfo);
+  }, []);
+
+  return (
+    <Container className="layoutHeight">
+      <Row className="mt-3">
+        <Col>
+          <Form
+            className="container-form-alta-categoria"
+            onSubmit={handleSubmit}
+          >
+            <Form.Label>Categoria</Form.Label>
+            <Form.Control
+              className="inputAltaDeCamara"
+              type="text"
+              placeholder="Ej... Violencia"
+              value={values.nombre}
+              name="nombre"
+              onChange={handleChange}
+              required
+              maxLength={20}
+              minLength={3}
+            />
+            <Form.Label className="mt-2">Tipo</Form.Label>
+            <Form.Select
+              onChange={handleChange}
+              className="inputAltaDeCamara"
+              name="naturaleza"
+              value={values.naturaleza._id}
+              required
+            >
+              <option value="">Seleccione una opción</option>
+
+              {datos.naturalezas.map((item) => {
+                return (
+                  <option key={item._id} value={item._id}>
+                    {item.nombre}
+                  </option>
+                );
+              })}
+            </Form.Select>
+            <div>
+              <Button
+                variant="success"
+                className="mt-3 col-12 mb-3"
+                size="lg"
+                type="submit"
+              >
+                Editar
+              </Button>
+            </div>
+          </Form>
+        </Col>
+      </Row>
+      <Row>
+            <Col xs={12} className="d-flex">
+              {Object.keys(errors).length !== 0 &&
+                Object.values(errors).map((error, index) => (
+                  <Alert className="me-1" variant="danger" key={index}>
+                    {error}
+                  </Alert>
+                ))}
+            </Col>
+          </Row>
+      <Row className="mt-5">
+        <Col className="d-flex justify-content-end botones-End">
+          <GeneralModal
+            buttonText="Eliminar"
+            clase="modalEliminarSubcategoria"
+            modalTitle={"Eliminar Subcategoría"}
+            modalBody={
+              <DeleteConfirmation deleteFunction={borrarSubcategoria} />
+            }
+            variant="danger"
+            seleccion={selected}
+          />
+          <GeneralModal
+            buttonText="Editar"
+            clase="modalEditarSubcategoria"
+            modalTitle={"Editar Subcategoría"}
+            modalBody={
+              <EditarSubcategoria
+                selected={selected}
+                getSubcategorias={getSubcategorias}
+                setSelected={setSelected}
+              />
+            }
+            variant="success"
+            seleccion={selected}
+          />
+          <GeneralModal
+            buttonText="Agregar"
+            clase="modalAgregarSubcategoria"
+            modalTitle={"Agregar Subcategoría"}
+            modalBody={
+              <AltaSubcategoria
+                getSubcategorias={getSubcategorias}
+                idCategoria={datos.categoria._id}
+              />
+            }
+            variant="success"
+            seleccion={false}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <GeneralTable
+              headings={["id", "nombre"]}
+              items={subcategorias.subcategorias}
+              setSelected={setSelected}
+              selected={selected}
+            />
+          )}
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default EditarCategoria;

@@ -1,0 +1,9 @@
+.row-selected{
+    background-color: deepskyblue;
+  }
+  tr:hover{
+    cursor: pointer;
+  }
+  .colorTabla{
+    color: white;
+  }

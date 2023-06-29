@@ -1,0 +1,158 @@
+.usuarioCardBig{
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #000;
+    border-radius: 5px;
+}
+.bigCardLeft{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 30%;
+    height: 100%;
+    background-color: #4651e5;
+}
+.imgUsuarioBig{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-top: 30px;
+}
+.infoDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+    height: 100%;
+    gap: 0;
+    background-color: #fff;
+    padding-left: 20px;
+}
+.formUsuario{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 60%;
+}
+.infoDeUsuarioCardBig1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 45%;
+    height: 100%;
+}
+.infoDeUsuarioCardBig2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 45%;
+    height: 100%;
+}
+.topicInformation{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    height: 50%;
+    
+}
+.tipoDeUsuario{
+    font-size: 20px !important;
+    margin-top: 15px !important;
+    color: #fff;
+}
+.iconoEditUser1{
+    height: 30px;
+    position: absolute;
+    cursor: pointer;
+    top: 10%;
+    right: 15%;
+}
+.iconoEditUser2{
+    height: 30px;
+    position: absolute;
+    cursor: pointer;
+    top: 10%;
+    right: 9%;
+}
+.parrafoInfo{
+    width: 100%;
+    height: 35px;
+    overflow-x: hidden;
+    margin: 0;
+    border-bottom: 1px solid #000;
+}
+.spanBigCard{
+    font-weight: 600;
+    overflow: hidden;
+}
+input.parrafoInfo{
+    border-style: dotted;
+    background-color: #fff;
+    border-radius: 5px;
+    height: 38px;
+}
+.botonVerMas{
+    width: 15%;
+    height: 10%;
+    border-radius: 15px;
+    border-style: none;
+    position: absolute;
+    z-index: 10;
+    top: 90%;
+}
+.botonIconoEdit{
+    border: none;
+}
+.nameOfUser{
+    font-size: 32px !important;
+    max-width: 400px;
+}
+.borrarUsuario{
+    position: absolute;
+    z-index: 1;
+    top: 80%;
+    font-size: 30px;
+    width: 100px;
+    cursor: pointer;
+}
+.modal-borrarUsuario{
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+.fondoModal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-evenly;
+    background-color: #fff;
+    width: 500px;
+    height: 200px;
+    border-radius: 15px;
+}
+.btn-BorrarUsuario{
+    display: flex;
+    margin: auto;
+    width: 50%;
+}
+.mensajeConfirmacion{
+    margin: auto;
+}
+.alertaEditarUsuario{
+    position: absolute !important;
+    left: 800px !important;
+    width: 200px !important;
+    top: 20px !important;
+}

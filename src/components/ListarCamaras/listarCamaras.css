@@ -1,0 +1,24 @@
+.contBusquedaCamaras{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    width: auto;
+}
+
+.buscadorCamaras{
+    width: 20%;
+    height: 70%;
+    border-radius: 15px;
+    border-style: none;
+    outline-style: none;
+    padding: 10px;
+}
+.iconoBusquedaCamaras{
+    color: black;
+    position: relative;
+    right: 30px;
+    cursor: pointer;
+
+}

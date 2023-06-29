@@ -85,10 +85,10 @@ const ListarEventos = () => {
               ]}
               items={
                 user.tipoDeUsuario == "visualizador"
-                  ? ResultadoBusqueda.filter(
+                  ? ResultadoBusqueda.reverse().filter(
                       (rep) => rep.usuario._id == user._id
                     )
-                  : ResultadoBusqueda
+                  : ResultadoBusqueda.reverse()
               }
               getReportes={getReportes}
             />

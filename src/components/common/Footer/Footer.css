@@ -28,3 +28,9 @@
 	font-size: 12px;
 	font-weight: 300;
 }
+
+@media screen and (max-height: 768px) {
+	.movFooter{
+		display: none;
+	}
+}

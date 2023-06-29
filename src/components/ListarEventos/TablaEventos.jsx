@@ -15,7 +15,7 @@ const TablaEventos = ({ headings, items, getReportes }) => {
   const indexPrimerItem = indexUltimoItem - itemPag;
   const currentItems = items.slice(indexPrimerItem, indexUltimoItem);
   const totalPages = Math.ceil(items.length / itemPag);
- 
+
   const [modalDelete, setModalDelete] = useState(false);
 
   const handleNextPage = () => {
@@ -71,14 +71,10 @@ const TablaEventos = ({ headings, items, getReportes }) => {
                     onClick={() => verDetalle(item)}
                     className="botonVer"
                   />
-                  {/* <FaEdit
-                    onClick={() => handleEdit(item._id)}
-                    className="botonEditar"
-                  />
                   <FaTrashAlt
                     onClick={() => setModalDelete(true)}
                     className="botonEliminar"
-                  /> */}
+                  />
                 </td>
               </tr>
             ))}

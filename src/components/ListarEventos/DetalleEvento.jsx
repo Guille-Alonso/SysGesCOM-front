@@ -19,7 +19,7 @@ const DetalleEvento = () => {
 
   const { user } = useContext(COMContext);
   const [volver, setVolver] = useState(false);
-  
+
   const [imageUrl, setImageUrl] = useState("");
   const location = useLocation();
   const datos = location.state;
@@ -74,10 +74,24 @@ const DetalleEvento = () => {
       try {
         const formData = new FormData();
         formData.append("detalle", values.detalle);
-        formData.append("naturaleza", values.naturaleza._id? values.naturaleza._id : values.naturaleza);
-        formData.append("categoria", values.categoria._id? values.categoria._id : values.categoria);
-        formData.append("subcategoria", values.subcategoria?._id? values.subcategoria._id : values.subcategoria);
-        formData.append("dispositivo", values.dispositivo._id? values.dispositivo._id : values.dispositivo);
+        formData.append(
+          "naturaleza",
+          values.naturaleza._id ? values.naturaleza._id : values.naturaleza
+        );
+        formData.append(
+          "categoria",
+          values.categoria._id ? values.categoria._id : values.categoria
+        );
+        formData.append(
+          "subcategoria",
+          values.subcategoria?._id
+            ? values.subcategoria._id
+            : values.subcategoria
+        );
+        formData.append(
+          "dispositivo",
+          values.dispositivo._id ? values.dispositivo._id : values.dispositivo
+        );
         formData.append("photo", values.photo);
         formData.append("rutaImagen", datos.reporte.rutaImagen);
         formData.append("usuario", user._id);
@@ -132,9 +146,9 @@ const DetalleEvento = () => {
     console.log(datos.reporte);
     const { _id, ...eventoInfo } = datos.reporte;
     setValues(eventoInfo);
-    setNatuSelected(eventoInfo.naturaleza._id)
-    setCatSelected(eventoInfo.categoria._id)
-  
+    setNatuSelected(eventoInfo.naturaleza._id);
+    setCatSelected(eventoInfo.categoria._id);
+
     if (datos.reporte.rutaImagen !== "") {
       getImg();
     }
@@ -142,171 +156,173 @@ const DetalleEvento = () => {
   }, []);
 
   return (
-    <Container className="d-flex layoutHeight contenedorDetalleReporte">
+    <Container className="layoutHeight contenedorDetalleReporte" md={12}>
       <Form onSubmit={handleSubmit}>
         <Form.Label className="labelEditReporte">
           <strong>Fecha:</strong> {values.fecha}
         </Form.Label>
-        <br/>
-        <Form.Label className="labelEditReporte">
-         {datos.reporte._id}
-        </Form.Label>
+        <br />
         <Row>
-          <Col>
-            <div className="d-flex-col labelEditReporte">
-              <Form.Label className="">
-                <strong>Tipo: </strong>
-              </Form.Label>
-              {editReporte ? (
-                <Form.Select
-                  className="inputEditReporte"
-                  onChange={handleChangeNaturaleza}
-                  name="naturaleza"
-                  value={values.naturaleza._id}
-                  required
-                >
-                  <option value="">Selecciona una opcion</option>
-                  {naturalezas.map((item) => {
-                    return (
-                      <option key={item._id} value={item._id}>
-                        {item.nombre}
-                      </option>
-                    );
-                  })}
-                </Form.Select>
-              ) : (
-                <p className="detalleEditReporte">
-                  {values.naturaleza.nombre?.toUpperCase()}
-                </p>
-              )}
-              <Form.Label className="">
-                <strong>Categoria: </strong>
-              </Form.Label>
-              {editReporte ? (
-                <Form.Select
-                  className="inputEditReporte"
-                  onChange={handleChangeCategoria}
-                  name="categoria"
-                  value={values.categoria._id}
-                  required
-                  disabled={natuSelected == undefined ? true : false}
-                >
-                  <option value="">Selecciona una opcion</option>
-                  {categorias
-                    .filter((cat) => cat.naturaleza._id == natuSelected)
-                    .map((item) => {
+          <Col sm={6} md={6}>
+            <Col>
+              <div className=" labelEditReporte">
+                <Form.Label className="">
+                  <strong>Tipo: </strong>
+                </Form.Label>
+                {editReporte ? (
+                  <Form.Select
+                    className="inputEditReporte"
+                    onChange={handleChangeNaturaleza}
+                    name="naturaleza"
+                    value={values.naturaleza._id}
+                    required
+                  >
+                    <option value="">Selecciona una opcion</option>
+                    {naturalezas.map((item) => {
                       return (
                         <option key={item._id} value={item._id}>
                           {item.nombre}
                         </option>
                       );
                     })}
-                </Form.Select>
-              ) : (
-                <p className="detalleEditReporte">{values.categoria.nombre}</p>
-              )}
-              <Form.Label className="">
-                <strong>Subcategoria: </strong>
-              </Form.Label>
-              {editReporte ? (
-                <Form.Select
-                  type=""
-                  className="inputEditReporte"
-                  onChange={handleChange}
-                  name="subcategoria"
-                  value={values.subcategoria?._id}
-                  required={
-                    subcategorias.filter(
-                      (subcat) => subcat.categoria._id == catSelected
-                    ) != ""
-                      ? true
-                      : false
-                  }
-                  disabled={
-                    subcategorias.filter(
-                      (subcat) => subcat.categoria._id == catSelected
-                    ) == ""
-                      ? true
-                      : false
-                  }
-                >
-                  <option value="">Selecciona una opcion</option>
-                  {subcategorias
-                    .filter((subcat) => subcat.categoria._id == catSelected)
-                    .map((item) => {
-                      return (
-                        <option key={item._id} value={item._id}>
-                          {item.nombre}
-                        </option>
-                      );
-                    })}
-                </Form.Select>
-              ) : (
-                <p className="detalleEditReporte">
-                  {values.subcategoria?.nombre}
-                </p>
-              )}
-              <Form.Label className="">
-                <strong>Dispositivo: </strong>
-              </Form.Label>
-              {editReporte ? (
-                <Form.Select
-                  className="inputEditReporte"
-                  onChange={handleChange}
-                  value={values.dispositivo._id}
-                  name="dispositivo"
-                >
-                  <option value="">Selecciona una opcion</option>
-                  {loading ? (
-                    <Spinner />
-                  ) : (
-                    dispositivos.camaras.map((item) => {
-                      return (
-                        <option key={item._id} value={item._id}>
-                          {item.nombre}
-                        </option>
-                      );
-                    })
-                  )}
-                </Form.Select>
-              ) : (
-                <p className="detalleEditReporte">
-                  {values.dispositivo.nombre}
-                </p>
-              )}
-            </div>
-            <div className="d-flex labelEditReporte mt-3">
-              <Form.Label className="mb-5">
-                <strong>Detalle: </strong>
-              </Form.Label>
-              {editReporte ? (
-                <input
-                  type="text"
-                  // className="detalleEditReporte"
-                  onChange={handleChange}
-                  name="detalle"
-                  value={values.detalle}
-                />
-              ) : (
-                <p className="detalleEditReporte" enabled>
-                  {values.detalle}
-                </p>
-              )}
-            </div>
-            {(user.tipoDeUsuario == "admin" ||
-              user.tipoDeUsuario == "visualizador" ||
-              user.tipoDeUsuario == "supervisor") && (
-              <div className="mt-5 d-flex justify-content-center">
-                <Button onClick={handleEditReporte}>Editar</Button>
+                  </Form.Select>
+                ) : (
+                  <p className="detalleEditReporte">
+                    {values.naturaleza.nombre?.toUpperCase()}
+                  </p>
+                )}
+                <Form.Label className="">
+                  <strong>Categoria: </strong>
+                </Form.Label>
+                {editReporte ? (
+                  <Form.Select
+                    className="inputEditReporte"
+                    onChange={handleChangeCategoria}
+                    name="categoria"
+                    value={values.categoria._id}
+                    required
+                    disabled={natuSelected == undefined ? true : false}
+                  >
+                    <option value="">Selecciona una opcion</option>
+                    {categorias
+                      .filter((cat) => cat.naturaleza._id == natuSelected)
+                      .map((item) => {
+                        return (
+                          <option key={item._id} value={item._id}>
+                            {item.nombre}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                ) : (
+                  <p className="detalleEditReporte">
+                    {values.categoria.nombre}
+                  </p>
+                )}
+                <Form.Label className="">
+                  <strong>Subcategoria: </strong>
+                </Form.Label>
+                {editReporte ? (
+                  <Form.Select
+                    type=""
+                    className="inputEditReporte"
+                    onChange={handleChange}
+                    name="subcategoria"
+                    value={values.subcategoria?._id}
+                    required={
+                      subcategorias.filter(
+                        (subcat) => subcat.categoria._id == catSelected
+                      ) != ""
+                        ? true
+                        : false
+                    }
+                    disabled={
+                      subcategorias.filter(
+                        (subcat) => subcat.categoria._id == catSelected
+                      ) == ""
+                        ? true
+                        : false
+                    }
+                  >
+                    <option value="">Selecciona una opcion</option>
+                    {subcategorias
+                      .filter((subcat) => subcat.categoria._id == catSelected)
+                      .map((item) => {
+                        return (
+                          <option key={item._id} value={item._id}>
+                            {item.nombre}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                ) : (
+                  <p className="detalleEditReporte">
+                    {values.subcategoria?.nombre}
+                  </p>
+                )}
+                <Form.Label className="">
+                  <strong>Dispositivo: </strong>
+                </Form.Label>
+                {editReporte ? (
+                  <Form.Select
+                    className="inputEditReporte"
+                    onChange={handleChange}
+                    value={values.dispositivo._id}
+                    name="dispositivo"
+                  >
+                    <option value="">Selecciona una opcion</option>
+                    {loading ? (
+                      <Spinner />
+                    ) : (
+                      dispositivos.camaras.map((item) => {
+                        return (
+                          <option key={item._id} value={item._id}>
+                            {item.nombre}
+                          </option>
+                        );
+                      })
+                    )}
+                  </Form.Select>
+                ) : (
+                  <p className="detalleEditReporte">
+                    {values.dispositivo.nombre}
+                  </p>
+                )}
               </div>
-            )}
-           
+              <div className="d-flex flex-column labelEditReporte mt-3">
+                <Form.Label className="">
+                  <strong>Detalle: </strong>
+                </Form.Label>
+                {editReporte ? (
+                  <textarea
+                    className="inputEditReporte2 mb-3"
+                    onChange={handleChange}
+                    name="detalle"
+                    value={values.detalle}
+                  />
+                ) : (
+                  <p className="inputEditReporteDetalle mb-3" enabled>
+                    {values.detalle}
+                  </p>
+                )}
+              </div>
+              {(user.tipoDeUsuario == "admin" ||
+                user.tipoDeUsuario == "visualizador" ||
+                user.tipoDeUsuario == "supervisor") && (
+                <div className=" botonEditarDetalleEvento d-flex justify-content-left">
+                  <Button onClick={handleEditReporte}>Editar</Button>
+                </div>
+              )}
+
               {volver && <Navigate to="/reportes" />}
+            </Col>
           </Col>
-          <Col>
+          <Col sm={6} md={6}>
             {editReporte ? (
               <Form.Group className="inputAltaEvento">
-                <Form.Label className="mt-2">Captura</Form.Label>
+                <Form.Label className="mt-2">
+                  <strong> Captura</strong>
+                </Form.Label>
                 <Form.Control
                   type="file"
                   title="Suba una imágen"
@@ -316,7 +332,7 @@ const DetalleEvento = () => {
                 />
               </Form.Group>
             ) : (
-              <div className="d-flex">
+              <div className="d-flex h-100 contenedorImagenReporte">
                 <img
                   className="fotoReporteDetalle"
                   style={styles}
@@ -325,9 +341,11 @@ const DetalleEvento = () => {
                 />
               </div>
             )}
-             {
-              editReporte && <Button className="mt-3" type="submit">Guardar Cambios</Button>
-            }
+            {editReporte && (
+              <Button className=" mt-3" type="submit">
+                Guardar Cambios
+              </Button>
+            )}
           </Col>
         </Row>
       </Form>

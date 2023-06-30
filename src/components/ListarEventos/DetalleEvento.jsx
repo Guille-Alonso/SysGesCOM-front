@@ -3,13 +3,13 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../../config/axios";
 import "./DetalleEvento.css";
-import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import useGet from "../../hooks/useGet";
 import { ALTA_REPORTES_VALUES } from "../../constants";
 import { COMContext } from "../../context/COMContext";
 import { Navigate } from "react-router-dom";
-import { FaEdit, FaTrashAlt, FaEye } from "react-icons/fa";
+import { validationsEditarEvento } from "../../helpers/validationsEditarEvento";
 
 const DetalleEvento = () => {
   const [dispositivos, loading, getDispositivos] = useGet(
@@ -111,8 +111,8 @@ const DetalleEvento = () => {
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     ALTA_REPORTES_VALUES,
-    enviarDatos
-    // validationsAltaEvento
+    enviarDatos,
+    validationsEditarEvento
   );
   const getImg = async () => {
     try {
@@ -269,6 +269,7 @@ const DetalleEvento = () => {
                     onChange={handleChange}
                     value={values.dispositivo._id}
                     name="dispositivo"
+                    required
                   >
                     <option value="">Selecciona una opcion</option>
                     {loading ? (
@@ -284,9 +285,14 @@ const DetalleEvento = () => {
                     )}
                   </Form.Select>
                 ) : (
-                  <p className="detalleEditReporte">
-                    {values.dispositivo.nombre}
-                  </p>
+                  <div className="d-flex">
+                    <p className="detalleEditReporte">
+                      {values.dispositivo.nombre}
+                    </p>
+                    <p className="ms-4 detalleEditReporte">
+                      {values.dispositivo.ubicacion}
+                    </p>
+                  </div>
                 )}
               </div>
               <div className="d-flex flex-column labelEditReporte mt-3">
@@ -299,6 +305,7 @@ const DetalleEvento = () => {
                     onChange={handleChange}
                     name="detalle"
                     value={values.detalle}
+                    required
                   />
                 ) : (
                   <p className="inputEditReporteDetalle mb-3" enabled>
@@ -349,6 +356,16 @@ const DetalleEvento = () => {
           </Col>
         </Row>
       </Form>
+      <Row>
+            <Col xs={12} className="d-flex justify-content-center">
+              {Object.keys(errors).length !== 0 &&
+                Object.values(errors).map((error, index) => (
+                  <Alert className="me-1" variant="danger" key={index}>
+                    {error}
+                  </Alert>
+                ))}
+            </Col>
+          </Row>
     </Container>
   );
 };

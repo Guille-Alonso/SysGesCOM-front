@@ -19,7 +19,6 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes }) =
   const indexPrimerItem = indexUltimoItem - itemPag;
   const currentItems = items.slice(indexPrimerItem, indexUltimoItem);
   const totalPages = Math.ceil(items.length / itemPag);
-  const [despacho, setDespacho] = useState(false)
 
   const [modalDelete, setModalDelete] = useState(false);
 
@@ -28,9 +27,9 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes }) =
     setSelected(id);
   }
 
-  const setDespachar = (id)=>{
-    setSelected(id);
-    setDespacho(true)
+  const despacharReporte = (reporte)=>{
+    const props = { reporte: reporte };
+    navigate("/despachar", { state: props });
   }
 
   const handleNextPage = () => {
@@ -94,16 +93,17 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes }) =
           {currentItems.length !== 0 &&
             currentItems.map((item) => (
               <tr key={item._id} >
+                <td>{item.numero}</td>
                 <td>{item.fecha.split(",")[0]}</td>
                 <td>{item.detalle.length < 20? item.detalle :  item.detalle.slice(0, 20) + "..."}</td>
                 <td>{item.usuario.nombreUsuario}</td>
                 <td>{item.naturaleza.nombre.toUpperCase()}</td>
                 <td>{item.categoria.nombre}</td>
-                <td>{item.subcategoria?.nombre}</td>
+                {/* <td>{item.subcategoria?.nombre}</td> */}
                 <td>
-                  {!despacho? 
-                <FontAwesomeIcon onClick={()=>setDespachar(item._id)} className="botonDespacho" icon={faXmark} />
-                : despacho && selected == item._id &&
+                  {item.despacho == null? 
+                <FontAwesomeIcon onClick={()=>setSelected(item._id)} className="botonDespacho" icon={faXmark} />
+                : 
                 <FontAwesomeIcon className="botonDespacho" icon={faCheck} />
                   } 
                   <FaEye

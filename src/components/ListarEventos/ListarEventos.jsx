@@ -64,9 +64,9 @@ const ListarEventos = () => {
         >
           +
         </Button>
+        
       </div>
-      {/* <Button className="ms-5 mt-2" onClick={nuevoReporte}>Nuevo Reporte</Button> */}
-
+    
       <Row className="mt-5">
         <Col>
           {loading ? (
@@ -76,20 +76,16 @@ const ListarEventos = () => {
           ) : (
             <TablaEventos
               headings={[
+                "Nro",
                 "Fecha",
                 "Detalle",
                 "Usuario",
                 "Evento",
                 "Categoria",
-                "Subcategoria",
                 "",
               ]}
               items={
-                user.tipoDeUsuario == "visualizador"
-                  ? ResultadoBusqueda.reverse().filter(
-                      (rep) => rep.usuario._id == user._id
-                    )
-                  : ResultadoBusqueda.reverse()
+             [...ResultadoBusqueda].reverse()
               }
               setSelected={setSelected}
               selected={selected}

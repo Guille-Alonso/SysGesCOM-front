@@ -80,13 +80,18 @@ const AltaEvento = () => {
       formData.append("subcategoria", values.subcategoria);
       formData.append("dispositivo", values.dispositivo);
       formData.append("photo", values.photo);
-
+   
       const respuesta = await axios.post("/reportes/alta", formData);
+
       toast.success("Reporte registrado con éxito");
-      setVolver(true);
+      setValues(ALTA_REPORTES_VALUES);
+      setSearchTerm({nombre:""});
+      document.querySelector("#imageEvento").value="";
+      // setVolver(true);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
+
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -333,6 +338,7 @@ const AltaEvento = () => {
                   onChange={handleFileInputChange}
                   name="photo"
                   accept="image/*"
+                  id="imageEvento"
                 />
               </Form.Group>
 

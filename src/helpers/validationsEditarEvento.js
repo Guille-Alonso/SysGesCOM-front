@@ -1,9 +1,9 @@
-export const validationsAltaEvento = (values) => {
+export const validationsEditarEvento = (values) => {
 
     let errors = {};
   
-    if (!values.ubicacion) {
-      errors.ubicacion = "Debes elegir una sugerencia de dispositivo (hacer click)";
+    if (!values.dispositivo) {
+      errors.ubicacion = "Debes elegir un dispositivo";
     } 
 
     if (!values.detalle) {

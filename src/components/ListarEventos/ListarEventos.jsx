@@ -13,6 +13,7 @@ const ListarEventos = () => {
   const { user } = useContext(COMContext);
   const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
+  const [selected, setSelected] = useState(undefined);
 
   const handleChange = (event) => {
     setBuscador(event.target.value);
@@ -90,6 +91,8 @@ const ListarEventos = () => {
                     )
                   : ResultadoBusqueda.reverse()
               }
+              setSelected={setSelected}
+              selected={selected}
               getReportes={getReportes}
             />
           )}

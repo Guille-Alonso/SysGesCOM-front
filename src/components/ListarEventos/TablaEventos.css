@@ -13,3 +13,12 @@
     transform: scale(1.8);
     color: orange;
   }
+
+.botonDespacho{
+    height: 16px;
+    margin-right: 20px;
+}
+.botonDespacho:hover{
+    transform: scale(1.8);
+    color: green;
+  }

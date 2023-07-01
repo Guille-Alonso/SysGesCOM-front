@@ -127,7 +127,7 @@ const DetalleEvento = () => {
       const url = URL.createObjectURL(blob);
       setImageUrl(url);
     } catch (error) {
-      toast.error("Imágen no encontrada");
+      toast.error("Reporte sin Captura");
     }
   };
 
@@ -313,14 +313,18 @@ const DetalleEvento = () => {
                   </p>
                 )}
               </div>
-              {(user.tipoDeUsuario == "admin" ||
+              {((user.tipoDeUsuario == "admin" ||
                 user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor") && (
+                user.tipoDeUsuario == "supervisor") && !editReporte) && (
                 <div className=" botonEditarDetalleEvento d-flex justify-content-left">
                   <Button onClick={handleEditReporte}>Editar</Button>
                 </div>
               )}
-
+            {editReporte && (
+              <Button className=" mt-3" type="submit">
+                Guardar Cambios
+              </Button>
+            )}
               {volver && <Navigate to="/reportes" />}
             </Col>
           </Col>
@@ -344,14 +348,9 @@ const DetalleEvento = () => {
                   className="fotoReporteDetalle"
                   style={styles}
                   src={imageUrl}
-                  alt="Captura del evento"
+                  alt="Captura del reporte"
                 />
               </div>
-            )}
-            {editReporte && (
-              <Button className=" mt-3" type="submit">
-                Guardar Cambios
-              </Button>
             )}
           </Col>
         </Row>

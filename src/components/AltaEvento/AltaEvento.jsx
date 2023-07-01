@@ -287,6 +287,7 @@ const AltaEvento = () => {
                   required
                   maxLength={6}
                   minLength={6}
+                  autoComplete="off"
                 />
                 <ul
                   className={

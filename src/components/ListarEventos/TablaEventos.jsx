@@ -101,12 +101,16 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
                 <td>{item.categoria.nombre}</td>
                 {/* <td>{item.subcategoria?.nombre}</td> */}
                 <td>
-                  {item.despacho == null? 
+                  {item.despacho == null && (user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor")? 
                 
-                <FontAwesomeIcon onClick={console.log("hola mundo")} className="botonDespacho" icon={faXmark} />
+                <FontAwesomeIcon onClick={()=>console.log("a despachar")} className="botonDespacho" icon={faXmark} />
              
-                : 
-                <FontAwesomeIcon className="botonDespacho" icon={faCheck} />
+                : item.despacho !== null && (user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor")?
+                <FontAwesomeIcon onClick={()=>console.log("a editar despacho")} className="botonDespacho" icon={faCheck} />
+                : item.despacho == null ?
+                <FontAwesomeIcon className="botonDespachoDisable" icon={faXmark} />
+                :
+                <FontAwesomeIcon onClick={()=>console.log("ver despacho")} className="botonDespacho" icon={faCheck} />
                   } 
                   
                   <FaEye

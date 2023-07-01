@@ -6,7 +6,8 @@ import TablaEventos from "./TablaEventos";
 import { useNavigate } from "react-router-dom";
 import { COMContext } from "../../context/COMContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faRotate } from "@fortawesome/free-solid-svg-icons";
+import './ListarEventos.css'
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
@@ -65,9 +66,12 @@ const ListarEventos = () => {
         >
           +
         </Button>
-        
+        {
+          user.tipoDeUsuario == "supervisor" &&
+          <FontAwesomeIcon onClick={getReportes} className="refrescarLista" icon={faRotate} />
+        }
       </div>
-    
+
       <Row className="mt-5">
         <Col>
           {loading ? (
@@ -85,9 +89,7 @@ const ListarEventos = () => {
                 "Categoria",
                 "",
               ]}
-              items={
-             [...ResultadoBusqueda].reverse()
-              }
+              items={[...ResultadoBusqueda].reverse()}
               setSelected={setSelected}
               selected={selected}
               getReportes={getReportes}

@@ -72,7 +72,8 @@ function NavbarComponent() {
             )}
             {authenticated &&
               (user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor") && (
+                user.tipoDeUsuario == "supervisor" ||
+                user.tipoDeUsuario == "estadística") && (
                 <Nav.Link>
                   <Link to="/reportes">Reportes</Link>
                 </Nav.Link>
@@ -81,13 +82,7 @@ function NavbarComponent() {
 
           {authenticated ? (
             <Nav>
-              <Nav>
-                <img
-                  src={user.foto}
-                  alt="User profile"
-                  className="userProfile"
-                />
-              </Nav>
+            
 
               <NavDropdown
                 title={user.nombre}
@@ -135,6 +130,13 @@ function NavbarComponent() {
                   Cerrar Sesión
                 </NavDropdown.Item>
               </NavDropdown>
+              <Nav>
+                <img
+                  src={user.foto}
+                  alt="User profile"
+                  className="ms-3 userProfile"
+                />
+              </Nav>
             </Nav>
           ) : location.pathname !== "/login" ? (
             <Nav.Link>

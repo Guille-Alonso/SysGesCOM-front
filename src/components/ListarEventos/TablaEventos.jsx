@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const TablaEventos = ({ headings, items,  setSelected, selected,getReportes }) => {
+const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user}) => {
   const navigate = useNavigate();
   const [paginacion, setPaginacion] = useState(1);
   const itemPag = 10;
@@ -102,18 +102,24 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes }) =
                 {/* <td>{item.subcategoria?.nombre}</td> */}
                 <td>
                   {item.despacho == null? 
-                <FontAwesomeIcon onClick={()=>setSelected(item._id)} className="botonDespacho" icon={faXmark} />
+                
+                <FontAwesomeIcon onClick={console.log("hola mundo")} className="botonDespacho" icon={faXmark} />
+             
                 : 
                 <FontAwesomeIcon className="botonDespacho" icon={faCheck} />
                   } 
+                  
                   <FaEye
                     onClick={() => verDetalle(item)}
                     className="botonVer"
                   />
+                  {user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor" ?
                   <FaTrashAlt
                     onClick={() => setReportDelete(item._id)}
                     className="botonEliminar"
                   />
+                  :<></>
+                  }
                 </td>
               </tr>
             ))}

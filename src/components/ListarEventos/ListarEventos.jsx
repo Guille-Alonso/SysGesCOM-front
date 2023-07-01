@@ -29,6 +29,7 @@ const ListarEventos = () => {
     if (Array.isArray(reportes.reportes)) {
       const results = reportes.reportes.filter(
         (reporte) =>
+          reporte.numero.toString().includes(buscador) ||
           reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
           reporte.usuario.nombreUsuario
             .toLowerCase()
@@ -90,6 +91,7 @@ const ListarEventos = () => {
               setSelected={setSelected}
               selected={selected}
               getReportes={getReportes}
+              user={user}
             />
           )}
         </Col>

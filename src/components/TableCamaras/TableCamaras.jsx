@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { FaEdit, FaTrashAlt } from "react-icons/fa"; // Importa el ícono de edición de React Icons
 import "./TableCamaras.css";
@@ -60,7 +60,7 @@ const TableCamaras = ({
   items,
   setSelected,
   selected,
-  getCamaras,
+  getCamaras
 }) => {
 
   const [showModal, setShowModal] = useState(false);
@@ -175,6 +175,7 @@ const TableCamaras = ({
                         className="botonEliminar"
                         onClick={() => setModalDelete(true)}
                       />
+                      
                     </td>
                   </tr>
                 ))}

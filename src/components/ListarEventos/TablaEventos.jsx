@@ -103,7 +103,7 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
                 <td>
                   {item.despacho == null && (user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor")? 
                 
-                <FontAwesomeIcon onClick={()=>console.log("a despachar")} className="botonDespacho" icon={faXmark} />
+                <FontAwesomeIcon onClick={()=>despacharReporte(item)} className="botonDespacho" icon={faXmark} />
              
                 : item.despacho !== null && (user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor")?
                 <FontAwesomeIcon onClick={()=>console.log("a editar despacho")} className="botonDespacho" icon={faCheck} />

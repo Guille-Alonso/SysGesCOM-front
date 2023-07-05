@@ -32,6 +32,11 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
     navigate("/despachar", { state: props });
   }
 
+  const verEditarDespacho = (despacho)=>{
+    const props = { despacho: despacho };
+    navigate("/editarDespacho", { state: props });
+  }
+
   const handleNextPage = () => {
     setPaginacion((prevPag) => prevPag + 1);
   };
@@ -106,11 +111,11 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
                 <FontAwesomeIcon onClick={()=>despacharReporte(item)} className="botonDespacho" icon={faXmark} />
              
                 : item.despacho !== null && (user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor")?
-                <FontAwesomeIcon onClick={()=>console.log("a editar despacho")} className="botonDespacho" icon={faCheck} />
+                <FontAwesomeIcon onClick={()=>verEditarDespacho(item.despacho)} className="botonDespacho" icon={faCheck} />
                 : item.despacho == null ?
                 <FontAwesomeIcon className="botonDespachoDisable" icon={faXmark} />
                 :
-                <FontAwesomeIcon onClick={()=>console.log("ver despacho")} className="botonDespacho" icon={faCheck} />
+                <FontAwesomeIcon onClick={()=>verEditarDespacho(item.despacho)} className="botonDespacho" icon={faCheck} />
                   } 
                   
                   <FaEye

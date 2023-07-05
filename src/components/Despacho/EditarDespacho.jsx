@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import useForm from '../../hooks/useForm';
+import { validationsAltaDespacho } from '../../helpers/validationsAltaDespacho';
+import { ALTA_DESPACHOS_VALUES } from '../../constants';
 import useGet from '../../hooks/useGet';
 import axios from '../../config/axios';
-import { COMContext } from '../../context/COMContext';
-import useForm from '../../hooks/useForm';
-import { ALTA_DESPACHOS_VALUES } from '../../constants';
-import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { validationsAltaDespacho } from '../../helpers/validationsAltaDespacho';
+import { Alert, Col, Container, Row } from 'react-bootstrap';
+import { COMContext } from '../../context/COMContext';
 
-const DespachoDetalle = () => {
+const EditarDespacho = () => {
     const location = useLocation();
     const datos = location.state;
 
@@ -18,8 +18,8 @@ const DespachoDetalle = () => {
         axios
       );
 
-    const { user } = useContext(COMContext);
     const [volver, setVolver] = useState(false);
+    const { user } = useContext(COMContext);
 
     const [selectedValues, setSelectedValues] = useState([]);
 
@@ -46,25 +46,9 @@ const DespachoDetalle = () => {
 
   const enviarDatos = async () => {
 
-  const fechaActual = new Date();
-  const options = {
-    weekday: "long",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  };
-
-  const fechaSinZonaHoraria = fechaActual
-    .toLocaleString("es-AR", options)
-    .replace(",", "")
-    .replace(/^(\w)|\s(\w)/g, (match) => match.toUpperCase());
-
         try {
             const despacho = {
-                fecha: fechaSinZonaHoraria,
+              
                 acuse: values.acuse,
                 reparticiones: values.reparticiones,
                 usuario: user._id,
@@ -72,7 +56,7 @@ const DespachoDetalle = () => {
             } 
           await axios.post("/despachos/alta", despacho);
           setValues(ALTA_DESPACHOS_VALUES);
-          toast.success("Despacho realizado");
+          toast.success("Despacho modificado");
           setVolver(true);
         } catch (error) {
           toast.error(error.response?.data.message || error.message);
@@ -84,10 +68,6 @@ const DespachoDetalle = () => {
         enviarDatos,
         validationsAltaDespacho
       );
-        
-      //useEffect(()=>{
-    //    setValues(datos.reporte);
-     // },[])
   return (
     <Container className="layoutHeight">
       <Row>
@@ -136,7 +116,7 @@ const DespachoDetalle = () => {
                 <strong>Reparticiones: </strong>
               </Form.Label>
             
-              {!loading &&
+              {!loading?
                 reparticiones.reparticiones.map((rep, index) => {
                   return (
                     <div key={index} className="d-flex">
@@ -148,8 +128,8 @@ const DespachoDetalle = () => {
                       <Form.Label title='Seleccione al menos una' className="ms-2">{rep.nombre}</Form.Label>
                     </div>
                   );
-                })}
-        
+                }):
+                <Spinner/>}
             </div>
             <Button className='mt-5' type="submit">Despachar</Button>
           </Form>
@@ -167,7 +147,7 @@ const DespachoDetalle = () => {
         </Col>
       </Row>
     </Container>
-  );
+  )
 }
 
-export default DespachoDetalle
+export default EditarDespacho

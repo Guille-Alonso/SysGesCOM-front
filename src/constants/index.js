@@ -68,3 +68,9 @@ export const ALTA_REPORTES_VALUES = {
   photo: "",
   ubicacion:""
 };
+
+export const ALTA_DESPACHOS_VALUES = {
+  fecha: "",
+  acuse: "",
+  reparticiones: "",
+};

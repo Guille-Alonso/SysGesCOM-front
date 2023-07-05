@@ -16,6 +16,7 @@ import AltaEvento from "./components/AltaEvento/AltaEvento";
 import ListarEventos from "./components/ListarEventos/ListarEventos";
 import Login from "./components/Login/Login";
 import DetalleEvento from "./components/ListarEventos/DetalleEvento";
+import DespachoDetalle from "./components/Despacho/DespachoDetalle";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/alta-reporte" element={<PrivateRoute><AltaEvento/></PrivateRoute>} />
             <Route path="/reportes" element={<PrivateRoute><ListarEventos/></PrivateRoute>} />
             <Route path="/detalleEvento" element={<PrivateRoute><DetalleEvento/></PrivateRoute>} />
+            <Route path="/despachar" element={<PrivateRoute><DespachoDetalle/></PrivateRoute>} />
           </Routes>
           <ToastContainer />
         </Layout>

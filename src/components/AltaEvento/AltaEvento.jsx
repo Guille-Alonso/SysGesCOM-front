@@ -172,12 +172,14 @@ const AltaEvento = () => {
   }, []);
 
   return (
-    <Container>
+    <Container className="layoutHeight">
+    
       <div className="contAltaEvento">
         <Row>
+          
           <Col>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="contInputFecha">
+            <Form.Group className="contInputFecha">
                 <Form.Control
                   type="text"
                   value={`${fecha} - ${hora}`}
@@ -187,7 +189,6 @@ const AltaEvento = () => {
                   className="inputFecha"
                 />
               </Form.Group>
-
               <Row className="fila1">
                 <Col xs={12} sm={4}>
                   <Form.Group className="inputAltaEvento col-xs-6">

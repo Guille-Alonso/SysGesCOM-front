@@ -41,10 +41,10 @@
 
 .inputFecha {
     position: flex;
-    height: 30px;
     color: white !important;
     background: transparent !important;
     border: none !important;
+    
 }
 
 .inputAltaEvento {

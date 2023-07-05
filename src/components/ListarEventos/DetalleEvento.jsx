@@ -155,7 +155,7 @@ const DetalleEvento = () => {
   }, []);
 
   return (
-    <Container className="layoutHeight contenedorDetalleReporte" md={12}>
+    <Container className="layoutHeight" md={12}>
       <Form onSubmit={handleSubmit}>
         <Form.Label className="labelEditReporte">
           <strong>Fecha:</strong> {values.fecha}
@@ -364,6 +364,7 @@ const DetalleEvento = () => {
         </Row>
       </Form>
     </Container>
+
   );
 };
 

@@ -90,10 +90,8 @@ const DespachoDetalle = () => {
      // },[])
   return (
     <Container className="layoutHeight">
-
       <Row>
         <Col xs={6}>
-
           <div className="d-flex flex-column labelEditReporte mt-3">
             <Form.Label>
               <strong>Detalle: </strong>
@@ -104,67 +102,70 @@ const DespachoDetalle = () => {
               readOnly
             />
           </div>
-
-          <Form.Label className="mt-3">
-            <strong>Tipo de Evento: </strong>
-          </Form.Label>
-          <Form.Control disabled value={datos.reporte.naturaleza.nombre} />
-
-          <Form.Label className="mt-3">
-            <strong>Categoria: </strong>
-          </Form.Label>
-          <Form.Control disabled value={datos.reporte.categoria.nombre} />
-
-          <Form.Label className="mt-3">
-            <strong>Subcategoria: </strong>
-          </Form.Label>
-          <Form.Control disabled value={datos.reporte.subcategoria?.nombre} />
-        </Col>
-        <Col xs={6} className='d-flex align-items-end'>
-            <Col className="d-flex justify-content-center">
-              {Object.keys(errors).length !== 0 &&
-                Object.values(errors).map((error, index) => (
-                  <Alert className="me-1" variant="danger" key={index}>
-                    {error}
-                  </Alert>
-                ))}
-            </Col>
-        </Col>
-        <Form onSubmit={handleSubmit}>
-          <div className="d-flex flex-column labelEditReporte mt-3">
-            <Form.Label>
-              <strong>Acuse: </strong>
+          <Col xs={6}>
+            <Form.Label className="mt-3">
+              <strong>Tipo de Evento: </strong>
             </Form.Label>
-            <textarea
-              className="inputEditReporte2 mb-3"
-              onChange={handleChange}
-              name="acuse"
-              value={values.acuse}
-            />
-            <Form.Label>
-              <strong>Reparticiones: </strong>
+            <Form.Control disabled value={datos.reporte.naturaleza.nombre} />
+
+            <Form.Label className="mt-3">
+              <strong>Categoria: </strong>
             </Form.Label>
-            {!loading &&
-              reparticiones.reparticiones.map((rep, index) => {
-                return (
-                  <div key={index} className="d-flex">
-                    <Form.Check
-                      type="checkbox"
-                      onChange={() => handleCheckboxChange(rep._id)}
-                      value={rep._id}
-                    />
-                    <Form.Label className="ms-2">{rep.nombre}</Form.Label>
-                  </div>
-                );
-              })}
-          </div>
-          <Button type="submit" className="mb-5">
-            Enviar
-          </Button>
-        </Form>
+            <Form.Control disabled value={datos.reporte.categoria.nombre} />
+
+            <Form.Label className="mt-3">
+              <strong>Subcategoria: </strong>
+            </Form.Label>
+            <Form.Control disabled value={datos.reporte.subcategoria?.nombre} />
+          </Col>
+        </Col>
+
+        <Col xs={6}>
+          <Form onSubmit={handleSubmit}>
+            <div className="d-flex flex-column labelEditReporte mt-3">
+              <Form.Label>
+                <strong>Acuse: </strong>
+              </Form.Label>
+              <textarea
+                className="inputEditReporte2 mb-3"
+                onChange={handleChange}
+                name="acuse"
+                value={values.acuse}
+              />
+              <Form.Label>
+                <strong>Reparticiones: </strong>
+              </Form.Label>
+            
+              {!loading &&
+                reparticiones.reparticiones.map((rep, index) => {
+                  return (
+                    <div key={index} className="d-flex">
+                      <Form.Check
+                        type="checkbox"
+                        onChange={() => handleCheckboxChange(rep._id)}
+                        value={rep._id}
+                      />
+                      <Form.Label title='Seleccione al menos una' className="ms-2">{rep.nombre}</Form.Label>
+                    </div>
+                  );
+                })}
+        
+            </div>
+            <Button className='mt-5' type="submit">Despachar</Button>
+          </Form>
+        </Col>
         {volver && <Navigate to="/reportes" />}
       </Row>
-     
+      <Row>
+        <Col className="d-flex justify-content-center mt-3">
+          {Object.keys(errors).length !== 0 &&
+            Object.values(errors).map((error, index) => (
+              <Alert className="me-1" variant="danger" key={index}>
+                {error}
+              </Alert>
+            ))}
+        </Col>
+      </Row>
     </Container>
   );
 }

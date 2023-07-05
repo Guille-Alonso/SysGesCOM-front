@@ -33,7 +33,7 @@ export const Login = () => {
 
   return (
 
-      <div className="d-flex justify-content-center align-items-center layoutHeight">
+      <div className="d-flex justify-content-center align-items-start layoutHeight">
         <div className="box">
           <span className="borderLine"></span>
           <form onSubmit={handleSubmit}>

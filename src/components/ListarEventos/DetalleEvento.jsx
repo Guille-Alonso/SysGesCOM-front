@@ -143,7 +143,6 @@ const DetalleEvento = () => {
   };
 
   useEffect(() => {
-    console.log(datos.reporte);
     const { _id, ...eventoInfo } = datos.reporte;
     setValues(eventoInfo);
     setNatuSelected(eventoInfo.naturaleza._id);
@@ -315,7 +314,7 @@ const DetalleEvento = () => {
               </div>
               {((user.tipoDeUsuario == "admin" ||
                 user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor") && !editReporte) && (
+                user.tipoDeUsuario == "supervisor") && !editReporte && datos.reporte.despacho == null) && (
                 <div className=" botonEditarDetalleEvento d-flex justify-content-left">
                   <Button onClick={handleEditReporte}>Editar</Button>
                 </div>
@@ -352,19 +351,18 @@ const DetalleEvento = () => {
                 />
               </div>
             )}
-          </Col>
-        </Row>
-      </Form>
-      <Row>
-            <Col xs={12} className="d-flex justify-content-center">
+            
+            <Row className="mt-4">
               {Object.keys(errors).length !== 0 &&
                 Object.values(errors).map((error, index) => (
                   <Alert className="me-1" variant="danger" key={index}>
                     {error}
                   </Alert>
                 ))}
-            </Col>
-          </Row>
+            </Row>
+          </Col>
+        </Row>
+      </Form>
     </Container>
   );
 };

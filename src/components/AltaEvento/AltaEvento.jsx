@@ -327,7 +327,8 @@ const AltaEvento = () => {
                   value={values.detalle}
                   name="detalle"
                   required
-                  maxLength={200}
+                  maxLength={500}
+                  minLength={4}
                 />
               </Form.Group>
 

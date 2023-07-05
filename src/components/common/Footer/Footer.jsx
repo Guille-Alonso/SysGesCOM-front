@@ -3,9 +3,11 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="movFooter">
-      <p>©2023 Equipo de Desarrollo COM</p>
-    </div>
+    <footer className="footer1">
+      <div className="movFooter">
+        <p>©2023 Equipo de Desarrollo COM</p>
+      </div>
+    </footer>
   );
 };
 

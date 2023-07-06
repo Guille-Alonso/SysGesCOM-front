@@ -46,6 +46,8 @@ const EditarDespacho = () => {
       }; 
 
     const enviarDatos = async () => {
+      const { _id, ...despachoInfo } = datos.despacho;
+      if (JSON.stringify(despachoInfo) !== JSON.stringify(values)) {
       try {
         const despacho = {
           acuse: values.acuse,
@@ -59,6 +61,7 @@ const EditarDespacho = () => {
       } catch (error) {
         toast.error(error.response?.data.message || error.message);
       }
+    } else toast.error("No hiciste cambios");
     };
 
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(

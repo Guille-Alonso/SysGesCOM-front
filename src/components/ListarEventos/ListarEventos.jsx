@@ -56,6 +56,9 @@ const ListarEventos = () => {
           icon={faMagnifyingGlass}
           className="iconoBusquedaCamaras"
         />
+        {
+          (user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor") &&
+
         <Button
           onClick={nuevoReporte}
           style={{
@@ -66,6 +69,8 @@ const ListarEventos = () => {
         >
           +
         </Button>
+        }
+        
         {
           user.tipoDeUsuario == "supervisor" &&
           <FontAwesomeIcon onClick={getReportes} className="refrescarLista" icon={faRotate} />

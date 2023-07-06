@@ -46,8 +46,19 @@ const EditarDespacho = () => {
       }; 
 
     const enviarDatos = async () => {
-
-        console.log(values);
+      try {
+        const despacho = {
+          acuse: values.acuse,
+          reparticiones: values.reparticiones,
+          usuario: user._id,
+        }
+        await axios.put(`/despachos/actualizarDespacho/${datos.despacho._id}`, despacho);
+        setValues(ALTA_DESPACHOS_VALUES);
+        toast.success("Despacho editado");
+        setVolver(true);
+      } catch (error) {
+        toast.error(error.response?.data.message || error.message);
+      }
     };
 
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -56,18 +67,11 @@ const EditarDespacho = () => {
         validationsAltaDespacho
       );
 
-    useEffect(()=>{
-    //console.log(datos.despacho);
-    console.log(Object.values(datos.despacho.reparticiones));
+  useEffect(() => {
     const { _id, ...despachoInfo } = datos.despacho;
     setValues(despachoInfo)
-
     setSelectedValues(datos.despacho.reparticiones.filter((item) => item));
-    setValues({
-      ...values,
-      "reparticiones": datos.despacho.reparticiones.filter((item) => item),
-    });
-    },[]);
+  }, []);
 
   return (
     <Container className="layoutHeight">
@@ -75,6 +79,9 @@ const EditarDespacho = () => {
         <Col xs={6}>
           <Form onSubmit={handleSubmit}>
             <div className="d-flex flex-column labelEditReporte mt-3">
+            <Form.Label>
+                <p>Último cambio realizado por <strong>{datos.despacho.usuario?.nombre}</strong></p>
+              </Form.Label>
               <Form.Label>
                 <strong>Acuse: </strong>
               </Form.Label>
@@ -83,6 +90,7 @@ const EditarDespacho = () => {
                 onChange={handleChange}
                 name="acuse"
                 value={values.acuse}
+                disabled = {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "supervisor"? false : true}
               />
               <Form.Label>
                 <strong>Reparticiones: </strong>
@@ -96,7 +104,8 @@ const EditarDespacho = () => {
                         type="checkbox"
                         onChange={() => handleCheckboxChange(rep._id)}
                         value={rep._id}
-                        checked={values.reparticiones.filter(value=>value == rep._id).length == 1? true : false}
+                        checked={Object.values(values.reparticiones).filter(value=>value == rep._id).length == 1? true : false}
+                        disabled = {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "supervisor"? false : true}
                       />
                       <Form.Label title='Seleccione al menos una' className="ms-2">{rep.nombre}</Form.Label>
                     </div>
@@ -104,7 +113,11 @@ const EditarDespacho = () => {
                 }):
                 <Spinner/>}
             </div>
-            <Button className='mt-5' type="submit">Editar</Button>
+            {
+              (user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "supervisor") &&
+              <Button className='mt-5' type="submit">Editar</Button>
+            }
+            
           </Form>
         </Col>
         {volver && <Navigate to="/reportes" />}

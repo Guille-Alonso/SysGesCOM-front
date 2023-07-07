@@ -75,6 +75,17 @@ const ListarEventos = () => {
           user.tipoDeUsuario == "supervisor" &&
           <FontAwesomeIcon onClick={getReportes} className="refrescarLista" icon={faRotate} />
         }
+        {
+          user.tipoDeUsuario == "supervisor" &&
+          <div className="filtrarPorTipo">
+            <label className="me-1">Seguridad</label>
+            <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")))} 
+            name="tipoDeEvento" value="seguridad" type="radio"></input>
+            <label className="ms-2 me-1">Municipal</label>
+            <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")))} 
+            name="tipoDeEvento" value="municipal" type="radio"></input>
+          </div>
+        }
       </div>
 
       <Row className="mt-5">

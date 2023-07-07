@@ -10,14 +10,29 @@ import "./iconoPassword.css";
 import { useState } from "react";
 import axios from "../../config/axios";
 import { toast } from "react-toastify";
+import { COMContext } from "../../context/COMContext";
 
 const CambiarContraseña = () => {
+
+  const {user} = useContext(COMContext);
 
   const enviarDatos = async () => {
   
     try {
-      const {data} = await axios.put("/users/editPassword", values);
-      toast.success(data.mensaje)
+      const changePass = {
+        confirmPassword: values.confirmPassword,
+        confirmPasswordRepeat: values.confirmPasswordRepeat,
+        userName: values.userName,
+        password: values.password,
+        userId: user._id
+      }
+      
+      let respuesta = "";
+      if(user.tipoDeUsuario == "admin"){
+        respuesta = await axios.put("/users/editPassword", changePass);
+      }else respuesta = await axios.put("/users/editPassword/users", changePass);
+      
+      toast.success(respuesta.data.mensaje);
       setValues(CHANGE_PASSWORD_VALUES)
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
@@ -48,7 +63,10 @@ const CambiarContraseña = () => {
           <Row>
             <Col xs={12} className="columnaForm">
               <Form onSubmit={handleSubmit} className="formChangePassword">
+              {
+                    user.tipoDeUsuario == "admin"?
                 <Form.Group>
+                  
                   <Form.Label>Nombre de Usuario</Form.Label>
                   <Form.Control
                     maxLength={15}
@@ -60,9 +78,31 @@ const CambiarContraseña = () => {
                     placeholder="j.alvarez"
                     className="inputBoxPasswordChange mb-3"
                   />
+                 
                 </Form.Group>
+                 :
+                 <Form.Group>
+                  <Form.Label>Contraseña anterior</Form.Label>
+                  <Form.Control
+                    maxLength={30}
+                    minLength={8}
+                    required
+                    value={values.password}
+                    onChange={handleChange}
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Contraseña anterior"
+                    className="inputBoxPasswordChange"
+                  />
+                  <FontAwesomeIcon
+                    icon={showPassword ? faEye : faEyeSlash}
+                    onClick={handleShowPassword}
+                    className="icono-password-2"
+                  />
+                </Form.Group>
+                }
                 <Form.Group>
-                  <Form.Label>Constraseña nueva</Form.Label>
+                  <Form.Label>Contraseña nueva</Form.Label>
                   <Form.Control
                     maxLength={30}
                     minLength={8}

@@ -320,16 +320,16 @@ const AltaEvento = () => {
                 />
               </Form.Group>
 
-              <Form.Group className="inputAltaEvento">
-                <Form.Label className="mt-2">Detalle</Form.Label>
-                <Form.Control
-                  type="text"
+              <Form.Group className="d-flex flex-column labelEditReporte mt-2">
+                <Form.Label className="">
+                  Detalle
+                </Form.Label>
+                <textarea
+                  className="inputEditReporte2"
                   onChange={handleChange}
-                  value={values.detalle}
                   name="detalle"
+                  value={values.detalle}
                   required
-                  maxLength={500}
-                  minLength={4}
                 />
               </Form.Group>
 

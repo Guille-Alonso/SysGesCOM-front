@@ -97,7 +97,7 @@ function NavbarComponent() {
                   <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                {user.tipoDeUsuario == "admin" && (
+                {/* {user.tipoDeUsuario == "admin" && ( */}
                   <NavDropdown.Item onClick={settings} className="navigation">
                     <ion-icon
                       name="person-outline"
@@ -105,7 +105,7 @@ function NavbarComponent() {
                     ></ion-icon>
                     Editar Contraseña
                   </NavDropdown.Item>
-                )}
+                {/* )} */}
 
                 <NavDropdown.Item href="#" className="navigation">
                   <ion-icon

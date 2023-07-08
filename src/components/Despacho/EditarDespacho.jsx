@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom';
+import useForm from '../../hooks/useForm';
+import { validationsAltaDespacho } from '../../helpers/validationsAltaDespacho';
+import { ALTA_DESPACHOS_VALUES } from '../../constants';
 import useGet from '../../hooks/useGet';
 import axios from '../../config/axios';
-import { COMContext } from '../../context/COMContext';
-import useForm from '../../hooks/useForm';
-import { ALTA_DESPACHOS_VALUES } from '../../constants';
-import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { validationsAltaDespacho } from '../../helpers/validationsAltaDespacho';
+import { Alert, Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { COMContext } from '../../context/COMContext';
 
-const DespachoDetalle = () => {
+const EditarDespacho = () => {
     const location = useLocation();
     const datos = location.state;
 
@@ -18,8 +18,8 @@ const DespachoDetalle = () => {
         axios
       );
 
-    const { user } = useContext(COMContext);
     const [volver, setVolver] = useState(false);
+    const { user } = useContext(COMContext);
 
     const [selectedValues, setSelectedValues] = useState([]);
 
@@ -41,88 +41,50 @@ const DespachoDetalle = () => {
             "reparticiones": [...selectedValues, value],
           });
          
+          
         }
       }; 
 
-  const enviarDatos = async () => {
-
-  const fechaActual = new Date();
-  const options = {
-    weekday: "long",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  };
-
-  const fechaSinZonaHoraria = fechaActual
-    .toLocaleString("es-AR", options)
-    .replace(",", "")
-    .replace(/^(\w)|\s(\w)/g, (match) => match.toUpperCase());
-
-        try {
-            const despacho = {
-                fecha: fechaSinZonaHoraria,
-                acuse: values.acuse,
-                reparticiones: values.reparticiones,
-                usuario: user._id,
-                reporteId: datos.reporte._id
-            } 
-          await axios.post("/despachos/alta", despacho);
-          setValues(ALTA_DESPACHOS_VALUES);
-          toast.success("Despacho realizado");
-          setVolver(true);
-        } catch (error) {
-          toast.error(error.response?.data.message || error.message);
+    const enviarDatos = async () => {
+      const { _id, ...despachoInfo } = datos.despacho;
+      if (JSON.stringify(despachoInfo) !== JSON.stringify(values)) {
+      try {
+        const despacho = {
+          acuse: values.acuse,
+          reparticiones: values.reparticiones,
+          usuario: user._id,
         }
-      };
+        await axios.put(`/despachos/actualizarDespacho/${datos.despacho._id}`, despacho);
+        setValues(ALTA_DESPACHOS_VALUES);
+        toast.success("Despacho editado");
+        setVolver(true);
+      } catch (error) {
+        toast.error(error.response?.data.message || error.message);
+      }
+    } else toast.error("No hiciste cambios");
+    };
 
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(
         ALTA_DESPACHOS_VALUES,
         enviarDatos,
         validationsAltaDespacho
       );
-        
-      //useEffect(()=>{
-    //    setValues(datos.reporte);
-     // },[])
+
+  useEffect(() => {
+    const { _id, ...despachoInfo } = datos.despacho;
+    setValues(despachoInfo)
+    setSelectedValues(datos.despacho.reparticiones.filter((item) => item));
+  }, []);
+
   return (
     <Container className="layoutHeight">
       <Row>
         <Col xs={6}>
-          <div className="d-flex flex-column labelEditReporte mt-3">
-            <Form.Label>
-              <strong>Detalle: </strong>
-            </Form.Label>
-            <textarea
-              className="inputEditReporte2 mb-3"
-              value={datos.reporte.detalle}
-              readOnly
-            />
-          </div>
-          <Col xs={6}>
-            <Form.Label className="mt-3">
-              <strong>Tipo de Evento: </strong>
-            </Form.Label>
-            <Form.Control disabled value={datos.reporte.naturaleza.nombre} />
-
-            <Form.Label className="mt-3">
-              <strong>Categoria: </strong>
-            </Form.Label>
-            <Form.Control disabled value={datos.reporte.categoria.nombre} />
-
-            <Form.Label className="mt-3">
-              <strong>Subcategoria: </strong>
-            </Form.Label>
-            <Form.Control disabled value={datos.reporte.subcategoria?.nombre} />
-          </Col>
-        </Col>
-
-        <Col xs={6}>
           <Form onSubmit={handleSubmit}>
             <div className="d-flex flex-column labelEditReporte mt-3">
+            <Form.Label>
+                <p>Último cambio realizado por <strong>{datos.despacho.usuario?.nombre}</strong></p>
+              </Form.Label>
               <Form.Label>
                 <strong>Acuse: </strong>
               </Form.Label>
@@ -131,12 +93,13 @@ const DespachoDetalle = () => {
                 onChange={handleChange}
                 name="acuse"
                 value={values.acuse}
+                disabled = {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "supervisor"? false : true}
               />
               <Form.Label>
                 <strong>Reparticiones: </strong>
               </Form.Label>
             
-              {!loading &&
+              {!loading?
                 reparticiones.reparticiones.map((rep, index) => {
                   return (
                     <div key={index} className="d-flex">
@@ -144,14 +107,20 @@ const DespachoDetalle = () => {
                         type="checkbox"
                         onChange={() => handleCheckboxChange(rep._id)}
                         value={rep._id}
+                        checked={Object.values(values.reparticiones).filter(value=>value == rep._id).length == 1? true : false}
+                        disabled = {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "supervisor"? false : true}
                       />
                       <Form.Label title='Seleccione al menos una' className="ms-2">{rep.nombre}</Form.Label>
                     </div>
                   );
-                })}
-        
+                }):
+                <Spinner/>}
             </div>
-            <Button className='mt-5' type="submit">Despachar</Button>
+            {
+              (user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "supervisor") &&
+              <Button className='mt-5' type="submit">Editar</Button>
+            }
+            
           </Form>
         </Col>
         {volver && <Navigate to="/reportes" />}
@@ -167,7 +136,7 @@ const DespachoDetalle = () => {
         </Col>
       </Row>
     </Container>
-  );
+  )
 }
 
-export default DespachoDetalle
+export default EditarDespacho

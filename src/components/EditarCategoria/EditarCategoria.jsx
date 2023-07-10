@@ -37,8 +37,8 @@ const EditarCategoria = () => {
       } catch (error) {
         toast.error(
           error.response?.data.message ||
-            error.response?.data.errorMje ||
-            error.message
+          error.response?.data.errorMje ||
+          error.message
         );
       }
     } else toast.error("No hiciste cambios");
@@ -117,68 +117,78 @@ const EditarCategoria = () => {
         </Col>
       </Row>
       <Row>
-            <Col xs={12} className="d-flex">
-              {Object.keys(errors).length !== 0 &&
-                Object.values(errors).map((error, index) => (
-                  <Alert className="me-1" variant="danger" key={index}>
-                    {error}
-                  </Alert>
-                ))}
-            </Col>
-          </Row>
-      <Row className="mt-5">
-        <Col className="d-flex justify-content-end botones-End">
-          <GeneralModal
-            buttonText="Eliminar"
-            clase="modalEliminarSubcategoria"
-            modalTitle={"Eliminar Subcategoría"}
-            modalBody={
-              <DeleteConfirmation deleteFunction={borrarSubcategoria} />
-            }
-            variant="danger"
-            seleccion={selected}
-          />
-          <GeneralModal
-            buttonText="Editar"
-            clase="modalEditarSubcategoria"
-            modalTitle={"Editar Subcategoría"}
-            modalBody={
-              <EditarSubcategoria
-                selected={selected}
-                getSubcategorias={getSubcategorias}
-                setSelected={setSelected}
-              />
-            }
-            variant="success"
-            seleccion={selected}
-          />
-          <GeneralModal
-            buttonText="Agregar"
-            clase="modalAgregarSubcategoria"
-            modalTitle={"Agregar Subcategoría"}
-            modalBody={
-              <AltaSubcategoria
-                getSubcategorias={getSubcategorias}
-                idCategoria={datos.categoria._id}
-              />
-            }
-            variant="success"
-            seleccion={false}
-          />
+        <Col xs={12} className="d-flex">
+          {Object.keys(errors).length !== 0 &&
+            Object.values(errors).map((error, index) => (
+              <Alert className="me-1" variant="danger" key={index}>
+                {error}
+              </Alert>
+            ))}
         </Col>
       </Row>
+
       <Row>
-        <Col>
+        <Col className="col-10" xs={10} sm={10} md={10} lg={11} >
+         
           {loading ? (
             <Spinner />
           ) : (
             <GeneralTable
-              headings={["id", "nombre"]}
+              headings={["Id", "Nombre"]}
               items={subcategorias.subcategorias}
               setSelected={setSelected}
               selected={selected}
             />
           )}
+        </Col>
+
+        <Col className="colBtn col-2" xs={2} sm={2} md={2} lg={1}>
+
+          <Row className="botones-Categoria ">
+            <GeneralModal
+              buttonText="Eliminar"
+              clase="modalEliminarSubcategoria"
+              modalTitle={"Eliminar Subcategoría"}
+              modalBody={
+                <DeleteConfirmation deleteFunction={borrarSubcategoria} />
+              }
+              variant="danger"
+              seleccion={selected}
+            />
+          </Row>
+
+          <Row className="botones-Categoria">
+            <GeneralModal
+              buttonText="Editar"
+              clase="modalEditarSubcategoria"
+              modalTitle={"Editar Subcategoría"}
+              modalBody={
+                <EditarSubcategoria
+                  selected={selected}
+                  getSubcategorias={getSubcategorias}
+                  setSelected={setSelected}
+                />
+              }
+              variant="success"
+              seleccion={selected}
+            />
+          </Row>
+
+          <Row className="botones-Categoria">
+            <GeneralModal
+              buttonText="Agregar"
+              clase="modalAgregarSubcategoria"
+              modalTitle={"Agregar Subcategoría"}
+              modalBody={
+                <AltaSubcategoria
+                  getSubcategorias={getSubcategorias}
+                  idCategoria={datos.categoria._id}
+                />
+              }
+              variant="success"
+              seleccion={false}
+            />
+          </Row>
         </Col>
       </Row>
     </Container>

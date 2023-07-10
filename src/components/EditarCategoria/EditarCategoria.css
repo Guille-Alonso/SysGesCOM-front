@@ -5,8 +5,8 @@
     align-items: center;
     justify-content: center;
 }
-.botones-End{
-    gap: 10px;
+.botones-Categoria{
+    margin: 5px;
 }
 .modalEliminarSubcategoria{
     background-color: rgba(0, 0, 0, .9);
@@ -24,4 +24,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.colBtn{
+   margin-top: 36px !important;
 }

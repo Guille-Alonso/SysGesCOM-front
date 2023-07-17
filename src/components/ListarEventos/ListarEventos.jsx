@@ -77,11 +77,11 @@ const ListarEventos = () => {
         }
         {
           user.tipoDeUsuario == "supervisor" &&
-          <div className="filtrarPorTipo">
+          <div className="d-flex filtrarPorTipo">
             <label className="me-1">Seguridad</label>
             <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")))} 
             name="tipoDeEvento" value="seguridad" type="radio"></input>
-            <label className="ms-2 me-1">Municipal</label>
+            <label className="ms-4 me-1">Municipal</label>
             <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")))} 
             name="tipoDeEvento" value="municipal" type="radio"></input>
           </div>

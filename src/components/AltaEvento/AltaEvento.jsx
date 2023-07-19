@@ -30,6 +30,18 @@ const AltaEvento = () => {
   );
 
   const suggestionsRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const handleKeyDown = (event) => {
+    console.log(currentIndex);
+    if (event.key === "ArrowUp") {
+      setCurrentIndex((prev) => prev - 0.5);
+    } else if (event.key === "ArrowDown") {
+      setCurrentIndex((prev) => prev + 0.5);
+    } else if (event.key === "Enter") {
+      // Aquí puedes hacer algo con el valor actual, por ejemplo, imprimirlo en la consola:
+      console.log("Valor actual:", index);
+    }
+  };
 
   useEffect(() => {
     // Agregar event listener para cerrar la lista de sugerencias al hacer clic fuera de ella
@@ -44,8 +56,11 @@ const AltaEvento = () => {
 
     document.addEventListener("click", handleClickOutside);
 
+    document.addEventListener("keyup", handleKeyDown);
+
     return () => {
       document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keyup", handleKeyDown);
     };
   }, []);
 
@@ -80,18 +95,17 @@ const AltaEvento = () => {
       formData.append("subcategoria", values.subcategoria);
       formData.append("dispositivo", values.dispositivo);
       formData.append("photo", values.photo);
-   
+
       const respuesta = await axios.post("/reportes/alta", formData);
 
       toast.success("Reporte registrado con éxito");
       setValues(ALTA_REPORTES_VALUES);
-      setSearchTerm({nombre:""});
-      document.querySelector("#imageEvento").value="";
+      setSearchTerm({ nombre: "" });
+      document.querySelector("#imageEvento").value = "";
       // setVolver(true);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
-
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -129,7 +143,7 @@ const AltaEvento = () => {
     setValues({
       ...values,
       dispositivo: suggestion._id,
-      ubicacion: suggestion.ubicacion
+      ubicacion: suggestion.ubicacion,
     });
 
     setSearchTerm(suggestion);
@@ -167,19 +181,20 @@ const AltaEvento = () => {
     }
   };
 
+  const handleFocus = (e) => {
+    console.log(e);
+  };
   useEffect(() => {
     getDatos();
   }, []);
 
   return (
     <Container className="layoutHeight">
-    
       <div className="contAltaEvento">
         <Row>
-          
           <Col>
             <Form onSubmit={handleSubmit}>
-            <Form.Group className="contInputFecha">
+              <Form.Group className="contInputFecha">
                 <Form.Control
                   type="text"
                   value={`${fecha} - ${hora}`}
@@ -289,19 +304,21 @@ const AltaEvento = () => {
                   maxLength={6}
                   minLength={6}
                   autoComplete="off"
+                  className="inputDispositivo"
+                  onKeyUp={handleKeyDown}
                 />
                 <ul
-                  className={
-                    changeClass
-                      ? "inputDispositivosReportes2"
-                      : "inputDispositivosReportes"
-                  }
+                  className={"inputDispositivosReportes"}
                   ref={suggestionsRef}
                 >
                   {suggestions.map((suggestion, index) => (
                     <li
                       key={index}
                       onClick={() => handleSuggestionClick(suggestion)}
+                      style={{
+                        backgroundColor:
+                          currentIndex === index ? "#ccc" : "transparent",
+                      }}
                     >
                       {suggestion.nombre}
                     </li>
@@ -321,9 +338,7 @@ const AltaEvento = () => {
               </Form.Group>
 
               <Form.Group className="d-flex flex-column labelEditReporte mt-2">
-                <Form.Label className="">
-                  Detalle
-                </Form.Label>
+                <Form.Label className="">Detalle</Form.Label>
                 <textarea
                   className="inputEditReporte2"
                   onChange={handleChange}
@@ -357,18 +372,17 @@ const AltaEvento = () => {
             </Form>
           </Col>
         </Row>
-        
       </div>
       <Row>
-            <Col xs={12} className="d-flex justify-content-center">
-              {Object.keys(errors).length !== 0 &&
-                Object.values(errors).map((error, index) => (
-                  <Alert className="me-1" variant="danger" key={index}>
-                    {error}
-                  </Alert>
-                ))}
-            </Col>
-          </Row>
+        <Col xs={12} className="d-flex justify-content-center">
+          {Object.keys(errors).length !== 0 &&
+            Object.values(errors).map((error, index) => (
+              <Alert className="me-1" variant="danger" key={index}>
+                {error}
+              </Alert>
+            ))}
+        </Col>
+      </Row>
     </Container>
   );
 };

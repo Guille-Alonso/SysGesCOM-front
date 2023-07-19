@@ -3,26 +3,18 @@
 }
 
 .inputDispositivosReportes {
-    position: absolute;
-    width: 510px;
+    position: relative;
+    width: 302px;
     max-height: 268px;
     background-color: white;
-    border: 1px solid #ccc;
     border-radius: 4px;
     padding: 0;
     margin: 0;
-    z-index: 1;
-    display: none;
+    z-index: 0;
+    list-style:none;
 }
-.inputDispositivosReportes2 {
-    position: absolute;
-    width: 510px;
-    max-height: 268px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0;
-    margin: 0;
+
+.inputDispositivo{
     z-index: 1;
 }
 

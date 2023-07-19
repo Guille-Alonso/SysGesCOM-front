@@ -1,0 +1,75 @@
+.contenedorBusqueda{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    width: auto;
+}
+.buscador{
+    width: 20%;
+    height: 70%;
+    border-radius: 15px;
+    border-style: none;
+    outline-style: none;
+    padding: 10px;
+}
+.usuariosSection{
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconoBusquedaUserList{
+    color: black;
+    position: relative;
+    right: 30px;
+    cursor: pointer;
+}
+.swiper-slide{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 60vh !important;
+    width: 100vh !important;
+}
+.swiper-button-next, .swiper-button-prev {
+    top: var(--swiper-navigation-top-offset,85%) !important;
+    width: 10% !important;
+}
+
+.swiper-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background-color: #aaa;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #333;
+}
+.paginationCards{
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    position: absolute;
+    right: 10%;
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width: 1024px) {
+    .paginationCards{
+        width: 10%;
+}}

@@ -1,0 +1,17 @@
+.refrescarLista{
+    position: absolute;
+    margin-left: 450px;
+    margin-top: 10px;
+    color: white;
+    height: 20px;
+}
+.refrescarLista:hover{
+    transform: scale(1.8);
+  }
+
+.filtrarPorTipo{
+    position: absolute;
+    margin-right: 650px;
+    margin-top: 10px;
+    color: white;
+}

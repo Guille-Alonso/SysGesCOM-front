@@ -1,0 +1,28 @@
+.row-selected{
+    background-color: deepskyblue;
+  }
+  tr:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255 , .1);
+  }
+  .colorTabla{
+    color: white;
+  }
+  
+  .table-responsive{
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  
+  .generalTable{
+    text-align: center;
+  }
+  
+  .botonEditar:hover{
+    transform: scale(1.8);
+    color: rgb(41, 165, 126);
+  }
+  .botonEliminar:hover{
+    transform: scale(1.8);
+    color: red;
+  }

@@ -31,15 +31,23 @@ const AltaEvento = () => {
 
   const suggestionsRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const handleKeyDown = (event) => {
-    console.log(currentIndex);
+
+  const handleKeyDown = (event,suggestion) => {
+   
     if (event.key === "ArrowUp") {
-      setCurrentIndex((prev) => prev - 0.5);
+      setCurrentIndex((prev) => Math.max(prev - 0.5,0));
     } else if (event.key === "ArrowDown") {
-      setCurrentIndex((prev) => prev + 0.5);
-    } else if (event.key === "Enter") {
-      // Aquí puedes hacer algo con el valor actual, por ejemplo, imprimirlo en la consola:
-      console.log("Valor actual:", index);
+      setCurrentIndex((prev) => Math.min(prev + 0.5,5));
+    } else if (event.key === "Enter" && suggestion) {
+      console.log(suggestion);
+      setValues({
+        ...values,
+        dispositivo: suggestion._id,
+        ubicacion: suggestion.ubicacion,
+      });
+  
+      setSearchTerm(suggestion);
+      setSuggestions([]); // Limpiar las sugerencias al seleccionar una
     }
   };
 
@@ -56,11 +64,11 @@ const AltaEvento = () => {
 
     document.addEventListener("click", handleClickOutside);
 
-    document.addEventListener("keyup", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("keyup", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -305,7 +313,7 @@ const AltaEvento = () => {
                   minLength={6}
                   autoComplete="off"
                   className="inputDispositivo"
-                  onKeyUp={handleKeyDown}
+                  onKeyDown={handleKeyDown}
                 />
                 <ul
                   className={"inputDispositivosReportes"}
@@ -315,6 +323,8 @@ const AltaEvento = () => {
                     <li
                       key={index}
                       onClick={() => handleSuggestionClick(suggestion)}
+                      onKeyDown={(e)=>handleKeyDown(e,suggestion)}
+                      tabIndex="0"
                       style={{
                         backgroundColor:
                           currentIndex === index ? "#ccc" : "transparent",

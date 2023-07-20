@@ -11,7 +11,7 @@ import { Navigate } from "react-router-dom";
 import { validationsAltaEvento } from "../../helpers/ValidationsAltaEvento";
 
 const AltaEvento = () => {
-  const [botonState,setBotonState] = useState(false)
+  const [botonState, setBotonState] = useState(false);
 
   const [naturalezas, setNaturalezas] = useState([]);
   const [categorias, setCategorias] = useState([]);
@@ -34,25 +34,6 @@ const AltaEvento = () => {
   const suggestionsRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleKeyDown = (event,suggestion) => {
-   
-    if (event.key === "ArrowUp") {
-      setCurrentIndex((prev) => Math.max(prev - 0.5,0));
-    } else if (event.key === "ArrowDown") {
-      setCurrentIndex((prev) => Math.min(prev + 0.5,5));
-    } else if (event.key === "Enter" && suggestion) {
-      console.log(suggestion);
-      setValues({
-        ...values,
-        dispositivo: suggestion._id,
-        ubicacion: suggestion.ubicacion,
-      });
-  
-      setSearchTerm(suggestion);
-      setSuggestions([]); // Limpiar las sugerencias al seleccionar una
-    }
-  };
-
   useEffect(() => {
     // Agregar event listener para cerrar la lista de sugerencias al hacer clic fuera de ella
     const handleClickOutside = (event) => {
@@ -66,11 +47,11 @@ const AltaEvento = () => {
 
     document.addEventListener("click", handleClickOutside);
 
-    document.addEventListener("keydown", handleKeyDown);
+    // document.addEventListener("keypress", handleKeyDown);
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
+      // document.removeEventListener("keypress", handleKeyDown);
     };
   }, []);
 
@@ -136,7 +117,6 @@ const AltaEvento = () => {
 
   const handleInputChange = (e) => {
     setChangeClass(!changeClass);
-
     const value = e.target.value;
     setSearchTerm(value);
 
@@ -149,17 +129,6 @@ const AltaEvento = () => {
         )
         .slice(0, 6); // Mostrar solo los primeros 6 elementos
     setSuggestions(filteredSuggestions);
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    setValues({
-      ...values,
-      dispositivo: suggestion._id,
-      ubicacion: suggestion.ubicacion,
-    });
-
-    setSearchTerm(suggestion);
-    setSuggestions([]); // Limpiar las sugerencias al seleccionar una
   };
 
   const handleChangeNaturaleza = (e) => {
@@ -193,12 +162,27 @@ const AltaEvento = () => {
     }
   };
 
-  const handleFocus = (e) => {
-    console.log(e);
-  };
   useEffect(() => {
     getDatos();
   }, []);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp") {
+      setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    } else if (event.key === "ArrowDown") {
+      setCurrentIndex((prev) => Math.min(prev + 1, suggestions.length - 1));
+    } else if (event.key === "Enter" && suggestions.length > 0) {
+      const suggestion = suggestions[currentIndex];
+      setValues({
+        ...values,
+        dispositivo: suggestion._id,
+        ubicacion: suggestion.ubicacion,
+      });
+
+      setSearchTerm(suggestion);
+      setSuggestions([]); // Limpiar las sugerencias al seleccionar una
+    }
+  };
 
   return (
     <Container className="layoutHeight">
@@ -326,9 +310,6 @@ const AltaEvento = () => {
                   {suggestions.map((suggestion, index) => (
                     <li
                       key={index}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                      onKeyDown={(e)=>handleKeyDown(e,suggestion)}
-                      tabIndex="0"
                       style={{
                         backgroundColor:
                           currentIndex === index ? "#ccc" : "transparent",

@@ -65,7 +65,7 @@ const AltaDeCamara = () => {
                   name="ubicacion"
                   onChange={handleChange}
                   required
-                  maxLength={30}
+                  maxLength={50}
                   minLength={8}
                 />
                 <Button

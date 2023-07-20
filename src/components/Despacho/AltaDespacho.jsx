@@ -18,7 +18,7 @@ const AltaDespacho = () => {
         axios
       );
 
-    const { user } = useContext(COMContext);
+    const { user,botonState,setBotonState } = useContext(COMContext);
     const [volver, setVolver] = useState(false);
 
     const [selectedValues, setSelectedValues] = useState([]);
@@ -45,6 +45,7 @@ const AltaDespacho = () => {
       }; 
 
   const enviarDatos = async () => {
+  setBotonState(true);
 
   const fechaActual = new Date();
   const options = {
@@ -77,6 +78,7 @@ const AltaDespacho = () => {
         } catch (error) {
           toast.error(error.response?.data.message || error.message);
         }
+        setBotonState(false);
       };
 
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -148,7 +150,7 @@ const AltaDespacho = () => {
                 }):
                 <Spinner/>}
             </div>
-            <Button className='mt-5' type="submit">Despachar</Button>
+            <Button disabled={botonState} className='mt-5' type="submit">Despachar</Button>
           </Form>
         </Col>
         {volver && <Navigate to="/reportes" />}

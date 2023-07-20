@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export const Login = () => {
-  const { login, authenticated } = useContext(COMContext);
+  const { login, authenticated, botonState } = useContext(COMContext);
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
     LOGIN_VALUES,
@@ -74,7 +74,7 @@ export const Login = () => {
                 {error}
               </Alert>
             ))}
-          <input type="submit" value="Entrar" className="mt-4" />
+          <input disabled={botonState} type="submit" value="Entrar" className="mt-4" />
         </form>
       </div>
     </div>

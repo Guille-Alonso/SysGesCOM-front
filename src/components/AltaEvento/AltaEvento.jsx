@@ -11,6 +11,8 @@ import { Navigate } from "react-router-dom";
 import { validationsAltaEvento } from "../../helpers/ValidationsAltaEvento";
 
 const AltaEvento = () => {
+  const [botonState,setBotonState] = useState(false)
+
   const [naturalezas, setNaturalezas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [subcategorias, setSubcategorias] = useState([]);
@@ -92,6 +94,7 @@ const AltaEvento = () => {
   const [fecha, hora] = fechaSinZonaHoraria.split(", "); // Separar la fecha de la hora
 
   const enviarDatos = async () => {
+    setBotonState(true);
     try {
       const formData = new FormData();
       formData.append("fecha", fechaSinZonaHoraria);
@@ -114,6 +117,7 @@ const AltaEvento = () => {
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
+    setBotonState(false);
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -375,6 +379,7 @@ const AltaEvento = () => {
                 className="mt-5 col-12 mb-3"
                 size="lg"
                 type="submit"
+                disabled={botonState}
               >
                 Agregar
               </Button>

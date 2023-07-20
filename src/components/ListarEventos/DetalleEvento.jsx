@@ -17,7 +17,7 @@ const DetalleEvento = () => {
     axios
   );
 
-  const { user } = useContext(COMContext);
+  const { user,botonState,setBotonState} = useContext(COMContext);
   const [volver, setVolver] = useState(false);
 
   const [imageUrl, setImageUrl] = useState("");
@@ -68,7 +68,7 @@ const DetalleEvento = () => {
     height: "300px",
   };
   const enviarDatos = async () => {
-    console.log(values);
+    setBotonState(true);
     const { _id, ...eventoInfo } = datos.reporte;
     if (JSON.stringify(eventoInfo) !== JSON.stringify(values)) {
       try {
@@ -107,6 +107,7 @@ const DetalleEvento = () => {
         toast.error(error.response?.data.message || error.message);
       }
     } else toast.error("No hiciste cambios");
+    setBotonState(false);
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -157,8 +158,11 @@ const DetalleEvento = () => {
   return (
     <Container className="layoutHeight" md={12}>
       <Form onSubmit={handleSubmit}>
-        <Form.Label className="labelEditReporte">
+        <Form.Label className="labelEditReporte me-5">
           <strong>Fecha:</strong> {values.fecha}
+        </Form.Label>
+        <Form.Label className="labelEditReporte">
+          <strong>Realizado por:</strong> {values.usuario.nombre}
         </Form.Label>
         <br />
         <Row>
@@ -320,7 +324,7 @@ const DetalleEvento = () => {
                 </div>
               )}
             {editReporte && (
-              <Button className=" mt-3" type="submit">
+              <Button disabled={botonState} className=" mt-3" type="submit">
                 Guardar Cambios
               </Button>
             )}

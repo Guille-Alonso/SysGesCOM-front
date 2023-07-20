@@ -10,9 +10,10 @@ const ProviderCOM = ({children}) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [listadoReportes, setListadoReportes]= useState(true);
+  const [botonState,setBotonState] = useState(false)
 
   const login = async (values) => {
+    setBotonState(true);
     try {
       const { data } = await axios.post("/users/login", values);
       setAuthenticated(!!data.user);
@@ -22,6 +23,7 @@ const ProviderCOM = ({children}) => {
     } catch (error) {
       toast.error(error.response?.data.message || error.message)
     }
+    setBotonState(false);
   };
 
   const getAuth = async () => {
@@ -51,6 +53,8 @@ const ProviderCOM = ({children}) => {
         login,
         getAuth,
         setLoading,
+        botonState,
+        setBotonState
       }}>
       {children}
     </COMContext.Provider>

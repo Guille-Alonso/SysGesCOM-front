@@ -19,7 +19,7 @@ const EditarDespacho = () => {
       );
 
     const [volver, setVolver] = useState(false);
-    const { user } = useContext(COMContext);
+    const { user,botonState,setBotonState } = useContext(COMContext);
 
     const [selectedValues, setSelectedValues] = useState([]);
 
@@ -46,6 +46,7 @@ const EditarDespacho = () => {
       }; 
 
     const enviarDatos = async () => {
+      setBotonState(true);
       const { _id, ...despachoInfo } = datos.despacho;
       if (JSON.stringify(despachoInfo) !== JSON.stringify(values)) {
       try {
@@ -62,6 +63,7 @@ const EditarDespacho = () => {
         toast.error(error.response?.data.message || error.message);
       }
     } else toast.error("No hiciste cambios");
+      setBotonState(false);
     };
 
     const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -118,7 +120,7 @@ const EditarDespacho = () => {
             </div>
             {
               (user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "supervisor") &&
-              <Button className='mt-5' type="submit">Editar</Button>
+              <Button disabled={botonState} className='mt-5' type="submit">Editar</Button>
             }
             
           </Form>

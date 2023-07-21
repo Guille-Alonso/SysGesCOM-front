@@ -77,9 +77,9 @@ function NavbarComponent() {
               (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "estadística") && (
-                <Nav.Link>
+                
                   <Link to="/reportes">Reportes</Link>
-                </Nav.Link>
+                
               )}
           </Nav>
 
@@ -139,10 +139,6 @@ function NavbarComponent() {
                 />
               </Nav>
             </Nav>
-          ) : location.pathname !== "/login" ? (
-            <Nav.Link>
-              <Link to="/login">Iniciar Sesión</Link>
-            </Nav.Link>
           ) : (
             <></>
           )}

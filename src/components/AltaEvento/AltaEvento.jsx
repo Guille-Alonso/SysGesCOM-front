@@ -189,7 +189,7 @@ const AltaEvento = () => {
       <div className="contAltaEvento">
         <Row>
           <Col>
-            <Form onSubmit={handleSubmit}>
+            <Form className="formAltaEvento" onSubmit={handleSubmit}>
               <Form.Group className="contInputFecha">
                 <Form.Control
                   type="text"
@@ -335,7 +335,7 @@ const AltaEvento = () => {
               <Form.Group className="d-flex flex-column labelEditReporte mt-2">
                 <Form.Label className="">Detalle</Form.Label>
                 <textarea
-                  className="inputEditReporte2"
+                  className="inputEditReporte2 w-100"
                   onChange={handleChange}
                   name="detalle"
                   value={values.detalle}

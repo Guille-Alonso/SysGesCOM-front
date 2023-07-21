@@ -73,3 +73,9 @@
 .detalleEventoEdit{
     width: 100%;
 }
+
+@media (max-width: 500px) {
+    .formAltaEvento{
+        width: 400px;
+    }
+}

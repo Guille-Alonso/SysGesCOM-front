@@ -358,12 +358,22 @@ const DetalleEvento = () => {
               </Form.Group>
             ) : (
               <div className="d-flex h-100 contenedorImagenReporte">
-                <img
-                  className="fotoReporteDetalle"
-                  style={styles}
-                  src={imageUrl ? imageUrl : svg404}
-                  alt="Captura del reporte"
-                />
+                {imageUrl?
+                   <img
+                   className="fotoReporteDetalle2"
+                   style={styles}
+                   src={imageUrl ? imageUrl : svg404}
+                   alt="Captura del reporte"
+                 />
+                 :
+                 <img
+                 className="fotoReporteDetalle"
+                 style={styles}
+                 src={imageUrl ? imageUrl : svg404}
+                 alt="Captura del reporte"
+               />
+                }
+              
               </div>
             )}
 

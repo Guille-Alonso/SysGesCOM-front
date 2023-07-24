@@ -12,6 +12,7 @@ import { validationsAltaEvento } from "../../helpers/ValidationsAltaEvento";
 
 const AltaEvento = () => {
   const [botonState, setBotonState] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const [naturalezas, setNaturalezas] = useState([]);
   const [categorias, setCategorias] = useState([]);
@@ -94,7 +95,7 @@ const AltaEvento = () => {
       setValues(ALTA_REPORTES_VALUES);
       setSearchTerm({ nombre: "" });
       document.querySelector("#imageEvento").value = "";
-      // setVolver(true);
+      setSelectedFile(null);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
@@ -107,7 +108,6 @@ const AltaEvento = () => {
     validationsAltaEvento
   );
 
-  const [selectedFile, setSelectedFile] = useState(null);
   const handleFileInputChange = (e) => {
     setValues({
       ...values,

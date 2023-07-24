@@ -1,92 +1,99 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom';
-import useGet from '../../hooks/useGet';
-import axios from '../../config/axios';
-import { COMContext } from '../../context/COMContext';
-import useForm from '../../hooks/useForm';
-import { ALTA_DESPACHOS_VALUES } from '../../constants';
-import { Alert, Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import { validationsAltaDespacho } from '../../helpers/validationsAltaDespacho';
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import useGet from "../../hooks/useGet";
+import axios from "../../config/axios";
+import { COMContext } from "../../context/COMContext";
+import useForm from "../../hooks/useForm";
+import { ALTA_DESPACHOS_VALUES } from "../../constants";
+import {
+  Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+} from "react-bootstrap";
+import { toast } from "react-toastify";
+import { validationsAltaDespacho } from "../../helpers/validationsAltaDespacho";
+import "./AltaDespacho.css";
 
 const AltaDespacho = () => {
-    const location = useLocation();
-    const datos = location.state;
+  const location = useLocation();
+  const datos = location.state;
 
-    const [reparticiones, loading, getReparticiones] = useGet(
-        "/reparticiones/listar",
-        axios
-      );
+  const [reparticiones, loading, getReparticiones] = useGet(
+    "/reparticiones/listar",
+    axios
+  );
 
-    const { user,botonState,setBotonState } = useContext(COMContext);
-    const [volver, setVolver] = useState(false);
+  const { user, botonState, setBotonState } = useContext(COMContext);
+  const [volver, setVolver] = useState(false);
 
-    const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedValues, setSelectedValues] = useState([]);
 
-    const handleCheckboxChange = (value) => {
-        // Verificar si el valor ya está en el array de seleccionados
-        if (selectedValues.includes(value)) {
-          // Si el valor ya está seleccionado, eliminarlo del array
-          setSelectedValues(selectedValues.filter((item) => item !== value));
-          setValues({
-            ...values,
-            "reparticiones": selectedValues.filter((item) => item !== value),
-          });
-       
-        } else {
-          // Si el valor no está seleccionado, agregarlo al array
-          setSelectedValues([...selectedValues, value]);
-          setValues({
-            ...values,
-            "reparticiones": [...selectedValues, value],
-          });
-         
-        }
-      }; 
-
-  const enviarDatos = async () => {
-  setBotonState(true);
-
-  const fechaActual = new Date();
-  const options = {
-    weekday: "long",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
+  const handleCheckboxChange = (value) => {
+    // Verificar si el valor ya está en el array de seleccionados
+    if (selectedValues.includes(value)) {
+      // Si el valor ya está seleccionado, eliminarlo del array
+      setSelectedValues(selectedValues.filter((item) => item !== value));
+      setValues({
+        ...values,
+        reparticiones: selectedValues.filter((item) => item !== value),
+      });
+    } else {
+      // Si el valor no está seleccionado, agregarlo al array
+      setSelectedValues([...selectedValues, value]);
+      setValues({
+        ...values,
+        reparticiones: [...selectedValues, value],
+      });
+    }
   };
 
-  const fechaSinZonaHoraria = fechaActual
-    .toLocaleString("es-AR", options)
-    .replace(",", "")
-    .replace(/^(\w)|\s(\w)/g, (match) => match.toUpperCase());
+  const enviarDatos = async () => {
+    setBotonState(true);
 
-        try {
-            const despacho = {
-                fecha: fechaSinZonaHoraria,
-                acuse: values.acuse,
-                reparticiones: values.reparticiones,
-                usuario: user._id,
-                reporteId: datos.reporte._id
-            } 
-          await axios.post("/despachos/alta", despacho);
-          setValues(ALTA_DESPACHOS_VALUES);
-          toast.success("Despacho realizado");
-          setVolver(true);
-        } catch (error) {
-          toast.error(error.response?.data.message || error.message);
-        }
-        setBotonState(false);
+    const fechaActual = new Date();
+    const options = {
+      weekday: "long",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+
+    const fechaSinZonaHoraria = fechaActual
+      .toLocaleString("es-AR", options)
+      .replace(",", "")
+      .replace(/^(\w)|\s(\w)/g, (match) => match.toUpperCase());
+
+    try {
+      const despacho = {
+        fecha: fechaSinZonaHoraria,
+        acuse: values.acuse,
+        reparticiones: values.reparticiones,
+        usuario: user._id,
+        reporteId: datos.reporte._id,
       };
+      await axios.post("/despachos/alta", despacho);
+      setValues(ALTA_DESPACHOS_VALUES);
+      toast.success("Despacho realizado");
+      setVolver(true);
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+    setBotonState(false);
+  };
 
-    const { handleChange, handleSubmit, values, setValues, errors } = useForm(
-        ALTA_DESPACHOS_VALUES,
-        enviarDatos,
-        validationsAltaDespacho
-      );
-   
+  const { handleChange, handleSubmit, values, setValues, errors } = useForm(
+    ALTA_DESPACHOS_VALUES,
+    enviarDatos,
+    validationsAltaDespacho
+  );
+
   return (
     <Container className="layoutHeight">
       <Row>
@@ -134,23 +141,33 @@ const AltaDespacho = () => {
               <Form.Label>
                 <strong>Reparticiones: </strong>
               </Form.Label>
-            
-              {!loading?
-                reparticiones.reparticiones.map((rep, index) => {
-                  return (
-                    <div key={index} className="d-flex">
-                      <Form.Check
-                        type="checkbox"
-                        onChange={() => handleCheckboxChange(rep._id)}
-                        value={rep._id}
-                      />
-                      <Form.Label title='Seleccione al menos una' className="ms-2">{rep.nombre}</Form.Label>
-                    </div>
-                  );
-                }):
-                <Spinner/>}
+              <div className="checkboxColumn">
+                {!loading ? (
+                  reparticiones.reparticiones.map((rep, index) => {
+                    return (
+                      <div key={index} className="d-flex">
+                        <Form.Check
+                          type="checkbox"
+                          onChange={() => handleCheckboxChange(rep._id)}
+                          value={rep._id}
+                        />
+                        <Form.Label
+                          title="Seleccione al menos una"
+                          className="ms-2"
+                        >
+                          {rep.nombre}
+                        </Form.Label>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <Spinner />
+                )}
+              </div>
             </div>
-            <Button disabled={botonState} className='mt-5' type="submit">Despachar</Button>
+            <Button disabled={botonState} className="mt-5" type="submit">
+              Despachar
+            </Button>
           </Form>
         </Col>
         {volver && <Navigate to="/reportes" />}
@@ -167,6 +184,6 @@ const AltaDespacho = () => {
       </Row>
     </Container>
   );
-}
+};
 
-export default AltaDespacho
+export default AltaDespacho;

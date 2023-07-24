@@ -3,13 +3,22 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../../config/axios";
 import "./DetalleEvento.css";
-import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import useGet from "../../hooks/useGet";
 import { ALTA_REPORTES_VALUES } from "../../constants";
 import { COMContext } from "../../context/COMContext";
 import { Navigate } from "react-router-dom";
 import { validationsEditarEvento } from "../../helpers/validationsEditarEvento";
+import svg404 from "../../assets/img/web-error.svg";
 
 const DetalleEvento = () => {
   const [dispositivos, loading, getDispositivos] = useGet(
@@ -17,7 +26,7 @@ const DetalleEvento = () => {
     axios
   );
 
-  const { user,botonState,setBotonState} = useContext(COMContext);
+  const { user, botonState, setBotonState } = useContext(COMContext);
   const [volver, setVolver] = useState(false);
 
   const [imageUrl, setImageUrl] = useState("");
@@ -316,18 +325,20 @@ const DetalleEvento = () => {
                   </p>
                 )}
               </div>
-              {((user.tipoDeUsuario == "admin" ||
+              {(user.tipoDeUsuario == "admin" ||
                 user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor") && !editReporte && datos.reporte.despacho == null) && (
-                <div className=" botonEditarDetalleEvento d-flex justify-content-left">
-                  <Button onClick={handleEditReporte}>Editar</Button>
-                </div>
+                user.tipoDeUsuario == "supervisor") &&
+                !editReporte &&
+                datos.reporte.despacho == null && (
+                  <div className=" botonEditarDetalleEvento d-flex justify-content-left">
+                    <Button onClick={handleEditReporte}>Editar</Button>
+                  </div>
+                )}
+              {editReporte && (
+                <Button disabled={botonState} className=" mt-3" type="submit">
+                  Guardar Cambios
+                </Button>
               )}
-            {editReporte && (
-              <Button disabled={botonState} className=" mt-3" type="submit">
-                Guardar Cambios
-              </Button>
-            )}
               {volver && <Navigate to="/reportes" />}
             </Col>
           </Col>
@@ -350,12 +361,12 @@ const DetalleEvento = () => {
                 <img
                   className="fotoReporteDetalle"
                   style={styles}
-                  src={imageUrl}
+                  src={imageUrl ? imageUrl : svg404}
                   alt="Captura del reporte"
                 />
               </div>
             )}
-            
+
             <Row className="mt-4">
               {Object.keys(errors).length !== 0 &&
                 Object.values(errors).map((error, index) => (
@@ -368,7 +379,6 @@ const DetalleEvento = () => {
         </Row>
       </Form>
     </Container>
-
   );
 };
 

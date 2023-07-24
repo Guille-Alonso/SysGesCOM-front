@@ -107,14 +107,20 @@ const AltaEvento = () => {
     validationsAltaEvento
   );
 
+  const [selectedFile, setSelectedFile] = useState(null);
   const handleFileInputChange = (e) => {
     setValues({
       ...values,
       [e.target.name]: e.target.files[0],
     });
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(URL.createObjectURL(file));
+    } else {
+      setSelectedFile(null);
+    }
   };
   const [changeClass, setChangeClass] = useState(false);
-
   const handleInputChange = (e) => {
     setChangeClass(!changeClass);
     const value = e.target.value;
@@ -183,6 +189,18 @@ const AltaEvento = () => {
       setSuggestions([]); // Limpiar las sugerencias al seleccionar una
     }
   };
+
+  const handleSuggestionClick = (suggestion, e) => {
+    setValues({
+      ...values,
+      dispositivo: suggestion._id,
+      ubicacion: suggestion.ubicacion,
+    });
+    setSearchTerm(suggestion);
+    setSuggestions([]);
+  };
+
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Container className="layoutHeight">
@@ -309,11 +327,17 @@ const AltaEvento = () => {
                 >
                   {suggestions.map((suggestion, index) => (
                     <li
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
                       key={index}
+                      className="liCamarasyDomos"
                       style={{
                         backgroundColor:
-                          currentIndex === index ? "#ccc" : "transparent",
+                          currentIndex === index && !isHovered
+                            ? "#ccc"
+                            : "transparent",
                       }}
+                      onClick={(e) => handleSuggestionClick(suggestion, e)}
                     >
                       {suggestion.nombre}
                     </li>
@@ -354,6 +378,13 @@ const AltaEvento = () => {
                   id="imageEvento"
                 />
               </Form.Group>
+              {selectedFile && (
+                <img
+                  src={selectedFile}
+                  className="mt-5 d-flex justify-content-center align-items-center w-100 fotoPreview"
+                  alt=""
+                />
+              )}
 
               <Button
                 variant="success"

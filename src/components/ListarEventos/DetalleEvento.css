@@ -3,9 +3,16 @@
     height: 100%;
     margin: auto;
     color: white;
-    
+    animation: pulse 1s alternate-reverse infinite;
 }
-
+@keyframes pulse {
+    0% {
+      scale: .7;
+    }
+    100% {
+      scale: 1;
+    }
+  }
 .detalleEditReporte{
     color: #fff;
     display: flex;

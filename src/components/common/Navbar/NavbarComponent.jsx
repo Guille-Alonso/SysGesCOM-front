@@ -81,6 +81,10 @@ function NavbarComponent() {
                   <Link to="/reportes">Reportes</Link>
                 
               )}
+              {
+                authenticated && (user.tipoDeUsuario == "estadística" || user.tipoDeUsuario == "admin") &&
+                <Link className="ms-3" >Estadísticas</Link>
+              }
           </Nav>
 
           {authenticated ? (
@@ -133,7 +137,11 @@ function NavbarComponent() {
               </NavDropdown>
               <Nav>
                 <img
-                  src={user.foto}
+                   src={
+                    user.foto !== undefined && user.foto !== ""
+                      ? user.foto
+                      : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
+                  }
                   alt="User profile"
                   className="ms-3 userProfile"
                 />

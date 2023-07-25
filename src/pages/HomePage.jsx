@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import Chart from '../components/Graficos/Chart';
 
 const HomePage = () => {
   return (
     <div className="layoutHeight">
-      <h1 className="text-light">Bienvenido</h1>;
+      <Chart />
     </div>
   );
 

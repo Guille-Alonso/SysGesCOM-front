@@ -127,7 +127,7 @@ const DetalleEvento = () => {
   const getImg = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/reportes/listar/${datos.reporte._id}`,
+        `http://10.0.0.230:4000/reportes/listar/${datos.reporte._id}`,
         {
           responseType: "blob", // Especifica el tipo de respuesta como Blob
         }

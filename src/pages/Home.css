@@ -1,0 +1,48 @@
+.estadisticas{
+    width: 60%;
+    height: 60vh;
+}
+.contenedorCambios{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.almanaque{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    height: 450px;
+}
+.contendor-referencias{
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 10px;
+}
+.botonEnviarPedido{
+    margin-top: 10px;
+}
+.leaderboard{
+    /* border: 1px solid #ccc; */
+}
+.inProgress{
+    width: 100% !important;
+    height: 500px!important;
+}
+.cositas{
+    color: #fff;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 70px;
+    font-weight: 800;
+    margin: auto 0;
+}
+.cositas::before{
+    background: linear-gradient(90deg, red, blue);
+    position: absolute;
+    inset: 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

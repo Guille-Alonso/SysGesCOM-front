@@ -103,7 +103,7 @@ const AltaCategoria = () => {
                   name="categoria"
                   onChange={handleChange}
                   required
-                  maxLength={20}
+                  maxLength={40}
                   minLength={3}
                 />
                 <Form.Label className="mt-2">Tipo</Form.Label>

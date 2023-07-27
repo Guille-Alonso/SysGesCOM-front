@@ -3,13 +3,22 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../../config/axios";
 import "./DetalleEvento.css";
-import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import useGet from "../../hooks/useGet";
 import { ALTA_REPORTES_VALUES } from "../../constants";
 import { COMContext } from "../../context/COMContext";
 import { Navigate } from "react-router-dom";
 import { validationsEditarEvento } from "../../helpers/validationsEditarEvento";
+import svg404 from "../../assets/img/web-error.svg";
 
 const DetalleEvento = () => {
   const [dispositivos, loading, getDispositivos] = useGet(
@@ -17,7 +26,7 @@ const DetalleEvento = () => {
     axios
   );
 
-  const { user } = useContext(COMContext);
+  const { user, botonState, setBotonState } = useContext(COMContext);
   const [volver, setVolver] = useState(false);
 
   const [imageUrl, setImageUrl] = useState("");
@@ -68,7 +77,7 @@ const DetalleEvento = () => {
     height: "300px",
   };
   const enviarDatos = async () => {
-    console.log(values);
+    setBotonState(true);
     const { _id, ...eventoInfo } = datos.reporte;
     if (JSON.stringify(eventoInfo) !== JSON.stringify(values)) {
       try {
@@ -107,6 +116,7 @@ const DetalleEvento = () => {
         toast.error(error.response?.data.message || error.message);
       }
     } else toast.error("No hiciste cambios");
+    setBotonState(false);
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -157,8 +167,11 @@ const DetalleEvento = () => {
   return (
     <Container className="layoutHeight" md={12}>
       <Form onSubmit={handleSubmit}>
-        <Form.Label className="labelEditReporte">
+        <Form.Label className="labelEditReporte me-5">
           <strong>Fecha:</strong> {values.fecha}
+        </Form.Label>
+        <Form.Label className="labelEditReporte">
+          <strong>Realizado por:</strong> {values.usuario.nombre}
         </Form.Label>
         <br />
         <Row>
@@ -312,18 +325,20 @@ const DetalleEvento = () => {
                   </p>
                 )}
               </div>
-              {((user.tipoDeUsuario == "admin" ||
+              {(user.tipoDeUsuario == "admin" ||
                 user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor") && !editReporte && datos.reporte.despacho == null) && (
-                <div className=" botonEditarDetalleEvento d-flex justify-content-left">
-                  <Button onClick={handleEditReporte}>Editar</Button>
-                </div>
+                user.tipoDeUsuario == "supervisor") &&
+                !editReporte &&
+                datos.reporte.despacho == null && (
+                  <div className=" botonEditarDetalleEvento d-flex justify-content-left">
+                    <Button onClick={handleEditReporte}>Editar</Button>
+                  </div>
+                )}
+              {editReporte && (
+                <Button disabled={botonState} className=" mt-3" type="submit">
+                  Guardar Cambios
+                </Button>
               )}
-            {editReporte && (
-              <Button className=" mt-3" type="submit">
-                Guardar Cambios
-              </Button>
-            )}
               {volver && <Navigate to="/reportes" />}
             </Col>
           </Col>
@@ -343,15 +358,25 @@ const DetalleEvento = () => {
               </Form.Group>
             ) : (
               <div className="d-flex h-100 contenedorImagenReporte">
-                <img
-                  className="fotoReporteDetalle"
-                  style={styles}
-                  src={imageUrl}
-                  alt="Captura del reporte"
-                />
+                {imageUrl?
+                   <img
+                   className="fotoReporteDetalle2"
+                   style={styles}
+                   src={imageUrl ? imageUrl : svg404}
+                   alt="Captura del reporte"
+                 />
+                 :
+                 <img
+                 className="fotoReporteDetalle"
+                 style={styles}
+                 src={imageUrl ? imageUrl : svg404}
+                 alt="Captura del reporte"
+               />
+                }
+              
               </div>
             )}
-            
+
             <Row className="mt-4">
               {Object.keys(errors).length !== 0 &&
                 Object.values(errors).map((error, index) => (
@@ -364,7 +389,6 @@ const DetalleEvento = () => {
         </Row>
       </Form>
     </Container>
-
   );
 };
 

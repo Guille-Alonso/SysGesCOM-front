@@ -67,7 +67,7 @@ const EditarSubcategoria = ({
                 name="nombre"
                 onChange={handleChange}
                 required
-                maxLength={20}
+                maxLength={60}
                 minLength={3}
               />
               <Form.Label className="mt-2">Categoría</Form.Label>

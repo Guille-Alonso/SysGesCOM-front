@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useReducer, useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,18 +12,23 @@ import { Bar,getElementAtEvent } from 'react-chartjs-2';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from '../../config/axios';
+import { Form } from 'react-bootstrap';
+import "../AltaEvento/AltaEvento.css";
+import useGet from '../../hooks/useGet';
 
 export function Grafico() {
-   
+const [suggestions, setSuggestions] = useState([]);
+const [currentIndex, setCurrentIndex] = useState(0);
+
 const [reportes, setReportes] = useState([]);
 const [reportesFecha, setReportesFecha] = useState([]);
 const [turno,setTurno] = useState("")
 
-const chartRef = useRef();
+const [usuarios, loading] = useGet(
+  "/users/email",
+  axios
+);
 
-const onClick = (event) => {
-  console.log(getElementAtEvent(chartRef.current, event));
-}
 
 const fetchReportes = async () => {
     try {
@@ -37,10 +42,24 @@ const fetchReportes = async () => {
     }
 };
 
+const suggestionContainerRef = useRef(null);
+
 useEffect(() => {
-   
-    fetchReportes();
-  
+  fetchReportes();
+  const handleClickOutside = (event) => {
+    if (
+      suggestionContainerRef.current &&
+      !suggestionContainerRef.current.contains(event.target)
+    ) {
+      setSuggestions([]); // Cerrar la lista de sugerencias
+    }
+  };
+
+  document.addEventListener("click", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
 }, []);
 
 const [fechaDesde, setFechaDesde] = useState('');
@@ -165,24 +184,115 @@ ChartJS.register(
     
       setReportesFecha(reportesFiltrados);
     
+    }else setReportesFecha(reportesFiltro);
+  }
+
+  const selectedTurno = (e) => {
+    setTurno(e.target.value)
+    console.log(e.target.value);
+    if (e.target.value !== "") {
+      // setReportesFecha(reportes.filter(rep=>rep.usuario.turno == e.target.value))
+      filtroTurnoYFecha(reportes.filter(rep => rep.usuario.turno == e.target.value));
+    } else {
+      if (fechaDesde !== "" && fechaHasta !== "") {
+        if(e.target.value !== ""){
+          setReportesFecha(reportes.filter(rep => rep.usuario.turno == e.target.value));
+        }else filtroTurnoYFecha(reportes)
+      } else {
+        setReportesFecha(reportes)
+        setFechaDesde('');
+        setFechaHasta('');
+        setSearchTerm({ nombre: "" });
+      }
     }
   }
 
-  const selectedTurno = (e)=>{
-  setTurno(e.target.value)
-  console.log(e.target.value);
-  if(e.target.value !== ""){
-    // setReportesFecha(reportes.filter(rep=>rep.usuario.turno == e.target.value))
-    filtroTurnoYFecha(reportes.filter(rep=>rep.usuario.turno == e.target.value));
-  }else setReportesFecha(reportes)
-  }
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp") {
+      setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    } else if (event.key === "ArrowDown") {
+      setCurrentIndex((prev) => Math.min(prev + 1, suggestions.length - 1));
+    } else if (event.key === "Enter" && suggestions.length > 0) {
+      const suggestion = suggestions[currentIndex];
+      filtroTurnoYFecha(reportes.filter(rep=>rep.usuario._id == suggestion._id));
+      setSearchTerm(suggestion);
+      setSuggestions([]); // Limpiar las sugerencias al seleccionar una
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    setSuggestions([]);
+    filtroTurnoYFecha(reportes.filter(rep=>rep.usuario._id == suggestion._id));
+  };
+
+  const [changeClass, setChangeClass] = useState(false);
+
+  const handleInputChange = (e) => {
+    setChangeClass(!changeClass);
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Lógica para generar las sugerencias de coincidencias
+    const filteredSuggestions =
+      !loading &&
+      usuarios.users
+        .filter((disp) =>
+          disp.nombre.toLowerCase().includes(value.toLowerCase())
+        )
+        .slice(0, 6); // Mostrar solo los primeros 6 elementos
+    setSuggestions(filteredSuggestions);
+  };
+
+  const [isHovered, setIsHovered] = useState(false);
 
   return(
     <>
       <div className='text-center my-2'>
+      <Form.Group className="inputAltaEvento">
+                <label className='me-1'>Usuario</label>
+                <input
+                  type="text"
+                  value={searchTerm.nombre}
+                  onChange={(e) => handleInputChange(e)}
+                  name="dispositivo"
+                  required
+                  maxLength={6}
+                  minLength={6}
+                  autoComplete="off"
+                  className="inputDispositivo w-25 mb-2"
+                  onKeyDown={handleKeyDown}
+                />
+                
+                <ul
+                  className="inputDispositivosReportes"
+                  ref={suggestionContainerRef}
+                >
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                      key={index}
+                      className="liCamarasyDomos"
+                      style={{
+                        backgroundColor:
+                          currentIndex === index && !isHovered
+                            ? "#ccc"
+                            : "transparent",
+                      }}
+                      onClick={(e) => handleSuggestionClick(suggestion, e)}
+                    >
+                      {suggestion.nombre}
+                    </li>
+                  ))}
+                </ul>
+                </Form.Group>
         <label className='me-1' htmlFor="">Turno</label>
         <select name="" id="" onChange={selectedTurno} value={turno}>
-          <option value="">Elija una opción</option>
+          <option value="">Todos</option>
           <option value="mañana">Mañana</option>
           <option value="tarde">Tarde</option>
           <option value="noche">Noche</option>
@@ -196,7 +306,7 @@ ChartJS.register(
 
       </div>
       <div className=' layoutHeight d-flex justify-content-center align-items-center'>
-        <Bar onClick={onClick} ref={chartRef} className='w-75 h-50' options={options} data={data} />
+        <Bar className='w-75 h-50' options={options} data={data} />
       </div>
     </>
   )

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Bar,getElementAtEvent } from 'react-chartjs-2';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from '../../config/axios';
@@ -16,11 +16,20 @@ import axios from '../../config/axios';
 export function Grafico() {
    
 const [reportes, setReportes] = useState([]);
+const [reportesFecha, setReportesFecha] = useState([]);
+const [turno,setTurno] = useState("")
+
+const chartRef = useRef();
+
+const onClick = (event) => {
+  console.log(getElementAtEvent(chartRef.current, event));
+}
 
 const fetchReportes = async () => {
     try {
         const {data} = await axios.get("/reportes/listar");
         setReportes(data.reportes);
+        setReportesFecha(data.reportes);
 
     } catch (error) {
         console.log("Error al obtener los reportes:", error);
@@ -34,11 +43,49 @@ useEffect(() => {
   
 }, []);
 
+const [fechaDesde, setFechaDesde] = useState('');
+const [fechaHasta, setFechaHasta] = useState('');
+
+const handleFechaDesdeChange = (event) => {
+  setFechaDesde(event.target.value);
+};
+
+const handleFechaHastaChange = (event) => {
+  setFechaHasta(event.target.value);
+};
+
+function convertirFecha2ASinHora(fecha) {
+  const meses = {
+    Ene: '01', Feb: '02', Mar: '03', Abr: '04', May: '05', Jun: '06',
+    Jul: '07', Ago: '08', Sep: '09', Oct: '10', Nov: '11', Dic: '12'
+  };
+
+  const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
+  const mesNumerico = meses[mes];
+  return `${anio}-${mesNumerico}-${dia}`;
+}
+
+useEffect(() => {
+   if(fechaDesde !== '' && fechaHasta !== ''){
+  
+    // Filtrar los reportes con un rango de fechas
+    const reportesFiltrados = reportes.filter((reporte) => {
+      const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
+    
+      return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
+    });
+
+  
+    setReportesFecha(reportesFiltrados);
+  
+  }
+}, [fechaDesde,fechaHasta]);
+
 const countReportesCat = () => {
     let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
     let cats = [];
-    for (let index = 0; index < reportes.length; index++) {
-      const categoria = reportes[index].categoria.nombre;
+    for (let index = 0; index < reportesFecha.length; index++) {
+      const categoria = reportesFecha[index].categoria.nombre;
 
       if (countObj[categoria]) {
         // Si la categoría ya existe en el objeto, incrementa la cantidad
@@ -61,17 +108,17 @@ ChartJS.register(
     Tooltip,
     Legend
   );
-  
+
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: "Estadísticas",
-      },
+      // title: {
+      //   display: true,
+      //   text: "Estadísticas",
+      // },
     },
   };
 
@@ -98,16 +145,59 @@ ChartJS.register(
     labels,
     datasets: [
       {
-          label: 'Dataset 3',
+          label: 'Reportes por fecha',
           data: Object.values(countReportesCat()),
             backgroundColor: getRandomColor(),
         },
     ],
   };
 
-  return(<div className='w-50 layoutHeight'>
+  const filtroTurnoYFecha =(reportesFiltro)=>{
+    if(fechaDesde !== '' && fechaHasta !== ''){
   
-    <Bar options={options} data={data} />
+      // Filtrar los reportes con un rango de fechas
+      const reportesFiltrados = reportesFiltro.filter((reporte) => {
+        const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
+      
+        return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
+      });
   
-  </div>) 
+    
+      setReportesFecha(reportesFiltrados);
+    
+    }
+  }
+
+  const selectedTurno = (e)=>{
+  setTurno(e.target.value)
+  console.log(e.target.value);
+  if(e.target.value !== ""){
+    // setReportesFecha(reportes.filter(rep=>rep.usuario.turno == e.target.value))
+    filtroTurnoYFecha(reportes.filter(rep=>rep.usuario.turno == e.target.value));
+  }else setReportesFecha(reportes)
+  }
+
+  return(
+    <>
+      <div className='text-center my-2'>
+        <label className='me-1' htmlFor="">Turno</label>
+        <select name="" id="" onChange={selectedTurno} value={turno}>
+          <option value="">Elija una opción</option>
+          <option value="mañana">Mañana</option>
+          <option value="tarde">Tarde</option>
+          <option value="noche">Noche</option>
+        </select>
+        <label className='ms-2 me-1' htmlFor="desde">Desde</label>
+        <input type="date" name="desde" id="desde" value={fechaDesde} onChange={handleFechaDesdeChange} />
+
+        <label className='ms-2  me-1' htmlFor="hasta">Hasta</label>
+        <input type="date" name="hasta" id="hasta" value={fechaHasta} onChange={handleFechaHastaChange} />
+        <label className='ms-2' htmlFor="">Total: {reportesFecha.length}</label>
+
+      </div>
+      <div className=' layoutHeight d-flex justify-content-center align-items-center'>
+        <Bar onClick={onClick} ref={chartRef} className='w-75 h-50' options={options} data={data} />
+      </div>
+    </>
+  )
 }

@@ -1,41 +1,54 @@
+import axios from "../../config/axios";
 import React from "react";
 import { Table } from "react-bootstrap";
+import "./LeaderboardReportes.css";
 
-const LeaderboardReportes = () => {
+const LeaderboardReportes = ({ reportes }) => {
   return (
     <>
-      <section className=" leaderboard w-25">
+      <section className="leaderboard">
         <h3 className="text-center text-light">Top Reportes</h3>
-        <Table striped bordered hover variant="dark">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nombre</th>
-              <th>Turno</th>
-              <th>Reportes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>🥇</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>999</td>
-            </tr>
-            <tr>
-              <td>🥈</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>990</td>
-            </tr>
-            <tr>
-              <td>🥉</td>
-              <td>Larry the Bird</td>
-              <td>Larry the Bird</td>
-              <td>980</td>
-            </tr>
-          </tbody>
-        </Table>
+        <div className="tabla-podio d-flex justify-content-center">
+          <Table striped bordered hover variant="primary w-75 text-center">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Turno</th>
+                <th>Reportes</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>🥇</td>
+                <td>
+                  {reportes.usuariosConMasReportes[0]?.usuario.nombreUsuario}
+                </td>
+                <td>{reportes.usuariosConMasReportes[0]?.usuario.turno}</td>
+                <td>
+                  {reportes.usuariosConMasReportes[0]?.cantidadDeReportes}
+                </td>
+              </tr>
+              <tr>
+                <td>🥈</td>
+                <td>
+                  {reportes.usuariosConMasReportes[1].usuario?.nombreUsuario}
+                </td>
+                <td>{reportes.usuariosConMasReportes[1].usuario?.turno}</td>
+                <td>{reportes.usuariosConMasReportes[1].cantidadDeReportes}</td>
+              </tr>
+              <tr>
+                <td>🥉</td>
+                <td>
+                  {reportes.usuariosConMasReportes[2].usuario?.nombreUsuario}
+                </td>
+                <td>{reportes.usuariosConMasReportes[2].usuario?.turno}</td>
+                <td>{reportes.usuariosConMasReportes[2].cantidadDeReportes}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
       </section>
     </>
   );

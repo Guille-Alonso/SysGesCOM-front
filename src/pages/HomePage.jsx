@@ -7,6 +7,8 @@ import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
 import workingSvg from "../assets/img/focused-working.svg";
+import useGet from "../hooks/useGet";
+import axios from "../config/axios";
 
 const HomePage = () => {
   const [state, setState] = useState({
@@ -28,6 +30,7 @@ const HomePage = () => {
     },
   });
   const endDate = state.selection1.endDate;
+  const [reportes, loading] = useGet("/reportes/podio", axios);
 
   return (
     <div className="layoutHeight">
@@ -38,7 +41,8 @@ const HomePage = () => {
           </div>
         </main>
         <aside className="contenedorCambios">
-          <div className="almanaque">
+          {!loading && <LeaderboardReportes reportes={reportes} />}
+          <div className="almanaque mt-5">
             <DateRange
               onChange={(item) => setState({ ...state, ...item })}
               ranges={[state.selection1, state.selection2, state.selection3]}
@@ -79,10 +83,7 @@ const HomePage = () => {
         </aside>
       </div>
       <div className="d-flex justify-content-around mt-5">
-        <LeaderboardReportes />
-        <section className="w-50 text-center">
-         
-        </section>
+        <section className="w-50 text-center"></section>
       </div>
     </div>
   );

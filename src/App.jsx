@@ -18,6 +18,7 @@ import Login from "./components/Login/Login";
 import DetalleEvento from "./components/ListarEventos/DetalleEvento";
 import AltaDespacho from "./components/Despacho/AltaDespacho";
 import EditarDespacho from "./components/Despacho/EditarDespacho";
+import { Grafico } from "./components/Graficos/Graficas";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/listar-camaras" element={<PrivateRoute><ListarCamaras /></PrivateRoute>} />
             <Route path="/alta-usuarios" element={<PrivateRoute><AltaUsuarios /></PrivateRoute>} />
             <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+            <Route path="/estadisticas" element={<PrivateRoute><Grafico/></PrivateRoute>} />
             <Route path="/*" element={<Login />} />
             <Route path="/editarCategoria" element={<PrivateRoute><EditarCategoria /></PrivateRoute>} />
             <Route path="/perfil-usuario" element={<PrivateRoute><PerfilUsuario/></PrivateRoute>} />

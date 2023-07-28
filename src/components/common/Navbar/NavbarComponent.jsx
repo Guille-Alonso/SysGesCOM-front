@@ -83,7 +83,7 @@ function NavbarComponent() {
               )}
               {
                 authenticated && (user.tipoDeUsuario == "estadística" || user.tipoDeUsuario == "admin") &&
-                <Link className="ms-3" >Estadísticas</Link>
+                <Link to="/estadisticas" className="ms-3" >Estadísticas</Link>
               }
           </Nav>
 

@@ -31,7 +31,6 @@ const HomePage = () => {
 
   return (
     <div className="layoutHeight">
-      <h1 className="text-light">Bienvenido</h1>;
       <div className="d-flex justify-content-around">
         <main className="estadisticas">
           <div>
@@ -82,7 +81,7 @@ const HomePage = () => {
       <div className="d-flex justify-content-around mt-5">
         <LeaderboardReportes />
         <section className="w-50 text-center">
-          <span className="cositas">Se vienen cositas...</span>
+         
         </section>
       </div>
     </div>

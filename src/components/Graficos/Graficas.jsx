@@ -93,7 +93,7 @@ export function Grafico() {
     if (fechaDesde !== "" && fechaHasta !== "") {
     
       if(searchTerm.nombre!==''){
-        console.log("seeuu");
+       
         const reportesConUsuario = reportes.filter(rep=>rep.usuario.nombre == searchTerm.nombre)
         const reportesFiltrados = reportesConUsuario.filter((reporte) => {
           const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
@@ -102,8 +102,17 @@ export function Grafico() {
         });
   
         setReportesFecha(reportesFiltrados);
+      }else if(turno !== ""){
+        const reportesConTurno = reportes.filter(rep => rep.usuario.turno == turno)
+        const reportesFiltrados = reportesConTurno.filter((reporte) => {
+          const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
+  
+          return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
+        });
+  
+        setReportesFecha(reportesFiltrados);
       }else{
-        console.log("see");
+      
       const reportesFiltrados = reportes.filter((reporte) => {
         const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
 
@@ -112,6 +121,7 @@ export function Grafico() {
 
       setReportesFecha(reportesFiltrados);
     }
+    
     }
   }, [fechaDesde, fechaHasta]);
 

@@ -290,7 +290,11 @@ export function Grafico() {
           </div>
           <div className="d-flex justify-content-center w-100">
             <ul
-              className="w-25 ulSugerencias bg-light"
+              className={
+                suggestions.length > 0
+                  ? " w-25 ulSugerencias bg-light"
+                  : "d-none"
+              }
               ref={suggestionContainerRef}
             >
               {suggestions.map((suggestion, index) => (

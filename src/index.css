@@ -14,7 +14,7 @@ body{
 	min-height: 75vh;
 }
 
-@media (max-height: 780px) {
+@media (max-height: 750px) {
     .movFooter{
         display: none;
     }

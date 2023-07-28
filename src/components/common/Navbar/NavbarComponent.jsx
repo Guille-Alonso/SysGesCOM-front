@@ -1,14 +1,15 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import "./navBar.css"
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { COMContext } from '../../../context/COMContext';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import "./navBar.css";
+import { useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { COMContext } from "../../../context/COMContext";
 
 function NavbarComponent() {
-  const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
+  const { authenticated, setAuthenticated, loading, user, getAuth } =
+    useContext(COMContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,7 +17,7 @@ function NavbarComponent() {
   const logOut = () => {
     localStorage.removeItem("token");
     setAuthenticated(false);
-    navigate('/login')
+    navigate("/login");
   };
 
   const settings = () => {
@@ -77,14 +78,15 @@ function NavbarComponent() {
               (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "estadística") && (
-                
-                  <Link to="/reportes">Reportes</Link>
-                
+                <Link to="/reportes">Reportes</Link>
               )}
-              {
-                authenticated && (user.tipoDeUsuario == "estadística" || user.tipoDeUsuario == "admin") &&
-                <Link className="ms-3" >Estadísticas</Link>
-              }
+            {authenticated &&
+              (user.tipoDeUsuario == "estadística" ||
+                user.tipoDeUsuario == "admin") && (
+                <Link to="/estadisticas" className="ms-3">
+                  Estadísticas
+                </Link>
+              )}
           </Nav>
 
           {authenticated ? (
@@ -137,7 +139,7 @@ function NavbarComponent() {
               </NavDropdown>
               <Nav>
                 <img
-                   src={
+                  src={
                     user.foto !== undefined && user.foto !== ""
                       ? user.foto
                       : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"

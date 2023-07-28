@@ -34,7 +34,7 @@ function App() {
             <Route path="/alta-usuarios" element={<PrivateRoute><AltaUsuarios /></PrivateRoute>} />
             <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
             <Route path="/*" element={<Login />} />
-            <Route path="/estadisticas" element={<Grafico />} />
+            <Route path="/estadisticas" element={<PrivateRoute><Grafico /></PrivateRoute>} />
             <Route path="/editarCategoria" element={<PrivateRoute><EditarCategoria /></PrivateRoute>} />
             <Route path="/perfil-usuario" element={<PrivateRoute><PerfilUsuario/></PrivateRoute>} />
             <Route path="/alta-reporte" element={<PrivateRoute><AltaEvento/></PrivateRoute>} />

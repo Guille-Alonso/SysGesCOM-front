@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar, getElementAtEvent } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../../config/axios";
@@ -91,7 +91,19 @@ export function Grafico() {
 
   useEffect(() => {
     if (fechaDesde !== "" && fechaHasta !== "") {
-      // Filtrar los reportes con un rango de fechas
+    
+      if(searchTerm.nombre!==''){
+        console.log("seeuu");
+        const reportesConUsuario = reportes.filter(rep=>rep.usuario.nombre == searchTerm.nombre)
+        const reportesFiltrados = reportesConUsuario.filter((reporte) => {
+          const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
+  
+          return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
+        });
+  
+        setReportesFecha(reportesFiltrados);
+      }else{
+        console.log("see");
       const reportesFiltrados = reportes.filter((reporte) => {
         const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
 
@@ -99,6 +111,7 @@ export function Grafico() {
       });
 
       setReportesFecha(reportesFiltrados);
+    }
     }
   }, [fechaDesde, fechaHasta]);
 
@@ -166,7 +179,7 @@ export function Grafico() {
     labels,
     datasets: [
       {
-        label: "Reportes por fecha",
+        label: "Cantidad de Reportes por Categoría",
         data: Object.values(countReportesCat()),
         backgroundColor: getRandomColor(),
       },
@@ -190,12 +203,13 @@ export function Grafico() {
     setTurno(e.target.value);
     console.log(e.target.value);
     if (e.target.value !== "") {
-      // setReportesFecha(reportes.filter(rep=>rep.usuario.turno == e.target.value))
+      setSearchTerm({ nombre: "" });
       filtroTurnoYFecha(
         reportes.filter((rep) => rep.usuario.turno == e.target.value)
       );
     } else {
       if (fechaDesde !== "" && fechaHasta !== "") {
+        setSearchTerm({ nombre: "" });
         if (e.target.value !== "") {
           setReportesFecha(
             reportes.filter((rep) => rep.usuario.turno == e.target.value)
@@ -335,7 +349,7 @@ export function Grafico() {
           Total: {reportesFecha.length}
         </label>
       </div>
-      <div className=" layoutHeight d-flex justify-content-center align-items-center">
+      <div className=" layoutHeight d-flex justify-content-center align-items-center mt-2">
         <Bar className="w-75 h-50" options={options} data={data} />
       </div>
     </>

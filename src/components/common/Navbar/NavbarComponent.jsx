@@ -85,6 +85,12 @@ function NavbarComponent() {
                 authenticated && (user.tipoDeUsuario == "estadística" || user.tipoDeUsuario == "admin") &&
                 <Link to="/estadisticas" className="ms-3" >Estadísticas</Link>
               }
+              {
+                (authenticated && user.tipoDeUsuario == "estadística") &&
+                <Link className="ms-3" to="/alta-categoria">
+                  Categorías
+                </Link>
+              }
           </Nav>
 
           {authenticated ? (

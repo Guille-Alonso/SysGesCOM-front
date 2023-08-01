@@ -43,6 +43,70 @@ const ListarEventos = () => {
     }
   }, [reportes, buscador]);
 
+  function obtenerPeriodoDelDia() {
+    const horaActual = new Date().getHours();
+  
+    if (horaActual >= 7 && horaActual < 15) {
+      return 'mañana';
+    } else if (horaActual >= 15 && horaActual < 23) {
+      return 'tarde';
+    } else {
+      return 'noche';
+    }
+  }
+
+  function obtenerPeriodoDelDiaConHora(fechaString) {
+    const hora = fechaString.split(", ")[1].split(":")[0];
+  
+    const horaActual = parseInt(hora, 10);
+  
+    if (horaActual >= 7 && horaActual < 15) {
+      return 'mañana';
+    } else if (horaActual >= 15 && horaActual < 23) {
+      return 'tarde';
+    } else {
+      return 'noche';
+    }
+  }
+
+  function obtenerFechaActualEnFormatoISO() {
+    const fechaActual = new Date();
+  
+    const year = fechaActual.getFullYear();
+    const month = String(fechaActual.getMonth() + 1).padStart(2, '0');
+    const day = String(fechaActual.getDate()).padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+  }
+  function convertirFechaASinHora(fecha) {
+    const meses = {
+      Ene: "01",
+      Feb: "02",
+      Mar: "03",
+      Abr: "04",
+      May: "05",
+      Jun: "06",
+      Jul: "07",
+      Ago: "08",
+      Sep: "09",
+      Oct: "10",
+      Nov: "11",
+      Dic: "12",
+    };
+
+    const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
+    const mesNumerico = meses[mes];
+    if(`${anio}-${mesNumerico}-${dia}` == obtenerFechaActualEnFormatoISO()){
+      return true;
+    }else return false;
+
+  }
+  function obtenerTotalObjetosCumplenCondicion(array) {
+  
+      const filterArr = array.filter(rep=>(obtenerPeriodoDelDia()== obtenerPeriodoDelDiaConHora(rep.fecha)) && convertirFechaASinHora(rep.fecha)  )
+      return filterArr.length;
+    }
+
   return (
     <Container fluid className="layoutHeight">
       <div className="contenedorBusquedaCategoria">
@@ -73,8 +137,17 @@ const ListarEventos = () => {
         
         {
           user.tipoDeUsuario == "supervisor" &&
+          <>
+          <label className="totalTurno" htmlFor="">Turno {obtenerPeriodoDelDia()}: {reportes.reportes !== undefined? obtenerTotalObjetosCumplenCondicion(reportes.reportes) : ""}</label>
           <FontAwesomeIcon onClick={getReportes} className="refrescarLista" icon={faRotate} />
+          </>
         }
+
+        {
+            user.tipoDeUsuario == "visualizador" &&
+            <label className="totalTurno" htmlFor="">Total del día: {reportes.reportes !== undefined? reportes.reportes.length : ""}</label>
+        }
+        
         {
           user.tipoDeUsuario == "supervisor" &&
           <div className="d-flex filtrarPorTipo">
@@ -92,7 +165,7 @@ const ListarEventos = () => {
         <Col>
           {loading ? (
             <Col className="d-flex justify-content-center">
-              <Spinner />
+              <Spinner variant="light" />
             </Col>
           ) : (
             <TablaEventos

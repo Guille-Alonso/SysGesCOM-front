@@ -3,7 +3,7 @@ import "./Home.css";
 import { addDays } from "date-fns";
 import { DateRange, DateRangePicker } from "react-date-range";
 import { format } from "date-fns";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
 import workingSvg from "../assets/img/focused-working.svg";
@@ -41,7 +41,10 @@ const HomePage = () => {
           </div>
         </main>
         <aside className="contenedorCambios">
-          {!loading && <LeaderboardReportes reportes={reportes} />}
+          {loading?
+          <Spinner variant="light"/>
+          : 
+          <LeaderboardReportes reportes={reportes} />}
           <div className="almanaque mt-5">
             <DateRange
               onChange={(item) => setState({ ...state, ...item })}

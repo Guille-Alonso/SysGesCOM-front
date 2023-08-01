@@ -12,7 +12,7 @@ import { Bar } from "react-chartjs-2";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../../config/axios";
-import { Form } from "react-bootstrap";
+import {Form, Spinner } from "react-bootstrap";
 import "../AltaEvento/AltaEvento.css";
 import useGet from "../../hooks/useGet";
 import "./Graficas.css";
@@ -363,9 +363,18 @@ export function Grafico() {
           Total: {reportesFecha.length}
         </label>
       </div>
-      <div className=" layoutHeight d-flex justify-content-center align-items-center mt-2">
-        <Bar className="w-75 h-50" options={options} data={data} />
-      </div>
+      {
+        reportes.length == 0?
+          <div className="layoutHeight d-flex justify-content-center mt-5">
+              <Spinner animation="border" variant="light"/>
+          </div>
+       
+        :
+          <div className=" layoutHeight d-flex justify-content-center align-items-center mt-2">
+            <Bar className="w-75 h-50" options={options} data={data} />
+          </div>
+      }
+   
     </>
   );
 }

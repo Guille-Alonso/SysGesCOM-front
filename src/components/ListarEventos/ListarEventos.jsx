@@ -11,7 +11,7 @@ import './ListarEventos.css'
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
-  const { user,buscador,setBuscador } = useContext(COMContext);
+  const { user,buscador,setBuscador, setPaginacion } = useContext(COMContext);
   // const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
   const [selected, setSelected] = useState(undefined);
@@ -33,9 +33,10 @@ const ListarEventos = () => {
     setSelectedRadio(false)
   }
 
-  const filtroInputRadio = (array) =>{
+  const filtroInputRadio = (array,tipoEvento) =>{
     setResultadoBusqueda(array);
-    setSelectedRadio(array[0].naturaleza.nombre.toString().includes("Municipal")? "Municipal" : "Seguridad")
+    setSelectedRadio(tipoEvento);
+    setPaginacion(1);
   }
 
   useEffect(() => {
@@ -47,7 +48,10 @@ const ListarEventos = () => {
           reporte.usuario.nombreUsuario
             .toLowerCase()
             .includes(buscador.toLowerCase()) ||
-          reporte.categoria.nombre
+          reporte.dispositivo.nombre
+            .toLowerCase()
+            .includes(buscador.toLowerCase()) ||
+            reporte.categoria.nombre
             .toLowerCase()
             .includes(buscador.toLowerCase())
       );
@@ -165,10 +169,10 @@ const ListarEventos = () => {
           user.tipoDeUsuario == "supervisor" &&
           <div className="d-flex filtrarPorTipo">
             <label className="me-1">Seguridad</label>
-            <input checked={selectedRadio == "Seguridad"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")))} 
+            <input checked={selectedRadio == "Seguridad"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")),"Seguridad")} 
             name="tipoDeEvento" value="seguridad" type="radio"></input>
             <label className="ms-4 me-1">Municipal</label>
-            <input checked={selectedRadio == "Municipal"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")))} 
+            <input checked={selectedRadio == "Municipal"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")),"Municipal")} 
             name="tipoDeEvento" value="municipal" type="radio"></input>
           </div>
         }

@@ -173,6 +173,9 @@ const DetalleEvento = () => {
         <Form.Label className="labelEditReporte">
           <strong>Realizado por:</strong> {values.usuario.nombre}
         </Form.Label>
+        <Form.Label className="labelEditReporte ms-5">
+          <strong>N° Evento:</strong> {values.numero}
+        </Form.Label>
         <br />
         <Row>
           <Col sm={6} md={6}>

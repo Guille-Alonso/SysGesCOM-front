@@ -22,7 +22,9 @@ import { faCalendarDays, faChevronDown, faPersonWalkingArrowLoopLeft, faUserTie 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [openDate, setOpenDate] = useState(false);
+  const [etiquetaDesde, setEtiquetaDesde] = useState("Desde");
+  const [etiquetaHasta, setEtiquetaHasta] = useState("Hasta");
   const [reportes, setReportes] = useState([]);
   const [reportesFecha, setReportesFecha] = useState([]);
   const [turno, setTurno] = useState("");
@@ -67,11 +69,15 @@ export function Grafico() {
   }, []);
 
   const handleFechaDesdeChange = (event) => {
-    setFechaDesde(event.target.value);
+    const fechaSeleccionada = event.target.value;
+    setFechaDesde(fechaSeleccionada);
+    setEtiquetaDesde(fechaSeleccionada !== "" ? fechaSeleccionada : "Desde");
   };
 
   const handleFechaHastaChange = (event) => {
-    setFechaHasta(event.target.value);
+    const fechaSeleccionada = event.target.value;
+    setFechaHasta(fechaSeleccionada);
+    setEtiquetaHasta(fechaSeleccionada !== "" ? fechaSeleccionada : "Hasta");
   };
 
   function convertirFecha2ASinHora(fecha) {
@@ -310,30 +316,12 @@ export function Grafico() {
                 placeholder="Ingrese un nombre"
               />
             </div>
-
-            <span className="headerSearchText"> Desde - Hasta</span>
-            <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-            <input
-              type="date"
-              name="desde"
-              id="desde"
-              value={fechaDesde}
-              onChange={handleFechaDesdeChange}
-            />
-            <input
-              type="date"
-              name="hasta"
-              id="hasta"
-              value={fechaHasta}
-              onChange={handleFechaHastaChange}
-            />
-            {/* <DateRange
-                editableDateInputs={true}
-                onChange={item => setState([item.selection])}
-                moveRangeOnFirstSelection={false}
-                ranges={state}
-                className="headerDate"
-              /> */}
+            <div className="headerSearchItem">
+              <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+              <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">
+                {`${etiquetaDesde} - ${etiquetaHasta}`}
+              </span>
+            </div>
             <div className="headerSearchItem">
               <FontAwesomeIcon icon={faPersonWalkingArrowLoopLeft} className="headerIcon" flip />
               <div className="headerSelectWrapper">
@@ -385,6 +373,23 @@ export function Grafico() {
                 </li>
               ))}
             </ul>
+            {openDate &&
+              <div className="dateContainer">
+                <input
+                  type="date"
+                  name="desde"
+                  id="desde"
+                  value={fechaDesde}
+                  onChange={handleFechaDesdeChange}
+                />
+                <input
+                  type="date"
+                  name="hasta"
+                  id="hasta"
+                  value={fechaHasta}
+                  onChange={handleFechaHastaChange}
+                />
+              </div>}
           </div>
         </Form.Group>
       </div>

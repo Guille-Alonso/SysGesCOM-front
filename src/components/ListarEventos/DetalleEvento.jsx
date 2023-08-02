@@ -167,16 +167,18 @@ const DetalleEvento = () => {
   return (
     <Container className="layoutHeight" md={12}>
       <Form onSubmit={handleSubmit}>
-        <Form.Label className="labelEditReporte me-5">
-          <strong>Fecha:</strong> {values.fecha}
-        </Form.Label>
-        <Form.Label className="labelEditReporte">
-          <strong>Realizado por:</strong> {values.usuario.nombre}
-        </Form.Label>
-        <Form.Label className="labelEditReporte ms-5">
-          <strong>N° Evento:</strong> {values.numero}
-        </Form.Label>
-        <br />
+        <div className="navbarReporte">
+          <Form.Label className="labelEditReporte">
+            <strong>Fecha:</strong> {values.fecha}
+          </Form.Label>
+          <Form.Label className="labelEditReporte">
+            <strong>Realizado por:</strong> {values.usuario.nombre}
+          </Form.Label>
+          <Form.Label className="labelEditReporte">
+            <strong>N° Evento:</strong> {values.numero}
+          </Form.Label>
+          <br />
+        </div>
         <Row>
           <Col sm={6} md={6}>
             <Col>
@@ -275,7 +277,7 @@ const DetalleEvento = () => {
                     {values.subcategoria?.nombre}
                   </p>
                 )}
-                <Form.Label className="">
+                <Form.Label className="dispositivoLabel">
                   <strong>Dispositivo: </strong>
                 </Form.Label>
                 {editReporte ? (
@@ -300,17 +302,17 @@ const DetalleEvento = () => {
                     )}
                   </Form.Select>
                 ) : (
-                  <div className="d-flex">
+                  <div className="d-flex flex-column">
                     <p className="detalleEditReporte">
                       {values.dispositivo.nombre}
                     </p>
-                    <p className="ms-4 detalleEditReporte">
+                    <p className=" detalleEditReporte">
                       {values.dispositivo.ubicacion}
                     </p>
                   </div>
                 )}
               </div>
-              <div className="d-flex flex-column labelEditReporte mt-3">
+              <div className="d-flex flex-column mt-3">
                 <Form.Label className="">
                   <strong>Detalle: </strong>
                 </Form.Label>
@@ -361,22 +363,21 @@ const DetalleEvento = () => {
               </Form.Group>
             ) : (
               <div className="d-flex h-100 contenedorImagenReporte">
-                {imageUrl?
-                   <img
-                   className="fotoReporteDetalle2"
-                   style={styles}
-                   src={imageUrl ? imageUrl : svg404}
-                   alt="Captura del reporte"
-                 />
-                 :
-                 <img
-                 className="fotoReporteDetalle"
-                 style={styles}
-                 src={imageUrl ? imageUrl : svg404}
-                 alt="Captura del reporte"
-               />
-                }
-              
+                {imageUrl ? (
+                  <img
+                    className="fotoReporteDetalle2"
+                    style={styles}
+                    src={imageUrl ? imageUrl : svg404}
+                    alt="Captura del reporte"
+                  />
+                ) : (
+                  <img
+                    className="fotoReporteDetalle"
+                    style={styles}
+                    src={imageUrl ? imageUrl : svg404}
+                    alt="Captura del reporte"
+                  />
+                )}
               </div>
             )}
 

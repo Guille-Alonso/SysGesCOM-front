@@ -1,0 +1,71 @@
+.asideContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+.motoContainer{
+    display: flex;
+    justify-content: center;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    width: 80% !important;
+    margin: 15px auto;
+}
+.motoSvg{
+    height: 250px;
+}
+.containerPersona{
+    border: 1px solid #ccc;
+    width: fit-content !important;
+    height: 70px;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.iconoPersona{
+    height: 30px;
+}
+.inputContainer {
+    position: relative;
+    bottom: 4px;
+}
+.containerCascos{
+    border: 1px solid #ccc;
+    width: 50% !important;
+    height: 70px;
+    align-items: center;
+}
+.iconoCasco {
+    height: 30px;
+}
+.containerLuces{
+    border: 1px solid #ccc;
+    width: fit-content !important; ;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.focoIcono {
+    cursor: pointer;
+    color: black;
+    height: 30px;
+}
+.focoIcono2{
+    color: yellow;
+    cursor: pointer;
+    height: 30px;
+}
+.focoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width: 730px){
+    .contenedorRelevamiento{
+        width: 730px !important;
+    }
+}

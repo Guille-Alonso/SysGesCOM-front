@@ -12,10 +12,12 @@ import { Bar } from "react-chartjs-2";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../../config/axios";
-import {Form, Spinner } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import "../AltaEvento/AltaEvento.css";
 import useGet from "../../hooks/useGet";
 import "./Graficas.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarDays, faChevronDown, faPersonWalkingArrowLoopLeft, faUserTie } from "@fortawesome/free-solid-svg-icons";
 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
@@ -27,7 +29,7 @@ export function Grafico() {
 
   const [usuarios, loading] = useGet("/users/email", axios);
   const [searchTerm, setSearchTerm] = useState({ nombre: "" });
-  
+
   const suggestionContainerRef = useRef(null);
 
   const [fechaDesde, setFechaDesde] = useState("");
@@ -96,9 +98,9 @@ export function Grafico() {
 
   function obtenerPeriodoDelDiaConHora(fechaString) {
     const hora = fechaString.split(", ")[1].split(":")[0];
-  
+
     const horaActual = parseInt(hora, 10);
-  
+
     if (horaActual >= 7 && horaActual < 15) {
       return 'mañana';
     } else if (horaActual >= 15 && horaActual < 23) {
@@ -110,34 +112,34 @@ export function Grafico() {
 
   useEffect(() => {
     if (fechaDesde !== "" && fechaHasta !== "") {
-      
-      if(searchTerm.nombre!==""){
-       
-        const reportesConUsuario = reportes.filter(rep=>rep.usuario.nombre == searchTerm.nombre)
+
+      if (searchTerm.nombre !== "") {
+
+        const reportesConUsuario = reportes.filter(rep => rep.usuario.nombre == searchTerm.nombre)
         const reportesFiltrados = reportesConUsuario.filter((reporte) => {
           const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
-  
+
           return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
         });
         setReportesFecha(reportesFiltrados);
-      }else if(turno !== ""){
-        const reportesConTurno = reportes.filter(rep=>obtenerPeriodoDelDiaConHora(rep.fecha) == turno)
+      } else if (turno !== "") {
+        const reportesConTurno = reportes.filter(rep => obtenerPeriodoDelDiaConHora(rep.fecha) == turno)
         const reportesFiltrados = reportesConTurno.filter((reporte) => {
           const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
-  
+
           return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
         });
         setReportesFecha(reportesFiltrados);
-      }else{
-        
-        const reportesFiltrados = reportes.filter((reporte) => {
-        const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
+      } else {
 
-        return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
-      });
-      setReportesFecha(reportesFiltrados);
-    }
-    
+        const reportesFiltrados = reportes.filter((reporte) => {
+          const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
+
+          return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
+        });
+        setReportesFecha(reportesFiltrados);
+      }
+
     }
   }, [fechaDesde, fechaHasta]);
 
@@ -230,7 +232,7 @@ export function Grafico() {
     console.log(e.target.value);
     if (e.target.value !== "") {
       setSearchTerm({ nombre: "" });
-      filtroTurnoYFecha(reportes.filter(rep=>(e.target.value== obtenerPeriodoDelDiaConHora(rep.fecha))))
+      filtroTurnoYFecha(reportes.filter(rep => (e.target.value == obtenerPeriodoDelDiaConHora(rep.fecha))))
     } else {
       if (fechaDesde !== "" && fechaHasta !== "") {
         setSearchTerm({ nombre: "" });
@@ -289,28 +291,78 @@ export function Grafico() {
 
   return (
     <>
-      <div className="text-center my-2 d-flex flex-column">
-        <Form.Group className="inputAltaEvento d-flex flex-column w-100 justify-content-center">
-          <div className="d-flex justify-content-center align-items-center w-100 h-25">
-            <label className="label-usuario">Usuario</label>
+      <div className="container filterContainer">
+        <Form.Group className="inputAltaEvento">
+          <div className="headerSearch">
+            <div className="headerSearchItem">
+              <FontAwesomeIcon icon={faUserTie} className="headerIcon" bounce />
+              <input
+                type="text"
+                value={searchTerm.nombre}
+                onChange={(e) => handleInputChange(e)}
+                name="dispositivo"
+                required
+                maxLength={30}
+                minLength={4}
+                autoComplete="off"
+                className="headerSearchInput"
+                onKeyDown={handleKeyDown}
+                placeholder="Ingrese un nombre"
+              />
+            </div>
+
+            <span className="headerSearchText"> Desde - Hasta</span>
+            <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
             <input
-              type="text"
-              value={searchTerm.nombre}
-              onChange={(e) => handleInputChange(e)}
-              name="dispositivo"
-              required
-              maxLength={6}
-              minLength={6}
-              autoComplete="off"
-              className="inputDispositivo w-25 mb-2 inputBuscarUsuario"
-              onKeyDown={handleKeyDown}
+              type="date"
+              name="desde"
+              id="desde"
+              value={fechaDesde}
+              onChange={handleFechaDesdeChange}
             />
+            <input
+              type="date"
+              name="hasta"
+              id="hasta"
+              value={fechaHasta}
+              onChange={handleFechaHastaChange}
+            />
+            {/* <DateRange
+                editableDateInputs={true}
+                onChange={item => setState([item.selection])}
+                moveRangeOnFirstSelection={false}
+                ranges={state}
+                className="headerDate"
+              /> */}
+            <div className="headerSearchItem">
+              <FontAwesomeIcon icon={faPersonWalkingArrowLoopLeft} className="headerIcon" flip />
+              <div className="headerSelectWrapper">
+                <select
+                  name="turno"
+                  id=""
+                  onChange={selectedTurno}
+                  value={turno}
+                  className="headerSelect"
+                >
+                  <option value="">Todos</option>
+                  <option value="mañana">Mañana</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noche">Noche</option>
+                </select>
+                <FontAwesomeIcon icon={faChevronDown} className="headerSelectIcon" />
+              </div>
+            </div>
+
+
+            <label className="" htmlFor="">
+              Total: {reportesFecha.length}
+            </label>
           </div>
-          <div className="d-flex justify-content-center w-100">
+          <div className="container-fluid">
             <ul
               className={
                 suggestions.length > 0
-                  ? " w-25 ulSugerencias bg-light"
+                  ? " w-25 ulSugerencias bg-light container"
                   : "d-none"
               }
               ref={suggestionContainerRef}
@@ -336,53 +388,9 @@ export function Grafico() {
           </div>
         </Form.Group>
       </div>
-      <div className="text-center">
-        <label className="me-1" htmlFor="">
-          Turno
-        </label>
-        <select name="" id="" onChange={selectedTurno} value={turno}>
-          <option value="">Todos</option>
-          <option value="mañana">Mañana</option>
-          <option value="tarde">Tarde</option>
-          <option value="noche">Noche</option>
-        </select>
-        <label className="ms-2 me-1" htmlFor="desde">
-          Desde
-        </label>
-        <input
-          type="date"
-          name="desde"
-          id="desde"
-          value={fechaDesde}
-          onChange={handleFechaDesdeChange}
-        />
-
-        <label className="ms-2  me-1" htmlFor="hasta">
-          Hasta
-        </label>
-        <input
-          type="date"
-          name="hasta"
-          id="hasta"
-          value={fechaHasta}
-          onChange={handleFechaHastaChange}
-        />
-        <label className="ms-2" htmlFor="">
-          Total: {reportesFecha.length}
-        </label>
+      <div className=" layoutHeight d-flex justify-content-center align-items-center mt-3">
+        <Bar className="w-75 h-50" options={options} data={data} />
       </div>
-      {
-        reportes.length == 0?
-          <div className="layoutHeight d-flex justify-content-center mt-5">
-              <Spinner animation="border" variant="light"/>
-          </div>
-       
-        :
-          <div className=" layoutHeight d-flex justify-content-center align-items-center mt-2">
-            <Bar className="w-75 h-50" options={options} data={data} />
-          </div>
-      }
-   
     </>
   );
 }

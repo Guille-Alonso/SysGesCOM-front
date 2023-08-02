@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useContext } from "react";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
@@ -10,10 +10,12 @@ import axios from "../../config/axios";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { COMContext } from "../../context/COMContext";
 
 const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user}) => {
   const navigate = useNavigate();
-  const [paginacion, setPaginacion] = useState(1);
+  // const [paginacion, setPaginacion] = useState(1);
+  const { paginacion,setPaginacion } = useContext(COMContext);
   const itemPag = 10;
   const indexUltimoItem = paginacion * itemPag;
   const indexPrimerItem = indexUltimoItem - itemPag;
@@ -61,6 +63,29 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
     navigate("/detalleEvento", { state: props });
   };
 
+  function transformarFecha(fechaEnTexto) {
+    const meses = {
+      Ene: "01",
+      Feb: "02",
+      Mar: "03",
+      Abr: "04",
+      May: "05",
+      Jun: "06",
+      Jul: "07",
+      Ago: "08",
+      Sep: "09",
+      Oct: "10",
+      Nov: "11",
+      Dic: "12",
+    };
+  
+    const [, dia, mes, anio] = fechaEnTexto.match(/(\d+) De (\w+) De (\d+)/);
+    const mesNumerico = meses[mes];
+    const diaConCeros = String(dia).padStart(2, '0');
+  
+    return `${diaConCeros}/${mesNumerico}/${anio}`;
+  }
+
   return (
     <>
       <Modal
@@ -99,10 +124,10 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
             currentItems.map((item) => (
               <tr key={item._id} >
                 <td>{item.numero}</td>
-                <td>{item.fecha.split(",")[0]}</td>
-                <td>{item.detalle.length < 20? item.detalle :  item.detalle.slice(0, 20) + "..."}</td>
+                <td>{transformarFecha(item.fecha.split(",")[0])}</td>
+                <td>{item.detalle.length < 60? item.detalle :  item.detalle.slice(0, 60) + "..."}</td>
                 <td>{item.usuario.nombreUsuario}</td>
-                <td>{item.naturaleza.nombre.toUpperCase()}</td>
+                <td>{item.dispositivo.nombre.toUpperCase()}</td>
                 <td>{item.categoria.nombre}</td>
                 {/* <td>{item.subcategoria?.nombre}</td> */}
                 <td>

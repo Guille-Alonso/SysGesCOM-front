@@ -79,7 +79,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
         <img
           variant="top"
           src={
-            values.foto !== undefined
+            values.foto !== undefined && values.foto !== ""
               ? values.foto
               : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
           }

@@ -11,6 +11,9 @@ import { Navigate } from "react-router-dom";
 import { validationsAltaEvento } from "../../helpers/ValidationsAltaEvento";
 
 const AltaEvento = () => {
+  const [botonState, setBotonState] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const [naturalezas, setNaturalezas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [subcategorias, setSubcategorias] = useState([]);
@@ -30,6 +33,7 @@ const AltaEvento = () => {
   );
 
   const suggestionsRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     // Agregar event listener para cerrar la lista de sugerencias al hacer clic fuera de ella
@@ -44,8 +48,11 @@ const AltaEvento = () => {
 
     document.addEventListener("click", handleClickOutside);
 
+    // document.addEventListener("keypress", handleKeyDown);
+
     return () => {
       document.removeEventListener("click", handleClickOutside);
+      // document.removeEventListener("keypress", handleKeyDown);
     };
   }, []);
 
@@ -69,6 +76,7 @@ const AltaEvento = () => {
   const [fecha, hora] = fechaSinZonaHoraria.split(", "); // Separar la fecha de la hora
 
   const enviarDatos = async () => {
+    setBotonState(true);
     try {
       const formData = new FormData();
       formData.append("fecha", fechaSinZonaHoraria);
@@ -80,18 +88,18 @@ const AltaEvento = () => {
       formData.append("subcategoria", values.subcategoria);
       formData.append("dispositivo", values.dispositivo);
       formData.append("photo", values.photo);
-   
+
       const respuesta = await axios.post("/reportes/alta", formData);
 
       toast.success("Reporte registrado con éxito");
       setValues(ALTA_REPORTES_VALUES);
-      setSearchTerm({nombre:""});
-      document.querySelector("#imageEvento").value="";
-      // setVolver(true);
+      setSearchTerm({ nombre: "" });
+      document.querySelector("#imageEvento").value = "";
+      setSelectedFile(null);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
-
+    setBotonState(false);
   };
 
   const { handleChange, handleSubmit, values, setValues, errors } = useForm(
@@ -105,12 +113,16 @@ const AltaEvento = () => {
       ...values,
       [e.target.name]: e.target.files[0],
     });
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(URL.createObjectURL(file));
+    } else {
+      setSelectedFile(null);
+    }
   };
   const [changeClass, setChangeClass] = useState(false);
-
   const handleInputChange = (e) => {
     setChangeClass(!changeClass);
-
     const value = e.target.value;
     setSearchTerm(value);
 
@@ -123,17 +135,6 @@ const AltaEvento = () => {
         )
         .slice(0, 6); // Mostrar solo los primeros 6 elementos
     setSuggestions(filteredSuggestions);
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    setValues({
-      ...values,
-      dispositivo: suggestion._id,
-      ubicacion: suggestion.ubicacion
-    });
-
-    setSearchTerm(suggestion);
-    setSuggestions([]); // Limpiar las sugerencias al seleccionar una
   };
 
   const handleChangeNaturaleza = (e) => {
@@ -171,15 +172,43 @@ const AltaEvento = () => {
     getDatos();
   }, []);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp") {
+      setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    } else if (event.key === "ArrowDown") {
+      setCurrentIndex((prev) => Math.min(prev + 1, suggestions.length - 1));
+    } else if (event.key === "Enter" && suggestions.length > 0) {
+      const suggestion = suggestions[currentIndex];
+      setValues({
+        ...values,
+        dispositivo: suggestion._id,
+        ubicacion: suggestion.ubicacion,
+      });
+
+      setSearchTerm(suggestion);
+      setSuggestions([]); // Limpiar las sugerencias al seleccionar una
+    }
+  };
+
+  const handleSuggestionClick = (suggestion, e) => {
+    setValues({
+      ...values,
+      dispositivo: suggestion._id,
+      ubicacion: suggestion.ubicacion,
+    });
+    setSearchTerm(suggestion);
+    setSuggestions([]);
+  };
+
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Container className="layoutHeight">
-    
       <div className="contAltaEvento">
         <Row>
-          
           <Col>
-            <Form onSubmit={handleSubmit}>
-            <Form.Group className="contInputFecha">
+            <Form className="formAltaEvento" onSubmit={handleSubmit}>
+              <Form.Group className="contInputFecha">
                 <Form.Control
                   type="text"
                   value={`${fecha} - ${hora}`}
@@ -289,19 +318,26 @@ const AltaEvento = () => {
                   maxLength={6}
                   minLength={6}
                   autoComplete="off"
+                  className="inputDispositivo"
+                  onKeyDown={handleKeyDown}
                 />
                 <ul
-                  className={
-                    changeClass
-                      ? "inputDispositivosReportes2"
-                      : "inputDispositivosReportes"
-                  }
+                  className={"inputDispositivosReportes"}
                   ref={suggestionsRef}
                 >
                   {suggestions.map((suggestion, index) => (
                     <li
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
                       key={index}
-                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="liCamarasyDomos"
+                      style={{
+                        backgroundColor:
+                          currentIndex === index && !isHovered
+                            ? "#ccc"
+                            : "transparent",
+                      }}
+                      onClick={(e) => handleSuggestionClick(suggestion, e)}
                     >
                       {suggestion.nombre}
                     </li>
@@ -321,11 +357,9 @@ const AltaEvento = () => {
               </Form.Group>
 
               <Form.Group className="d-flex flex-column labelEditReporte mt-2">
-                <Form.Label className="">
-                  Detalle
-                </Form.Label>
+                <Form.Label className="">Detalle</Form.Label>
                 <textarea
-                  className="inputEditReporte2"
+                  className="inputEditReporte2 w-100"
                   onChange={handleChange}
                   name="detalle"
                   value={values.detalle}
@@ -344,12 +378,20 @@ const AltaEvento = () => {
                   id="imageEvento"
                 />
               </Form.Group>
+              {selectedFile && (
+                <img
+                  src={selectedFile}
+                  className="mt-5 d-flex justify-content-center align-items-center w-100 fotoPreview"
+                  alt=""
+                />
+              )}
 
               <Button
                 variant="success"
                 className="mt-5 col-12 mb-3"
                 size="lg"
                 type="submit"
+                disabled={botonState}
               >
                 Agregar
               </Button>
@@ -357,18 +399,17 @@ const AltaEvento = () => {
             </Form>
           </Col>
         </Row>
-        
       </div>
       <Row>
-            <Col xs={12} className="d-flex justify-content-center">
-              {Object.keys(errors).length !== 0 &&
-                Object.values(errors).map((error, index) => (
-                  <Alert className="me-1" variant="danger" key={index}>
-                    {error}
-                  </Alert>
-                ))}
-            </Col>
-          </Row>
+        <Col xs={12} className="d-flex justify-content-center">
+          {Object.keys(errors).length !== 0 &&
+            Object.values(errors).map((error, index) => (
+              <Alert className="me-1" variant="danger" key={index}>
+                {error}
+              </Alert>
+            ))}
+        </Col>
+      </Row>
     </Container>
   );
 };

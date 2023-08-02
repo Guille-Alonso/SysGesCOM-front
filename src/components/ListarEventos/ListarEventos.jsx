@@ -11,8 +11,8 @@ import './ListarEventos.css'
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
-  const { user } = useContext(COMContext);
-  const [buscador, setBuscador] = useState("");
+  const { user,buscador,setBuscador } = useContext(COMContext);
+  // const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
   const [selected, setSelected] = useState(undefined);
 
@@ -25,6 +25,18 @@ const ListarEventos = () => {
   const nuevoReporte = () => {
     navigate("/alta-reporte");
   };
+
+  const [selectedRadio, setSelectedRadio] = useState(undefined);
+
+  const limpiarInputRadio = ()=>{
+    getReportes();
+    setSelectedRadio(false)
+  }
+
+  const filtroInputRadio = (array) =>{
+    setResultadoBusqueda(array);
+    setSelectedRadio(array[0].naturaleza.nombre.toString().includes("Municipal")? "Municipal" : "Seguridad")
+  }
 
   useEffect(() => {
     if (Array.isArray(reportes.reportes)) {
@@ -96,13 +108,14 @@ const ListarEventos = () => {
 
     const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
     const mesNumerico = meses[mes];
-    if(`${anio}-${mesNumerico}-${dia}` == obtenerFechaActualEnFormatoISO()){
+    const diaConCeros = String(dia).padStart(2, '0');
+    if( `${anio}-${mesNumerico}-${diaConCeros}` == obtenerFechaActualEnFormatoISO()){
       return true;
     }else return false;
 
   }
   function obtenerTotalObjetosCumplenCondicion(array) {
-  
+
       const filterArr = array.filter(rep=>(obtenerPeriodoDelDia()== obtenerPeriodoDelDiaConHora(rep.fecha)) && convertirFechaASinHora(rep.fecha)  )
       return filterArr.length;
     }
@@ -139,7 +152,7 @@ const ListarEventos = () => {
           user.tipoDeUsuario == "supervisor" &&
           <>
           <label className="totalTurno" htmlFor="">Turno {obtenerPeriodoDelDia()}: {reportes.reportes !== undefined? obtenerTotalObjetosCumplenCondicion(reportes.reportes) : ""}</label>
-          <FontAwesomeIcon onClick={getReportes} className="refrescarLista" icon={faRotate} />
+          <FontAwesomeIcon onClick={limpiarInputRadio} className="refrescarLista" icon={faRotate} />
           </>
         }
 
@@ -152,10 +165,10 @@ const ListarEventos = () => {
           user.tipoDeUsuario == "supervisor" &&
           <div className="d-flex filtrarPorTipo">
             <label className="me-1">Seguridad</label>
-            <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")))} 
+            <input checked={selectedRadio == "Seguridad"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")))} 
             name="tipoDeEvento" value="seguridad" type="radio"></input>
             <label className="ms-4 me-1">Municipal</label>
-            <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")))} 
+            <input checked={selectedRadio == "Municipal"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")))} 
             name="tipoDeEvento" value="municipal" type="radio"></input>
           </div>
         }
@@ -174,7 +187,7 @@ const ListarEventos = () => {
                 "Fecha",
                 "Detalle",
                 "Usuario",
-                "Evento",
+                "Dispositivo",
                 "Categoria",
                 "",
               ]}

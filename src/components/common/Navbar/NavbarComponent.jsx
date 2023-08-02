@@ -8,7 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { COMContext } from '../../../context/COMContext';
 
 function NavbarComponent() {
-  const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
+  const { authenticated, setAuthenticated, loading, user, getAuth, setBuscador, setPaginacion} = useContext(COMContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,6 +16,8 @@ function NavbarComponent() {
   const logOut = () => {
     localStorage.removeItem("token");
     setAuthenticated(false);
+    setBuscador("");
+    setPaginacion(1)
     navigate('/login')
   };
 

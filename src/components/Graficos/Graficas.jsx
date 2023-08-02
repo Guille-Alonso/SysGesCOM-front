@@ -26,6 +26,15 @@ export function Grafico() {
   const [turno, setTurno] = useState("");
 
   const [usuarios, loading] = useGet("/users/email", axios);
+  const [searchTerm, setSearchTerm] = useState({ nombre: "" });
+  
+  const suggestionContainerRef = useRef(null);
+
+  const [fechaDesde, setFechaDesde] = useState("");
+  const [fechaHasta, setFechaHasta] = useState("");
+
+  const [isHovered, setIsHovered] = useState(false);
+  const [changeClass, setChangeClass] = useState(false);
 
   const fetchReportes = async () => {
     try {
@@ -36,8 +45,6 @@ export function Grafico() {
       console.log("Error al obtener los reportes:", error);
     }
   };
-
-  const suggestionContainerRef = useRef(null);
 
   useEffect(() => {
     fetchReportes();
@@ -56,9 +63,6 @@ export function Grafico() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
-  const [fechaDesde, setFechaDesde] = useState("");
-  const [fechaHasta, setFechaHasta] = useState("");
 
   const handleFechaDesdeChange = (event) => {
     setFechaDesde(event.target.value);
@@ -86,13 +90,28 @@ export function Grafico() {
 
     const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
     const mesNumerico = meses[mes];
-    return `${anio}-${mesNumerico}-${dia}`;
+    const diaConCeros = String(dia).padStart(2, '0');
+    return `${anio}-${mesNumerico}-${diaConCeros}`;
+  }
+
+  function obtenerPeriodoDelDiaConHora(fechaString) {
+    const hora = fechaString.split(", ")[1].split(":")[0];
+  
+    const horaActual = parseInt(hora, 10);
+  
+    if (horaActual >= 7 && horaActual < 15) {
+      return 'mañana';
+    } else if (horaActual >= 15 && horaActual < 23) {
+      return 'tarde';
+    } else {
+      return 'noche';
+    }
   }
 
   useEffect(() => {
     if (fechaDesde !== "" && fechaHasta !== "") {
-    
-      if(searchTerm.nombre!==''){
+      
+      if(searchTerm.nombre!==""){
        
         const reportesConUsuario = reportes.filter(rep=>rep.usuario.nombre == searchTerm.nombre)
         const reportesFiltrados = reportesConUsuario.filter((reporte) => {
@@ -100,25 +119,22 @@ export function Grafico() {
   
           return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
         });
-  
         setReportesFecha(reportesFiltrados);
       }else if(turno !== ""){
-        const reportesConTurno = reportes.filter(rep => rep.usuario.turno == turno)
+        const reportesConTurno = reportes.filter(rep=>obtenerPeriodoDelDiaConHora(rep.fecha) == turno)
         const reportesFiltrados = reportesConTurno.filter((reporte) => {
           const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
   
           return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
         });
-  
         setReportesFecha(reportesFiltrados);
       }else{
-      
-      const reportesFiltrados = reportes.filter((reporte) => {
+        
+        const reportesFiltrados = reportes.filter((reporte) => {
         const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
 
         return fechaReporte >= fechaDesde && fechaReporte <= fechaHasta;
       });
-
       setReportesFecha(reportesFiltrados);
     }
     
@@ -214,9 +230,7 @@ export function Grafico() {
     console.log(e.target.value);
     if (e.target.value !== "") {
       setSearchTerm({ nombre: "" });
-      filtroTurnoYFecha(
-        reportes.filter((rep) => rep.usuario.turno == e.target.value)
-      );
+      filtroTurnoYFecha(reportes.filter(rep=>(e.target.value== obtenerPeriodoDelDiaConHora(rep.fecha))))
     } else {
       if (fechaDesde !== "" && fechaHasta !== "") {
         setSearchTerm({ nombre: "" });
@@ -233,8 +247,6 @@ export function Grafico() {
       }
     }
   };
-
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleKeyDown = (event) => {
     if (event.key === "ArrowUp") {
@@ -259,8 +271,6 @@ export function Grafico() {
     );
   };
 
-  const [changeClass, setChangeClass] = useState(false);
-
   const handleInputChange = (e) => {
     setChangeClass(!changeClass);
     const value = e.target.value;
@@ -276,8 +286,6 @@ export function Grafico() {
         .slice(0, 6); // Mostrar solo los primeros 6 elementos
     setSuggestions(filteredSuggestions);
   };
-
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>

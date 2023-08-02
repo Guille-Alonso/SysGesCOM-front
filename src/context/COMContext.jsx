@@ -9,8 +9,11 @@ const ProviderCOM = ({children}) => {
   const [user, setUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-
+ 
   const [botonState,setBotonState] = useState(false)
+  
+  const [buscador, setBuscador] = useState("");
+  const [paginacion, setPaginacion] = useState(1);
 
   const login = async (values) => {
     setBotonState(true);
@@ -54,7 +57,11 @@ const ProviderCOM = ({children}) => {
         getAuth,
         setLoading,
         botonState,
-        setBotonState
+        setBotonState,
+        paginacion,
+        setPaginacion,
+        buscador,
+        setBuscador
       }}>
       {children}
     </COMContext.Provider>

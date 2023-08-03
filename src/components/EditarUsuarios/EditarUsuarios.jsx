@@ -15,6 +15,7 @@ import useForm from "../../hooks/useForm";
 import { Alert, Button, Form, FormSelect } from "react-bootstrap";
 import { validationEditarUsuario } from "../../helpers/validationsEditarUsuario";
 import Modal from "react-bootstrap/Modal";
+import fotoPredet from "../../assets/fotoPredeterminada.png";
 
 const EditarUsuarios = ({ onClose, user, getUsers }) => {
   const [show, setShow] = useState(false);
@@ -81,7 +82,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
           src={
             values.foto !== undefined && values.foto !== ""
               ? values.foto
-              : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
+              : fotoPredet
           }
           className="imgUsuarioBig"
         />

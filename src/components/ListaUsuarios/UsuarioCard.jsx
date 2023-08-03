@@ -1,5 +1,6 @@
 import React from "react";
 import "./UsuarioCard.css";
+import fotoPredet from "../../assets/fotoPredeterminada.png";
 
 const UsuarioCard = ({ user }) => {
   return (
@@ -7,9 +8,7 @@ const UsuarioCard = ({ user }) => {
       <img
         variant="top"
         src={
-          user.foto !== undefined && user.foto !== ""
-            ? user.foto
-            : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
+          user.foto !== undefined && user.foto !== "" ? user.foto : fotoPredet
         }
         className="imgUsuario"
       />

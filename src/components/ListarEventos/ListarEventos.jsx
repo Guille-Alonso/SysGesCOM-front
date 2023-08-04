@@ -19,7 +19,7 @@ const ListarEventos = () => {
   const handleChange = (event) => {
     setBuscador(event.target.value);
   };
-
+  
   const navigate = useNavigate();
 
   const nuevoReporte = () => {

@@ -393,9 +393,16 @@ export function Grafico() {
           </div>
         </Form.Group>
       </div>
+      {
+        reportesFecha.length !== 0?
       <div className=" layoutHeight d-flex justify-content-center align-items-center mt-3">
         <Bar className="w-75 h-50" options={options} data={data} />
       </div>
+      :
+      <div className="layoutHeight d-flex justify-content-center">
+      <Spinner variant="light"/>
+      </div>
+      }
     </>
   );
 }

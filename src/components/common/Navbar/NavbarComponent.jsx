@@ -6,6 +6,7 @@ import "./navBar.css";
 import { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { COMContext } from "../../../context/COMContext";
+import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png"
 import fotoPredet from "../../../assets/fotoPredeterminada.png";
 
 function NavbarComponent() {
@@ -55,7 +56,7 @@ function NavbarComponent() {
           className="align-content-start"
         >
           <img
-            src="src\assets\img\logo_comm_marca_de_agua.png"
+            src={logoCOM}
             width="150"
             height="40"
             className="d-inline-block align-top logocom"

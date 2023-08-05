@@ -46,7 +46,6 @@ const RelevamientoMotos = () => {
       setChangeIcon(false);
       setSelectedRadioCasco(undefined);
       setSelectedRadioPersona(undefined);
-      console.log(arrayMotos);
     }
   };
   return (

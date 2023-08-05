@@ -1,36 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Home.css";
-import { addDays } from "date-fns";
-import { DateRange, DateRangePicker } from "react-date-range";
-import { format } from "date-fns";
 import { Button, Spinner } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
 import workingSvg from "../assets/img/focused-working.svg";
 import useGet from "../hooks/useGet";
 import axios from "../config/axios";
+import { COMContext } from "../context/COMContext";
 
 const HomePage = () => {
-  const [state, setState] = useState({
-    selection1: {
-      // startDate: addDays(new Date(), 1),
-      key: "selection1",
-    },
-    selection2: {
-      startDate: addDays(new Date(), 4),
-      endDate: addDays(new Date(), 8),
-      key: "selection2",
-    },
-    selection3: {
-      startDate: addDays(new Date(), 8),
-      endDate: addDays(new Date(), 10),
-      key: "selection3",
-      autoFocus: false,
-      disabled: true,
-    },
-  });
-  const endDate = state.selection1.endDate;
   const [reportes, loading] = useGet("/reportes/podio", axios);
+  const [fechaPedido, setFechaPedido] = useState("");
+  const { user } = useContext(COMContext);
+  const [fechaParaDevolver, setFechaParaDevolver] = useState("");
+  const setFecha = (e) => {
+    setFechaPedido(e.target.value);
+  };
+  const setFecha2 = (e) => {
+    setFechaParaDevolver(e.target.value);
+  };
+
+  const EnviarPedidoCambio = () => {
+    const pedidoDeCambio = {
+      solicitante: user.nombre,
+      pedido: fechaPedido,
+      pedidoDevolucion: fechaParaDevolver,
+    };
+    console.log(pedidoDeCambio);
+  };
 
   return (
     <div className="layoutHeight">
@@ -41,48 +37,53 @@ const HomePage = () => {
           </div>
         </main>
         <aside className="contenedorCambios">
-          {loading?
-          <Spinner variant="light"/>
-          : 
-          <LeaderboardReportes reportes={reportes} />}
-          <div className="almanaque mt-5">
-            <DateRange
-              onChange={(item) => setState({ ...state, ...item })}
-              ranges={[state.selection1, state.selection2, state.selection3]}
-              retainEndDateOnFirstSelection={true}
-              moveRangeOnFirstSelection={false}
-            />
-          </div>
-          <div className="contendor-referencias">
-            <p className="text-light">
-              {endDate ? (
-                <>
-                  <strong>
-                    Tu pedido de cambio es para el día: <br />
-                  </strong>
-                  {format(endDate, "dd/MM/yyyy")} {"🔵"}
-                </>
-              ) : (
-                <>Elije una fecha para pedir cambio</>
-              )}
-              <br />
-              {endDate ? (
-                <>
-                  <strong>Los dias que podes devolver son desde: </strong>{" "}
-                  <br />
-                  {format(state.selection2.startDate, "dd/MM/yyyy ")}
-                  <strong>Hasta: </strong>
-                  {format(state.selection2.endDate, "dd/MM/yyyy")} {"🟢"}
-                </>
+          {loading ? (
+            <Spinner variant="light" />
+          ) : (
+            <LeaderboardReportes reportes={reportes} />
+          )}
+          <div className="almanaque mt-5 d-flex flex-column justify-content-around">
+            <div className="d-flex flex-column gap-1 align-items-center">
+              <span className="spanCambiosTurno">Cambios de Turno</span>
+              <input
+                type="date"
+                name="fechaPedido"
+                className="w-75 inputFechaCambio"
+                value={fechaPedido}
+                onChange={setFecha}
+              />
+              {fechaPedido !== "" ? (
+                <p className="text-dark">
+                  <strong>Tu pedido es para: </strong>
+                  {fechaPedido}
+                </p>
               ) : (
                 <></>
               )}
-              {/* {console.log(state.selection1)} */}
-            </p>
+              <input
+                type="date"
+                name="fechaParaDevolver"
+                className="w-75 inputFechaCambio"
+                value={fechaParaDevolver}
+                onChange={setFecha2}
+              />
+              {fechaParaDevolver !== "" ? (
+                <p className="text-dark">
+                  <strong>Podes devolver este día: </strong>
+                  {fechaParaDevolver}
+                </p>
+              ) : (
+                <></>
+              )}
+            </div>
+            <Button
+              variant="primary"
+              className="botonEnviarPedido"
+              onClick={EnviarPedidoCambio}
+            >
+              Enviar pedido
+            </Button>
           </div>
-          <Button variant="primary" className="botonEnviarPedido">
-            Enviar pedido
-          </Button>
         </aside>
       </div>
       <div className="d-flex justify-content-around mt-5">

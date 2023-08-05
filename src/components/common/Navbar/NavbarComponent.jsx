@@ -6,7 +6,7 @@ import "./navBar.css";
 import { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { COMContext } from "../../../context/COMContext";
-import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png"
+import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png";
 import fotoPredet from "../../../assets/fotoPredeterminada.png";
 
 function NavbarComponent() {
@@ -107,6 +107,14 @@ function NavbarComponent() {
                 Categorías
               </Link>
             )}
+            {authenticated &&
+              (user.tipoDeUsuario == "admin" ||
+                user.tipoDeUsuario == "administración" ||
+                user.tipoDeUsuario == "supervisor") && (
+                <Link className="ms-3" to="/cambio-turno">
+                  Cambios Turno
+                </Link>
+              )}
           </Nav>
 
           {authenticated ? (

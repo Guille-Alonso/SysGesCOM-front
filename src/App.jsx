@@ -21,7 +21,9 @@ import EditarDespacho from "./components/Despacho/EditarDespacho";
 import { Grafico } from "./components/Graficos/Graficas";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import PrivateRouteEstadistica from "./routes/PrivateRouteEstadistica";
+import PrivateRouteAdministracion from "./routes/PrivateRouteAdministracion";
 import RelevamientoMotos from "./components/RelevamientoMotos/RelevamientoMotos";
+import PedidoCambios from "./components/PedidoCambios/PedidoCambios";
 
 function App() {
   return (
@@ -35,6 +37,14 @@ function App() {
                 <PrivateRouteEstadistica>
                   <AltaCategoria />
                 </PrivateRouteEstadistica>
+              }
+            />
+            <Route
+              path="/cambio-turno"
+              element={
+                <PrivateRouteAdministracion>
+                  <PedidoCambios />
+                </PrivateRouteAdministracion>
               }
             />
             <Route

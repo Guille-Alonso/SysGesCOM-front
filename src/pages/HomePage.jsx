@@ -1,32 +1,14 @@
 import React, { useContext, useState } from "react";
 import "./Home.css";
-import { Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
 import workingSvg from "../assets/img/focused-working.svg";
 import useGet from "../hooks/useGet";
 import axios from "../config/axios";
-import { COMContext } from "../context/COMContext";
+import CardCambios from "../components/CardCambio/CardCambios";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podio", axios);
-  const [fechaPedido, setFechaPedido] = useState("");
-  const { user } = useContext(COMContext);
-  const [fechaParaDevolver, setFechaParaDevolver] = useState("");
-  const setFecha = (e) => {
-    setFechaPedido(e.target.value);
-  };
-  const setFecha2 = (e) => {
-    setFechaParaDevolver(e.target.value);
-  };
-
-  const EnviarPedidoCambio = () => {
-    const pedidoDeCambio = {
-      solicitante: user.nombre,
-      pedido: fechaPedido,
-      pedidoDevolucion: fechaParaDevolver,
-    };
-    console.log(pedidoDeCambio);
-  };
 
   return (
     <div className="layoutHeight">
@@ -36,54 +18,13 @@ const HomePage = () => {
             <img src={workingSvg} className="inProgress" alt="" />
           </div>
         </main>
-        <aside className="contenedorCambios">
+        <aside className="contenedorCambios gap-5">
           {loading ? (
             <Spinner variant="light" />
           ) : (
             <LeaderboardReportes reportes={reportes} />
           )}
-          <div className="almanaque mt-5 d-flex flex-column justify-content-around">
-            <div className="d-flex flex-column gap-1 align-items-center">
-              <span className="spanCambiosTurno">Cambios de Turno</span>
-              <input
-                type="date"
-                name="fechaPedido"
-                className="w-75 inputFechaCambio"
-                value={fechaPedido}
-                onChange={setFecha}
-              />
-              {fechaPedido !== "" ? (
-                <p className="text-dark">
-                  <strong>Tu pedido es para: </strong>
-                  {fechaPedido}
-                </p>
-              ) : (
-                <></>
-              )}
-              <input
-                type="date"
-                name="fechaParaDevolver"
-                className="w-75 inputFechaCambio"
-                value={fechaParaDevolver}
-                onChange={setFecha2}
-              />
-              {fechaParaDevolver !== "" ? (
-                <p className="text-dark">
-                  <strong>Podes devolver este día: </strong>
-                  {fechaParaDevolver}
-                </p>
-              ) : (
-                <></>
-              )}
-            </div>
-            <Button
-              variant="primary"
-              className="botonEnviarPedido"
-              onClick={EnviarPedidoCambio}
-            >
-              Enviar pedido
-            </Button>
-          </div>
+          <CardCambios />
         </aside>
       </div>
       <div className="d-flex justify-content-around mt-5">

@@ -1,0 +1,38 @@
+.cardCambioColor {
+  height: 310px;
+  width: 230px;
+  background-color: #2546b8;
+  border-radius: 15px;
+  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cardCambioOscura {
+  height: 310px;
+  width: 230px;
+  border-radius: 15px;
+  background-color: #11232e;
+  border: none;
+  transform: translate(-12px, 10px);
+  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.bordeEstiloCardCambio {
+  position: relative;
+  right: 40px;
+  border-radius: 20px;
+  width: 100px;
+  height: 15px;
+  background-color: #2546b8;
+}
+.spanCambiosTurno {
+  font-weight: 600;
+  font-size: 25px;
+}
+.inputFechaCambio {
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+}
+.botonEnviarPedido {
+  background-color: #2546b8 !important;
+  border: none !important;
+}

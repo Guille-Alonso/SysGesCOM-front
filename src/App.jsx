@@ -24,6 +24,7 @@ import PrivateRouteEstadistica from "./routes/PrivateRouteEstadistica";
 import PrivateRouteAdministracion from "./routes/PrivateRouteAdministracion";
 import RelevamientoMotos from "./components/RelevamientoMotos/RelevamientoMotos";
 import PedidoCambios from "./components/PedidoCambios/PedidoCambios";
+import Notificaciones from "./components/Notificaciones/Notificaciones";
 
 function App() {
   return (
@@ -68,6 +69,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <CambiarContraseña />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/notificaciones"
+              element={
+                <PrivateRoute>
+                  <Notificaciones />
                 </PrivateRoute>
               }
             />

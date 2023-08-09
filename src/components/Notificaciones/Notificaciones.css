@@ -1,0 +1,13 @@
+.confirmarCambio {
+  height: 30px;
+}
+.confirmarCambio:hover {
+  scale: 1.2;
+  color: green;
+}
+.tablaCambios {
+  width: 700px;
+}
+.contenedorNoticias {
+  border: 1px solid #ccc;
+}

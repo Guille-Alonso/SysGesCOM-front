@@ -34,6 +34,9 @@ function NavbarComponent() {
   const settings = () => {
     navigate("/cambiar-contraseña");
   };
+  const notificaciones = () => {
+    navigate("/notificaciones");
+  };
 
   const userProfile = () => {
     navigate("/perfil-usuario");
@@ -142,7 +145,10 @@ function NavbarComponent() {
                 </NavDropdown.Item>
                 {/* )} */}
 
-                <NavDropdown.Item href="#" className="navigation">
+                <NavDropdown.Item
+                  onClick={notificaciones}
+                  className="navigation"
+                >
                   <ion-icon
                     name="notifications-outline"
                     className="icons-drop"

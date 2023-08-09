@@ -7,7 +7,7 @@ export const CHANGE_PASSWORD_VALUES = {
   password: "",
   confirmPassword: "",
   confirmPasswordRepeat: "",
-  userName:"",
+  userName: "",
 };
 export const ALTA_CAMARA_VALUES = {
   nombre: "",
@@ -66,11 +66,19 @@ export const ALTA_REPORTES_VALUES = {
   subcategoria: "",
   dispositivo: "",
   photo: "",
-  ubicacion:""
+  ubicacion: ""
 };
 
 export const ALTA_DESPACHOS_VALUES = {
   fecha: "",
   acuse: "",
   reparticiones: "",
+};
+
+export const ALTA_PEDIDOS_VALUES = {
+  solicitante: "",
+  pedido: "",
+  pedidoDevolucion: "",
+  solicitado: "",
+  estado: Boolean,
 };

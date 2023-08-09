@@ -9,33 +9,7 @@
   justify-content: center;
 }
 
-.botonEnviarPedido {
-  margin-top: 10px;
-}
-
 .inProgress {
   width: 100% !important;
   height: 500px !important;
-}
-.almanaque {
-  height: 300px;
-  width: 100%;
-  border: 1px solid #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  padding: 5px;
-  background-color: #bfd1ec;
-  border: none;
-}
-.inputFechaCambio {
-  border: none;
-  border-radius: 5px;
-  height: 30px;
-}
-.spanCambiosTurno {
-  font-size: 28px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
 }

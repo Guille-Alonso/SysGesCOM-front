@@ -57,7 +57,7 @@ const CardCambios = () => {
           )}
 
           {fechaPedido !== "" ? (
-            <Button className="botonEnviarPedido" onClick={EnviarPedidoCambio}>
+            <Button className="botonEnviarPedido2" onClick={EnviarPedidoCambio}>
               Enviar pedido
             </Button>
           ) : (

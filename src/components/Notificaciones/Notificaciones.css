@@ -1,13 +1,38 @@
 .confirmarCambio {
   height: 30px;
+  padding-right: 7px;
 }
 .confirmarCambio:hover {
   scale: 1.2;
   color: green;
 }
-.tablaCambios {
-  width: 700px;
-}
 .contenedorNoticias {
   border: 1px solid #ccc;
+}
+.cardCambioColorTablaCambios {
+  height: 100%;
+  width: 90%;
+  background-color: #2546b8;
+  border-radius: 15px;
+  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.cardCambioOscuraTablaCambios {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  background-color: #11232e;
+  border: none;
+  transform: translate(-12px, 10px);
+  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tablaCambios {
+  border: 1px solid #ccc;
+  border-radius: 20px !important;
+  width: 95% !important;
+}
+.inputFechaCambio {
+  background-color: transparent;
+  width: 80%;
+  color: #fff;
 }

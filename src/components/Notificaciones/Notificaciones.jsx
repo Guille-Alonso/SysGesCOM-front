@@ -52,107 +52,119 @@ const Notificaciones = () => {
     <>
       <div className="layoutHeight">
         <Row className="g-0">
-          <Col className="contenedorNoticias mt-3" lg={8}>
+          <Col className="contenedorNoticias mt-3" sm={12} lg={6}>
             <div className="text-light">Hola</div>
           </Col>
-          <Col lg={4}>
+          <Col lg={6} sm={0}>
             <aside className="d-flex flex-column justify-content-center">
               <div className="container-fluid col-12 d-flex flex-column align-items-center mt-3">
-                <h3 className="text-light">Pedidos de Cambio</h3>
-                <table
-                  className="table table-light table-striped tablaCambios"
-                  getCambios={getCambios}
-                >
-                  <thead>
-                    <tr>
-                      <th scope="col">Solicitante</th>
-                      <th scope="col">Dia a cubrir</th>
-                      <th scope="col">Dia a devolver</th>
-                      <th scope="col">Solicitado</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {loading ? (
-                      <Spinner />
-                    ) : (
-                      cambios.cambios
-                        .filter((cam) => cam.estado == "consultado")
-                        .map((cam) => {
-                          return (
-                            <tr
-                              key={nanoid()}
-                              onClick={() => setSeleccionCambio(cam._id)}
-                              className={
-                                selected === cam._id ? "row-(selected" : ""
-                              }
-                            >
-                              <td>{`${cam.solicitante.nombreUsuario} (${cam.solicitante.turno})`}</td>
-                              <td>{cam.pedido}</td>
-                              <td>
-                                {selected === cam._id ? (
-                                  user._id !== cam.solicitante._id ? (
-                                    <input
-                                      type="date"
-                                      name="fechaPedidoDevolucion"
-                                      min={calcularFechaMinima()}
-                                      className="w-75 inputFechaCambio"
-                                      disabled={
-                                        user._id !== cam.solicitante._id ? (
-                                          false
-                                        ) : (
-                                          <p> A confirmar</p>
-                                        )
-                                      }
-                                      value={fechaPedido}
-                                      onChange={setFecha}
-                                    ></input>
-                                  ) : (
-                                    <p>A confirmar</p>
-                                  )
-                                ) : (
-                                  <p>A confirmar</p>
-                                )}
-                              </td>
-                              <td>
-                                {selected === cam._id ? (
-                                  <p
-                                    name="solicitado"
-                                    className="w-75 inputFechaCambio"
-                                    onChange={setFecha}
-                                  >
-                                    {user._id !== cam.solicitante._id ? (
-                                      `${user.nombreUsuario} (${user.turno})`
+                <div className="cardCambioColorTablaCambios">
+                  <div className="d-flex flex-column cardCambioOscuraTablaCambios justify-content-around align-items-center">
+                    <h3 className="text-light p-2">Pedidos de Cambio</h3>
+                    <table
+                      className=" table text-light tablaCambios"
+                      getCambios={getCambios}
+                    >
+                      <thead>
+                        <tr>
+                          <th className="w-25" scope="col">
+                            Solicitante
+                          </th>
+                          <th className="w-25" scope="col">
+                            Dia a cubrir
+                          </th>
+                          <th className="w-25" scope="col">
+                            Dia a devolver
+                          </th>
+                          <th scope="col">Solicitado</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {loading ? (
+                          <Spinner />
+                        ) : (
+                          cambios.cambios
+                            .filter((cam) => cam.estado == "consultado")
+                            .map((cam) => {
+                              return (
+                                <tr
+                                  key={nanoid()}
+                                  onClick={() => setSeleccionCambio(cam._id)}
+                                  className={
+                                    selected === cam._id ? "row-(selected" : ""
+                                  }
+                                >
+                                  <td>{`${cam.solicitante.nombreUsuario} (${cam.solicitante.turno})`}</td>
+                                  <td>{cam.pedido}</td>
+                                  <td>
+                                    {selected === cam._id ? (
+                                      user._id !== cam.solicitante._id ? (
+                                        <input
+                                          type="date"
+                                          name="fechaPedidoDevolucion"
+                                          min={calcularFechaMinima()}
+                                          className="inputFechaCambio"
+                                          disabled={
+                                            user._id !== cam.solicitante._id ? (
+                                              false
+                                            ) : (
+                                              <p> A confirmar</p>
+                                            )
+                                          }
+                                          value={fechaPedido}
+                                          onChange={setFecha}
+                                        ></input>
+                                      ) : (
+                                        <p>A confirmar</p>
+                                      )
                                     ) : (
                                       <p>A confirmar</p>
                                     )}
-                                  </p>
-                                ) : (
-                                  <p>A confirmar</p>
-                                )}
-                              </td>
-                              <td>
-                                {selected === cam._id ? (
-                                  user._id !== cam.solicitante._id &&
-                                  fechaPedido !== "" ? (
-                                    <FontAwesomeIcon
-                                      icon={faHandshake}
-                                      className="confirmarCambio"
-                                      onClick={() => actualizarCambio(cam._id)}
-                                    />
-                                  ) : (
-                                    <></>
-                                  )
-                                ) : (
-                                  <></>
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })
-                    )}
-                  </tbody>
-                </table>
+                                  </td>
+                                  <td>
+                                    {selected === cam._id ? (
+                                      <p
+                                        name="solicitado"
+                                        className="w-75 inputFechaCambio"
+                                        onChange={setFecha}
+                                      >
+                                        {user._id !== cam.solicitante._id ? (
+                                          `${user.nombreUsuario} (${user.turno})`
+                                        ) : (
+                                          <p>A confirmar</p>
+                                        )}
+                                      </p>
+                                    ) : (
+                                      <p>A confirmar</p>
+                                    )}
+                                  </td>
+                                  <td>
+                                    {selected === cam._id ? (
+                                      user._id !== cam.solicitante._id &&
+                                      fechaPedido !== "" ? (
+                                        <FontAwesomeIcon
+                                          icon={faHandshake}
+                                          className="confirmarCambio"
+                                          onClick={() =>
+                                            actualizarCambio(cam._id)
+                                          }
+                                        />
+                                      ) : (
+                                        <></>
+                                      )
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            })
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </aside>
           </Col>

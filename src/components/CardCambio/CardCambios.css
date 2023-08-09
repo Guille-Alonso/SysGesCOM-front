@@ -14,6 +14,7 @@
   border: none;
   transform: translate(-12px, 10px);
   box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .bordeEstiloCardCambio {
   position: relative;
@@ -34,5 +35,13 @@
 }
 .botonEnviarPedido {
   background-color: #2546b8 !important;
+  border: none !important;
+}
+.botonEnviarPedido2 {
+  background-color: #2546b8 !important;
+  border: none !important;
+}
+.botonEnviarPedido2:hover {
+  background-color: #25b84f !important;
   border: none !important;
 }

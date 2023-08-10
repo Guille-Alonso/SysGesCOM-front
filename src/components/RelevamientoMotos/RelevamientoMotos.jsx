@@ -10,12 +10,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
+import axios from "../../config/axios";
 
 const RelevamientoMotos = () => {
   const [arrayMotos, setArrayMotos] = useState([]);
   const [changeIcon, setChangeIcon] = useState(false);
   const [selectedRadioPersona, setSelectedRadioPersona] = useState(undefined);
   const [selectedRadioCasco, setSelectedRadioCasco] = useState(undefined);
+  const [volver, setVolver] = useState(false);
+
   const handleClick = () => {
     setChangeIcon(!changeIcon);
   };
@@ -48,6 +52,20 @@ const RelevamientoMotos = () => {
       setSelectedRadioPersona(undefined);
     }
   };
+
+  const agregarReporteMotos = async () => {
+    console.log(arrayMotos);
+    try {
+      const respuesta = await axios.post("/relevamientoMotos/alta", arrayMotos);
+      console.log(respuesta);
+      toast.info("Pedido a la espera de confirmación");
+      setVolver(true);
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+    setFechaPedido("");
+  };
+
   return (
     <>
       <div className="layoutHeight2 pt-3">
@@ -263,9 +281,13 @@ const RelevamientoMotos = () => {
                 </tbody>
               </table>
             </div>
-            <button className="mt-2 btn btn-primary w-50 mt-5">
+            <button
+              className="mt-2 btn btn-primary w-50 mt-5"
+              onClick={agregarReporteMotos}
+            >
               Generar Reporte
             </button>
+            {volver && <Navigate to="/reportes" />}
           </div>
         </div>
       </div>

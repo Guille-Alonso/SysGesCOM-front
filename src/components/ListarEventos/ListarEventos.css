@@ -15,6 +15,12 @@
     margin-top: 10px;
     color: white;
 }
+.filtrarPorDespacho{
+    position: absolute;
+    margin-right: 1000px;
+    margin-top: 10px;
+    color: white;
+}
 .totalTurno{
     position: absolute;
     margin-left: 650px;

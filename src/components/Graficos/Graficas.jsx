@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react";
+import React, { useContext, useReducer, useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -18,6 +18,10 @@ import useGet from "../../hooks/useGet";
 import "./Graficas.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays, faChevronDown, faPersonWalkingArrowLoopLeft, faUserTie } from "@fortawesome/free-solid-svg-icons";
+import GraficaSubcategoria from "./GraficaSubcategoria";
+import { COMContext } from "../../context/COMContext";
+import ExportToExcel from "../ExportarExcel/ExportToExcel";
+import { toast } from "react-toastify";
 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
@@ -29,6 +33,8 @@ export function Grafico() {
   const [reportesFecha, setReportesFecha] = useState([]);
   const [turno, setTurno] = useState("");
 
+  const { categoryName, setCategoryName } = useContext(COMContext);
+
   const [usuarios, loading] = useGet("/users/email", axios);
   const [searchTerm, setSearchTerm] = useState({ nombre: "" });
 
@@ -39,7 +45,8 @@ export function Grafico() {
 
   const [isHovered, setIsHovered] = useState(false);
   const [changeClass, setChangeClass] = useState(false);
-
+  const [despachado, setDespachado] = useState(false)
+  
   const fetchReportes = async () => {
     try {
       const { data } = await axios.get("/reportes/listar");
@@ -148,8 +155,28 @@ export function Grafico() {
 
     }
   }, [fechaDesde, fechaHasta]);
+  
 
   const countReportesCat = () => {
+    let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
+    let cats = [];
+    for (let index = 0; index < reportes.length; index++) {
+      const categoria = reportes[index].categoria.nombre;
+
+      if (countObj[categoria]) {
+        // Si la categoría ya existe en el objeto, incrementa la cantidad
+        countObj[categoria] += 1;
+      } else {
+        cats.push(categoria);
+        // Si la categoría no existe, inicializa con 1
+        countObj[categoria] = 1;
+      }
+    }
+    // setCatsLabel(cats)
+    return countObj;
+  };
+
+  const categoriasLabels = ()=>{
     let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
     let cats = [];
     for (let index = 0; index < reportesFecha.length; index++) {
@@ -166,7 +193,7 @@ export function Grafico() {
     }
     // setCatsLabel(cats)
     return countObj;
-  };
+  }
 
   ChartJS.register(
     CategoryScale,
@@ -207,18 +234,20 @@ export function Grafico() {
     return colors;
   }
 
-  const labels = Object.keys(countReportesCat());
+  const labels = Object.keys(categoriasLabels());
+  const labelsCat = Object.keys(countReportesCat());
 
   const data = {
     labels,
     datasets: [
       {
         label: "Cantidad de Reportes por Categoría",
-        data: Object.values(countReportesCat()),
+        data: Object.values(categoriasLabels()),
         backgroundColor: getRandomColor(),
       },
     ],
   };
+
 
   const filtroTurnoYFecha = (reportesFiltro) => {
     if (fechaDesde !== "" && fechaHasta !== "") {
@@ -255,6 +284,11 @@ export function Grafico() {
       }
     }
   };
+
+
+  const selectedCategoria = (e)=>{
+    setCategoryName(e.target.value)
+  }
 
   const handleKeyDown = (event) => {
     if (event.key === "ArrowUp") {
@@ -297,10 +331,41 @@ export function Grafico() {
 
   return (
     <>
+    {
+      categoryName !== "" ?
+      <GraficaSubcategoria/>
+      :
+    <>
       <div className="container filterContainer">
         <Form.Group className="inputAltaEvento">
           <div className="headerSearch">
             <div className="headerSearchItem">
+            <div className="headerSelectWrapper">
+            <select
+                  name="turno"
+                  id=""
+                  onChange={selectedCategoria}
+                  value={categoryName}
+                  className="headerSelect"
+                >
+                  <option value="">Categorías</option>
+              {
+                labelsCat.length !==0 && labelsCat.map(cat=>{
+                  return(
+                    <option value={cat}>{cat}</option>
+                  )
+                })
+              }
+                </select>
+                <FontAwesomeIcon icon={faChevronDown} className="headerSelectIcon" />
+                </div>
+                {/* <input onClick={()=>setDespachado(!despachado)} checked={despachado} type="checkbox" name="" id="" /> */}
+                {
+                reportesFecha.length !== 0?
+                <ExportToExcel data={reportesFecha}/>
+                :
+                <></>
+                }
               <FontAwesomeIcon icon={faUserTie} className="headerIcon" bounce />
               <input
                 type="text"
@@ -403,6 +468,8 @@ export function Grafico() {
       <Spinner variant="light"/>
       </div>
       }
+      </>
+        }
     </>
   );
 }

@@ -15,6 +15,7 @@ const ListarEventos = () => {
   // const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
   const [selected, setSelected] = useState(undefined);
+  const [checkboxDespacho, setCheckboxDespacho] = useState(false)
 
   const handleChange = (event) => {
     setBuscador(event.target.value);
@@ -31,11 +32,22 @@ const ListarEventos = () => {
   const limpiarInputRadio = ()=>{
     getReportes();
     setSelectedRadio(false)
+    setCheckboxDespacho(false)
   }
 
   const filtroInputRadio = (array,tipoEvento) =>{
     setResultadoBusqueda(array);
     setSelectedRadio(tipoEvento);
+    setPaginacion(1);
+  }
+
+  const filtroReportesDespachados = (array, SiONo)=> {
+    setCheckboxDespacho(!SiONo)
+    if(!checkboxDespacho){
+      setResultadoBusqueda(array);
+    }else setResultadoBusqueda(reportes.reportes)
+    
+    setSelectedRadio(false)
     setPaginacion(1);
   }
 
@@ -165,6 +177,12 @@ const ListarEventos = () => {
             <label className="totalTurno" htmlFor="">Total del día: {reportes.reportes !== undefined? reportes.reportes.length : ""}</label>
         }
         
+        <div className="d-flex filtrarPorDespacho">
+            <label className="me-1">Despachos</label>
+            <input checked={checkboxDespacho} onClick={()=>filtroReportesDespachados(reportes.reportes.filter((reporte) =>reporte.despacho !== undefined),checkboxDespacho)} 
+            name="" value="" type="checkbox"></input>
+        </div>
+
         {
           user.tipoDeUsuario == "supervisor" &&
           <div className="d-flex filtrarPorTipo">

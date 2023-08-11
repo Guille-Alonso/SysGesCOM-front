@@ -4,7 +4,17 @@ import "./ExportExcel.css"
 
 const ExportToExcel = ({ data }) => {
 
-  function convertirFecha2ASinHora(fecha) {
+  function convertirFechaConHora(fecha) {
+    const diasSemana = {
+      Domingo: "Sun",
+      Lunes: "Mon",
+      Martes: "Tue",
+      Miércoles: "Wed",
+      Jueves: "Thu",
+      Viernes: "Fri",
+      Sábado: "Sat",
+    };
+  
     const meses = {
       Ene: "01",
       Feb: "02",
@@ -19,18 +29,24 @@ const ExportToExcel = ({ data }) => {
       Nov: "11",
       Dic: "12",
     };
-
-    const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
+  
+    const [, diaSemana, dia, mes, anio, hora, minutos, segundos] = fecha.match(/(\w+) (\d+) De (\w+) De (\d+), (\d+):(\d+):(\d+)/);
+    
+    // const diaSemanaAbreviado = diasSemana[diaSemana];
     const mesNumerico = meses[mes];
     const diaConCeros = String(dia).padStart(2, '0');
-    return `${diaConCeros}-${mesNumerico}-${anio}`;
+    const horaConCeros = String(hora).padStart(2, '0');
+    const minutosConCeros = String(minutos).padStart(2, '0');
+    const segundosConCeros = String(segundos).padStart(2, '0');
+    
+    return `${diaConCeros}-${mesNumerico}-${anio} ${horaConCeros}:${minutosConCeros}:${segundosConCeros}`;
   }
 
   const exportToExcel = () => {
     const formattedData = data.map(item => {
       // Aquí puedes ajustar cómo deseas formatear los objetos antes de exportarlos
       return {
-        fecha:convertirFecha2ASinHora(item.fecha),
+        fecha:convertirFechaConHora(item.fecha),
         detalle:item.detalle,
         // Nro:item.numero,
         usuario:item.usuario.nombreUsuario,

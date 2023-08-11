@@ -43,6 +43,7 @@ const GraficaSubcategoria = () => {
     const [changeClass, setChangeClass] = useState(false);
 
     const { categoryName, setCategoryName } = useContext(COMContext);
+    const [despachado, setDespachado] = useState(false)
   
     const fetchReportes = async () => {
       try {
@@ -180,25 +181,49 @@ const GraficaSubcategoria = () => {
     const countReportesSubcatElegida = () => {
         let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
         let cats = [];
-      
+      if(despachado){
+        let reportesDespachados = reportesFecha.filter(rep=>rep.despacho !== undefined)
+
+        for (let index = 0; index < reportesDespachados.length; index++) {
+
+          let categoria = reportesDespachados[index].categoria.nombre;
+          if (categoryName == categoria) {
+              let subcategoria = reportesDespachados[index].subcategoria?.nombre.length < 20? reportesDespachados[index].subcategoria?.nombre : reportesDespachados[index].subcategoria?.nombre.slice(0, 40) + "..." ;
+
+              if (countObj[subcategoria]) {
+                  // Si la categoría ya existe en el objeto, incrementa la cantidad
+                  countObj[subcategoria] += 1;
+              } else {
+                  cats.push(subcategoria);
+                  // Si la categoría no existe, inicializa con 1
+                  countObj[subcategoria] = 1;
+              }
+          }
+      }
+      // setCatsLabel(cats)
+      return countObj;
+
+      }else{
         for (let index = 0; index < reportesFecha.length; index++) {
 
-            let categoria = reportesFecha[index].categoria.nombre;
-            if (categoryName == categoria) {
-                let subcategoria = reportesFecha[index].subcategoria?.nombre.length < 20? reportesFecha[index].subcategoria?.nombre : reportesFecha[index].subcategoria?.nombre.slice(0, 40) + "..." ;
+          let categoria = reportesFecha[index].categoria.nombre;
+          if (categoryName == categoria) {
+              let subcategoria = reportesFecha[index].subcategoria?.nombre.length < 20? reportesFecha[index].subcategoria?.nombre : reportesFecha[index].subcategoria?.nombre.slice(0, 40) + "..." ;
 
-                if (countObj[subcategoria]) {
-                    // Si la categoría ya existe en el objeto, incrementa la cantidad
-                    countObj[subcategoria] += 1;
-                } else {
-                    cats.push(subcategoria);
-                    // Si la categoría no existe, inicializa con 1
-                    countObj[subcategoria] = 1;
-                }
-            }
-        }
-        // setCatsLabel(cats)
-        return countObj;
+              if (countObj[subcategoria]) {
+                  // Si la categoría ya existe en el objeto, incrementa la cantidad
+                  countObj[subcategoria] += 1;
+              } else {
+                  cats.push(subcategoria);
+                  // Si la categoría no existe, inicializa con 1
+                  countObj[subcategoria] = 1;
+              }
+          }
+      }
+      // setCatsLabel(cats)
+      return countObj;
+      }
+        
     };
   
     ChartJS.register(
@@ -247,7 +272,7 @@ const GraficaSubcategoria = () => {
       labels,
       datasets: [
         {
-          label: "Cantidad de Reportes por Categoría",
+          label: "Cantidad de Reportes por Subcategoría",
           data: Object.values(countReportesSubcatElegida()),
           backgroundColor: getRandomColor(),
         },
@@ -336,6 +361,21 @@ const GraficaSubcategoria = () => {
       setSuggestions(filteredSuggestions);
     };
 
+    const reportesDespachadosExcel = ()=>{
+      if(!despachado){
+        setDespachado(!despachado)
+        setReportesFecha(reportesFecha.filter(rep => rep.despacho !== undefined))
+      }else {
+        setDespachado(!despachado)
+        setReportesFecha(reportes)
+        setSearchTerm({ nombre: "" })
+        setFechaDesde("")
+        setFechaHasta("")
+        setTurno("")
+      }
+    
+    }
+
     return (
       <>
         <div className="container filterContainer">
@@ -361,6 +401,8 @@ const GraficaSubcategoria = () => {
                 </select>
                 <FontAwesomeIcon icon={faChevronDown} className="headerSelectIcon" />
                 </div>
+                <label htmlFor="">Despachos</label>
+                <input onClick={reportesDespachadosExcel} checked={despachado} type="checkbox" name="" id="" />
                 {
                     reportesFecha.length !== 0?
                     <ExportToExcel data={reportesFecha.filter(rep=>rep.categoria.nombre == categoryName)}/>

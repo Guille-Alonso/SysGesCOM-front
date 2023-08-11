@@ -179,20 +179,40 @@ export function Grafico() {
   const categoriasLabels = ()=>{
     let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
     let cats = [];
-    for (let index = 0; index < reportesFecha.length; index++) {
-      const categoria = reportesFecha[index].categoria.nombre;
-
-      if (countObj[categoria]) {
-        // Si la categoría ya existe en el objeto, incrementa la cantidad
-        countObj[categoria] += 1;
-      } else {
-        cats.push(categoria);
-        // Si la categoría no existe, inicializa con 1
-        countObj[categoria] = 1;
+    if(despachado){
+      let reportesDespachados = reportesFecha.filter(rep=>rep.despacho !== undefined)
+      for (let index = 0; index < reportesDespachados.length; index++) {
+        const categoria = reportesDespachados[index].categoria.nombre;
+  
+        if (countObj[categoria]) {
+          // Si la categoría ya existe en el objeto, incrementa la cantidad
+          countObj[categoria] += 1;
+        } else {
+          cats.push(categoria);
+          // Si la categoría no existe, inicializa con 1
+          countObj[categoria] = 1;
+        }
       }
+      // setCatsLabel(cats)
+  
+      return countObj;
+    }else{
+      for (let index = 0; index < reportesFecha.length; index++) {
+        const categoria = reportesFecha[index].categoria.nombre;
+  
+        if (countObj[categoria]) {
+          // Si la categoría ya existe en el objeto, incrementa la cantidad
+          countObj[categoria] += 1;
+        } else {
+          cats.push(categoria);
+          // Si la categoría no existe, inicializa con 1
+          countObj[categoria] = 1;
+        }
+      }
+      // setCatsLabel(cats)
+      return countObj;
     }
-    // setCatsLabel(cats)
-    return countObj;
+
   }
 
   ChartJS.register(
@@ -329,6 +349,21 @@ export function Grafico() {
     setSuggestions(filteredSuggestions);
   };
 
+  const reportesDespachadosExcel = ()=>{
+    if(!despachado){
+      setDespachado(!despachado)
+      setReportesFecha(reportesFecha.filter(rep => rep.despacho !== undefined))
+    }else {
+      setDespachado(!despachado)
+      setReportesFecha(reportes)
+      setSearchTerm({ nombre: "" })
+      setFechaDesde("")
+      setFechaHasta("")
+      setTurno("")
+    }
+  
+  }
+
   return (
     <>
     {
@@ -359,7 +394,8 @@ export function Grafico() {
                 </select>
                 <FontAwesomeIcon icon={faChevronDown} className="headerSelectIcon" />
                 </div>
-                {/* <input onClick={()=>setDespachado(!despachado)} checked={despachado} type="checkbox" name="" id="" /> */}
+                <label htmlFor="">Despachos</label>
+                <input onClick={reportesDespachadosExcel} checked={despachado} type="checkbox" name="" id="" />
                 {
                 reportesFecha.length !== 0?
                 <ExportToExcel data={reportesFecha}/>

@@ -13,6 +13,7 @@
   background-color: #11232e;
   border: none;
   transform: translate(-4px, 4px);
+  min-height: 400px;
   box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
 }
 .cardCambioOscura3 {
@@ -22,5 +23,6 @@
   background-color: #11232e;
   border: none;
   transform: translate(4px, 4px);
+  min-height: 400px;
   box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
 }

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
 import axios from "../../config/axios";
+import { validationRelevamientoMotos } from "../../helpers/validacionRelevamientoMotos";
 
 const RelevamientoMotos = () => {
   const [arrayMotos, setArrayMotos] = useState([]);
@@ -58,17 +59,16 @@ const RelevamientoMotos = () => {
     try {
       const respuesta = await axios.post("/relevamientoMotos/alta", arrayMotos);
       console.log(respuesta);
-      toast.info("Pedido a la espera de confirmación");
+      toast.info("Reporte de motos generado");
       setVolver(true);
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
-    setFechaPedido("");
   };
 
   return (
     <>
-      <div className="layoutHeight2 pt-3">
+      <div className="layoutHeight2">
         <div className="row justify-content-center contenedorRelevamiento p-4">
           <div className="container col-lg-6 col-xl-4 col-md-6 asideContainer">
             <div className="motoContainer container-fluid">
@@ -287,7 +287,7 @@ const RelevamientoMotos = () => {
             >
               Generar Reporte
             </button>
-            {volver && <Navigate to="/reportes" />}
+            {volver && <Navigate to="/alta-reporte" />}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { COMContext } from "../../context/COMContext";
 import { useContext, useState } from "react";
 import useGet from "../../hooks/useGet";
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Row, Spinner } from "react-bootstrap";
 import axios from "../../config/axios";
 import { nanoid } from "nanoid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,6 +48,30 @@ const Notificaciones = () => {
     return fechaActual.toISOString().split("T")[0]; // Formato YYYY-MM-DD
   };
 
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalItems = cambios?.cambios?.filter(
+    (cam) => cam.estado === "consultado"
+  )?.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const visibleChanges = cambios.cambios
+    ?.filter((cam) => cam.estado === "consultado")
+    ?.slice(startIndex, endIndex);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <>
       <div className="layoutHeight">
@@ -59,7 +83,7 @@ const Notificaciones = () => {
             <aside className="d-flex flex-column justify-content-center">
               <div className="container-fluid col-12 d-flex flex-column align-items-center mt-3">
                 <div className="cardCambioColorTablaCambios">
-                  <div className="d-flex flex-column cardCambioOscuraTablaCambios justify-content-around align-items-center">
+                  <div className="d-flex flex-column cardCambioOscuraTablaCambios justify-content align-items-center">
                     <h3 className="text-light p-2">Pedidos de Cambio</h3>
                     <table
                       className=" table text-light tablaCambios"
@@ -84,8 +108,8 @@ const Notificaciones = () => {
                         {loading ? (
                           <Spinner />
                         ) : (
-                          cambios.cambios
-                            .filter((cam) => cam.estado == "consultado")
+                          visibleChanges
+                            ?.filter((cam) => cam.estado === "consultado")
                             .map((cam) => {
                               return (
                                 <tr
@@ -164,6 +188,25 @@ const Notificaciones = () => {
                       </tbody>
                     </table>
                   </div>
+                </div>
+                <div className="paginacionCont mt-4">
+                  <Button
+                    className="paginacionBtnPrev"
+                    disabled={currentPage === 1}
+                    onClick={prevPage}
+                  >
+                    Anterior
+                  </Button>
+                  <div className="paginacionText">
+                    Página {currentPage} de {totalPages}
+                  </div>
+                  <Button
+                    className="paginacionBtnNext"
+                    disabled={currentPage === totalPages}
+                    onClick={nextPage}
+                  >
+                    Siguiente
+                  </Button>
                 </div>
               </div>
             </aside>

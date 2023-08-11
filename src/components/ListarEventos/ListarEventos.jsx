@@ -53,6 +53,8 @@ const ListarEventos = () => {
 
   useEffect(() => {
     if (Array.isArray(reportes.reportes)) {
+      setSelectedRadio(false)
+      setCheckboxDespacho(false)
       const results = reportes.reportes.filter(
         (reporte) =>
           reporte.numero.toString().includes(buscador) ||

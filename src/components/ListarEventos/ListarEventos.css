@@ -15,3 +15,50 @@
     margin-top: 10px;
     color: white;
 }
+.filtrarPorDespacho{
+    position: absolute;
+    margin-right: 1000px;
+    margin-top: 10px;
+    color: white;
+}
+.totalTurno{
+    position: absolute;
+    margin-left: 650px;
+    margin-top: 10px;
+    color: white;
+    height: 20px;
+}
+
+@media(max-width:700px){
+    .filtrarPorTipo{
+     display: flex;
+     flex-direction: column;
+    }
+   
+    .filtrarPorTipo label{
+        margin: 0 !important;
+    }
+}
+
+@media(max-width:800px){
+    .filtrarPorTipo{
+        position: absolute;
+        margin-right: 410px;
+        margin-top: 10px;
+        color: white;
+    }
+    .totalTurno{
+        position: absolute;
+        margin-left: 450px;
+        margin-top: 10px;
+        color: white;
+        height: 20px;
+    }
+    .refrescarLista{
+        position: absolute;
+        margin-left: 250px;
+        margin-top: 10px;
+        color: white;
+        height: 20px;
+    }
+}

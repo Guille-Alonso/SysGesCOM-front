@@ -1,0 +1,10 @@
+.btnExcel{
+    border-radius: 10px;
+    border: solid;
+    border-color: white;
+}
+.btnExcel:hover{
+    background-color: green;
+    border: solid;
+    border-color: green;
+}

@@ -5,13 +5,31 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+*::-webkit-scrollbar{
+    width: 8px;
+    background-color: #2546b8;
+    }
+*::-webkit-scrollbar-thumb  {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 6px;
+    }
+
 body{
 	font-family: 'Roboto', sans-serif;
-	/* background-color: #141f27 !important; */
 	background: linear-gradient(45deg ,#141f27, #1b384a);
-	/* height: 100vh; */
 }
 
 .layoutHeight{
 	min-height: 75vh;
+}
+
+.layoutHeight2{
+	min-height: 75vh;
+	max-width: 98%;
+}
+
+@media (max-height: 750px) {
+    .movFooter{
+        display: none;
+    }
 }

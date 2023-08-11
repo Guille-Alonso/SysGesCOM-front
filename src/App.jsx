@@ -18,6 +18,10 @@ import Login from "./components/Login/Login";
 import DetalleEvento from "./components/ListarEventos/DetalleEvento";
 import AltaDespacho from "./components/Despacho/AltaDespacho";
 import EditarDespacho from "./components/Despacho/EditarDespacho";
+import { Grafico } from "./components/Graficos/Graficas";
+import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
+import PrivateRouteEstadistica from "./routes/PrivateRouteEstadistica";
+import RelevamientoMotos from "./components/RelevamientoMotos/RelevamientoMotos";
 
 function App() {
   return (
@@ -25,21 +29,135 @@ function App() {
       <ProviderCOM>
         <Layout>
           <Routes>
-            <Route path="/alta-categoria" element={<PrivateRoute><AltaCategoria /></PrivateRoute>} />
-            <Route path="/lista-usuarios" element={<PrivateRoute><ListaUsuarios /></PrivateRoute>} />
-            <Route path="/alta-camara" element={<PrivateRoute><AltaDeCamara /></PrivateRoute>} />
-            <Route path="/cambiar-contraseña" element={<PrivateRoute><CambiarContraseña /></PrivateRoute>} />
-            <Route path="/listar-camaras" element={<PrivateRoute><ListarCamaras /></PrivateRoute>} />
-            <Route path="/alta-usuarios" element={<PrivateRoute><AltaUsuarios /></PrivateRoute>} />
-            <Route path="/*" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/editarCategoria" element={<PrivateRoute><EditarCategoria /></PrivateRoute>} />
-            <Route path="/perfil-usuario" element={<PrivateRoute><PerfilUsuario/></PrivateRoute>} />
-            <Route path="/alta-reporte" element={<PrivateRoute><AltaEvento/></PrivateRoute>} />
-            <Route path="/reportes" element={<PrivateRoute><ListarEventos/></PrivateRoute>} />
-            <Route path="/detalleEvento" element={<PrivateRoute><DetalleEvento/></PrivateRoute>} />
-            <Route path="/despachar" element={<PrivateRoute><AltaDespacho/></PrivateRoute>} />
-            <Route path="/editarDespacho" element={<PrivateRoute><EditarDespacho/></PrivateRoute>} />
+            <Route
+              path="/alta-categoria"
+              element={
+                <PrivateRouteEstadistica>
+                  <AltaCategoria />
+                </PrivateRouteEstadistica>
+              }
+            />
+            <Route
+              path="/lista-usuarios"
+              element={
+                <PrivateRouteAdmin>
+                  <ListaUsuarios />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/alta-camara"
+              element={
+                <PrivateRouteAdmin>
+                  <AltaDeCamara />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/cambiar-contraseña"
+              element={
+                <PrivateRoute>
+                  <CambiarContraseña />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/relevamiento-motos"
+              element={
+                <PrivateRoute>
+                  <RelevamientoMotos />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/listar-camaras"
+              element={
+                <PrivateRouteAdmin>
+                  <ListarCamaras />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/alta-usuarios"
+              element={
+                <PrivateRouteAdmin>
+                  <AltaUsuarios />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <HomePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/estadisticas"
+              element={
+                <PrivateRouteEstadistica>
+                  <Grafico />
+                </PrivateRouteEstadistica>
+              }
+            />
+            <Route path="/*" element={<Login />} />
+            <Route
+              path="/editarCategoria"
+              element={
+                <PrivateRouteEstadistica>
+                  <EditarCategoria />
+                </PrivateRouteEstadistica>
+              }
+            />
+            <Route
+              path="/perfil-usuario"
+              element={
+                <PrivateRoute>
+                  <PerfilUsuario />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/alta-reporte"
+              element={
+                <PrivateRoute>
+                  <AltaEvento />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/reportes"
+              element={
+                <PrivateRoute>
+                  <ListarEventos />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/detalleEvento"
+              element={
+                <PrivateRoute>
+                  <DetalleEvento />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/despachar"
+              element={
+                <PrivateRoute>
+                  <AltaDespacho />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/editarDespacho"
+              element={
+                <PrivateRoute>
+                  <EditarDespacho />
+                </PrivateRoute>
+              }
+            />
           </Routes>
           <ToastContainer />
         </Layout>

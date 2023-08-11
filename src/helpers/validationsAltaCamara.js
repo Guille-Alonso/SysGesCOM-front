@@ -14,7 +14,7 @@ export const validationsAltaCamara = (values) => {
 
   if (!values.ubicacion) {
     errors.ubicacion = "La ubicacion es obligatoria";
-  } else if (!/^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s\-.,']+$/.test(values.ubicacion)) {
+  } else if (!/^[a-zA-Z\u00C0-\u017F0-9,.\s()"':;/]+$/.test(values.ubicacion)) {
     errors.ubicacion = "Formato de ubicación no válido";
   }
 

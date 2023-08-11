@@ -6,10 +6,10 @@ export const validationsAltaCategoria = (values) => {
       errors.categoria = "La categoria es obligatoria";
     } else if (values.categoria.length < 3) {
       errors.categoria = "La categoria debe tener mas de 2 caracteres";
-    } else if(values.categoria.length > 20){
-        errors.categoria = "La categoria no debe tener mas de 20 caracteres";
+    } else if(values.categoria.length > 40){
+        errors.categoria = "La categoria no debe tener mas de 40 caracteres";
     
-    }else if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/i.test(values.categoria)){
+    }else if (!/^[a-zA-Z\u00C0-\u017F0-9,.\s()"':;/]+$/.test(values.categoria)){
       errors.categoria = "Formato de categoria no válido";
     }
   

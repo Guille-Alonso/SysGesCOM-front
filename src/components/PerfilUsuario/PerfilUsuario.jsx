@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./PerfilUsuario.css";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { COMContext } from "../../context/COMContext";
+import fotoPredet from "../../assets/fotoPredeterminada.png";
 
 export const PerfilUsuario = () => {
   const { user } = useContext(COMContext);
@@ -12,9 +13,7 @@ export const PerfilUsuario = () => {
         <img
           className="imgProfile"
           src={
-            user.foto !== undefined
-              ? user.foto
-              : "https://us.123rf.com/450wm/hugok1000/hugok10001905/hugok1000190500198/123291745-ilustraci%C3%B3n-de-avatar-de-perfil-predeterminado-en-azul-y-blanco-sin-persona.jpg"
+            user.foto !== undefined && user.foto !== "" ? user.foto : fotoPredet
           }
         />
       </div>

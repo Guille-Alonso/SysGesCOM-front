@@ -1,14 +1,24 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import "./navBar.css"
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { COMContext } from '../../../context/COMContext';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import "./navBar.css";
+import { useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { COMContext } from "../../../context/COMContext";
+import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png"
+import fotoPredet from "../../../assets/fotoPredeterminada.png";
 
 function NavbarComponent() {
-  const { authenticated, setAuthenticated, loading, user, getAuth } = useContext(COMContext);
+  const {
+    authenticated,
+    setAuthenticated,
+    loading,
+    user,
+    getAuth,
+    setBuscador,
+    setPaginacion,
+  } = useContext(COMContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,7 +26,9 @@ function NavbarComponent() {
   const logOut = () => {
     localStorage.removeItem("token");
     setAuthenticated(false);
-    navigate('/login')
+    setBuscador("");
+    setPaginacion(1);
+    navigate("/login");
   };
 
   const settings = () => {
@@ -44,7 +56,7 @@ function NavbarComponent() {
           className="align-content-start"
         >
           <img
-            src="src\assets\img\logo_comm_marca_de_agua.png"
+            src={logoCOM}
             width="150"
             height="40"
             className="d-inline-block align-top logocom"
@@ -56,34 +68,49 @@ function NavbarComponent() {
           <Nav className="me-auto">
             {authenticated && user.tipoDeUsuario == "admin" && (
               <>
-                <Nav.Link>
-                  <Link to="/lista-usuarios">Usuarios</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/listar-camaras">Cámaras</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/alta-categoria">Categorías</Link>
-                </Nav.Link>
-                <Nav.Link>
-                  <Link to="/reportes">Reportes</Link>
-                </Nav.Link>
+                <Link className="ms-3" to="/lista-usuarios">
+                  Usuarios
+                </Link>
+
+                <Link className="ms-3" to="/listar-camaras">
+                  Cámaras
+                </Link>
+
+                <Link className="ms-3" to="/alta-categoria">
+                  Categorías
+                </Link>
+
+                <Link className="ms-3" to="/reportes">
+                  Reportes
+                </Link>
+
+                <Link className="ms-3" to="/relevamiento-motos">
+                  Relevamiento
+                </Link>
               </>
             )}
             {authenticated &&
               (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "estadística") && (
-                <Nav.Link>
-                  <Link to="/reportes">Reportes</Link>
-                </Nav.Link>
+                <Link to="/reportes">Reportes</Link>
               )}
+            {authenticated &&
+              (user.tipoDeUsuario == "estadística" ||
+                user.tipoDeUsuario == "admin") && (
+                <Link to="/estadisticas" className="ms-3">
+                  Estadísticas
+                </Link>
+              )}
+            {authenticated && user.tipoDeUsuario == "estadística" && (
+              <Link className="ms-3" to="/alta-categoria">
+                Categorías
+              </Link>
+            )}
           </Nav>
 
           {authenticated ? (
             <Nav>
-            
-
               <NavDropdown
                 title={user.nombre}
                 id="collasible-nav-dropdown"
@@ -98,13 +125,13 @@ function NavbarComponent() {
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 {/* {user.tipoDeUsuario == "admin" && ( */}
-                  <NavDropdown.Item onClick={settings} className="navigation">
-                    <ion-icon
-                      name="person-outline"
-                      className="icons-drop"
-                    ></ion-icon>
-                    Editar Contraseña
-                  </NavDropdown.Item>
+                <NavDropdown.Item onClick={settings} className="navigation">
+                  <ion-icon
+                    name="person-outline"
+                    className="icons-drop"
+                  ></ion-icon>
+                  Editar Contraseña
+                </NavDropdown.Item>
                 {/* )} */}
 
                 <NavDropdown.Item href="#" className="navigation">
@@ -132,16 +159,16 @@ function NavbarComponent() {
               </NavDropdown>
               <Nav>
                 <img
-                  src={user.foto}
+                  src={
+                    user.foto !== undefined && user.foto !== ""
+                      ? user.foto
+                      : fotoPredet
+                  }
                   alt="User profile"
                   className="ms-3 userProfile"
                 />
               </Nav>
             </Nav>
-          ) : location.pathname !== "/login" ? (
-            <Nav.Link>
-              <Link to="/login">Iniciar Sesión</Link>
-            </Nav.Link>
           ) : (
             <></>
           )}

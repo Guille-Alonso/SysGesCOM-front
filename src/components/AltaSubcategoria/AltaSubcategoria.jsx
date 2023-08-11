@@ -50,7 +50,7 @@ const AltaSubcategoria = ({ onClose, getSubcategorias, idCategoria }) => {
               name="nombre"
               onChange={handleChange}
               required
-              maxLength={20}
+              maxLength={60}
               minLength={3}
             />
             <Button variant="success" className="mt-3 col-12" type="submit">

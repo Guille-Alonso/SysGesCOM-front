@@ -107,7 +107,7 @@ const AltaUsuarios = () => {
                   onBlur={handleNombreCompletoBlur}
                   value={values.name}
                   name="name"
-                  maxLength={30}
+                  maxLength={40}
                   minLength={2}
                   required
                 />

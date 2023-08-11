@@ -3,7 +3,7 @@
 }
 
 .box {
-    position: relative;
+    position: sticky;
     width: 380px;
     height: 460px;
     background: #1c1c1c;

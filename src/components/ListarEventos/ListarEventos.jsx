@@ -11,20 +11,45 @@ import './ListarEventos.css'
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
-  const { user } = useContext(COMContext);
-  const [buscador, setBuscador] = useState("");
+  const { user,buscador,setBuscador, setPaginacion } = useContext(COMContext);
+  // const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
   const [selected, setSelected] = useState(undefined);
+  const [checkboxDespacho, setCheckboxDespacho] = useState(false)
 
   const handleChange = (event) => {
     setBuscador(event.target.value);
   };
-
+  
   const navigate = useNavigate();
 
   const nuevoReporte = () => {
     navigate("/alta-reporte");
   };
+
+  const [selectedRadio, setSelectedRadio] = useState(undefined);
+
+  const limpiarInputRadio = ()=>{
+    getReportes();
+    setSelectedRadio(false)
+    setCheckboxDespacho(false)
+  }
+
+  const filtroInputRadio = (array,tipoEvento) =>{
+    setResultadoBusqueda(array);
+    setSelectedRadio(tipoEvento);
+    setPaginacion(1);
+  }
+
+  const filtroReportesDespachados = (array, SiONo)=> {
+    setCheckboxDespacho(!SiONo)
+    if(!checkboxDespacho){
+      setResultadoBusqueda(array);
+    }else setResultadoBusqueda(reportes.reportes)
+    
+    setSelectedRadio(false)
+    setPaginacion(1);
+  }
 
   useEffect(() => {
     if (Array.isArray(reportes.reportes)) {
@@ -35,13 +60,81 @@ const ListarEventos = () => {
           reporte.usuario.nombreUsuario
             .toLowerCase()
             .includes(buscador.toLowerCase()) ||
-          reporte.categoria.nombre
+          reporte.dispositivo.nombre
+            .toLowerCase()
+            .includes(buscador.toLowerCase()) ||
+            reporte.categoria.nombre
             .toLowerCase()
             .includes(buscador.toLowerCase())
       );
       setResultadoBusqueda(results);
     }
   }, [reportes, buscador]);
+
+  function obtenerPeriodoDelDia() {
+    const horaActual = new Date().getHours();
+  
+    if (horaActual >= 7 && horaActual < 15) {
+      return 'mañana';
+    } else if (horaActual >= 15 && horaActual < 23) {
+      return 'tarde';
+    } else {
+      return 'noche';
+    }
+  }
+
+  function obtenerPeriodoDelDiaConHora(fechaString) {
+    const hora = fechaString.split(", ")[1].split(":")[0];
+  
+    const horaActual = parseInt(hora, 10);
+  
+    if (horaActual >= 7 && horaActual < 15) {
+      return 'mañana';
+    } else if (horaActual >= 15 && horaActual < 23) {
+      return 'tarde';
+    } else {
+      return 'noche';
+    }
+  }
+
+  function obtenerFechaActualEnFormatoISO() {
+    const fechaActual = new Date();
+  
+    const year = fechaActual.getFullYear();
+    const month = String(fechaActual.getMonth() + 1).padStart(2, '0');
+    const day = String(fechaActual.getDate()).padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+  }
+  function convertirFechaASinHora(fecha) {
+    const meses = {
+      Ene: "01",
+      Feb: "02",
+      Mar: "03",
+      Abr: "04",
+      May: "05",
+      Jun: "06",
+      Jul: "07",
+      Ago: "08",
+      Sep: "09",
+      Oct: "10",
+      Nov: "11",
+      Dic: "12",
+    };
+
+    const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
+    const mesNumerico = meses[mes];
+    const diaConCeros = String(dia).padStart(2, '0');
+    if( `${anio}-${mesNumerico}-${diaConCeros}` == obtenerFechaActualEnFormatoISO()){
+      return true;
+    }else return false;
+
+  }
+  function obtenerTotalObjetosCumplenCondicion(array) {
+
+      const filterArr = array.filter(rep=>(obtenerPeriodoDelDia()== obtenerPeriodoDelDiaConHora(rep.fecha)) && convertirFechaASinHora(rep.fecha)  )
+      return filterArr.length;
+    }
 
   return (
     <Container fluid className="layoutHeight">
@@ -73,16 +166,31 @@ const ListarEventos = () => {
         
         {
           user.tipoDeUsuario == "supervisor" &&
-          <FontAwesomeIcon onClick={getReportes} className="refrescarLista" icon={faRotate} />
+          <>
+          <label className="totalTurno" htmlFor="">Turno {obtenerPeriodoDelDia()}: {reportes.reportes !== undefined? obtenerTotalObjetosCumplenCondicion(reportes.reportes) : ""}</label>
+          <FontAwesomeIcon onClick={limpiarInputRadio} className="refrescarLista" icon={faRotate} />
+          </>
         }
+
+        {
+            user.tipoDeUsuario == "visualizador" &&
+            <label className="totalTurno" htmlFor="">Total del día: {reportes.reportes !== undefined? reportes.reportes.length : ""}</label>
+        }
+        
+        <div className="d-flex filtrarPorDespacho">
+            <label className="me-1">Despachos</label>
+            <input checked={checkboxDespacho} onClick={()=>filtroReportesDespachados(reportes.reportes.filter((reporte) =>reporte.despacho !== undefined),checkboxDespacho)} 
+            name="" value="" type="checkbox"></input>
+        </div>
+
         {
           user.tipoDeUsuario == "supervisor" &&
           <div className="d-flex filtrarPorTipo">
             <label className="me-1">Seguridad</label>
-            <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")))} 
+            <input checked={selectedRadio == "Seguridad"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")),"Seguridad")} 
             name="tipoDeEvento" value="seguridad" type="radio"></input>
             <label className="ms-4 me-1">Municipal</label>
-            <input onClick={()=>setResultadoBusqueda(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")))} 
+            <input checked={selectedRadio == "Municipal"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")),"Municipal")} 
             name="tipoDeEvento" value="municipal" type="radio"></input>
           </div>
         }
@@ -92,7 +200,7 @@ const ListarEventos = () => {
         <Col>
           {loading ? (
             <Col className="d-flex justify-content-center">
-              <Spinner />
+              <Spinner variant="light" />
             </Col>
           ) : (
             <TablaEventos
@@ -101,7 +209,7 @@ const ListarEventos = () => {
                 "Fecha",
                 "Detalle",
                 "Usuario",
-                "Evento",
+                "Dispositivo",
                 "Categoria",
                 "",
               ]}

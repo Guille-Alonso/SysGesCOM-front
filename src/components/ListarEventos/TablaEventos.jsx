@@ -15,7 +15,7 @@ import { COMContext } from "../../context/COMContext";
 const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user}) => {
   const navigate = useNavigate();
   // const [paginacion, setPaginacion] = useState(1);
-  const { paginacion,setPaginacion } = useContext(COMContext);
+  const {paginacion,setPaginacion} = useContext(COMContext);
   const itemPag = 10;
   const indexUltimoItem = paginacion * itemPag;
   const indexPrimerItem = indexUltimoItem - itemPag;
@@ -63,7 +63,17 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
     navigate("/detalleEvento", { state: props });
   };
 
-  function transformarFecha(fechaEnTexto) {
+  function convertirFechaConHora(fecha) {
+    const diasSemana = {
+      Domingo: "Sun",
+      Lunes: "Mon",
+      Martes: "Tue",
+      Miércoles: "Wed",
+      Jueves: "Thu",
+      Viernes: "Fri",
+      Sábado: "Sat",
+    };
+  
     const meses = {
       Ene: "01",
       Feb: "02",
@@ -79,12 +89,21 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
       Dic: "12",
     };
   
-    const [, dia, mes, anio] = fechaEnTexto.match(/(\d+) De (\w+) De (\d+)/);
+    const [, diaSemana, dia, mes, anio, hora, minutos, segundos] = fecha.match(/(\w+) (\d+) De (\w+) De (\d+), (\d+):(\d+):(\d+)/);
+    
+    // const diaSemanaAbreviado = diasSemana[diaSemana];
     const mesNumerico = meses[mes];
     const diaConCeros = String(dia).padStart(2, '0');
-  
-    return `${diaConCeros}/${mesNumerico}/${anio}`;
-  }
+    const horaConCeros = String(hora).padStart(2, '0');
+    const minutosConCeros = String(minutos).padStart(2, '0');
+    const segundosConCeros = String(segundos).padStart(2, '0');
+
+    if (user.tipoDeUsuario == "estadística") {
+      return `${diaConCeros}-${mesNumerico}-${anio} ${horaConCeros}:${minutosConCeros}:${segundosConCeros}`;
+
+    } else return `${diaConCeros}/${mesNumerico}/${anio}`;
+
+    }
 
   return (
     <>
@@ -124,7 +143,7 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
             currentItems.map((item) => (
               <tr key={item._id} >
                 <td>{item.numero}</td>
-                <td>{transformarFecha(item.fecha.split(",")[0])}</td>
+                <td>{convertirFechaConHora(item.fecha)}</td>
                 <td>{item.detalle.length < 60? item.detalle :  item.detalle.slice(0, 60) + "..."}</td>
                 <td>{item.usuario.nombreUsuario}</td>
                 <td>{item.dispositivo.nombre.toUpperCase()}</td>

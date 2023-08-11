@@ -22,6 +22,7 @@ import { Grafico } from "./components/Graficos/Graficas";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import PrivateRouteEstadistica from "./routes/PrivateRouteEstadistica";
 import RelevamientoMotos from "./components/RelevamientoMotos/RelevamientoMotos";
+import PrivateRouteVisualizadores from "./routes/PrivateRouteVisualizadores";
 
 function App() {
   return (
@@ -121,9 +122,9 @@ function App() {
             <Route
               path="/alta-reporte"
               element={
-                <PrivateRoute>
+                <PrivateRouteVisualizadores>
                   <AltaEvento />
-                </PrivateRoute>
+                </PrivateRouteVisualizadores>
               }
             />
             <Route

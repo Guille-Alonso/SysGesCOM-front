@@ -1,5 +1,5 @@
 import { COMContext } from "../../context/COMContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useGet from "../../hooks/useGet";
 import { Button, Col, Row, Spinner } from "react-bootstrap";
 import axios from "../../config/axios";
@@ -12,17 +12,26 @@ import "./PedidoCambios.css";
 
 const PedidoCambios = () => {
   const { user } = useContext(COMContext);
-  const [cambios, loading, getCambios] = useGet("/cambios/listar", axios);
+  const [cambios, loading, getCambios, setCambios] = useGet("/cambios/listar", axios);
   const [fechaPedido, setFechaPedido] = useState("");
   const [selected, setSelected] = useState(null);
+
   const setFecha = (e) => {
     setFechaPedido(e.target.value);
   };
+
   const setSeleccionCambio = (id) => {
     setSelected(id);
     setFechaPedido("");
   };
-  getCambios();
+
+// useEffect(() => {
+//   if(cambios.cambios?.length >0 && user.tipoDeUsuario == "visualizador"){
+//     setCambios(cambios.cambios?.filter(camb=>camb.solicitante._id == user._id))
+//     console.log("entroo");
+//   }
+// }, [loading])
+
   const actualizarCambio = async (id) => {
     const pedidoDeCambio = {
       estado: "confirmado",
@@ -95,7 +104,8 @@ const PedidoCambios = () => {
     <>
       <div className="layoutHeight2">
         <Row className="m-0 gap-0">
-          <Col lg={6} className="p-0">
+     { (user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ) &&
+        <Col lg={6} className="p-0">
             <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
               <div className="cardCambioColor2">
                 <div className="d-flex flex-column cardCambioOscura2 justify-content align-items-center">
@@ -138,8 +148,7 @@ const PedidoCambios = () => {
                                       <FontAwesomeIcon
                                         icon={faCircleCheck}
                                         className="confirmarCambio"
-                                        onClick={() =>
-                                          actualizarCambio(cam._id)
+                                        onClick={() =>actualizarCambio(cam._id)
                                         }
                                       />
                                     ) : (
@@ -175,7 +184,7 @@ const PedidoCambios = () => {
                 </Button>
               </div>
             </div>
-          </Col>
+          </Col>}
           <Col lg={6} className="">
             <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
               <div className="cardCambioColor2">

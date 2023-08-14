@@ -127,7 +127,7 @@ const EditarDespacho = () => {
                           value={rep._id}
                           checked={
                             Object.values(values.reparticiones).filter(
-                              (value) => value == rep._id
+                              (value) => value._id == rep._id
                             ).length == 1
                               ? true
                               : false

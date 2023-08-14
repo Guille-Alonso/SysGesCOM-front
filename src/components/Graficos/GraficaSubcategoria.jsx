@@ -301,7 +301,7 @@ const GraficaSubcategoria = () => {
 
     const selectedTurno = (e) => {
       setTurno(e.target.value);
-      console.log(e.target.value);
+      setDespachado(false);
       if (e.target.value !== "") {
         setSearchTerm({ nombre: "" });
         filtroTurnoYFecha(reportes.filter(rep => (e.target.value == obtenerPeriodoDelDiaConHora(rep.fecha))))
@@ -401,8 +401,13 @@ const GraficaSubcategoria = () => {
                 </select>
                 <FontAwesomeIcon icon={faChevronDown} className="headerSelectIcon" />
                 </div>
-                <label htmlFor="">Despachos</label>
-                <input onClick={reportesDespachadosExcel} checked={despachado} type="checkbox" name="" id="" />
+
+                <div className="custom-tooltip">
+                  <label htmlFor="">Despachos</label>
+                  <div className="tooltip-content">Al combinar filtros, utilizar éste en último término</div>
+                  <input onClick={reportesDespachadosExcel} checked={despachado} type="checkbox" name="" id="" />
+                </div>
+            
                 {
                     reportesFecha.length !== 0?
                     <ExportToExcel data={reportesFecha.filter(rep=>rep.categoria.nombre == categoryName)}/>

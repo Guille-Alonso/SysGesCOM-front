@@ -111,9 +111,7 @@ function NavbarComponent() {
               </Link>
             )}
             {authenticated &&
-              (user.tipoDeUsuario == "admin" ||
-                user.tipoDeUsuario == "administración" ||
-                user.tipoDeUsuario == "supervisor") && (
+              (user.tipoDeUsuario !== "estadística") && (
                 <Link className="ms-3" to="/cambio-turno">
                   Cambios Turno
                 </Link>

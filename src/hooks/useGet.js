@@ -20,7 +20,7 @@ const useGet = (url, axios) => {
     getData();
   }, []);
 
-  return [state, loading, getData];
+  return [state, loading, getData,setState];
 };
 
 export default useGet;

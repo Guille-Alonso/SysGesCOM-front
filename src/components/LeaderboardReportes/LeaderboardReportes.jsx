@@ -6,11 +6,16 @@ import "./LeaderboardReportes.css";
 const LeaderboardReportes = ({ reportes }) => {
   return (
     <>
+<<<<<<< HEAD
       <section
         title={`Usuarios con más reportes despachados por mes`}
         className="leaderboard"
       >
         <h3 className="text-center text-dark">Top Reportes</h3>
+=======
+      <section title={`Usuarios con más reportes por mes (Larry The Bird)`} className="leaderboard">
+        <h3 className="text-center text-light">Top Reportes</h3>
+>>>>>>> 5e7e1df7f4b1a1c7c500048f324bb5c80650e4f0
         <div className="tabla-podio d-flex justify-content-center">
           <Table striped bordered hover variant="primary w-75 text-center">
             <thead>

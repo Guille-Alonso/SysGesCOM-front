@@ -25,6 +25,7 @@ import PrivateRouteAdministracion from "./routes/PrivateRouteAdministracion";
 import RelevamientoMotos from "./components/RelevamientoMotos/RelevamientoMotos";
 import PedidoCambios from "./components/PedidoCambios/PedidoCambios";
 import Notificaciones from "./components/Notificaciones/Notificaciones";
+import PrivateRouteVisualizadores from "./routes/PrivateRouteVisualizadores";
 
 function App() {
   return (
@@ -140,9 +141,9 @@ function App() {
             <Route
               path="/alta-reporte"
               element={
-                <PrivateRoute>
+                <PrivateRouteVisualizadores>
                   <AltaEvento />
-                </PrivateRoute>
+                </PrivateRouteVisualizadores>
               }
             />
             <Route

@@ -15,6 +15,8 @@ const ProviderCOM = ({children}) => {
   const [buscador, setBuscador] = useState("");
   const [paginacion, setPaginacion] = useState(1);
 
+  const [categoryName, setCategoryName] = useState("")
+
   const login = async (values) => {
     setBotonState(true);
     try {
@@ -61,7 +63,9 @@ const ProviderCOM = ({children}) => {
         paginacion,
         setPaginacion,
         buscador,
-        setBuscador
+        setBuscador,
+        categoryName,
+        setCategoryName
       }}>
       {children}
     </COMContext.Provider>

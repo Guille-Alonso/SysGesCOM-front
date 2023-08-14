@@ -29,10 +29,9 @@ const RelevamientoMotos = () => {
     for (let index = 0; index < arrayMotos.length; index++) {
       if (index !== i) {
         array.push(arrayMotos[index]);
-      } else {
-        setArrayMotos(array);
       }
     }
+    setArrayMotos(array);
   };
   const agregarMoto = () => {
     if (selectedRadioCasco == undefined && selectedRadioPersona == undefined) {

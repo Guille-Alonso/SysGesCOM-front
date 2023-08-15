@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandshake } from "@fortawesome/free-solid-svg-icons";
 import "./Notificaciones.css";
 import { toast } from "react-toastify";
-import { isToday } from "date-fns";
+import {FaTrashAlt} from "react-icons/fa";;
 
 const Notificaciones = () => {
   const { user } = useContext(COMContext);
@@ -72,6 +72,16 @@ const Notificaciones = () => {
     }
   };
 
+  const borrarPedidoCambio = async (id)=>{
+    try {
+      await axios.delete("/cambios/", { data: { id: id } });
+      toast.info("Pedido borrado con éxito");
+      getCambios();
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+  }
+
   return (
     <>
       <div className="layoutHeight">
@@ -87,7 +97,6 @@ const Notificaciones = () => {
                     <h3 className="text-light p-2">Pedidos de Cambio</h3>
                     <table
                       className=" table text-light tablaCambios"
-                      getCambios={getCambios}
                     >
                       <thead>
                         <tr>
@@ -109,7 +118,7 @@ const Notificaciones = () => {
                           <Spinner />
                         ) : (
                           visibleChanges
-                            ?.filter((cam) => cam.estado === "consultado")
+                            ?.filter((cam) => (cam.estado === "consultado" && cam.solicitante.tipoDeUsuario == user.tipoDeUsuario))
                             .map((cam) => {
                               return (
                                 <tr
@@ -174,9 +183,12 @@ const Notificaciones = () => {
                                             actualizarCambio(cam._id)
                                           }
                                         />
-                                      ) : (
-                                        <></>
-                                      )
+                                      ) :user._id == cam.solicitante._id? (
+                                        <FaTrashAlt
+                                        onClick={() => borrarPedidoCambio(cam._id)}
+                                        className="botonEliminar"
+                                      />
+                                      ): <></>
                                     ) : (
                                       <></>
                                     )}

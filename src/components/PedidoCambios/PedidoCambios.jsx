@@ -12,7 +12,7 @@ import "./PedidoCambios.css";
 
 const PedidoCambios = () => {
   const { user } = useContext(COMContext);
-  const [cambios, loading, getCambios, setCambios] = useGet(user.tipoDeUsuario=="visualizador"? "/cambios/listarCambiosVisualizador" : "/cambios/listar", axios);
+  const [cambios, loading, getCambios, setCambios] = useGet((user.tipoDeUsuario=="visualizador" || user.tipoDeUsuario=="supervisor")? "/cambios/listarCambiosVisualizador" : "/cambios/listar", axios);
   const [fechaPedido, setFechaPedido] = useState("");
   const [selected, setSelected] = useState(null);
 

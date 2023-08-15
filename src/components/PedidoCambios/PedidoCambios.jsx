@@ -25,13 +25,6 @@ const PedidoCambios = () => {
     setFechaPedido("");
   };
 
-// useEffect(() => {
-//   if(cambios.cambios?.length >0 && user.tipoDeUsuario == "visualizador"){
-//     setCambios(cambios.cambios?.filter(camb=>camb.solicitante._id == user._id))
-//     console.log("entroo");
-//   }
-// }, [loading])
-
   const actualizarCambio = async (id) => {
     const pedidoDeCambio = {
       estado: "confirmado",

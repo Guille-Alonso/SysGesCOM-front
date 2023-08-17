@@ -15,6 +15,7 @@ const Notificaciones = () => {
   const [cambios, loading, getCambios] = useGet("/cambios/listar", axios);
   const [fechaPedido, setFechaPedido] = useState("");
   const [selected, setSelected] = useState(null);
+
   const setFecha = (e) => {
     setFechaPedido(e.target.value);
   };

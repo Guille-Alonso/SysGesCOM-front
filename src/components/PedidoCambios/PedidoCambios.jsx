@@ -51,7 +51,7 @@ const PedidoCambios = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleChanges = cambios.cambios
-    ?.filter((cam) => cam.estado === "acordado")
+    ?.filter((cam) => cam.estado === "acordado").reverse()
     ?.slice(startIndex, endIndex);
 
   const nextPage = () => {
@@ -78,7 +78,7 @@ const PedidoCambios = () => {
     (currentPageConfirmado - 1) * itemsPerPageConfirmado;
   const endIndexConfirmado = startIndexConfirmado + itemsPerPageConfirmado;
   const visibleChangesConfirmado = cambios.cambios
-    ?.filter((cam) => cam.estado === "confirmado")
+    ?.filter((cam) => cam.estado === "confirmado").reverse()
     ?.slice(startIndexConfirmado, endIndexConfirmado);
 
   const nextPageConfirmado = () => {

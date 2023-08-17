@@ -12,7 +12,7 @@ import {FaTrashAlt} from "react-icons/fa";;
 
 const Notificaciones = () => {
   const { user } = useContext(COMContext);
-  const [cambios, loading, getCambios] = useGet("/cambios/listar", axios);
+  const [cambios, loading, getCambios] = useGet((user.tipoDeUsuario=="visualizador" || user.tipoDeUsuario=="supervisor")? "/cambios/listarCambiosVisualizador" : "/cambios/listar", axios);
   const [fechaPedido, setFechaPedido] = useState("");
   const [selected, setSelected] = useState(null);
 
@@ -58,8 +58,10 @@ const Notificaciones = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleChanges = cambios.cambios
-    ?.filter((cam) => cam.estado === "consultado")
+    ?.filter((cam) => cam.estado === "consultado").reverse()
     ?.slice(startIndex, endIndex);
+
+console.log(cambios.cambios)
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -119,7 +121,7 @@ const Notificaciones = () => {
                           <Spinner />
                         ) : (
                           visibleChanges
-                            ?.filter((cam) => (cam.estado === "consultado" && cam.solicitante.tipoDeUsuario == user.tipoDeUsuario))
+                            ?.filter((cam) => (cam.estado === "consultado"))
                             .map((cam) => {
                               return (
                                 <tr

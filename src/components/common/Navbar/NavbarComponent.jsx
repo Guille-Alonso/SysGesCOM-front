@@ -38,6 +38,10 @@ function NavbarComponent() {
     navigate("/notificaciones");
   };
 
+  const panelSupervisor = () => {
+    navigate("/relevamiento-motos-panel");
+  };
+
   const userProfile = () => {
     navigate("/perfil-usuario");
   };
@@ -86,10 +90,11 @@ function NavbarComponent() {
                 <Link className="ms-3" to="/reportes">
                   Reportes
                 </Link>
-
+              
                 <Link className="ms-3" to="/relevamiento-motos">
                   Relevamiento
                 </Link>
+              
               </>
             )}
             {authenticated &&
@@ -116,6 +121,13 @@ function NavbarComponent() {
                   Cambios Turno
                 </Link>
               )}
+            {authenticated &&
+              (user.relevamientoHabilitado || user.tipoDeUsuario == "supervisor") && (
+                <Link className="ms-3" to="/relevamiento-motos">
+                  Relevamiento
+                </Link>
+              )}
+
           </Nav>
 
           {authenticated ? (
@@ -153,7 +165,7 @@ function NavbarComponent() {
                   ></ion-icon>
                   Notificaciones
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#" className="navigation">
+                <NavDropdown.Item onClick={panelSupervisor} className="navigation">
                   <ion-icon
                     name="settings-outline"
                     className="icons-drop"

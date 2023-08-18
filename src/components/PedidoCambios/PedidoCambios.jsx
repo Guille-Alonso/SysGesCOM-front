@@ -5,9 +5,8 @@ import { Button, Col, Row, Spinner } from "react-bootstrap";
 import axios from "../../config/axios";
 import { nanoid } from "nanoid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import { ca } from "date-fns/locale";
 import "./PedidoCambios.css";
 
 const PedidoCambios = () => {
@@ -41,6 +40,23 @@ const PedidoCambios = () => {
       toast.error(error.response?.data.message || error.message);
     }
   };
+
+  const borrarPedidoCambio = async (id)=>{
+    const pedidoDeCambio = {
+      estado: "rechazado",
+    };
+    try {
+      const respuesta = await axios.put(
+        `/cambios/confirmarCambio/${id}`,
+        pedidoDeCambio
+      );
+      console.log(respuesta);
+      toast.success("Cambio confirmado.");
+      getCambios();
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+  }
 
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -97,7 +113,7 @@ const PedidoCambios = () => {
     <>
       <div className="layoutHeight2">
         <Row className="m-0 gap-0">
-     { (user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ) &&
+     { (user.tipoDeUsuario == "administración" ) &&
         <Col lg={6} className="p-0">
             <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
               <div className="cardCambioColor2">
@@ -111,6 +127,7 @@ const PedidoCambios = () => {
                         <th scope="col">Dia a cubrir</th>
                         <th scope="col">Dia a devolver</th>
                         <th scope="col">Solicitado</th>
+                        <th scope="col"></th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -144,6 +161,15 @@ const PedidoCambios = () => {
                                         onClick={() =>actualizarCambio(cam._id)
                                         }
                                       />
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </td>
+                                  <td>
+                                    {selected === cam._id ? (
+                                     
+                                      <FontAwesomeIcon icon={faBan} className="denegarCambio"
+                                      onClick={() =>borrarPedidoCambio(cam._id) }/>
                                     ) : (
                                       <></>
                                     )}

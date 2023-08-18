@@ -12,7 +12,7 @@ import {FaTrashAlt} from "react-icons/fa";;
 
 const Notificaciones = () => {
   const { user } = useContext(COMContext);
-  const [cambios, loading, getCambios] = useGet((user.tipoDeUsuario=="visualizador" || user.tipoDeUsuario=="supervisor")? "/cambios/listarCambiosVisualizador" : "/cambios/listar", axios);
+  const [cambios, loading, getCambios] = useGet("/cambios/listar", axios);
   const [fechaPedido, setFechaPedido] = useState("");
   const [selected, setSelected] = useState(null);
 

@@ -78,17 +78,17 @@ function App() {
             <Route
               path="/notificaciones"
               element={
-                <PrivateRoute>
+                <PrivateRouteVisualizadores>
                   <Notificaciones />
-                </PrivateRoute>
+                </PrivateRouteVisualizadores>
               }
             />
             <Route
               path="/relevamiento-motos"
               element={
-                <PrivateRoute>
+                <PrivateRouteVisualizadores>
                   <RelevamientoMotos />
-                </PrivateRoute>
+                </PrivateRouteVisualizadores>
               }
             />
               <Route

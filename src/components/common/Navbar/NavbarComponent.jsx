@@ -100,7 +100,8 @@ function NavbarComponent() {
             {authenticated &&
               (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
-                user.tipoDeUsuario == "estadística") && (
+                user.tipoDeUsuario == "estadística" ||
+                user.tipoDeUsuario == "administración") && (
                 <Link to="/reportes">Reportes</Link>
               )}
             {authenticated &&

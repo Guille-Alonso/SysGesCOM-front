@@ -26,3 +26,19 @@
   min-height: 400px;
   box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
 }
+.confirmarCambio {
+  height: 30px;
+  padding-right: 7px;
+}
+.confirmarCambio:hover {
+  scale: 1.2;
+  color: green;
+}
+.denegarCambio {
+  height: 30px;
+  padding-right: 7px;
+}
+.denegarCambio:hover {
+  scale: 1.2;
+  color: red;
+}

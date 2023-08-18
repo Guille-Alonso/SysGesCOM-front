@@ -41,7 +41,7 @@ const PedidoCambios = () => {
     }
   };
 
-  const borrarPedidoCambio = async (id)=>{
+  const rechazarPedidoCambio = async (id)=>{
     const pedidoDeCambio = {
       estado: "rechazado",
     };
@@ -51,7 +51,7 @@ const PedidoCambios = () => {
         pedidoDeCambio
       );
       console.log(respuesta);
-      toast.success("Cambio confirmado.");
+      toast.info("Cambio rechazado.");
       getCambios();
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
@@ -169,7 +169,7 @@ const PedidoCambios = () => {
                                     {selected === cam._id ? (
                                      
                                       <FontAwesomeIcon icon={faBan} className="denegarCambio"
-                                      onClick={() =>borrarPedidoCambio(cam._id) }/>
+                                      onClick={() =>rechazarPedidoCambio(cam._id) }/>
                                     ) : (
                                       <></>
                                     )}

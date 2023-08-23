@@ -424,16 +424,6 @@ export function Grafico() {
                     </select>
                   </div>
                   <div className="headerSearchItem2">
-                    <span
-                      onClick={() => setOpenDate(!openDate)}
-                      className="headerSearchText"
-                    >
-                      <FontAwesomeIcon
-                        icon={faCalendarDays}
-                        className="headerIcon"
-                      />
-                      {`${etiquetaDesde} - ${etiquetaHasta}`}
-                    </span>
                     {/* {openDate && ( */}
                     <div className="dateContainer">
                       <input
@@ -513,7 +503,7 @@ export function Grafico() {
               )}
             </div>
           ) : (
-            <div className="layoutHeight d-flex justify-content-center">
+            <div className="layoutHeight d-flex justify-content-center mt-2">
               <Spinner variant="light" />
             </div>
           )}

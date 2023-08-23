@@ -91,6 +91,7 @@
   box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5);
   width: fit-content;
   background-color: transparent;
+  gap: 10px;
 }
 
 .dateContainer input {
@@ -99,8 +100,8 @@
   border: solid 1.5px #ffffff10;
   box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
-  background-color: transparent;
-  color: lightgray;
+  background-color: #ffffff69;
+  color: white;
 }
 
 /* Estilos para el tooltip personalizado */

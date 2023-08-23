@@ -436,16 +436,6 @@ const GraficaSubcategoria = () => {
                 </select>
               </div>
               <div className="headerSearchItem2">
-                <span
-                  onClick={() => setOpenDate(!openDate)}
-                  className="headerSearchText"
-                >
-                  <FontAwesomeIcon
-                    icon={faCalendarDays}
-                    className="headerIcon"
-                  />
-                  {`${etiquetaDesde} - ${etiquetaHasta}`}
-                </span>
                 {/* {openDate && ( */}
                 <div className="dateContainer">
                   <input
@@ -479,7 +469,7 @@ const GraficaSubcategoria = () => {
                   </div>
                 </div>
                 <label className="" htmlFor="">
-                  Total: {reportesFecha.length}
+                Total: {totalSubcategorias()}
                 </label>
               </div>
             </div>
@@ -536,13 +526,13 @@ const GraficaSubcategoria = () => {
         <div className=" layoutHeight d-flex justify-content-center align-items-center mt-3">
           <Bar className="w-75 h-50" options={options} data={data} />
           {reportesFecha.length !== 0 ? (
-            <ExportToExcel data={reportesFecha} />
+            <ExportToExcel data={reportesFecha.filter(rep=>rep.categoria.nombre == categoryName)}/>
           ) : (
             <></>
           )}
         </div>
       ) : (
-        <div className="layoutHeight d-flex justify-content-center">
+        <div className="layoutHeight d-flex justify-content-center mt-2">
           <Spinner variant="light" />
         </div>
       )}

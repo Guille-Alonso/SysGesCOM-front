@@ -16,8 +16,8 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(45deg, #141f27, #1b384a);
-  /* background: #111111 !important; */
+  /* background: linear-gradient(45deg, #141f27, #1b384a); */
+  background: #111111 !important;
 }
 
 .layoutHeight {

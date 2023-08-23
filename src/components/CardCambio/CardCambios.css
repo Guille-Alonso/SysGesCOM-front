@@ -1,38 +1,25 @@
-.cardCambioColor {
-  height: 310px;
-  width: 230px;
-  background-color: #2546b8;
-  border-radius: 15px;
+.cardCambioOscura {
+  height: 350px;
+  width: 300px;
+  border-radius: 5px;
+  background-color: #000;
+  border: none;
   box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
 }
 
-.cardCambioOscura {
-  height: 310px;
-  width: 230px;
-  border-radius: 15px;
-  background-color: #11232e;
-  border: none;
-  transform: translate(-12px, 10px);
-  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-.bordeEstiloCardCambio {
-  position: relative;
-  right: 40px;
-  border-radius: 20px;
-  width: 100px;
-  height: 15px;
-  background-color: #2546b8;
-}
 .spanCambiosTurno {
   font-weight: 600;
   font-size: 25px;
 }
 .inputFechaCambio {
-  height: 30px;
+  height: 40px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid #ccc;
+  text-align: center;
+  background-color: #1c1b1b !important;
 }
+
 .botonEnviarPedido {
   background-color: #2546b8 !important;
   border: none !important;

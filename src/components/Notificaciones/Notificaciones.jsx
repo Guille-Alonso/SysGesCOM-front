@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandshake } from "@fortawesome/free-solid-svg-icons";
 import "./Notificaciones.css";
 import { toast } from "react-toastify";
-import {FaTrashAlt} from "react-icons/fa";;
+import { FaTrashAlt } from "react-icons/fa";
 
 const Notificaciones = () => {
   const { user } = useContext(COMContext);
@@ -58,10 +58,11 @@ const Notificaciones = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleChanges = cambios.cambios
-    ?.filter((cam) => cam.estado === "consultado").reverse()
+    ?.filter((cam) => cam.estado === "consultado")
+    .reverse()
     ?.slice(startIndex, endIndex);
 
-console.log(cambios.cambios)
+  console.log(cambios.cambios);
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -75,7 +76,7 @@ console.log(cambios.cambios)
     }
   };
 
-  const borrarPedidoCambio = async (id)=>{
+  const borrarPedidoCambio = async (id) => {
     try {
       await axios.delete("/cambios/", { data: { id: id } });
       toast.info("Pedido borrado con éxito");
@@ -83,7 +84,7 @@ console.log(cambios.cambios)
     } catch (error) {
       toast.error(error.response?.data.message || error.message);
     }
-  }
+  };
 
   return (
     <>
@@ -96,11 +97,9 @@ console.log(cambios.cambios)
             <aside className="d-flex flex-column justify-content-center">
               <div className="container-fluid col-12 d-flex flex-column align-items-center mt-3">
                 <div className="cardCambioColorTablaCambios">
-                  <div className="d-flex flex-column cardCambioOscuraTablaCambios justify-content align-items-center">
+                  <div className="d-flex flex-column cardCambioOscuraTablaCambios align-items-center">
                     <h3 className="text-light p-2">Pedidos de Cambio</h3>
-                    <table
-                      className=" table text-light tablaCambios"
-                    >
+                    <table className=" table text-light tablaCambios">
                       <thead>
                         <tr>
                           <th className="w-25" scope="col">
@@ -121,7 +120,7 @@ console.log(cambios.cambios)
                           <Spinner />
                         ) : (
                           visibleChanges
-                            ?.filter((cam) => (cam.estado === "consultado"))
+                            ?.filter((cam) => cam.estado === "consultado")
                             .map((cam) => {
                               return (
                                 <tr
@@ -172,7 +171,7 @@ console.log(cambios.cambios)
                                         )}
                                       </p>
                                     ) : (
-                                      <p>A confirmar</p>
+                                      <>A confirmar</>
                                     )}
                                   </td>
                                   <td>
@@ -186,12 +185,16 @@ console.log(cambios.cambios)
                                             actualizarCambio(cam._id)
                                           }
                                         />
-                                      ) :user._id == cam.solicitante._id? (
+                                      ) : user._id == cam.solicitante._id ? (
                                         <FaTrashAlt
-                                        onClick={() => borrarPedidoCambio(cam._id)}
-                                        className="botonEliminar"
-                                      />
-                                      ): <></>
+                                          onClick={() =>
+                                            borrarPedidoCambio(cam._id)
+                                          }
+                                          className="botonEliminar"
+                                        />
+                                      ) : (
+                                        <></>
+                                      )
                                     ) : (
                                       <></>
                                     )}

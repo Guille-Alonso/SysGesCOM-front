@@ -36,8 +36,7 @@ const CardCambios = () => {
   return (
     <>
       <div className="cardCambioColor">
-        <div className="d-flex flex-column cardCambioOscura justify-content-around align-items-center">
-          <div className="bordeEstiloCardCambio"></div>
+        <div className="d-flex flex-column cardCambioOscura justify-content-center align-items-center gap-4">
           <span className="spanCambiosTurno text-light ">Cambios de Turno</span>
           <input
             type="date"

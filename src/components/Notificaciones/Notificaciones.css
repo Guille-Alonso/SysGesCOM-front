@@ -9,31 +9,22 @@
 .contenedorNoticias {
   border: 1px solid #ccc;
 }
-.cardCambioColorTablaCambios {
-  height: 100%;
-  width: 90%;
-  background-color: #2546b8;
-  border-radius: 15px;
-  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
-}
+
 .cardCambioOscuraTablaCambios {
-  height: 100%;
-  width: 100%;
-  border-radius: 15px;
-  background-color: #11232e;
-  border: none;
-  transform: translate(-12px, 10px);
-  min-height: 400px !important;
-  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.2);
+  min-height: 60vh;
+  width: 45vw;
+  border-radius: 5px;
+  background-color: #000;
+  border: 1px solid #ccc;
 }
 
 .tablaCambios {
   border: 1px solid #ccc;
-  border-radius: 20px !important;
   width: 95% !important;
+  height: 50vh;
+  font-size: 13px;
 }
 .inputFechaCambio {
-  background-color: transparent;
   width: 80%;
   color: #fff;
 }

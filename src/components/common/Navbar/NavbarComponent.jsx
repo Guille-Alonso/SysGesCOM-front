@@ -166,13 +166,17 @@ function NavbarComponent() {
                   ></ion-icon>
                   Notificaciones
                 </NavDropdown.Item>
+                {
+                 user.tipoDeUsuario == "admin" || user.tipoDeUsuario == 'supervisor' || user.tipoDeUsuario == 'administración' ? 
                 <NavDropdown.Item onClick={panelSupervisor} className="navigation">
                   <ion-icon
                     name="settings-outline"
                     className="icons-drop"
                   ></ion-icon>
-                  Opciones
+                  Panel Supervisor
                 </NavDropdown.Item>
+                :<></>
+                }
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logOut} className="navigation">
                   <ion-icon

@@ -187,10 +187,10 @@ const RelevamientoMotos = () => {
             
               fecha: fechaSinZonaHoraria,
               detalle: detalleReporte(),
-              naturaleza: "6479205bf3a1370bb4f1215d",
+              naturaleza: "64b702496e1ce7bbdc5cc26a",
               usuario: user._id,
-              categoria: "647a7a95b1be664a13cb3caa",
-              subcategoria: "",
+              categoria: "64b728ef93f64a87567f9840",
+              subcategoria: "64e7da580a5e30019cccd20a",
               dispositivo: values.dispositivo,
             
           }

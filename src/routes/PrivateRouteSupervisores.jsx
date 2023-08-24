@@ -13,7 +13,7 @@ const PrivateRouteSupervisores = ({children}) => {
   
     return loading ? (
       <Spinner />
-    ) : authenticated && (user.tipoDeUsuario == "supervisor" || user.tipoDeUsuario == "admin")? (
+    ) : authenticated && (user.tipoDeUsuario == "supervisor" || user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración")? (
       children
     ) : (
       <Navigate to="/login" />

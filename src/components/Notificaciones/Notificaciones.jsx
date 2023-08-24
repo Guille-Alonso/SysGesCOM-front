@@ -9,6 +9,7 @@ import { faHandshake } from "@fortawesome/free-solid-svg-icons";
 import "./Notificaciones.css";
 import { toast } from "react-toastify";
 import { FaTrashAlt } from "react-icons/fa";
+import newsLetter from "../../assets/newsletter.svg";
 
 const Notificaciones = () => {
   const { user } = useContext(COMContext);
@@ -91,7 +92,14 @@ const Notificaciones = () => {
       <div className="layoutHeight">
         <Row className="g-0">
           <Col className="contenedorNoticias mt-3" sm={12} lg={6}>
-            <div className="text-light">Hola</div>
+            {/* cambiar la clase de abajo */}
+            <div className="text-light container-fluid contenedorNoticias">
+              <img
+                src={newsLetter}
+                title="Parece que no hay noticias :D"
+                className="newsLetter"
+              />
+            </div>
           </Col>
           <Col lg={6} sm={0}>
             <aside className="d-flex flex-column justify-content-center">

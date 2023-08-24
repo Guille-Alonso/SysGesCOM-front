@@ -6,9 +6,9 @@
   scale: 1.2;
   color: green;
 }
-.contenedorNoticias {
+/* .contenedorNoticias {
   border: 1px solid #ccc;
-}
+} */
 
 .cardCambioOscuraTablaCambios {
   min-height: 60vh;
@@ -27,4 +27,11 @@
 .inputFechaCambio {
   width: 80%;
   color: #fff;
+}
+.contenedorNoticias {
+  display: flex;
+  justify-content: center;
+}
+.newsLetter {
+  width: 50%;
 }

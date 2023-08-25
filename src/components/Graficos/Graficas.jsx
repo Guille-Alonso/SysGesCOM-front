@@ -17,7 +17,12 @@ import "../AltaEvento/AltaEvento.css";
 import useGet from "../../hooks/useGet";
 import "./Graficas.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDays, faChevronDown, faPersonWalkingArrowLoopLeft, faUserTie } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarDays,
+  faChevronDown,
+  faPersonWalkingArrowLoopLeft,
+  faUserTie,
+} from "@fortawesome/free-solid-svg-icons";
 import GraficaSubcategoria from "./GraficaSubcategoria";
 import { COMContext } from "../../context/COMContext";
 import ExportToExcel from "../ExportarExcel/ExportToExcel";
@@ -45,8 +50,8 @@ export function Grafico() {
 
   const [isHovered, setIsHovered] = useState(false);
   const [changeClass, setChangeClass] = useState(false);
-  const [despachado, setDespachado] = useState(false)
-  
+  const [despachado, setDespachado] = useState(false);
+
   const fetchReportes = async () => {
     try {
       const { data } = await axios.get("/reportes/listar");
@@ -105,7 +110,7 @@ export function Grafico() {
 
     const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
     const mesNumerico = meses[mes];
-    const diaConCeros = String(dia).padStart(2, '0');
+    const diaConCeros = String(dia).padStart(2, "0");
     return `${anio}-${mesNumerico}-${diaConCeros}`;
   }
 
@@ -115,20 +120,20 @@ export function Grafico() {
     const horaActual = parseInt(hora, 10);
 
     if (horaActual >= 7 && horaActual < 15) {
-      return 'mañana';
+      return "mañana";
     } else if (horaActual >= 15 && horaActual < 23) {
-      return 'tarde';
+      return "tarde";
     } else {
-      return 'noche';
+      return "noche";
     }
   }
 
   useEffect(() => {
     if (fechaDesde !== "" && fechaHasta !== "") {
-
       if (searchTerm.nombre !== "") {
-
-        const reportesConUsuario = reportes.filter(rep => rep.usuario.nombre == searchTerm.nombre)
+        const reportesConUsuario = reportes.filter(
+          (rep) => rep.usuario.nombre == searchTerm.nombre
+        );
         const reportesFiltrados = reportesConUsuario.filter((reporte) => {
           const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
 
@@ -136,7 +141,9 @@ export function Grafico() {
         });
         setReportesFecha(reportesFiltrados);
       } else if (turno !== "") {
-        const reportesConTurno = reportes.filter(rep => obtenerPeriodoDelDiaConHora(rep.fecha) == turno)
+        const reportesConTurno = reportes.filter(
+          (rep) => obtenerPeriodoDelDiaConHora(rep.fecha) == turno
+        );
         const reportesFiltrados = reportesConTurno.filter((reporte) => {
           const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
 
@@ -144,7 +151,6 @@ export function Grafico() {
         });
         setReportesFecha(reportesFiltrados);
       } else {
-
         const reportesFiltrados = reportes.filter((reporte) => {
           const fechaReporte = convertirFecha2ASinHora(reporte.fecha);
 
@@ -152,10 +158,8 @@ export function Grafico() {
         });
         setReportesFecha(reportesFiltrados);
       }
-
     }
   }, [fechaDesde, fechaHasta]);
-  
 
   const countReportesCat = () => {
     let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
@@ -176,14 +180,16 @@ export function Grafico() {
     return countObj;
   };
 
-  const categoriasLabels = ()=>{
+  const categoriasLabels = () => {
     let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
     let cats = [];
-    if(despachado){
-      let reportesDespachados = reportesFecha.filter(rep=>rep.despacho !== undefined)
+    if (despachado) {
+      let reportesDespachados = reportesFecha.filter(
+        (rep) => rep.despacho !== undefined
+      );
       for (let index = 0; index < reportesDespachados.length; index++) {
         const categoria = reportesDespachados[index].categoria.nombre;
-  
+
         if (countObj[categoria]) {
           // Si la categoría ya existe en el objeto, incrementa la cantidad
           countObj[categoria] += 1;
@@ -194,12 +200,12 @@ export function Grafico() {
         }
       }
       // setCatsLabel(cats)
-  
+
       return countObj;
-    }else{
+    } else {
       for (let index = 0; index < reportesFecha.length; index++) {
         const categoria = reportesFecha[index].categoria.nombre;
-  
+
         if (countObj[categoria]) {
           // Si la categoría ya existe en el objeto, incrementa la cantidad
           countObj[categoria] += 1;
@@ -212,8 +218,7 @@ export function Grafico() {
       // setCatsLabel(cats)
       return countObj;
     }
-
-  }
+  };
 
   ChartJS.register(
     CategoryScale,
@@ -268,7 +273,6 @@ export function Grafico() {
     ],
   };
 
-
   const filtroTurnoYFecha = (reportesFiltro) => {
     if (fechaDesde !== "" && fechaHasta !== "") {
       // Filtrar los reportes con un rango de fechas
@@ -287,7 +291,11 @@ export function Grafico() {
     setDespachado(false);
     if (e.target.value !== "") {
       setSearchTerm({ nombre: "" });
-      filtroTurnoYFecha(reportes.filter(rep => (e.target.value == obtenerPeriodoDelDiaConHora(rep.fecha))))
+      filtroTurnoYFecha(
+        reportes.filter(
+          (rep) => e.target.value == obtenerPeriodoDelDiaConHora(rep.fecha)
+        )
+      );
     } else {
       if (fechaDesde !== "" && fechaHasta !== "") {
         setSearchTerm({ nombre: "" });
@@ -305,10 +313,9 @@ export function Grafico() {
     }
   };
 
-
-  const selectedCategoria = (e)=>{
-    setCategoryName(e.target.value)
-  }
+  const selectedCategoria = (e) => {
+    setCategoryName(e.target.value);
+  };
 
   const handleKeyDown = (event) => {
     if (event.key === "ArrowUp") {
@@ -349,168 +356,159 @@ export function Grafico() {
     setSuggestions(filteredSuggestions);
   };
 
-  const reportesDespachadosExcel = ()=>{
-    if(!despachado){
-      setDespachado(!despachado)
-      setReportesFecha(reportesFecha.filter(rep => rep.despacho !== undefined))
-    }else {
-      setDespachado(!despachado)
-      setReportesFecha(reportes)
-      setSearchTerm({ nombre: "" })
-      setFechaDesde("")
-      setFechaHasta("")
-      setTurno("")
+  const reportesDespachadosExcel = () => {
+    if (!despachado) {
+      setDespachado(!despachado);
+      setReportesFecha(
+        reportesFecha.filter((rep) => rep.despacho !== undefined)
+      );
+    } else {
+      setDespachado(!despachado);
+      setReportesFecha(reportes);
+      setSearchTerm({ nombre: "" });
+      setFechaDesde("");
+      setFechaHasta("");
+      setTurno("");
     }
-  
-  }
+  };
 
   return (
     <>
-    {
-      categoryName !== "" ?
-      <GraficaSubcategoria/>
-      :
-    <>
-      <div className="container filterContainer">
-        <Form.Group className="inputAltaEvento">
-          <div className="headerSearch">
-            <div className="headerSearchItem">
-            <div className="headerSelectWrapper">
-            <select
-                  name="turno"
-                  id=""
-                  onChange={selectedCategoria}
-                  value={categoryName}
-                  className="headerSelect"
-                >
-                  <option value="">Categorías</option>
-              {
-                labelsCat.length !==0 && labelsCat.map(cat=>{
-                  return(
-                    <option value={cat}>{cat}</option>
-                  )
-                })
-              }
-                </select>
-                <FontAwesomeIcon icon={faChevronDown} className="headerSelectIcon" />
-                </div>
-                
-                    <div className="custom-tooltip">
-                      <label htmlFor="">Despachos</label>
-                      <div className="tooltip-content">Al combinar filtros, utilizar éste en último término</div>
-                        <input onClick={reportesDespachadosExcel} checked={despachado} type="checkbox" name="" id="" />
+      {categoryName !== "" ? (
+        <GraficaSubcategoria />
+      ) : (
+        <>
+          <div className="container filterContainer">
+            <Form.Group className="inputAltaEvento">
+              <div className="headerSearch">
+                <div className="headerSearchItem">
+                  <div className="headerSearchItem2">
+                    <input
+                      type="text"
+                      value={searchTerm.nombre}
+                      onChange={(e) => handleInputChange(e)}
+                      name="dispositivo"
+                      required
+                      maxLength={30}
+                      minLength={4}
+                      autoComplete="off"
+                      className="headerSearchInput"
+                      onKeyDown={handleKeyDown}
+                      placeholder="Ingrese un nombre"
+                    />
+                    <div className="headerSelectWrapper">
+                      <select
+                        id=""
+                        onChange={selectedCategoria}
+                        value={categoryName}
+                        className="headerSelect"
+                      >
+                        <option value="">Categorías</option>
+                        {labelsCat.length !== 0 &&
+                          labelsCat.map((cat) => {
+                            return <option value={cat}>{cat}</option>;
+                          })}
+                      </select>
                     </div>
-
-                {
-                reportesFecha.length !== 0?
-                <ExportToExcel data={reportesFecha}/>
-                :
-                <></>
-                }
-              <FontAwesomeIcon icon={faUserTie} className="headerIcon" bounce />
-              <input
-                type="text"
-                value={searchTerm.nombre}
-                onChange={(e) => handleInputChange(e)}
-                name="dispositivo"
-                required
-                maxLength={30}
-                minLength={4}
-                autoComplete="off"
-                className="headerSearchInput"
-                onKeyDown={handleKeyDown}
-                placeholder="Ingrese un nombre"
-              />
-            </div>
-            <div className="headerSearchItem">
-              <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-              <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">
-                {`${etiquetaDesde} - ${etiquetaHasta}`}
-              </span>
-            </div>
-            <div className="headerSearchItem">
-              <FontAwesomeIcon icon={faPersonWalkingArrowLoopLeft} className="headerIcon" flip />
-              <div className="headerSelectWrapper">
-                <select
-                  name="turno"
-                  id=""
-                  onChange={selectedTurno}
-                  value={turno}
-                  className="headerSelect"
-                >
-                  <option value="">Todos</option>
-                  <option value="mañana">Mañana</option>
-                  <option value="tarde">Tarde</option>
-                  <option value="noche">Noche</option>
-                </select>
-                <FontAwesomeIcon icon={faChevronDown} className="headerSelectIcon" />
+                    <select
+                      name="turno"
+                      id=""
+                      onChange={selectedTurno}
+                      value={turno}
+                      className="headerSelect"
+                    >
+                      <option value="">Todos</option>
+                      <option value="mañana">Mañana</option>
+                      <option value="tarde">Tarde</option>
+                      <option value="noche">Noche</option>
+                    </select>
+                  </div>
+                  <div className="headerSearchItem2">
+                    {/* {openDate && ( */}
+                    <div className="dateContainer">
+                      <input
+                        type="date"
+                        name="desde"
+                        id="desde"
+                        value={fechaDesde}
+                        onChange={handleFechaDesdeChange}
+                      />
+                      <input
+                        type="date"
+                        name="hasta"
+                        id="hasta"
+                        value={fechaHasta}
+                        onChange={handleFechaHastaChange}
+                      />
+                    </div>
+                    {/* )} */}
+                    <div className="headerSelectWrapper">
+                      <div className="custom-tooltip">
+                        <label htmlFor="">Despachos</label>
+                        <div className="tooltip-content">
+                          Al combinar filtros, utilizar éste en último término
+                        </div>
+                        <input
+                          onClick={reportesDespachadosExcel}
+                          checked={despachado}
+                          type="checkbox"
+                          name=""
+                          id=""
+                        />
+                      </div>
+                    </div>
+                    <label className="" htmlFor="">
+                      Total: {reportesFecha.length}
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-
-
-            <label className="" htmlFor="">
-              Total: {reportesFecha.length}
-            </label>
-          </div>
-          <div className="container-fluid">
-            <ul
-              className={
-                suggestions.length > 0
-                  ? " w-25 ulSugerencias bg-light container"
-                  : "d-none"
-              }
-              ref={suggestionContainerRef}
-            >
-              {suggestions.map((suggestion, index) => (
-                <li
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  key={index}
-                  className="liCamarasyDomos"
-                  style={{
-                    backgroundColor:
-                      currentIndex === index && !isHovered
-                        ? "#ccc"
-                        : "transparent",
-                  }}
-                  onClick={(e) => handleSuggestionClick(suggestion, e)}
+              <div className="container-fluid">
+                <ul
+                  className={
+                    suggestions.length > 0
+                      ? " w-25 ulSugerencias bg-light container"
+                      : "d-none"
+                  }
+                  ref={suggestionContainerRef}
                 >
-                  {suggestion.nombre}
-                </li>
-              ))}
-            </ul>
-            {openDate &&
-              <div className="dateContainer">
-                <input
-                  type="date"
-                  name="desde"
-                  id="desde"
-                  value={fechaDesde}
-                  onChange={handleFechaDesdeChange}
-                />
-                <input
-                  type="date"
-                  name="hasta"
-                  id="hasta"
-                  value={fechaHasta}
-                  onChange={handleFechaHastaChange}
-                />
-              </div>}
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                      key={index}
+                      className="liCamarasyDomos"
+                      style={{
+                        backgroundColor:
+                          currentIndex === index && !isHovered
+                            ? "#ccc"
+                            : "transparent",
+                      }}
+                      onClick={(e) => handleSuggestionClick(suggestion, e)}
+                    >
+                      {suggestion.nombre}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Form.Group>
           </div>
-        </Form.Group>
-      </div>
-      {
-        reportesFecha.length !== 0?
-      <div className=" layoutHeight d-flex justify-content-center align-items-center mt-3">
-        <Bar className="w-75 h-50" options={options} data={data} />
-      </div>
-      :
-      <div className="layoutHeight d-flex justify-content-center">
-      <Spinner variant="light"/>
-      </div>
-      }
-      </>
-        }
+          {reportesFecha.length !== 0 ? (
+            <div className=" layoutHeight d-flex justify-content-center align-items-center mt-3">
+              <Bar className="w-75 h-50" options={options} data={data} />
+              {reportesFecha.length !== 0 ? (
+                <ExportToExcel data={reportesFecha} />
+              ) : (
+                <></>
+              )}
+            </div>
+          ) : (
+            <div className="layoutHeight d-flex justify-content-center mt-2">
+              <Spinner variant="light" />
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 }

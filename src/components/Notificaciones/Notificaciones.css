@@ -1,0 +1,37 @@
+.confirmarCambio {
+  height: 30px;
+  padding-right: 7px;
+}
+.confirmarCambio:hover {
+  scale: 1.2;
+  color: green;
+}
+/* .contenedorNoticias {
+  border: 1px solid #ccc;
+} */
+
+.cardCambioOscuraTablaCambios {
+  min-height: 60vh;
+  width: 45vw;
+  border-radius: 5px;
+  background-color: #000;
+  border: 1px solid #ccc;
+}
+
+.tablaCambios {
+  border: 1px solid #ccc;
+  width: 95% !important;
+  height: 50vh;
+  font-size: 13px;
+}
+.inputFechaCambio {
+  width: 80%;
+  color: #fff;
+}
+.contenedorNoticias {
+  display: flex;
+  justify-content: center;
+}
+.newsLetter {
+  width: 50%;
+}

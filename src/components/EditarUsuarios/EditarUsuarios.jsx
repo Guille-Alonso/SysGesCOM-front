@@ -222,6 +222,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 <option>estadística</option>
                 <option>supervisor</option>
                 <option>visualizador</option>
+                <option>administración</option>
               </FormSelect>
             ) : (
               <p className="parrafoInfo">{values.tipoDeUsuario}</p>

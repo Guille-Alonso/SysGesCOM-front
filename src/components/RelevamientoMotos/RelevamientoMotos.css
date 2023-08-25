@@ -64,7 +64,7 @@
   align-items: center;
 }
 .focoIcono {
-  color: black;
+  color: WHITE;
   height: 30px;
 }
 .focoIcono2 {
@@ -79,7 +79,7 @@
 }
 .tablaRelevamiento {
   height: 60vh;
-  overflow-y: auto;
+  overflow-y: auto ;
   background-color: #ecedee;
   border-radius: 8px;
   border: solid 1px #ffffff2e;

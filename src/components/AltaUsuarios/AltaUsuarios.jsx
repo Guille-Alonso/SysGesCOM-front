@@ -246,6 +246,7 @@ const AltaUsuarios = () => {
                 <option>estadística</option>
                 <option>supervisor</option>
                 <option>visualizador</option>
+                <option>administración</option>
               </Form.Select>
             </Form.Group>
 

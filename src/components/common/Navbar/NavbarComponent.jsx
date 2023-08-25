@@ -6,7 +6,7 @@ import "./navBar.css";
 import { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { COMContext } from "../../../context/COMContext";
-import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png"
+import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png";
 import fotoPredet from "../../../assets/fotoPredeterminada.png";
 
 function NavbarComponent() {
@@ -33,6 +33,13 @@ function NavbarComponent() {
 
   const settings = () => {
     navigate("/cambiar-contraseña");
+  };
+  const notificaciones = () => {
+    navigate("/notificaciones");
+  };
+
+  const panelSupervisor = () => {
+    navigate("/relevamiento-motos-panel");
   };
 
   const userProfile = () => {
@@ -83,16 +90,18 @@ function NavbarComponent() {
                 <Link className="ms-3" to="/reportes">
                   Reportes
                 </Link>
-
+              
                 <Link className="ms-3" to="/relevamiento-motos">
                   Relevamiento
                 </Link>
+              
               </>
             )}
             {authenticated &&
               (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
-                user.tipoDeUsuario == "estadística") && (
+                user.tipoDeUsuario == "estadística" ||
+                user.tipoDeUsuario == "administración") && (
                 <Link to="/reportes">Reportes</Link>
               )}
             {authenticated &&
@@ -107,6 +116,19 @@ function NavbarComponent() {
                 Categorías
               </Link>
             )}
+            {authenticated &&
+              (user.tipoDeUsuario !== "estadística") && (
+                <Link className="ms-3" to="/cambio-turno">
+                  Cambios Turno
+                </Link>
+              )}
+            {authenticated &&
+              (user.relevamientoHabilitado || user.tipoDeUsuario == "supervisor") && (
+                <Link className="ms-3" to="/relevamiento-motos">
+                  Relevamiento
+                </Link>
+              )}
+
           </Nav>
 
           {authenticated ? (
@@ -134,20 +156,27 @@ function NavbarComponent() {
                 </NavDropdown.Item>
                 {/* )} */}
 
-                <NavDropdown.Item href="#" className="navigation">
+                <NavDropdown.Item
+                  onClick={notificaciones}
+                  className="navigation"
+                >
                   <ion-icon
                     name="notifications-outline"
                     className="icons-drop"
                   ></ion-icon>
                   Notificaciones
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#" className="navigation">
+                {
+                 user.tipoDeUsuario == "admin" || user.tipoDeUsuario == 'supervisor' || user.tipoDeUsuario == 'administración' ? 
+                <NavDropdown.Item onClick={panelSupervisor} className="navigation">
                   <ion-icon
                     name="settings-outline"
                     className="icons-drop"
                   ></ion-icon>
-                  Opciones
+                  Panel Supervisor
                 </NavDropdown.Item>
+                :<></>
+                }
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logOut} className="navigation">
                   <ion-icon

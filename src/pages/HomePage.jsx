@@ -1,34 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Home.css";
-import { addDays } from "date-fns";
-import { format } from "date-fns";
-import { Button, Spinner } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
+import { Spinner } from "react-bootstrap";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
 import workingSvg from "../assets/img/focused-working.svg";
 import useGet from "../hooks/useGet";
 import axios from "../config/axios";
+import CardCambios from "../components/CardCambio/CardCambios";
 
 const HomePage = () => {
-  const [state, setState] = useState({
-    selection1: {
-      // startDate: addDays(new Date(), 1),
-      key: "selection1",
-    },
-    selection2: {
-      startDate: addDays(new Date(), 4),
-      endDate: addDays(new Date(), 8),
-      key: "selection2",
-    },
-    selection3: {
-      startDate: addDays(new Date(), 8),
-      endDate: addDays(new Date(), 10),
-      key: "selection3",
-      autoFocus: false,
-      disabled: true,
-    },
-  });
-  const endDate = state.selection1.endDate;
   const [reportes, loading] = useGet("/reportes/podio", axios);
 
   return (
@@ -39,11 +18,13 @@ const HomePage = () => {
             <img src={workingSvg} className="inProgress" alt="" />
           </div>
         </main>
-        <aside className="contenedorCambios">
-          {loading?
-          <Spinner variant="light"/>
-          : 
-          <LeaderboardReportes reportes={reportes} />}
+        <aside className="contenedorCambios gap-5">
+          {loading ? (
+            <Spinner variant="light" />
+          ) : (
+            <LeaderboardReportes reportes={reportes} />
+          )}
+          <CardCambios />
         </aside>
       </div>
       <div className="d-flex justify-content-around mt-5">

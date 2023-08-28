@@ -167,7 +167,7 @@ function NavbarComponent() {
                   Notificaciones
                 </NavDropdown.Item>
                 {
-                 user.tipoDeUsuario == "admin" || user.tipoDeUsuario == 'supervisor' || user.tipoDeUsuario == 'administración' ? 
+                 user.tipoDeUsuario == "admin" || user.tipoDeUsuario == 'supervisor' ? 
                 <NavDropdown.Item onClick={panelSupervisor} className="navigation">
                   <ion-icon
                     name="settings-outline"

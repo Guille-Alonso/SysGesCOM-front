@@ -13,3 +13,9 @@
   width: 100% !important;
   height: 500px !important;
 }
+
+.selectPodio{
+  background-color: #101113;
+  color: #fff;
+  border-radius: 3px;
+}

@@ -12,8 +12,9 @@ export const validationsAltaEvento = (values) => {
       errors.detalle = "El detalle no puede tener mas de 500 caracteres";
     } else if(values.detalle.length < 4){
       errors.detalle = "El detalle no puede tener menos de 4 caracteres";
-    } else if(!/^[a-zA-Z\u00C0-\u017F0-9,.\s()"':;/]+$/.test(values.detalle)){
-      errors.detalle = "El detalle no puede tener simbolos especiales";
+    } else if(!/^[a-zA-Z\u00C0-\u017F0-9,."':;/]+(?:\s[a-zA-Z\u00C0-\u017F0-9,."':;/]+)*$/
+    .test(values.detalle)){
+      errors.detalle = "No se permiten símbolos especiales o espacios innecesarios.";
     }
 
     if (!values.naturaleza) {

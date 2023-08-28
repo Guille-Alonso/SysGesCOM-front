@@ -6,6 +6,7 @@ import workingSvg from "../assets/img/focused-working.svg";
 import useGet from "../hooks/useGet";
 import axios from "../config/axios";
 import CardCambios from "../components/CardCambio/CardCambios";
+import ModalPodio from "../components/ModalPodio/ModalPodio";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podio", axios);
@@ -16,6 +17,7 @@ const HomePage = () => {
         <main className="estadisticas">
           <div>
             <img src={workingSvg} className="inProgress" alt="" />
+            <ModalPodio />
           </div>
         </main>
         <aside className="contenedorCambios gap-5">

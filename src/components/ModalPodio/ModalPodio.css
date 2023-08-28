@@ -1,0 +1,54 @@
+.ModalPodio {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #141414;
+  height: 80vh;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.podioModal {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.svgPodio {
+  height: 500px;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
+}
+.fotosPodio {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.fotoPodio1 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  bottom: 250px;
+  right: 20px;
+  border: 1px solid #fff;
+}
+.fotoPodio2 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  bottom: 410px;
+  border: 1px solid #fff;
+}
+.fotoPodio3 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  bottom: 210px;
+  border: 1px solid #fff;
+  left: 20px;
+}

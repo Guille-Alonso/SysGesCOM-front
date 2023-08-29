@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { COMContext } from "../../../context/COMContext";
 import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png";
 import fotoPredet from "../../../assets/fotoPredeterminada.png";
+import PanelAdmin from "../../PanelAdmin/panelAdmin";
 
 function NavbarComponent() {
   const {
@@ -49,7 +50,9 @@ function NavbarComponent() {
   const home = () => {
     navigate("/home");
   };
-
+  const panelAdmin = () => {
+    navigate("/panelAdmin");
+  };
   useEffect(() => {
     getAuth();
   }, []);
@@ -90,11 +93,10 @@ function NavbarComponent() {
                 <Link className="ms-3" to="/reportes">
                   Reportes
                 </Link>
-              
+
                 <Link className="ms-3" to="/relevamiento-motos">
                   Relevamiento
                 </Link>
-              
               </>
             )}
             {authenticated &&
@@ -116,19 +118,18 @@ function NavbarComponent() {
                 Categorías
               </Link>
             )}
+            {authenticated && user.tipoDeUsuario !== "estadística" && (
+              <Link className="ms-3" to="/cambio-turno">
+                Cambios Turno
+              </Link>
+            )}
             {authenticated &&
-              (user.tipoDeUsuario !== "estadística") && (
-                <Link className="ms-3" to="/cambio-turno">
-                  Cambios Turno
-                </Link>
-              )}
-            {authenticated &&
-              (user.relevamientoHabilitado || user.tipoDeUsuario == "supervisor") && (
+              (user.relevamientoHabilitado ||
+                user.tipoDeUsuario == "supervisor") && (
                 <Link className="ms-3" to="/relevamiento-motos">
                   Relevamiento
                 </Link>
               )}
-
           </Nav>
 
           {authenticated ? (
@@ -166,17 +167,32 @@ function NavbarComponent() {
                   ></ion-icon>
                   Notificaciones
                 </NavDropdown.Item>
-                {
-                 user.tipoDeUsuario == "admin" || user.tipoDeUsuario == 'supervisor' ? 
-                <NavDropdown.Item onClick={panelSupervisor} className="navigation">
-                  <ion-icon
-                    name="settings-outline"
-                    className="icons-drop"
-                  ></ion-icon>
-                  Panel Supervisor
-                </NavDropdown.Item>
-                :<></>
-                }
+                {user.tipoDeUsuario == "admin" ||
+                user.tipoDeUsuario == "supervisor" ? (
+                  <NavDropdown.Item
+                    onClick={panelSupervisor}
+                    className="navigation"
+                  >
+                    <ion-icon
+                      name="settings-outline"
+                      className="icons-drop"
+                    ></ion-icon>
+                    Panel Supervisor
+                  </NavDropdown.Item>
+                ) : (
+                  <></>
+                )}
+                {user.tipoDeUsuario == "admin" ? (
+                  <NavDropdown.Item onClick={panelAdmin} className="navigation">
+                    <ion-icon
+                      name="settings-outline"
+                      className="icons-drop"
+                    ></ion-icon>
+                    Panel Admin
+                  </NavDropdown.Item>
+                ) : (
+                  <></>
+                )}
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logOut} className="navigation">
                   <ion-icon

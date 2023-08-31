@@ -60,7 +60,7 @@ function NavbarComponent() {
   return (
     <Navbar
       collapseOnSelect
-      expand={user.tipoDeUsuario == "admin" ? "xxl" : "lg"}
+      expand={user?.tipoDeUsuario == "admin" ? "xxl" : "lg"}
       bg=""
       variant="dark"
     >

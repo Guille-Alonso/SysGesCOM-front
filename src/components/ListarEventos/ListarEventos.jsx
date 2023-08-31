@@ -51,24 +51,63 @@ const ListarEventos = () => {
     setPaginacion(1);
   }
 
+  function convertirFecha2ASinHora(fecha) {
+    const meses = {
+      Ene: "01",
+      Feb: "02",
+      Mar: "03",
+      Abr: "04",
+      May: "05",
+      Jun: "06",
+      Jul: "07",
+      Ago: "08",
+      Sep: "09",
+      Oct: "10",
+      Nov: "11",
+      Dic: "12",
+    };
+
+    const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
+    const mesNumerico = meses[mes];
+    const diaConCeros = String(dia).padStart(2, "0");
+    return `${diaConCeros}/${mesNumerico}/${anio}`;
+  }
+
   useEffect(() => {
     if (Array.isArray(reportes.reportes)) {
       setSelectedRadio(false)
       setCheckboxDespacho(false)
-      const results = reportes.reportes.filter(
+    
+      let results = reportes.reportes.filter(
         (reporte) =>
-          reporte.numero.toString().includes(buscador) ||
-          reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
-          reporte.usuario.nombreUsuario
-            .toLowerCase()
-            .includes(buscador.toLowerCase()) ||
-          reporte.dispositivo.nombre
-            .toLowerCase()
-            .includes(buscador.toLowerCase()) ||
-            reporte.categoria.nombre
-            .toLowerCase()
-            .includes(buscador.toLowerCase())
+          reporte.numero==buscador 
+          
       );
+      
+      if(results.length==0){
+
+        results = reportes.reportes.filter(
+         (reporte) =>
+         convertirFecha2ASinHora(reporte.fecha).includes(buscador)
+           
+       );
+      }
+    
+      if(results.length==0){
+        results = reportes.reportes.filter(
+          (reporte) =>
+           
+        reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
+        reporte.usuario.nombreUsuario
+          .toLowerCase()
+          .includes(buscador.toLowerCase()) ||
+        reporte.dispositivo.nombre
+          .toLowerCase()
+          .includes(buscador.toLowerCase()) ||
+          reporte.categoria.nombre
+          .toLowerCase()
+          .includes(buscador.toLowerCase()))
+      }
       setResultadoBusqueda(results);
     }
   }, [reportes, buscador]);

@@ -7,20 +7,22 @@ import { useNavigate } from "react-router-dom";
 import { COMContext } from "../../context/COMContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faRotate } from "@fortawesome/free-solid-svg-icons";
-import './ListarEventos.css'
+import "./ListarEventos.css";
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
-  const { user,buscador,setBuscador, setPaginacion } = useContext(COMContext);
+  const { user, buscador, setBuscador, setPaginacion } = useContext(COMContext);
   // const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
   const [selected, setSelected] = useState(undefined);
-  const [checkboxDespacho, setCheckboxDespacho] = useState(false)
+  const [checkboxDespacho, setCheckboxDespacho] = useState(false);
+  const [checkboxSeguridad, setCheckboxSeguridad] = useState(false);
+  const [checkboxMunicipal, setCheckboxMunicipal] = useState(false);
 
   const handleChange = (event) => {
     setBuscador(event.target.value);
   };
-  
+
   const navigate = useNavigate();
 
   const nuevoReporte = () => {
@@ -29,27 +31,48 @@ const ListarEventos = () => {
 
   const [selectedRadio, setSelectedRadio] = useState(undefined);
 
-  const limpiarInputRadio = ()=>{
+  const limpiarInputRadio = () => {
+    setSelectedRadio(false);
+    setCheckboxDespacho(false);
     getReportes();
-    setSelectedRadio(false)
-    setCheckboxDespacho(false)
-  }
+  };
 
-  const filtroInputRadio = (array,tipoEvento) =>{
+  const filtroInputRadio = (array, tipoEvento) => {
     setResultadoBusqueda(array);
     setSelectedRadio(tipoEvento);
     setPaginacion(1);
-  }
+  };
 
-  const filtroReportesDespachados = (array, SiONo)=> {
-    setCheckboxDespacho(!SiONo)
-    if(!checkboxDespacho){
+  const filtroReportesDespachados = (array, SiONo) => {
+    setCheckboxDespacho(!SiONo);
+    if (!checkboxDespacho) {
       setResultadoBusqueda(array);
-    }else setResultadoBusqueda(reportes.reportes)
-    
-    setSelectedRadio(false)
+    } else setResultadoBusqueda(reportes.reportes);
+
+    setSelectedRadio(false);
     setPaginacion(1);
-  }
+  };
+  const filtroReportesSeguridad = (array, SiONo) => {
+    setCheckboxSeguridad(!SiONo);
+    if (!checkboxSeguridad) {
+      setResultadoBusqueda(array);
+    } else if (checkboxDespacho) {
+      setResultadoBusqueda(
+        reportes.reportes.filter((report) => report.despacho !== undefined)
+      );
+    } else setResultadoBusqueda(reportes.reportes);
+  };
+
+  const filtroReportesMunicipal = (array, SiONo) => {
+    setCheckboxMunicipal(!SiONo);
+    if (!checkboxMunicipal) {
+      setResultadoBusqueda(array);
+    } else if (checkboxDespacho) {
+      setResultadoBusqueda(
+        reportes.reportes.filter((report) => report.despacho !== undefined)
+      );
+    } else setResultadoBusqueda(reportes.reportes);
+  };
 
   function convertirFecha2ASinHora(fecha) {
     const meses = {
@@ -75,38 +98,33 @@ const ListarEventos = () => {
 
   useEffect(() => {
     if (Array.isArray(reportes.reportes)) {
-      setSelectedRadio(false)
-      setCheckboxDespacho(false)
-    
-      let results = reportes.reportes.filter(
-        (reporte) =>
-          reporte.numero==buscador 
-          
-      );
-      
-      if(results.length==0){
+      setSelectedRadio(false);
+      setCheckboxDespacho(false);
 
-        results = reportes.reportes.filter(
-         (reporte) =>
-         convertirFecha2ASinHora(reporte.fecha).includes(buscador)
-           
-       );
+      let results = reportes.reportes.filter(
+        (reporte) => reporte.numero == buscador
+      );
+
+      if (results.length == 0) {
+        results = reportes.reportes.filter((reporte) =>
+          convertirFecha2ASinHora(reporte.fecha).includes(buscador)
+        );
       }
-    
-      if(results.length==0){
+
+      if (results.length == 0) {
         results = reportes.reportes.filter(
           (reporte) =>
-           
-        reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
-        reporte.usuario.nombreUsuario
-          .toLowerCase()
-          .includes(buscador.toLowerCase()) ||
-        reporte.dispositivo.nombre
-          .toLowerCase()
-          .includes(buscador.toLowerCase()) ||
-          reporte.categoria.nombre
-          .toLowerCase()
-          .includes(buscador.toLowerCase()))
+            reporte.detalle.toLowerCase().includes(buscador.toLowerCase()) ||
+            reporte.usuario.nombreUsuario
+              .toLowerCase()
+              .includes(buscador.toLowerCase()) ||
+            reporte.dispositivo.nombre
+              .toLowerCase()
+              .includes(buscador.toLowerCase()) ||
+            reporte.categoria.nombre
+              .toLowerCase()
+              .includes(buscador.toLowerCase())
+        );
       }
       setResultadoBusqueda(results);
     }
@@ -114,37 +132,37 @@ const ListarEventos = () => {
 
   function obtenerPeriodoDelDia() {
     const horaActual = new Date().getHours();
-  
+
     if (horaActual >= 7 && horaActual < 15) {
-      return 'mañana';
+      return "mañana";
     } else if (horaActual >= 15 && horaActual < 23) {
-      return 'tarde';
+      return "tarde";
     } else {
-      return 'noche';
+      return "noche";
     }
   }
 
   function obtenerPeriodoDelDiaConHora(fechaString) {
     const hora = fechaString.split(", ")[1].split(":")[0];
-  
+
     const horaActual = parseInt(hora, 10);
-  
+
     if (horaActual >= 7 && horaActual < 15) {
-      return 'mañana';
+      return "mañana";
     } else if (horaActual >= 15 && horaActual < 23) {
-      return 'tarde';
+      return "tarde";
     } else {
-      return 'noche';
+      return "noche";
     }
   }
 
   function obtenerFechaActualEnFormatoISO() {
     const fechaActual = new Date();
-  
+
     const year = fechaActual.getFullYear();
-    const month = String(fechaActual.getMonth() + 1).padStart(2, '0');
-    const day = String(fechaActual.getDate()).padStart(2, '0');
-  
+    const month = String(fechaActual.getMonth() + 1).padStart(2, "0");
+    const day = String(fechaActual.getDate()).padStart(2, "0");
+
     return `${year}-${month}-${day}`;
   }
   function convertirFechaASinHora(fecha) {
@@ -165,17 +183,22 @@ const ListarEventos = () => {
 
     const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
     const mesNumerico = meses[mes];
-    const diaConCeros = String(dia).padStart(2, '0');
-    if( `${anio}-${mesNumerico}-${diaConCeros}` == obtenerFechaActualEnFormatoISO()){
+    const diaConCeros = String(dia).padStart(2, "0");
+    if (
+      `${anio}-${mesNumerico}-${diaConCeros}` ==
+      obtenerFechaActualEnFormatoISO()
+    ) {
       return true;
-    }else return false;
-
+    } else return false;
   }
   function obtenerTotalObjetosCumplenCondicion(array) {
-
-      const filterArr = array.filter(rep=>(obtenerPeriodoDelDia()== obtenerPeriodoDelDiaConHora(rep.fecha)) && convertirFechaASinHora(rep.fecha)  )
-      return filterArr.length;
-    }
+    const filterArr = array.filter(
+      (rep) =>
+        obtenerPeriodoDelDia() == obtenerPeriodoDelDiaConHora(rep.fecha) &&
+        convertirFechaASinHora(rep.fecha)
+    );
+    return filterArr.length;
+  }
 
   return (
     <Container fluid className="layoutHeight">
@@ -190,51 +213,106 @@ const ListarEventos = () => {
           icon={faMagnifyingGlass}
           className="iconoBusquedaCamaras"
         />
-        {
-          (user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor") &&
+        {(user.tipoDeUsuario == "admin" ||
+          user.tipoDeUsuario == "visualizador" ||
+          user.tipoDeUsuario == "supervisor") && (
+          <Button
+            onClick={nuevoReporte}
+            style={{
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+            }}
+          >
+            +
+          </Button>
+        )}
 
-        <Button
-          onClick={nuevoReporte}
-          style={{
-            borderRadius: "50%",
-            width: "40px",
-            height: "40px",
-          }}
-        >
-          +
-        </Button>
-        }
-        
-        {
-          user.tipoDeUsuario == "supervisor" &&
+        {user.tipoDeUsuario == "supervisor" && (
           <>
-          <label className="totalTurno" htmlFor="">Turno {obtenerPeriodoDelDia()}: {reportes.reportes !== undefined? obtenerTotalObjetosCumplenCondicion(reportes.reportes) : ""}</label>
-          <FontAwesomeIcon onClick={limpiarInputRadio} className="refrescarLista" icon={faRotate} />
+            <label className="totalTurno" htmlFor="">
+              Turno {obtenerPeriodoDelDia()}:{" "}
+              {reportes.reportes !== undefined
+                ? obtenerTotalObjetosCumplenCondicion(reportes.reportes)
+                : ""}
+            </label>
+            <FontAwesomeIcon
+              onClick={limpiarInputRadio}
+              className="refrescarLista"
+              icon={faRotate}
+            />
           </>
-        }
+        )}
 
-        {
-            user.tipoDeUsuario == "visualizador" &&
-            <label className="totalTurno" htmlFor="">Total del día: {reportes.reportes !== undefined? reportes.reportes.length : ""}</label>
-        }
-        
+        {user.tipoDeUsuario == "visualizador" && (
+          <label className="totalTurno" htmlFor="">
+            Total del día:{" "}
+            {reportes.reportes !== undefined ? reportes.reportes.length : ""}
+          </label>
+        )}
+
         <div className="d-flex filtrarPorDespacho">
-            <label className="me-1">Despachos</label>
-            <input checked={checkboxDespacho} onClick={()=>filtroReportesDespachados(reportes.reportes.filter((reporte) =>reporte.despacho !== undefined),checkboxDespacho)} 
-            name="" value="" type="checkbox"></input>
+          <label className="me-1">Despachos</label>
+          <input
+            checked={checkboxDespacho}
+            onClick={() =>
+              filtroReportesDespachados(
+                reportes.reportes.filter(
+                  (reporte) => reporte.despacho !== undefined
+                ),
+                checkboxDespacho
+              )
+            }
+            name=""
+            value=""
+            type="checkbox"
+          ></input>
         </div>
 
-        {
-          user.tipoDeUsuario == "supervisor" &&
+        {user.tipoDeUsuario == "supervisor" && (
           <div className="d-flex filtrarPorTipo">
             <label className="me-1">Seguridad</label>
-            <input checked={selectedRadio == "Seguridad"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Seguridad")),"Seguridad")} 
-            name="tipoDeEvento" value="seguridad" type="radio"></input>
+            <input
+              checked={checkboxSeguridad}
+              onClick={() =>
+                filtroReportesSeguridad(
+                  checkboxDespacho
+                    ? ResultadoBusqueda.filter(
+                        (reporte) => reporte.naturaleza.nombre == "Seguridad"
+                      )
+                    : reportes.reportes.filter(
+                        (reporte) => reporte.naturaleza.nombre == "Seguridad"
+                      ),
+                  checkboxSeguridad
+                )
+              }
+              disabled={checkboxMunicipal ? true : false}
+              name="tipoDeEvento"
+              value="seguridad"
+              type="checkbox"
+            ></input>
             <label className="ms-4 me-1">Municipal</label>
-            <input checked={selectedRadio == "Municipal"? true : false} onClick={()=>filtroInputRadio(reportes.reportes.filter((reporte) =>reporte.naturaleza.nombre.toString().includes("Municipal")),"Municipal")} 
-            name="tipoDeEvento" value="municipal" type="radio"></input>
+            <input
+              checked={checkboxMunicipal}
+              onClick={() =>
+                filtroReportesMunicipal(
+                  checkboxDespacho
+                    ? ResultadoBusqueda.filter(
+                        (reporte) => reporte.naturaleza.nombre == "Municipal"
+                      )
+                    : reportes.reportes.filter(
+                        (reporte) => reporte.naturaleza.nombre == "Municipal"
+                      ),
+                  checkboxMunicipal
+                )
+              }
+              disabled={checkboxSeguridad ? true : false}
+              name="tipoDeEvento"
+              value="municipal"
+              type="checkbox"
+            ></input>
           </div>
-        }
+        )}
       </div>
 
       <Row className="mt-5">

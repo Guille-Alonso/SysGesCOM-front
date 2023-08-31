@@ -58,7 +58,12 @@ function NavbarComponent() {
   }, []);
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="" variant="dark">
+    <Navbar
+      collapseOnSelect
+      expand={user.tipoDeUsuario == "admin" ? "xxl" : "lg"}
+      bg=""
+      variant="dark"
+    >
       <Container fluid className="mx-4">
         <Navbar.Brand
           onClick={home}

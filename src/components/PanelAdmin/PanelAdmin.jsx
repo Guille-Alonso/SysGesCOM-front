@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import axios from "../../config/axios";
+import "./PanelAdmin.css";
 
 const darAltaNoticia = async () => {
   try {
@@ -17,10 +18,10 @@ const PanelAdmin = () => {
   return (
     <>
       <div className="layoutHeight">
-        <Button className="botonMostrarPodio" onClick={darAltaNoticia}>
+        <Button className="botonMostrarPodio " onClick={darAltaNoticia}>
           Mostrar Podio
         </Button>
-        <Button className="botonMostrarPodio" onClick={darBajaNoticia}>
+        <Button className="botonMostrarPodio " onClick={darBajaNoticia}>
           Ocultar Podio
         </Button>
       </div>

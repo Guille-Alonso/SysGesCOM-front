@@ -118,7 +118,7 @@ const HomePage = () => {
           <ReactFloatingBalloons
             className="globosFC"
             count={10}
-            msgText={`Feli Pumple !!!!! ${user.nombre}`}
+            msgText={`Feliz Cumple !!!!! ${user.nombre}`}
             colors={["yellow", "green", "blue", "red", "orange", "purple"]}
             style={{ transition: "opacity 1s", opacity: showBalloons ? 1 : 0 }}
             loop={false}

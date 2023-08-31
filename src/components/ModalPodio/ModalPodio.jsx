@@ -5,6 +5,7 @@ import podioSvg from "../../assets/podium-speaker-audio.svg";
 import axios from "../../config/axios";
 import { COMContext } from "../../context/COMContext";
 import Confetti from "react-confetti";
+import larry from "../../assets/LarryTheBird.png";
 
 function ModalPodio({ reportes }) {
   const [show, setShow] = useState(true);
@@ -44,21 +45,17 @@ function ModalPodio({ reportes }) {
           </div>
           <img src={podioSvg} className="svgPodio" alt="" />
           <div className="fotosPodio">
-            <img
-              className="fotoPodio1"
-              src="https://img.freepik.com/premium-photo/bird-with-suit-it-that-says-i-am-bird_771335-50286.jpg"
-              alt=""
-            />
+            <img className="fotoPodio1" src={larry} alt="" />
             <img
               className="fotoPodio2"
               title={reportes.usuariosConMasReportes[0]?.usuario.nombreUsuario}
-              src="https://img.freepik.com/premium-photo/bird-with-suit-it-that-says-i-am-bird_771335-50286.jpg"
+              src={larry}
               alt=""
             />
             <img
               className="fotoPodio3"
               title={reportes.usuariosConMasReportes[2]?.usuario.nombreUsuario}
-              src="https://img.freepik.com/premium-photo/bird-with-suit-it-that-says-i-am-bird_771335-50286.jpg"
+              src={larry}
               alt=""
             />
           </div>

@@ -13,6 +13,10 @@ const ProviderCOM = ({ children }) => {
 
   const [buscador, setBuscador] = useState("");
   const [paginacion, setPaginacion] = useState(1);
+  const [checkboxDespacho, setCheckboxDespacho] = useState(false);
+  const [checkboxSeguridad, setCheckboxSeguridad] = useState(false);
+  const [checkboxMunicipal, setCheckboxMunicipal] = useState(false);
+  const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
 
   const [categoryName, setCategoryName] = useState("");
 
@@ -65,6 +69,14 @@ const ProviderCOM = ({ children }) => {
         setBuscador,
         categoryName,
         setCategoryName,
+        checkboxDespacho,
+        checkboxMunicipal,
+        checkboxSeguridad,
+        setCheckboxDespacho,
+        setCheckboxMunicipal,
+        setCheckboxSeguridad,
+        ResultadoBusqueda,
+        setResultadoBusqueda
       }}
     >
       {children}

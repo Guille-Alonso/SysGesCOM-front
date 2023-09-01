@@ -11,13 +11,12 @@ import "./ListarEventos.css";
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
-  const { user, buscador, setBuscador, setPaginacion } = useContext(COMContext);
+  const { user, buscador, setBuscador, setPaginacion,checkboxDespacho,checkboxMunicipal,checkboxSeguridad,setCheckboxDespacho,
+    setCheckboxMunicipal,setCheckboxSeguridad, ResultadoBusqueda,setResultadoBusqueda } = useContext(COMContext);
   // const [buscador, setBuscador] = useState("");
-  const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
+
   const [selected, setSelected] = useState(undefined);
-  const [checkboxDespacho, setCheckboxDespacho] = useState(false);
-  const [checkboxSeguridad, setCheckboxSeguridad] = useState(false);
-  const [checkboxMunicipal, setCheckboxMunicipal] = useState(false);
+  
 
   const handleChange = (event) => {
     setBuscador(event.target.value);
@@ -47,11 +46,22 @@ const ListarEventos = () => {
     setCheckboxDespacho(!SiONo);
     if (!checkboxDespacho) {
       setResultadoBusqueda(array);
-    } else setResultadoBusqueda(reportes.reportes);
+    } else if (checkboxDespacho) {
+      if(checkboxSeguridad){
+        setResultadoBusqueda(
+          reportes.reportes.filter((reporte) => reporte.naturaleza.nombre == "Seguridad")
+        );
+      }else if(checkboxMunicipal){
+        setResultadoBusqueda(
+          reportes.reportes.filter((reporte) => reporte.naturaleza.nombre == "Municipal")
+        );
+      }else setResultadoBusqueda(reportes.reportes);
+    }
 
     setSelectedRadio(false);
     setPaginacion(1);
   };
+  
   const filtroReportesSeguridad = (array, SiONo) => {
     setCheckboxSeguridad(!SiONo);
     if (!checkboxSeguridad) {
@@ -97,7 +107,8 @@ const ListarEventos = () => {
   }
 
   useEffect(() => {
-    if (Array.isArray(reportes.reportes)) {
+
+    if (Array.isArray(reportes.reportes) && buscador !== "") {
       setSelectedRadio(false);
       setCheckboxDespacho(false);
 
@@ -257,6 +268,11 @@ const ListarEventos = () => {
             checked={checkboxDespacho}
             onClick={() =>
               filtroReportesDespachados(
+                checkboxSeguridad || checkboxMunicipal
+                    ? ResultadoBusqueda.filter(
+                      (reporte) => reporte.despacho !== undefined
+                      )
+                    :
                 reportes.reportes.filter(
                   (reporte) => reporte.despacho !== undefined
                 ),

@@ -61,7 +61,7 @@ const ListarCamaras = () => {
             +
           </Button>
         </div>
-  
+
         <Row>
           <Col className="d-flex justify-content-center">
             {loading ? (
@@ -69,7 +69,23 @@ const ListarCamaras = () => {
             ) : (
               <TableCamaras
                 headings={["Nombre", "Ubicacion", "Tipo"]}
-                items={ResultadoBusqueda}
+                items={ResultadoBusqueda.sort((camaraA, camaraB) => {
+                  const numeroA = parseInt(
+                    camaraA.nombre.replace(/[a-zA-Z]+/, "")
+                  );
+                  const numeroB = parseInt(
+                    camaraB.nombre.replace(/[a-zA-Z]+/, "")
+                  );
+                  const nombreA = camaraA.nombre.replace(/[0-9]+/, "");
+                  const nombreB = camaraB.nombre.replace(/[0-9]+/, "");
+
+                  // Primero compara los nombres alfabéticamente
+                  if (nombreA < nombreB) return -1;
+                  if (nombreA > nombreB) return 1;
+
+                  // Si los nombres son iguales, compara los números
+                  return numeroA - numeroB;
+                })}
                 setSelected={setSelected}
                 selected={selected}
                 getCamaras={getCamaras}

@@ -83,7 +83,7 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
       Jun: "06",
       Jul: "07",
       Ago: "08",
-      Sep: "09",
+      Sept: "09",
       Oct: "10",
       Nov: "11",
       Dic: "12",

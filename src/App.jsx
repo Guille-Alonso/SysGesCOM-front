@@ -28,6 +28,7 @@ import Notificaciones from "./components/Notificaciones/Notificaciones";
 import PrivateRouteVisualizadores from "./routes/PrivateRouteVisualizadores";
 import PanelSupervisor from "./components/PanelSupervisor/PanelSupervisor";
 import PrivateRouteSupervisores from "./routes/PrivateRouteSupervisores";
+import PanelAdmin from "./components/PanelAdmin/panelAdmin";
 
 function App() {
   return (
@@ -91,7 +92,7 @@ function App() {
                 </PrivateRouteVisualizadores>
               }
             />
-              <Route
+            <Route
               path="/relevamiento-motos-panel"
               element={
                 <PrivateRouteSupervisores>
@@ -186,6 +187,14 @@ function App() {
                 <PrivateRoute>
                   <EditarDespacho />
                 </PrivateRoute>
+              }
+            />
+            <Route
+              path="/panelAdmin"
+              element={
+                <PrivateRouteAdmin>
+                  <PanelAdmin />
+                </PrivateRouteAdmin>
               }
             />
           </Routes>

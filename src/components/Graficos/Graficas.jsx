@@ -102,7 +102,7 @@ export function Grafico() {
       Jun: "06",
       Jul: "07",
       Ago: "08",
-      Sep: "09",
+      Sept: "09",
       Oct: "10",
       Nov: "11",
       Dic: "12",
@@ -444,7 +444,7 @@ export function Grafico() {
                     {/* )} */}
                     <div className="headerSelectWrapper">
                       <div className="custom-tooltip">
-                        <label htmlFor="">Despachos</label>
+                        <label className="me-2">Despachos</label>
                         <div className="tooltip-content">
                           Al combinar filtros, utilizar éste en último término
                         </div>
@@ -477,12 +477,12 @@ export function Grafico() {
                       onMouseEnter={() => setIsHovered(true)}
                       onMouseLeave={() => setIsHovered(false)}
                       key={index}
-                      className="liCamarasyDomos"
+                      className="liCamarasyDomos ps-2"
                       style={{
                         backgroundColor:
                           currentIndex === index && !isHovered
-                            ? "#ccc"
-                            : "transparent",
+                            ? "#1967D2"
+                            : "#101113",
                       }}
                       onClick={(e) => handleSuggestionClick(suggestion, e)}
                     >

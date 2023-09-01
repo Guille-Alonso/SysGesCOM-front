@@ -108,9 +108,11 @@ const ListarEventos = () => {
 
   useEffect(() => {
 
-    if (Array.isArray(reportes.reportes) && buscador !== "") {
+    if (Array.isArray(reportes.reportes) && ((!checkboxDespacho && !checkboxMunicipal && !checkboxSeguridad)||(buscador !== ""))) {
       setSelectedRadio(false);
       setCheckboxDespacho(false);
+      setCheckboxMunicipal(false);
+      setCheckboxSeguridad(false)
 
       let results = reportes.reportes.filter(
         (reporte) => reporte.numero == buscador
@@ -186,7 +188,7 @@ const ListarEventos = () => {
       Jun: "06",
       Jul: "07",
       Ago: "08",
-      Sep: "09",
+      Sept: "09",
       Oct: "10",
       Nov: "11",
       Dic: "12",

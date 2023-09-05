@@ -58,10 +58,10 @@ const ExportToExcel = ({ data }) => {
         naturaleza: item.naturaleza.nombre,
         categoria: item.categoria.nombre,
         subcategoria: item.subcategoria?.nombre,
-        // despacho: item.despacho?.acuse
         despacho: item.despacho?.reparticiones
           .map((repart) => repart.nombre)
           .join(", "),
+        supervisor: item.despacho?.usuario.nombre,
 
         // Otros campos de objeto
       };

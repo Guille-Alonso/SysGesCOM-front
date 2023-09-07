@@ -32,15 +32,14 @@ const GraficaSubcategoria = () => {
 
   const suggestionContainerRef = useRef(null);
 
-  // const fechaActual = new Date();
-  // const primerDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
-  // const ultimoDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+  const fechaActual = new Date();
+  const primerDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+  const ultimoDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
   
-  // const [fechaDesde, setFechaDesde] = useState(primerDiaDelMes.toISOString().substr(0, 10));
-  // const [fechaHasta, setFechaHasta] = useState(ultimoDiaDelMes.toISOString().substr(0, 10));  
+  const [fechaDesde, setFechaDesde] = useState(primerDiaDelMes.toISOString().substr(0, 10));
+  const [fechaHasta, setFechaHasta] = useState(ultimoDiaDelMes.toISOString().substr(0, 10));  
 
-  const [fechaDesde, setFechaDesde] = useState("");
-  const [fechaHasta, setFechaHasta] = useState("");  
+  const [flagHistorico, setFlagHistorico] = useState(true) 
 
   const [isHovered, setIsHovered] = useState(false);
   const [changeClass, setChangeClass] = useState(false);
@@ -384,6 +383,25 @@ const GraficaSubcategoria = () => {
     }
   };
 
+  const traerHistorico = async () => {
+    if (flagHistorico) {
+      setReportesFecha([])
+      setTurno("");
+      setFechaDesde("");
+      setFechaHasta("");
+      setDespachado(false);
+      setSearchTerm({ nombre: "" });
+      try {
+        setFlagHistorico(false)
+        const { data } = await axios.get("/reportes/listarHistorico");
+        setReportes(data.reportes);
+        setReportesFecha(data.reportes);
+      } catch (error) {
+        console.log("Error al obtener los reportes:", error);
+      }
+    }
+  }
+
   return (
     <>
       <div className="container filterContainer">
@@ -404,6 +422,10 @@ const GraficaSubcategoria = () => {
                   onKeyDown={handleKeyDown}
                   placeholder="Ingrese un nombre"
                 />
+                <div className="d-flex">
+                  <label className="me-1">Histórico</label>
+                  <input disabled={!flagHistorico} onClick={traerHistorico} type="checkbox" name="" id="" />
+                </div>
                 <div className="headerSelectWrapper">
                   <select
                     id=""

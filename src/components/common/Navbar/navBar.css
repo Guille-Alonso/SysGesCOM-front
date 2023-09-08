@@ -39,6 +39,8 @@
   color: #999;
 }
 
+
+
 .icons-drop {
   text-decoration: none;
   display: flex;
@@ -61,5 +63,27 @@ nav a {
 @media (max-width: 990px) {
   .userProfile {
     display: none;
+  }
+
+  .dropdown-menu {
+    background-color: transparent !important;
+  }
+
+  .divNav {
+    height: max-content;
+  }
+
+
+  .dropdown-menu a {
+    color: #c5c5c8 !important;
+  }
+
+  .dropdown-menu :hover {
+    background-color: transparent !important;
+
+  }
+
+  .dropdown-menu :hover {
+    color: #0d6efd !important;
   }
 }

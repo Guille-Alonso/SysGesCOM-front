@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,24 +16,14 @@ import { Form, Spinner } from "react-bootstrap";
 import "../AltaEvento/AltaEvento.css";
 import useGet from "../../hooks/useGet";
 import "./Graficas.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendarDays,
-  faChevronDown,
-  faPersonWalkingArrowLoopLeft,
-  faUserTie,
-} from "@fortawesome/free-solid-svg-icons";
 import GraficaSubcategoria from "./GraficaSubcategoria";
 import { COMContext } from "../../context/COMContext";
 import ExportToExcel from "../ExportarExcel/ExportToExcel";
-import { toast } from "react-toastify";
 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [openDate, setOpenDate] = useState(false);
-  const [etiquetaDesde, setEtiquetaDesde] = useState("Desde");
-  const [etiquetaHasta, setEtiquetaHasta] = useState("Hasta");
+
   const [reportes, setReportes] = useState([]);
   const [reportesFecha, setReportesFecha] = useState([]);
   const [turno, setTurno] = useState("");
@@ -45,8 +35,14 @@ export function Grafico() {
 
   const suggestionContainerRef = useRef(null);
 
-  const [fechaDesde, setFechaDesde] = useState("");
-  const [fechaHasta, setFechaHasta] = useState("");
+  const fechaActual = new Date();
+  const primerDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+  const ultimoDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+  
+  const [fechaDesde, setFechaDesde] = useState(primerDiaDelMes.toISOString().substr(0, 10));
+  const [fechaHasta, setFechaHasta] = useState(ultimoDiaDelMes.toISOString().substr(0, 10));
+  
+  const [flagHistorico, setFlagHistorico] = useState(true) 
 
   const [isHovered, setIsHovered] = useState(false);
   const [changeClass, setChangeClass] = useState(false);
@@ -83,13 +79,11 @@ export function Grafico() {
   const handleFechaDesdeChange = (event) => {
     const fechaSeleccionada = event.target.value;
     setFechaDesde(fechaSeleccionada);
-    setEtiquetaDesde(fechaSeleccionada !== "" ? fechaSeleccionada : "Desde");
   };
 
   const handleFechaHastaChange = (event) => {
     const fechaSeleccionada = event.target.value;
     setFechaHasta(fechaSeleccionada);
-    setEtiquetaHasta(fechaSeleccionada !== "" ? fechaSeleccionada : "Hasta");
   };
 
   function convertirFecha2ASinHora(fecha) {
@@ -372,6 +366,25 @@ export function Grafico() {
     }
   };
 
+  const traerHistorico = async () => {
+    if (flagHistorico) {
+      setReportesFecha([])
+      setTurno("");
+      setFechaDesde("");
+      setFechaHasta("");
+      setDespachado(false);
+      setSearchTerm({ nombre: "" });
+      try {
+        setFlagHistorico(false)
+        const { data } = await axios.get("/reportes/listarHistorico");
+        setReportes(data.reportes);
+        setReportesFecha(data.reportes);
+      } catch (error) {
+        console.log("Error al obtener los reportes:", error);
+      }
+    }
+  }
+
   return (
     <>
       {categoryName !== "" ? (
@@ -397,6 +410,10 @@ export function Grafico() {
                       placeholder="Ingrese un nombre"
                       disabled = {loading ? true : false}
                     />
+                      <div className="d-flex">
+                        <label className="me-1">Histórico</label>
+                        <input disabled={!flagHistorico} onClick={traerHistorico} type="checkbox" name="" id="" />
+                      </div>
                     <div className="headerSelectWrapper">
                       <select
                         id=""
@@ -427,7 +444,7 @@ export function Grafico() {
                     </select>
                   </div>
                   <div className="headerSearchItem2">
-                    {/* {openDate && ( */}
+                   
                     <div className="dateContainer">
                       <input
                         type="date"
@@ -446,7 +463,7 @@ export function Grafico() {
                         disabled = {loading ? true : false}
                       />
                     </div>
-                    {/* )} */}
+                  
                     <div className="headerSelectWrapper">
                       <div className="custom-tooltip">
                         <label className="me-2">Despachos</label>

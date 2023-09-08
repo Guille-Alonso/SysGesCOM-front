@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./navBar.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { COMContext } from "../../../context/COMContext";
 import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png";
@@ -76,7 +76,11 @@ function NavbarComponent() {
       </Link>
     ));
   };
+  const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
+  const toggleNavbar = () => {
+    setIsNavbarCollapsed(!isNavbarCollapsed);
+  };
 
   return (
     <Navbar
@@ -100,9 +104,9 @@ function NavbarComponent() {
             alt="COM Logo"
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <div className="d-sm-flex ml-auto align-items-center">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleNavbar} />
+        <Navbar.Collapse id="basic-navbar-nav" className={isNavbarCollapsed ? 'collapsed' : ''}>
+           <div className="d-sm-flex ml-auto w-100  ">
 
             <Nav className="my-2 me-auto">
               {authenticated && user.tipoDeUsuario == "admin" && renderMenuItems()}
@@ -120,21 +124,21 @@ function NavbarComponent() {
                   </Link>
                 )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-3" to="/alta-categoria">
+                <Link className="ms-xxl-3" to="/alta-categoria">
                   Categorías
                 </Link>
               )}
               {authenticated && (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "administración") && (
-                  <Link className="ms-3" to="/cambio-turno">
+                  <Link className="ms-xxl-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
                 )}
               {authenticated &&
                 (user.relevamientoHabilitado ||
                   user.tipoDeUsuario == "supervisor") && (
-                  <Link className="ms-3" to="/relevamiento-motos">
+                  <Link className="ms-xxl-3" to="/relevamiento-motos">
                     Relevamiento
                   </Link>
                 )}
@@ -145,16 +149,17 @@ function NavbarComponent() {
                 <NavDropdown
                   title={user.nombre}
                   id="collasible-nav-dropdown"
-                  className="my-2 profileCard align-content-end"
+                  className=" my-2 profileCard align-content-end"
                 >
                   <NavDropdown.Item onClick={userProfile} className="navigation">
                     <ion-icon
                       name="help-circle-outline"
                       className="icons-drop"
                     ></ion-icon>
-                    <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
+                    <strong >{user.tipoDeUsuario.toUpperCase()}</strong>
                   </NavDropdown.Item>
-                  <NavDropdown.Divider />
+                  
+                  <NavDropdown.Divider className="d-sm-none d-xxl-block"/>
                   {/* {user.tipoDeUsuario == "admin" && ( */}
                   <NavDropdown.Item onClick={settings} className="navigation">
                     <ion-icon
@@ -201,7 +206,7 @@ function NavbarComponent() {
                   ) : (
                     <></>
                   )}
-                  <NavDropdown.Divider />
+                  <NavDropdown.Divider className="d-sm-none d-xxl-block"/>
                   <NavDropdown.Item onClick={logOut} className="navigation">
                     <ion-icon
                       name="log-out-outline"

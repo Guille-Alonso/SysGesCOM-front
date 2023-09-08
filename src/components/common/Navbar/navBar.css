@@ -69,6 +69,11 @@ nav a {
     background-color: transparent !important;
   }
 
+  .divNav {
+    height: max-content;
+  }
+
+
   .dropdown-menu a {
     color: #c5c5c8 !important;
   }

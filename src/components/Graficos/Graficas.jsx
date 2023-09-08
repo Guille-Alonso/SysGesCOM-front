@@ -395,6 +395,7 @@ export function Grafico() {
                       className="headerSearchInput"
                       onKeyDown={handleKeyDown}
                       placeholder="Ingrese un nombre"
+                      disabled = {loading ? true : false}
                     />
                     <div className="headerSelectWrapper">
                       <select
@@ -402,6 +403,7 @@ export function Grafico() {
                         onChange={selectedCategoria}
                         value={categoryName}
                         className="headerSelect"
+                        disabled = {loading ? true : false}
                       >
                         <option value="">Categorías</option>
                         {labelsCat.length !== 0 &&
@@ -416,6 +418,7 @@ export function Grafico() {
                       onChange={selectedTurno}
                       value={turno}
                       className="headerSelect"
+                      disabled = {loading ? true : false}
                     >
                       <option value="">Todos</option>
                       <option value="mañana">Mañana</option>
@@ -432,6 +435,7 @@ export function Grafico() {
                         id="desde"
                         value={fechaDesde}
                         onChange={handleFechaDesdeChange}
+                        disabled = {loading ? true : false}
                       />
                       <input
                         type="date"
@@ -439,6 +443,7 @@ export function Grafico() {
                         id="hasta"
                         value={fechaHasta}
                         onChange={handleFechaHastaChange}
+                        disabled = {loading ? true : false}
                       />
                     </div>
                     {/* )} */}
@@ -454,6 +459,7 @@ export function Grafico() {
                           type="checkbox"
                           name=""
                           id=""
+                          disabled = {loading ? true : false}
                         />
                       </div>
                     </div>

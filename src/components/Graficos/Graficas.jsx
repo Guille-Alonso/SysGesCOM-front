@@ -408,7 +408,7 @@ export function Grafico() {
                       className="headerSearchInput"
                       onKeyDown={handleKeyDown}
                       placeholder="Ingrese un nombre"
-                      disabled = {loading ? true : false}
+                      disabled = {reportesFecha.length == 0 ? true : false}
                     />
                       <div className="d-flex">
                         <label className="me-1">Histórico</label>

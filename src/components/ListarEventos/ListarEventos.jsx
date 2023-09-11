@@ -13,7 +13,6 @@ const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
   const { user, buscador, setBuscador, setPaginacion,checkboxDespacho,checkboxMunicipal,checkboxSeguridad,setCheckboxDespacho,
     setCheckboxMunicipal,setCheckboxSeguridad, ResultadoBusqueda,setResultadoBusqueda } = useContext(COMContext);
-  // const [buscador, setBuscador] = useState("");
 
   const [selected, setSelected] = useState(undefined);
   
@@ -28,19 +27,11 @@ const ListarEventos = () => {
     navigate("/alta-reporte");
   };
 
-  const [selectedRadio, setSelectedRadio] = useState(undefined);
-
   const limpiarInputRadio = () => {
-    setSelectedRadio(false);
     setCheckboxDespacho(false);
     getReportes();
   };
 
-  const filtroInputRadio = (array, tipoEvento) => {
-    setResultadoBusqueda(array);
-    setSelectedRadio(tipoEvento);
-    setPaginacion(1);
-  };
 
   const filtroReportesDespachados = (array, SiONo) => {
     setCheckboxDespacho(!SiONo);
@@ -58,7 +49,6 @@ const ListarEventos = () => {
       }else setResultadoBusqueda(reportes.reportes);
     }
 
-    setSelectedRadio(false);
     setPaginacion(1);
   };
   
@@ -94,7 +84,7 @@ const ListarEventos = () => {
       Jun: "06",
       Jul: "07",
       Ago: "08",
-      Sep: "09",
+      Sept: "09",
       Oct: "10",
       Nov: "11",
       Dic: "12",
@@ -109,7 +99,7 @@ const ListarEventos = () => {
   useEffect(() => {
 
     if (Array.isArray(reportes.reportes) && ((!checkboxDespacho && !checkboxMunicipal && !checkboxSeguridad)||(buscador !== ""))) {
-      setSelectedRadio(false);
+     
       setCheckboxDespacho(false);
       setCheckboxMunicipal(false);
       setCheckboxSeguridad(false)

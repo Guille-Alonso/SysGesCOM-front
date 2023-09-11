@@ -106,6 +106,7 @@ const HomePage = () => {
             className="selectPodio mt-2"
             onChange={(e) => setTipoPodio(e.target.value)}
             value={tipoPodio}
+            disabled = {loading ? true : false}
           >
             <option value="general">General</option>
             <option value="turno">Mi Turno</option>

@@ -376,11 +376,11 @@ const DetalleEvento = () => {
                 !editReporte &&
                 datos.reporte.despacho == null && (
                   <div className=" botonEditarDetalleEvento d-flex justify-content-left">
-                    {datos.reporte.subcategoria._id !=
+                    {datos.reporte.subcategoria?._id !=
                       "64e7da580a5e30019cccd20a" && (
                       <Button onClick={handleEditReporte}>Editar</Button>
                     )}
-                  </div>
+                  </div>//el id 64e7da580a5e30019cccd20a de la subcat pertenece a relevamiento de motos
                 )}
               {editReporte && (
                 <Button disabled={botonState} className=" mt-3" type="submit">

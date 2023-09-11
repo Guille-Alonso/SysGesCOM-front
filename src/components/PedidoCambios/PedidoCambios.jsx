@@ -5,9 +5,14 @@ import { Button, Col, Row, Spinner } from "react-bootstrap";
 import axios from "../../config/axios";
 import { nanoid } from "nanoid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBan, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBan,
+  faCircleCheck,
+  faPrint,
+} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "./PedidoCambios.css";
+import { useNavigate } from "react-router-dom";
 
 const PedidoCambios = () => {
   const { user } = useContext(COMContext);
@@ -114,6 +119,12 @@ const PedidoCambios = () => {
     if (currentPageConfirmado > 1) {
       setCurrentPageConfirmado(currentPageConfirmado - 1);
     }
+  };
+
+  const navigate = useNavigate();
+  const descargarPDF = (cam) => {
+    const props = { cambios: cam };
+    navigate("/cambio-pdf", { state: props });
   };
 
   return (
@@ -236,6 +247,7 @@ const PedidoCambios = () => {
                         <th scope="col">Dia a devolver</th>
                         <th scope="col">Solicitado</th>
                         <th scope="col">Estado</th>
+                        <th scope="col">#</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -259,6 +271,12 @@ const PedidoCambios = () => {
                                 <td>{cam.pedidoDevolucion}</td>
                                 <td>{cam.solicitado.nombreUsuario}</td>
                                 <td>Confirmado</td>
+                                <td>
+                                  <FontAwesomeIcon
+                                    onClick={() => descargarPDF(cam)}
+                                    icon={faPrint}
+                                  />
+                                </td>
                               </tr>
                             );
                           })

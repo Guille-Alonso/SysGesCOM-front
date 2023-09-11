@@ -68,6 +68,25 @@ const PedidoCambios = () => {
     }
   };
 
+  const comparaFechaPedidoConActual = (fecha) => {
+    
+    let fechaActual = new Date();
+    fechaActual.setHours(0, 0, 0, 0);
+  
+    let fechaDeseada = new Date(fecha);
+    fechaDeseada.setDate(fechaDeseada.getDate() + 1); 
+    fechaDeseada.setHours(0, 0, 0, 0);
+
+    if (fechaDeseada < fechaActual) {
+      return false;
+    } else if (fechaDeseada > fechaActual) {
+      return true;
+    } else {
+      return true;
+    }
+
+  }
+
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const totalItems = cambios?.cambios?.filter(
@@ -77,7 +96,7 @@ const PedidoCambios = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleChanges = cambios.cambios
-    ?.filter((cam) => cam.estado === "acordado")
+    ?.filter((cam) => cam.estado === "acordado"  && comparaFechaPedidoConActual(cam.pedido) && comparaFechaPedidoConActual(cam.pedidoDevolucion))
     .reverse()
     ?.slice(startIndex, endIndex);
 
@@ -132,7 +151,7 @@ const PedidoCambios = () => {
       <div className="layoutHeight2">
         <Row className="m-0 gap-0">
           {/* Cambiar la linea de abajo por administración */}
-          {user.tipoDeUsuario == "admin" && (
+          {user.tipoDeUsuario == "administración" && (
             <Col lg={6} className="p-0">
               <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
                 <div className="cardCambioColor2">

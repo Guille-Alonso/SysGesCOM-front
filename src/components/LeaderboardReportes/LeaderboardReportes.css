@@ -1,15 +1,15 @@
-.leaderboard{
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    background-color: transparent;
-    width: 300px;;
-    margin-top: 50px;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.leaderboard {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #000;
+  width: 350px;
+  margin-top: 20px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .leaderboard tr {
-    color: #ffff;
-    background-color: transparent !important;
+  color: #ffff;
+  background-color: transparent !important;
 }

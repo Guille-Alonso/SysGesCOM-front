@@ -408,10 +408,11 @@ export function Grafico() {
                       className="headerSearchInput"
                       onKeyDown={handleKeyDown}
                       placeholder="Ingrese un nombre"
+                      disabled = {reportesFecha.length == 0 ? true : false}
                     />
                       <div className="d-flex">
                         <label className="me-1">Histórico</label>
-                        <input disabled={!flagHistorico} onClick={traerHistorico} type="checkbox" name="" id="" />
+                        <input disabled={!flagHistorico|| reportesFecha.length == 0 ? true : false} onClick={traerHistorico} type="checkbox" name="" id="" />
                       </div>
                     <div className="headerSelectWrapper">
                       <select
@@ -419,6 +420,7 @@ export function Grafico() {
                         onChange={selectedCategoria}
                         value={categoryName}
                         className="headerSelect"
+                        disabled = {reportesFecha.length == 0 ? true : false}
                       >
                         <option value="">Categorías</option>
                         {labelsCat.length !== 0 &&
@@ -433,6 +435,7 @@ export function Grafico() {
                       onChange={selectedTurno}
                       value={turno}
                       className="headerSelect"
+                      disabled = {reportesFecha.length == 0 ? true : false}
                     >
                       <option value="">Todos</option>
                       <option value="mañana">Mañana</option>
@@ -449,6 +452,7 @@ export function Grafico() {
                         id="desde"
                         value={fechaDesde}
                         onChange={handleFechaDesdeChange}
+                        disabled = {reportesFecha.length == 0 ? true : false}
                       />
                       <input
                         type="date"
@@ -456,6 +460,7 @@ export function Grafico() {
                         id="hasta"
                         value={fechaHasta}
                         onChange={handleFechaHastaChange}
+                        disabled = {reportesFecha.length == 0 ? true : false}
                       />
                     </div>
                   
@@ -471,6 +476,7 @@ export function Grafico() {
                           type="checkbox"
                           name=""
                           id=""
+                          disabled = {reportesFecha.length == 0 ? true : false}
                         />
                       </div>
                     </div>

@@ -5,7 +5,6 @@ import "./PDFcambios.css";
 const PDFcambios = () => {
   const location = useLocation();
   const datos = location.state;
-  console.log(datos.cambios);
 
   return (
     <>

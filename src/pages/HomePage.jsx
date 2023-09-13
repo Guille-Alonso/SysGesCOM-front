@@ -10,11 +10,10 @@ import { COMContext } from "../context/COMContext";
 import Confetti from "react-confetti";
 import { ReactFloatingBalloons } from "react-floating-balloons";
 import ModalPodio from "../components/ModalPodio/ModalPodio";
-import fotoPredet from "../assets/fotoPredeterminada.png";
+import Dashboard from "../components/DashboardHome/Dashboard";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podio", axios);
-  const [reportesDelDia, loadingReportes] = useGet("/reportes/listar", axios);
   const [tipoPodio, setTipoPodio] = useState("general");
 
   function obtenerPeriodoDelDiaConHora(fecha) {
@@ -61,37 +60,12 @@ const HomePage = () => {
       <div className="d-flex justify-content-around contenedorHome">
         <main className="estadisticas">
           <div>
-            <div className="dashboardUsuario mt-5 d-flex">
-              <div className="dashboardIzquierda">
-                <div className="dashboardCard d-flex justify-content-center align-items-center">
-                  <img
-                    className="imgProfileDashboard"
-                    src={
-                      user.foto !== undefined && user.foto !== ""
-                        ? user.foto
-                        : fotoPredet
-                    }
-                  />
-                </div>
-                <div className="dashboardCard d-flex flex-column justify-content-around align-items-center text-light pt-2">
-                  <h5 className="tituloReportes">Reportes del dia</h5>
-                  {user.tipoDeUsuario == "visualizador" && (
-                    <h2 className="text-light numeroDeReportesDashboard">
-                      {loadingReportes ? (
-                        <Spinner />
-                      ) : (
-                        reportesDelDia.reportes.length
-                      )}
-                    </h2>
-                  )}
-                </div>
-                <div className="dashboardCard d-flex"></div>
-                <div className="dashboardCard d-flex"></div>
-              </div>
-              <div className="dashboardDerecha">
-                <div className="dashboardCardBig d-flex"></div>
-              </div>
-            </div>
+            {user.tipoDeUsuario == "supervisor" ||
+            user.tipoDeUsuario == "visualizador" ? (
+              <Dashboard />
+            ) : (
+              <></>
+            )}
             {loading ? (
               <Spinner className="mt-3 d-none" />
             ) : user.noticias || user.noticias == null ? (
@@ -106,7 +80,7 @@ const HomePage = () => {
             className="selectPodio mt-2"
             onChange={(e) => setTipoPodio(e.target.value)}
             value={tipoPodio}
-            disabled = {loading ? true : false}
+            disabled={loading ? true : false}
           >
             <option value="general">General</option>
             <option value="turno">Mi Turno</option>

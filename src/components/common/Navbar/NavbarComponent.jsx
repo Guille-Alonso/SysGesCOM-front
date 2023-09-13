@@ -77,9 +77,41 @@ function NavbarComponent() {
     ));
   };
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
+
+
+  const handleResize = () => {
+    setIsDesktop(window.innerWidth >= 990);
+
+    if (!isDesktop) {
+      setIsNavbarCollapsed(true);
+    }
+  };
+
+  useEffect(() => {
+    getAuth();
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const toggleNavbar = () => {
-    setIsNavbarCollapsed(!isNavbarCollapsed);
+    if (isDesktop) {
+      setIsNavbarCollapsed(!isNavbarCollapsed);
+    }
+  };
+
+  const toggleDropdown = () => {
+    if (isDropdownOpen && isDesktop) {
+      // Si ya está abierto en pantalla grande, lo cerramos
+      setIsDropdownOpen(false);
+    } else {
+      // Si no está abierto o si estamos en pantalla pequeña, lo abrimos
+      setIsDropdownOpen(true);
+    }
   };
 
   return (
@@ -105,17 +137,17 @@ function NavbarComponent() {
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleNavbar} />
-        <Navbar.Collapse id="basic-navbar-nav" className={isNavbarCollapsed ? 'collapsed' : ''}>
-           <div className="d-sm-flex ml-auto w-100  ">
+        <Navbar.Collapse id="basic-navbar-nav" className={isNavbarCollapsed ? '' : 'show'}>
+          <div className="d-sm-flex ml-auto w-100  ">
 
-            <Nav className="my-2 me-auto">
+            <Nav className="my-2 me-auto space-evenly">
               {authenticated && user.tipoDeUsuario == "admin" && renderMenuItems()}
               {authenticated &&
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes">Reportes</Link>
+                  <Link to="/reportes" className="" >Reportes</Link>
                 )}
               {authenticated &&
                 (user.tipoDeUsuario == "estadística") && (
@@ -147,9 +179,12 @@ function NavbarComponent() {
             {authenticated ? (
               <Nav>
                 <NavDropdown
-                  title={user.nombre}
+                  title={!isDesktop
+                     ? null : user.nombre}
                   id="collasible-nav-dropdown"
                   className=" my-2 profileCard align-content-end"
+                  show={!isDesktop || isDropdownOpen}
+                  onClick={toggleDropdown}
                 >
                   <NavDropdown.Item onClick={userProfile} className="navigation">
                     <ion-icon
@@ -158,8 +193,8 @@ function NavbarComponent() {
                     ></ion-icon>
                     <strong >{user.tipoDeUsuario.toUpperCase()}</strong>
                   </NavDropdown.Item>
-                  
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block"/>
+
+                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
                   {/* {user.tipoDeUsuario == "admin" && ( */}
                   <NavDropdown.Item onClick={settings} className="navigation">
                     <ion-icon
@@ -206,7 +241,7 @@ function NavbarComponent() {
                   ) : (
                     <></>
                   )}
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block"/>
+                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
                   <NavDropdown.Item onClick={logOut} className="navigation">
                     <ion-icon
                       name="log-out-outline"

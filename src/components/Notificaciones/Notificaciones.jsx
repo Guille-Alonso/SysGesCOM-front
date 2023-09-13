@@ -44,6 +44,25 @@ const Notificaciones = () => {
     }
   };
 
+  const comparaFechaPedidoConActual = (fecha) => {
+    
+    let fechaActual = new Date();
+    fechaActual.setHours(0, 0, 0, 0);
+  
+    let fechaDeseada = new Date(fecha);
+    fechaDeseada.setDate(fechaDeseada.getDate() + 1); 
+    fechaDeseada.setHours(0, 0, 0, 0);
+
+    if (fechaDeseada < fechaActual) {
+      return false;
+    } else if (fechaDeseada > fechaActual) {
+      return true;
+    } else {
+      return true;
+    }
+
+  }
+
   const calcularFechaMinima = () => {
     const fechaActual = new Date();
     fechaActual.setDate(fechaActual.getDate() + 3); // Suma 3 días
@@ -59,11 +78,9 @@ const Notificaciones = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleChanges = cambios.cambios
-    ?.filter((cam) => cam.estado === "consultado")
+    ?.filter((cam) => cam.estado === "consultado" && comparaFechaPedidoConActual(cam.pedido) && comparaFechaPedidoConActual(cam.pedidoDevolucion))
     .reverse()
     ?.slice(startIndex, endIndex);
-
-  console.log(cambios.cambios);
 
   const nextPage = () => {
     if (currentPage < totalPages) {

@@ -39,7 +39,9 @@
   color: #999;
 }
 
-
+.space-evenly{
+  justify-content: space-evenly;
+}
 
 .icons-drop {
   text-decoration: none;
@@ -72,8 +74,9 @@ nav a {
   .divNav {
     height: max-content;
   }
-
-
+  .navbar-nav .nav-item .nav-link::after {
+    content: none !important;
+  }
   .dropdown-menu a {
     color: #c5c5c8 !important;
   }

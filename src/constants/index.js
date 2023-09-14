@@ -82,3 +82,12 @@ export const ALTA_PEDIDOS_VALUES = {
   solicitado: "",
   estado: Boolean,
 };
+
+export const ALTA_TICKETS_VALUES = {
+  fecha: "",
+  detalle: "",
+  usuario: "",
+  dispositivo: "",
+  photo: "",
+  ubicacion: ""
+};

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import { Spinner } from "react-bootstrap";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
-import workingSvg from "../assets/img/focused-working.svg";
 import useGet from "../hooks/useGet";
 import axios from "../config/axios";
 import CardCambios from "../components/CardCambio/CardCambios";
@@ -10,8 +9,8 @@ import { getDate, getMonth, parseISO } from "date-fns";
 import { COMContext } from "../context/COMContext";
 import Confetti from "react-confetti";
 import { ReactFloatingBalloons } from "react-floating-balloons";
-
 import ModalPodio from "../components/ModalPodio/ModalPodio";
+import Dashboard from "../components/DashboardHome/Dashboard";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podio", axios);
@@ -58,10 +57,15 @@ const HomePage = () => {
 
   return (
     <div className="layoutHeight">
-      <div className="d-flex justify-content-around">
+      <div className="d-flex justify-content-around contenedorHome">
         <main className="estadisticas">
           <div>
-            <img src={workingSvg} className="inProgress" alt="" />
+            {user.tipoDeUsuario == "supervisor" ||
+            user.tipoDeUsuario == "visualizador" ? (
+              <Dashboard />
+            ) : (
+              <></>
+            )}
             {loading ? (
               <Spinner className="mt-3 d-none" />
             ) : user.noticias || user.noticias == null ? (
@@ -76,7 +80,7 @@ const HomePage = () => {
             className="selectPodio mt-2"
             onChange={(e) => setTipoPodio(e.target.value)}
             value={tipoPodio}
-            disabled = {loading ? true : false}
+            disabled={loading ? true : false}
           >
             <option value="general">General</option>
             <option value="turno">Mi Turno</option>
@@ -119,7 +123,7 @@ const HomePage = () => {
           <ReactFloatingBalloons
             className="globosFC"
             count={10}
-            msgText={`Feliz Cumple !!!!! ${user.nombre}`}
+            msgText={`Feliz Cumple !! ${user.nombre}`}
             colors={["yellow", "green", "blue", "red", "orange", "purple"]}
             style={{ transition: "opacity 1s", opacity: showBalloons ? 1 : 0 }}
             loop={false}

@@ -30,6 +30,7 @@ import PanelSupervisor from "./components/PanelSupervisor/PanelSupervisor";
 import PrivateRouteSupervisores from "./routes/PrivateRouteSupervisores";
 import PanelAdmin from "./components/PanelAdmin/panelAdmin";
 import AltaTickets  from "./components/AltaTickets/AltaTickets";
+import PDFcambios from "./components/PDFCambios/PDFcambios";
 
 function App() {
   return (
@@ -50,6 +51,14 @@ function App() {
               element={
                 <PrivateRouteAdministracion>
                   <PedidoCambios />
+                </PrivateRouteAdministracion>
+              }
+            />
+            <Route
+              path="/cambio-pdf"
+              element={
+                <PrivateRouteAdministracion>
+                  <PDFcambios />
                 </PrivateRouteAdministracion>
               }
             />

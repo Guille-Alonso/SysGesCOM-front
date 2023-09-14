@@ -85,8 +85,9 @@ export const ALTA_PEDIDOS_VALUES = {
 
 export const ALTA_TICKETS_VALUES = {
   fecha: "",
-  detalle: "",
+  descripcion: "",
   usuario: "",
+  titulo:"",
   dispositivo: "",
   photo: "",
   ubicacion: ""

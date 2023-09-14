@@ -93,8 +93,8 @@ const Dashboard = () => {
       title: {
         display: true,
         text: user.tipoDeUsuario=="visualizador"?'Reportes del Mes':'Despachos del Mes', // Personaliza el título aquí
-        fontSize: 16,
-        color:"white"
+        fontSize: 18,
+        color:"red",
       },
     },
   };

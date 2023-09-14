@@ -10,9 +10,9 @@ export const validationsAltaTicket = (values) => {
       errors.titulo = "El titulo no puede tener menos de 4 caracteres";
     }
 
-    if (!values.ubicacion) {
-      errors.ubicacion = "Debes elegir una sugerencia de dispositivo (hacer click)";
-    }
+    // if (!values.ubicacion) {
+    //   errors.ubicacion = "Debes elegir una sugerencia de dispositivo (hacer click)";
+    // }
   
     if (!values.descripcion) {
       errors.descripcion = "La descripción es requerida";

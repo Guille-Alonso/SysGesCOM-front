@@ -92,9 +92,9 @@ const Dashboard = () => {
     plugins: {
       title: {
         display: true,
-        text: user.tipoDeUsuario=="visualizador"?'Reportes del Mes':'Despachos del Mes', // Personaliza el título aquí
-        fontSize: 18,
-        color:"red",
+        text: user.tipoDeUsuario=="visualizador"?"Reportes del Mes":"Despachos del mes", // Personaliza el título aquí
+        fontSize: 16,
+        color: "white"
       },
     },
   };

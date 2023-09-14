@@ -13,12 +13,12 @@ const Dashboard = () => {
   const { user } = useContext(COMContext);
 
   const [reportesDelDia, loadingReportes] =
-    user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor"
+    user.tipoDeUsuario == "visualizador"
       ? useGet("/reportes/listar", axios)
       : [];
   const [reportesTotal, loadingReportesTotal] =
     user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor"
-      ? useGet("/reportes/totalesVisualizador", axios)
+      ? useGet("/reportes/totalesVisualizadorYSupervisor", axios)
       : [];
 
   function getRandomColor() {
@@ -55,8 +55,7 @@ const Dashboard = () => {
           countObj[categoria] = 1;
         }
       }
-      console.log(reportesTotal);
-      // setCatsLabel(cats)
+  
       return countObj;
     } else {
       for (let index = 0; index < reportesTotal.totalMes?.length; index++) {
@@ -82,12 +81,24 @@ const Dashboard = () => {
     labels,
     datasets: [
       {
-        label: "Cantidad de Reportes por Categoría",
+        label: user.tipoDeUsuario=="visualizador"?"Cantidad de Reportes por Categoría":"Cantidad de Despachos por Categoría",
         data: Object.values(categoriasLabels()),
         backgroundColor: getRandomColor(),
       },
     ],
   };
+
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: user.tipoDeUsuario=="visualizador"?'Reportes del Mes':'Despachos del Mes', // Personaliza el título aquí
+        fontSize: 16,
+        color:"white"
+      },
+    },
+  };
+  
 
   return (
     <>
@@ -115,7 +126,7 @@ const Dashboard = () => {
               </h2>
             )}
             {user.tipoDeUsuario == "supervisor" && (
-              <h2 className="text-light numeroDeReportesDashboard">🫡</h2>
+              <h2 className="text-light numeroDeReportesDashboard">👮‍♂️</h2>
             )}
           </div>
           <div className="dashboardCard d-flex flex-column justify-content-around align-items-center text-light pt-2">
@@ -171,7 +182,12 @@ const Dashboard = () => {
         </div>
         <div className="dashboardDerecha">
           <div className="dashboardCardBig d-flex justify-content-center">
-            <Pie data={data} />
+            {
+              loadingReportesTotal?
+              <Spinner variant="light" className="mt-3"/>:
+
+            <Pie data={data} options={options}/>
+            }
           </div>
         </div>
       </div>

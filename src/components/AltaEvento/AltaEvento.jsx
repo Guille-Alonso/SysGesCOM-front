@@ -318,6 +318,9 @@ const AltaEvento = () => {
                       {subcategorias
                         .filter((subcat) => subcat.categoria._id == catSelected)
                         .map((item) => {
+                          if (item.nombre == "RELEVAMIENTO MOTOS") {
+                            return null;
+                          }
                           return (
                             <option key={item._id} value={item._id}>
                               {item.nombre}

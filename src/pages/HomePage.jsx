@@ -11,14 +11,20 @@ import Confetti from "react-confetti";
 import { ReactFloatingBalloons } from "react-floating-balloons";
 import ModalPodio from "../components/ModalPodio/ModalPodio";
 import Dashboard from "../components/DashboardHome/Dashboard";
+import GifCard from "../components/GifCard/GifCard";
+import { axiosGiphy } from "../config/axiosGiphy";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podio", axios);
   const [tipoPodio, setTipoPodio] = useState("general");
 
+  const { user } = useContext(COMContext);
+  
+  const [gifs, loadingGifs] = user.tipoDeUsuario=="admin"? useGet(`/emoji?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&limit=6`, axiosGiphy):[];
+
   function obtenerPeriodoDelDiaConHora(fecha) {
     const horaActual = fecha.getHours();
-
+    
     if (horaActual >= 7 && horaActual < 15) {
       return "mañana";
     } else if (horaActual >= 15 && horaActual < 23) {
@@ -27,14 +33,12 @@ const HomePage = () => {
       return "noche";
     }
   }
-
+  
   const [reportesTurno, loadingTurno] = useGet(
     `/reportes/podio/${obtenerPeriodoDelDiaConHora(new Date())}`,
     axios
-  );
-
-  const { user } = useContext(COMContext);
-
+    );
+    
   const nacimientoDate = parseISO(user.nacimiento);
   const today = new Date();
 
@@ -58,13 +62,24 @@ const HomePage = () => {
   return (
     <div className="layoutHeight">
       <div className="d-flex justify-content-around contenedorHome">
-        <main className="estadisticas">
+        <main className={user.tipoDeUsuario!=="admin"?"estadisticas":"giphyApi"}>
           <div>
             {user.tipoDeUsuario == "supervisor" ||
             user.tipoDeUsuario == "visualizador" ? (
               <Dashboard />
             ) : (
-              <></>
+              <div>
+                {loadingGifs?
+                <Spinner className="mt-3" variant="light"/>
+                :
+                <div className="d-flex flex-wrap">
+                  {
+                    gifs.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
+                  }
+
+                </div>
+                }
+              </div>
             )}
             {loading ? (
               <Spinner className="mt-3 d-none" />

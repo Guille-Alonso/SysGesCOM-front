@@ -78,25 +78,38 @@ function NavbarComponent() {
   };
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
-
+  const [isDesktop, setIsDesktop] = user?.tipoDeUsuario == "admin"? useState(window.innerWidth >= 1400) : useState(window.innerWidth >= 990);
 
   const handleResize = () => {
-    setIsDesktop(window.innerWidth >= 990);
+    if(user?.tipoDeUsuario !== "admin" ){
+      setIsDesktop(window.innerWidth >= 990);
 
-    if (!isDesktop) {
-      setIsNavbarCollapsed(true);
+      if (!isDesktop) {
+        setIsNavbarCollapsed(true);
+      }
+ 
+    }else{
+      setIsDesktop(window.innerWidth >= 1400);
+
+      if (!isDesktop) {
+        setIsNavbarCollapsed(true);
+      }
     }
+   
   };
 
+useEffect(() => {
+  getAuth();
+}, [])
+
+
   useEffect(() => {
-    getAuth();
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [user]);
 
   const toggleNavbar = () => {
     if (isDesktop) {
@@ -147,7 +160,7 @@ function NavbarComponent() {
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="" >Reportes</Link>
+                  <Link to="/reportes" className="ms-md-3 ms-xl-0" >Reportes</Link>
                 )}
               {authenticated &&
                 (user.tipoDeUsuario == "estadística") && (
@@ -163,26 +176,26 @@ function NavbarComponent() {
               {authenticated && (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "administración") && (
-                  <Link className="ms-xxl-3" to="/cambio-turno">
+                  <Link className="ms-md-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
                 )}
               {authenticated &&
                 (user.relevamientoHabilitado ||
                   user.tipoDeUsuario == "supervisor") && (
-                  <Link className="ms-xxl-3" to="/relevamiento-motos">
+                  <Link className="ms-md-3" to="/relevamiento-motos">
                     Relevamiento
                   </Link>
                 )}
             </Nav>
 
             {authenticated ? (
-              <Nav>
+              <Nav className={user.tipoDeUsuario=="admin"?"isAdmin":"notAdmin"}>
                 <NavDropdown
                   title={!isDesktop
                      ? null : user.nombre}
                   id="collasible-nav-dropdown"
-                  className=" my-2 profileCard align-content-end"
+                  className="my-2 profileCard align-content-end"
                   show={!isDesktop || isDropdownOpen}
                   onClick={toggleDropdown}
                 >

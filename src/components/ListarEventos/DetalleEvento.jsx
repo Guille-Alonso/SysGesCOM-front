@@ -285,7 +285,7 @@ const DetalleEvento = () => {
                   >
                     <option value="">Selecciona una opcion</option>
                     {subcategorias
-                      .filter((subcat) => subcat.categoria._id == catSelected)
+                      .filter((subcat) => subcat.categoria._id == catSelected && subcat._id !=="64e7da580a5e30019cccd20a")
                       .map((item) => {
                         return (
                           <option key={item._id} value={item._id}>

@@ -10,16 +10,22 @@ import { COMContext } from "../context/COMContext";
 import Confetti from "react-confetti";
 import { ReactFloatingBalloons } from "react-floating-balloons";
 import ModalPodio from "../components/ModalPodio/ModalPodio";
-import fotoPredet from "../assets/fotoPredeterminada.png";
+import Dashboard from "../components/DashboardHome/Dashboard";
+import GifCard from "../components/GifCard/GifCard";
+import { axiosGiphy, axiosGiphySearch } from "../config/axiosGiphy";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podio", axios);
-  const [reportesDelDia, loadingReportes] = useGet("/reportes/listar", axios);
   const [tipoPodio, setTipoPodio] = useState("general");
+
+  const { user } = useContext(COMContext);
+  
+  const [gifs, loadingGifs] = user.tipoDeUsuario!=="supervisor" || user.tipoDeUsuario!=="visualizador" ? useGet(`/emoji?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&limit=6`, axiosGiphy):[];
 
   function obtenerPeriodoDelDiaConHora(fecha) {
     const horaActual = fecha.getHours();
-
+    
     if (horaActual >= 7 && horaActual < 15) {
       return "mañana";
     } else if (horaActual >= 15 && horaActual < 23) {
@@ -28,14 +34,12 @@ const HomePage = () => {
       return "noche";
     }
   }
-
+  
   const [reportesTurno, loadingTurno] = useGet(
     `/reportes/podio/${obtenerPeriodoDelDiaConHora(new Date())}`,
     axios
-  );
-
-  const { user } = useContext(COMContext);
-
+    );
+    
   const nacimientoDate = parseISO(user.nacimiento);
   const today = new Date();
 
@@ -56,42 +60,68 @@ const HomePage = () => {
     }
   }, [isBirthday]);
 
+  //GIPHY
+  const [search, setSearch] = useState('')
+  const [results, setResults] = useState([])
+  const [isSearching, setIsSearching] = useState(false);
+
+  const doSearch = async()=>{
+    try {
+      const {data} = await axiosGiphySearch.get(`/gifs/search?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&q=${search}&limit=6&rating=g`);
+      setResults(data.data);
+      setIsSearching(false);
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  const handleChangeGiphy = (e)=>{
+    setSearch(e.target.value);
+    setIsSearching(true);
+  }
+  
+  useEffect(()=>{
+    if(isSearching){
+      doSearch()
+    }
+},[search])
+
   return (
     <div className="layoutHeight">
       <div className="d-flex justify-content-around contenedorHome">
-        <main className="estadisticas">
+        <main className={user.tipoDeUsuario=="visualizador" || user.tipoDeUsuario=="supervisor" ?"estadisticas":"giphyApi"}>
+          
           <div>
-            <div className="dashboardUsuario mt-5 d-flex">
-              <div className="dashboardIzquierda">
-                <div className="dashboardCard d-flex justify-content-center align-items-center">
-                  <img
-                    className="imgProfileDashboard"
-                    src={
-                      user.foto !== undefined && user.foto !== ""
-                        ? user.foto
-                        : fotoPredet
-                    }
-                  />
+            {user.tipoDeUsuario == "supervisor" ||
+            user.tipoDeUsuario == "visualizador" ? (
+              <Dashboard />
+            ) : (
+              <div>
+              
+                {loadingGifs?
+                <Spinner className="mt-3" variant="light"/>
+                :
+                <div>
+                  <div className="mb-1">
+                  <label className="ms-2">Buscar :</label>
+                  <input type="text" value={search} className='ms-2' onChange={handleChangeGiphy} />
+                  </div>
+                <div className="d-flex flex-wrap">
+                  {
+                       results.length!==0?
+                       <div className="d-flex flex-wrap">
+                         {
+                           results.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
+                         }
+                       </div> 
+                       : gifs.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
+                  }
+
                 </div>
-                <div className="dashboardCard d-flex flex-column justify-content-around align-items-center text-light pt-2">
-                  <h5 className="tituloReportes">Reportes del dia</h5>
-                  {user.tipoDeUsuario == "visualizador" && (
-                    <h2 className="text-light numeroDeReportesDashboard">
-                      {loadingReportes ? (
-                        <Spinner />
-                      ) : (
-                        reportesDelDia.reportes.length
-                      )}
-                    </h2>
-                  )}
                 </div>
-                <div className="dashboardCard d-flex"></div>
-                <div className="dashboardCard d-flex"></div>
+                }
               </div>
-              <div className="dashboardDerecha">
-                <div className="dashboardCardBig d-flex"></div>
-              </div>
-            </div>
+            )}
             {loading ? (
               <Spinner className="mt-3 d-none" />
             ) : user.noticias || user.noticias == null ? (
@@ -106,7 +136,7 @@ const HomePage = () => {
             className="selectPodio mt-2"
             onChange={(e) => setTipoPodio(e.target.value)}
             value={tipoPodio}
-            disabled = {loading ? true : false}
+            disabled={loading ? true : false}
           >
             <option value="general">General</option>
             <option value="turno">Mi Turno</option>

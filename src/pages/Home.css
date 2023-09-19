@@ -2,6 +2,9 @@
   width: 60%;
   height: 60vh;
 }
+.giphyApi {
+  width: 60%;
+}
 .contenedorCambios {
   display: flex;
   flex-direction: column;

@@ -316,7 +316,7 @@ const AltaEvento = () => {
                       <option value="">Seleccione una opción</option>
 
                       {subcategorias
-                        .filter((subcat) => subcat.categoria._id == catSelected)
+                        .filter((subcat) => subcat.categoria._id == catSelected && subcat._id !=="64e7da580a5e30019cccd20a")
                         .map((item) => {
                           return (
                             <option key={item._id} value={item._id}>
@@ -325,6 +325,7 @@ const AltaEvento = () => {
                           );
                         })}
                     </Form.Select>
+                    {/* el id 64e7da580a5e30019cccd20a de la subcat pertenece a relevamiento de motos */}
                   </Form.Group>
                 </Col>
               </Row>

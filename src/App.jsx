@@ -29,6 +29,7 @@ import PrivateRouteVisualizadores from "./routes/PrivateRouteVisualizadores";
 import PanelSupervisor from "./components/PanelSupervisor/PanelSupervisor";
 import PrivateRouteSupervisores from "./routes/PrivateRouteSupervisores";
 import PanelAdmin from "./components/PanelAdmin/panelAdmin";
+import AltaTickets  from "./components/AltaTickets/AltaTickets";
 import PDFcambios from "./components/PDFCambios/PDFcambios";
 
 function App() {
@@ -204,6 +205,14 @@ function App() {
                 <PrivateRouteAdmin>
                   <PanelAdmin />
                 </PrivateRouteAdmin>
+              }
+            />
+             <Route
+              path="/tickets"
+              element={
+                <PrivateRoute>
+                  <AltaTickets/>
+                </PrivateRoute>
               }
             />
           </Routes>

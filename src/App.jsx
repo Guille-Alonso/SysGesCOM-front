@@ -29,8 +29,10 @@ import PrivateRouteVisualizadores from "./routes/PrivateRouteVisualizadores";
 import PanelSupervisor from "./components/PanelSupervisor/PanelSupervisor";
 import PrivateRouteSupervisores from "./routes/PrivateRouteSupervisores";
 import PanelAdmin from "./components/PanelAdmin/panelAdmin";
-import AltaTickets  from "./components/AltaTickets/AltaTickets";
 import PDFcambios from "./components/PDFCambios/PDFcambios";
+import ListarTickets from "./components/Tickets/ListarTickets";
+import AltaTickets from "./components/Tickets/AltaTickets";
+import DetalleTicket from "./components/Tickets/DetalleTicket";
 
 function App() {
   return (
@@ -207,11 +209,27 @@ function App() {
                 </PrivateRouteAdmin>
               }
             />
-             <Route
+            <Route
               path="/tickets"
               element={
                 <PrivateRoute>
-                  <AltaTickets/>
+                  <ListarTickets />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/nuevo-ticket"
+              element={
+                <PrivateRoute>
+                  <AltaTickets />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/detalleTicket"
+              element={
+                <PrivateRoute>
+                  <DetalleTicket />
                 </PrivateRoute>
               }
             />

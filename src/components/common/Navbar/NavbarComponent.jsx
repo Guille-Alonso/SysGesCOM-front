@@ -65,6 +65,7 @@ function NavbarComponent() {
     { text: "Relevamiento", path: "/relevamiento-motos" },
     { text: "Reportes", path: "/reportes" },
     { text: "Usuarios", path: "/lista-usuarios" },
+    { text: "Tickets", path: "/tickets" },
   ];
 
   menuItems.sort((a, b) => a.text.localeCompare(b.text));
@@ -79,7 +80,6 @@ function NavbarComponent() {
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
-
 
   const handleResize = () => {
     setIsDesktop(window.innerWidth >= 990);
@@ -136,33 +136,42 @@ function NavbarComponent() {
             alt="COM Logo"
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleNavbar} />
-        <Navbar.Collapse id="basic-navbar-nav" className={isNavbarCollapsed ? '' : 'show'}>
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={toggleNavbar}
+        />
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className={isNavbarCollapsed ? "" : "show"}
+        >
           <div className="d-sm-flex ml-auto w-100  ">
-
             <Nav className="my-2 me-auto space-evenly">
-              {authenticated && user.tipoDeUsuario == "admin" && renderMenuItems()}
+              {authenticated &&
+                user.tipoDeUsuario == "admin" &&
+                renderMenuItems()}
               {authenticated &&
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="" >Reportes</Link>
-                )}
-              {authenticated &&
-                (user.tipoDeUsuario == "estadística") && (
-                  <Link to="/estadisticas" className="ms-3">
-                    Estadísticas
+                  <Link to="/reportes" className="">
+                    Reportes
                   </Link>
                 )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link to="/estadisticas" className="ms-3">
+                  Estadísticas
+                </Link>
+              )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
                 <Link className="ms-xxl-3" to="/alta-categoria">
                   Categorías
                 </Link>
               )}
-              {authenticated && (user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor" ||
-                user.tipoDeUsuario == "administración") && (
+              {authenticated &&
+                (user.tipoDeUsuario == "visualizador" ||
+                  user.tipoDeUsuario == "supervisor" ||
+                  user.tipoDeUsuario == "administración") && (
                   <Link className="ms-xxl-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
@@ -179,19 +188,21 @@ function NavbarComponent() {
             {authenticated ? (
               <Nav>
                 <NavDropdown
-                  title={!isDesktop
-                     ? null : user.nombre}
+                  title={!isDesktop ? null : user.nombre}
                   id="collasible-nav-dropdown"
                   className=" my-2 profileCard align-content-end"
                   show={!isDesktop || isDropdownOpen}
                   onClick={toggleDropdown}
                 >
-                  <NavDropdown.Item onClick={userProfile} className="navigation">
+                  <NavDropdown.Item
+                    onClick={userProfile}
+                    className="navigation"
+                  >
                     <ion-icon
                       name="help-circle-outline"
                       className="icons-drop"
                     ></ion-icon>
-                    <strong >{user.tipoDeUsuario.toUpperCase()}</strong>
+                    <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
                   </NavDropdown.Item>
 
                   <NavDropdown.Divider className="d-sm-none d-xxl-block" />
@@ -216,7 +227,7 @@ function NavbarComponent() {
                     Notificaciones
                   </NavDropdown.Item>
                   {user.tipoDeUsuario == "admin" ||
-                    user.tipoDeUsuario == "supervisor" ? (
+                  user.tipoDeUsuario == "supervisor" ? (
                     <NavDropdown.Item
                       onClick={panelSupervisor}
                       className="navigation"
@@ -231,7 +242,10 @@ function NavbarComponent() {
                     <></>
                   )}
                   {user.tipoDeUsuario == "admin" ? (
-                    <NavDropdown.Item onClick={panelAdmin} className="navigation">
+                    <NavDropdown.Item
+                      onClick={panelAdmin}
+                      className="navigation"
+                    >
                       <ion-icon
                         name="settings-outline"
                         className="icons-drop"
@@ -268,7 +282,7 @@ function NavbarComponent() {
           </div>
         </Navbar.Collapse>
       </Container>
-    </Navbar >
+    </Navbar>
   );
 }
 

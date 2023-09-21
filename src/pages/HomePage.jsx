@@ -12,7 +12,8 @@ import { ReactFloatingBalloons } from "react-floating-balloons";
 import ModalPodio from "../components/ModalPodio/ModalPodio";
 import Dashboard from "../components/DashboardHome/Dashboard";
 import GifCard from "../components/GifCard/GifCard";
-import { axiosGiphy } from "../config/axiosGiphy";
+import { axiosGiphy, axiosGiphySearch } from "../config/axiosGiphy";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podio", axios);
@@ -20,7 +21,7 @@ const HomePage = () => {
 
   const { user } = useContext(COMContext);
   
-  const [gifs, loadingGifs] = user.tipoDeUsuario=="admin"? useGet(`/emoji?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&limit=6`, axiosGiphy):[];
+  const [gifs, loadingGifs] = user.tipoDeUsuario!=="supervisor" || user.tipoDeUsuario!=="visualizador" ? useGet(`/emoji?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&limit=6`, axiosGiphy):[];
 
   function obtenerPeriodoDelDiaConHora(fecha) {
     const horaActual = fecha.getHours();
@@ -59,24 +60,64 @@ const HomePage = () => {
     }
   }, [isBirthday]);
 
+  //GIPHY
+  const [search, setSearch] = useState('')
+  const [results, setResults] = useState([])
+  const [isSearching, setIsSearching] = useState(false);
+
+  const doSearch = async()=>{
+    try {
+      const {data} = await axiosGiphySearch.get(`/gifs/search?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&q=${search}&limit=6&rating=g`);
+      setResults(data.data);
+      setIsSearching(false);
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  const handleChangeGiphy = (e)=>{
+    setSearch(e.target.value);
+    setIsSearching(true);
+  }
+  
+  useEffect(()=>{
+    if(isSearching){
+      doSearch()
+    }
+},[search])
+
   return (
     <div className="layoutHeight">
       <div className="d-flex justify-content-around contenedorHome">
-        <main className={user.tipoDeUsuario!=="admin"?"estadisticas":"giphyApi"}>
+        <main className={user.tipoDeUsuario=="visualizador" || user.tipoDeUsuario=="supervisor" ?"estadisticas":"giphyApi"}>
+          
           <div>
             {user.tipoDeUsuario == "supervisor" ||
             user.tipoDeUsuario == "visualizador" ? (
               <Dashboard />
             ) : (
               <div>
+              
                 {loadingGifs?
                 <Spinner className="mt-3" variant="light"/>
                 :
+                <div>
+                  <div className="mb-1">
+                  <label className="ms-2">Buscar :</label>
+                  <input type="text" value={search} className='ms-2' onChange={handleChangeGiphy} />
+                  </div>
                 <div className="d-flex flex-wrap">
                   {
-                    gifs.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
+                       results.length!==0?
+                       <div className="d-flex flex-wrap">
+                         {
+                           results.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
+                         }
+                       </div> 
+                       : gifs.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
                   }
 
+                </div>
                 </div>
                 }
               </div>

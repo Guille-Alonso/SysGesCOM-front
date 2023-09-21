@@ -169,7 +169,7 @@ useEffect(() => {
                   </Link>
                 )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-xxl-3" to="/alta-categoria">
+                <Link className="ms-sm-3 ms-xxl-3" to="/alta-categoria">
                   Categorías
                 </Link>
               )}

@@ -1,11 +1,17 @@
-.fotoReporteDetalle {
+.contTicket{
+  padding-left: 20px;
+  padding-right: 20px;
+
+}
+
+.fotoTicektDetalle {
   width: 100%;
   height: 100%;
   margin: auto;
   color: white;
   animation: pulse 1s alternate-reverse infinite;
 }
-.fotoReporteDetalle2 {
+.fotoTicketDetalle2 {
   object-fit: contain;
   width: 100%;
   height: 100%;
@@ -22,8 +28,7 @@
     scale: 1;
   }
 }
-
-.navbarReporte {
+.navbarTicket {
   height: 40px;
   display: flex;
   align-items: center;
@@ -38,7 +43,7 @@
   gap: 20px;
 }
 
-.detalleEditReporte {
+.descripcionEditarTicket {
   color: #fff;
   display: flex;
   margin-bottom: 1%;
@@ -46,8 +51,12 @@
   height: 38px;
   font-size: 18px;
 }
+.descripcionEditarTicketUbi{
+  color: #fff;
+  font-size: 18px;;
+}
 
-.inputEditReporte {
+.inputEditarTicket {
   width: 75% !important;
   color: #fff;
   max-height: 100px;
@@ -55,29 +64,46 @@
   margin-bottom: 2%;
 }
 
-.inputEditReporte2 {
+.inputEditarTicket2 {
   width: 500px !important;
   color: black;
   height: 100px !important;
   border-radius: 10px;
   padding-left: 10px;
   padding-top: 5px;
+  resize: none !important
+}
+.inputEditarTituloTicket {
+  width: 75% !important;
+  color: #fff;
+  max-height: 100px;
+  overflow-y: auto;
+  margin-bottom: 2%;
 }
 
-.botonEditarDetalleEvento {
+.inputEditarTituloTicket2 {
+  width: 500px !important;
+  color: black;
+  height: 40px !important;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-top: 7px;
+  resize: none !important
+}
+.botonEditarDetalleTicket {
   position: sticky;
 }
 
-.inputEditReporteDetalle {
+.inputEditarTicketDescripcion {
   width: fit-content;
   margin-bottom: 0% !important;
   color: #fff;
-  height: 100px;
+  height: auto;
   overflow-y: auto;
 }
 
 @media screen and (max-width: 992px) {
-  .navbarReporte {
+  .navbarTicket {
     height: 60px;
   }
 

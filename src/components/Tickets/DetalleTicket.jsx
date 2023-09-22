@@ -21,7 +21,7 @@ import svg404 from "../../assets/img/web-error.svg";
 import axios from "../../config/axios";
 
 const DetalleTicket = () => {
-  const [dispositivos, loading, getDispositivos] = useGet(
+  const [dispositivos, loading] = useGet(
     "/camaras/listar",
     axios
   );
@@ -156,7 +156,7 @@ const DetalleTicket = () => {
                     required
                   />
                 ) : (
-                  <p className="inputEditarTituloTicket mb-3" enabled>
+                  <p className="inputEditarTituloTicket" enabled>
                     {values.titulo}
                   </p>
                 )}
@@ -252,16 +252,19 @@ const DetalleTicket = () => {
                   name="photo"
                   accept="image/*"
                 />
-                {selectedFile && (
+                {selectedFile ? (
                   <img
                     src={selectedFile}
-                    className="mt-5 d-flex justify-content-center align-items-center w-100 fotoPreview"
+                    className="mt-5 d-flex justify-content-center align-items-center w-100 fotoPreviewTicket"
                     alt=""
                   />
-                )}
+                  )
+                  :
+                  <p className="xd"></p>
+              }
               </Form.Group>
             ) : (
-              <div className="d-flex h-100 contenedorImagenticket">
+              <div className="d-flex contenedorImagenticket">
                 {imageUrl ? (
                   <img
                     className="fotoTicketDetalle2"

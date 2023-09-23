@@ -190,7 +190,7 @@ useEffect(() => {
               {authenticated &&
                 (user.relevamientoHabilitado ||
                   user.tipoDeUsuario == "supervisor") && (
-                  <Link className="ms-md-3" to="/relevamiento-motos">
+                  <Link className=" ms-md-3 " to="/relevamiento-motos">
                     Relevamiento
                   </Link>
                 )}

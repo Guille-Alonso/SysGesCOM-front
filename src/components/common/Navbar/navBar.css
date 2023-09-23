@@ -62,7 +62,39 @@ nav a {
   color: #c5c5c8;
 }
 
-@media (max-width: 990px) {
+@media screen and (max-width: 575px) {
+  .userProfile {
+    display: none;
+  }
+
+  .dropdown-menu {
+    background-color: transparent !important;
+    padding: 0px;
+  }
+
+  .divNav {
+    height: max-content;
+  }
+  .navbar-nav .nav-item .nav-link::after {
+    content: none !important;
+  }
+  .dropdown-menu a {
+    color: #c5c5c8 !important;
+    padding-left: 0%;
+  }
+
+  .dropdown-menu :hover {
+    background-color: transparent !important;
+
+  }
+
+  .dropdown-menu :hover {
+    color: #0d6efd !important;
+  }
+  
+}
+
+@media (min-width: 575px) and (max-width: 990px) {
   .userProfile {
     display: none;
   }

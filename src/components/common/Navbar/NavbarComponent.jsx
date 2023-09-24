@@ -158,7 +158,7 @@ useEffect(() => {
           id="basic-navbar-nav"
           className={isNavbarCollapsed ? "" : "show"}
         >
-          <div className="d-sm-flex ml-auto w-100  ">
+          <div className="d-sm-flex ml-auto w-100 contNavBar ">
             <Nav className="my-2 me-auto space-evenly">
               {authenticated &&
                 user.tipoDeUsuario == "admin" &&
@@ -168,29 +168,29 @@ useEffect(() => {
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="" >Reportes</Link>
+                  <Link to="/reportes" className="navBtn" >Reportes</Link>
                 )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link to="/estadisticas" className="ms-3">
+                <Link to="/estadisticas" className="navBtn">
                   Estadísticas
                 </Link>
               )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-sm-3 ms-xxl-3" to="/alta-categoria">
+                <Link className="navBtn" to="/alta-categoria">
                   Categorías
                 </Link>
               )}
               {authenticated && (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "administración") && (
-                  <Link className="ms-xxl-3" to="/cambio-turno">
+                  <Link className="navBtn" to="/cambio-turno">
                     Cambios Turno
                   </Link>
                 )}
               {authenticated &&
                 (user.relevamientoHabilitado ||
                   user.tipoDeUsuario == "supervisor") && (
-                  <Link className=" ms-md-3 " to="/relevamiento-motos">
+                  <Link className=" navBtn " to="/relevamiento-motos">
                     Relevamiento
                   </Link>
                 )}
@@ -216,7 +216,7 @@ useEffect(() => {
                     <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
                   </NavDropdown.Item>
 
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
+                  <NavDropdown.Divider className="dirverDropDown" />
                   {/* {user.tipoDeUsuario == "admin" && ( */}
                   <NavDropdown.Item onClick={settings} className="navigation">
                     <ion-icon
@@ -266,7 +266,7 @@ useEffect(() => {
                   ) : (
                     <></>
                   )}
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
+                  <NavDropdown.Divider className="dirverDropDown" />
                   <NavDropdown.Item onClick={logOut} className="navigation">
                     <ion-icon
                       name="log-out-outline"

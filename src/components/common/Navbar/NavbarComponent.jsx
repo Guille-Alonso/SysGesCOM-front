@@ -82,26 +82,26 @@ function NavbarComponent() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
 
   const handleResize = () => {
-    if(user?.tipoDeUsuario !== "admin" ){
+    if (user?.tipoDeUsuario !== "admin") {
       setIsDesktop(window.innerWidth >= 990);
 
       if (!isDesktop) {
         setIsNavbarCollapsed(true);
       }
- 
-    }else{
+
+    } else {
       setIsDesktop(window.innerWidth >= 1400);
 
       if (!isDesktop) {
         setIsNavbarCollapsed(true);
       }
     }
-   
+
   };
 
-useEffect(() => {
-  getAuth();
-}, [])
+  useEffect(() => {
+    getAuth();
+  }, [])
 
 
   useEffect(() => {
@@ -163,23 +163,6 @@ useEffect(() => {
               {authenticated &&
                 user.tipoDeUsuario == "admin" &&
                 renderMenuItems()}
-              {authenticated &&
-                (user.tipoDeUsuario == "visualizador" ||
-                  user.tipoDeUsuario == "supervisor" ||
-                  user.tipoDeUsuario == "estadística" ||
-                  user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="navBtn" >Reportes</Link>
-                )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link to="/estadisticas" className="navBtn">
-                  Estadísticas
-                </Link>
-              )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="navBtn" to="/alta-categoria">
-                  Categorías
-                </Link>
-              )}
               {authenticated && (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "administración") && (
@@ -187,6 +170,16 @@ useEffect(() => {
                     Cambios Turno
                   </Link>
                 )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link className="navBtn" to="/alta-categoria">
+                  Categorías
+                </Link>
+              )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link to="/estadisticas" className="navBtn">
+                  Estadísticas
+                </Link>
+              )}
               {authenticated &&
                 (user.relevamientoHabilitado ||
                   user.tipoDeUsuario == "supervisor") && (
@@ -194,10 +187,17 @@ useEffect(() => {
                     Relevamiento
                   </Link>
                 )}
+              {authenticated &&
+                (user.tipoDeUsuario == "visualizador" ||
+                  user.tipoDeUsuario == "supervisor" ||
+                  user.tipoDeUsuario == "estadística" ||
+                  user.tipoDeUsuario == "administración") && (
+                  <Link to="/reportes" className="navBtn" >Reportes</Link>
+                )}
             </Nav>
 
             {authenticated ? (
-              <Nav className={user.tipoDeUsuario=="admin"?"isAdmin":"notAdmin"}>
+              <Nav className={user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"}>
                 <NavDropdown
                   title={!isDesktop ? null : user.nombre}
                   id="collasible-nav-dropdown"
@@ -238,7 +238,7 @@ useEffect(() => {
                     Notificaciones
                   </NavDropdown.Item>
                   {user.tipoDeUsuario == "admin" ||
-                  user.tipoDeUsuario == "supervisor" ? (
+                    user.tipoDeUsuario == "supervisor" ? (
                     <NavDropdown.Item
                       onClick={panelSupervisor}
                       className="navigation"

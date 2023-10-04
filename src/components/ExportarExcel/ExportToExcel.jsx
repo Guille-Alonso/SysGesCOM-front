@@ -45,6 +45,32 @@ const ExportToExcel = ({ data }) => {
     return `${diaConCeros}-${mesNumerico}-${anio} ${horaConCeros}:${minutosConCeros}:${segundosConCeros}`;
   }
 
+  const convertirEnMayusculaLaPrimeraLetra = (cadena) => {
+
+    // Dividir la cadena en palabras
+    let palabras = cadena.split(" ");
+
+    // Iterar sobre cada palabra y capitalizar la primera letra
+    for (let i = 0; i < palabras.length; i++) {
+      let palabra = palabras[i];
+      let nuevaPalabra = "";
+
+      for (let j = 0; j < palabra.length; j++) {
+        if (j === 0 && palabra[j]!=="y") {
+          nuevaPalabra += palabra[j].toUpperCase();
+        } else {
+          nuevaPalabra += palabra[j].toLowerCase();
+        }
+      }
+
+      palabras[i] = nuevaPalabra;
+    }
+
+    // Unir las palabras nuevamente en una cadena
+    return palabras.join(" ");
+
+  }
+
   const exportToExcel = () => {
     const formattedData = data.map((item) => {
       // Aquí puedes ajustar cómo deseas formatear los objetos antes de exportarlos
@@ -53,8 +79,9 @@ const ExportToExcel = ({ data }) => {
         detalle: item.detalle,
         // Nro:item.numero,
         usuario: item.usuario.nombreUsuario,
+        turno: item.usuario.turno,
         dispositivo: item.dispositivo.nombre,
-        ubicación: item.dispositivo.ubicacion,
+        ubicación: convertirEnMayusculaLaPrimeraLetra(item.dispositivo.ubicacion),
         naturaleza: item.naturaleza.nombre,
         categoria: item.categoria.nombre,
         subcategoria: item.subcategoria?.nombre,

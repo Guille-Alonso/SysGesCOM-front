@@ -295,9 +295,15 @@ const DetalleTicket = () => {
                 </div>
               )}
             {editTicket && (
-              <Button disabled={botonState} className=" mt-3 " type="submit">
+              selectedFile ?
+              <Button disabled={botonState} className="botonGuardarCambiosTicket2" type="submit">
                 Guardar Cambios
               </Button>
+              :
+              <Button disabled={botonState} className="botonGuardarCambiosTicket" type="submit">
+                Guardar Cambios
+              </Button>
+
             )}
             {volver && <Navigate to="/tickets" />}
 

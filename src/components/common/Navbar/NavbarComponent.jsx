@@ -82,26 +82,26 @@ function NavbarComponent() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
 
   const handleResize = () => {
-    if(user?.tipoDeUsuario !== "admin" ){
+    if (user?.tipoDeUsuario !== "admin") {
       setIsDesktop(window.innerWidth >= 990);
 
       if (!isDesktop) {
         setIsNavbarCollapsed(true);
       }
- 
-    }else{
+
+    } else {
       setIsDesktop(window.innerWidth >= 1400);
 
       if (!isDesktop) {
         setIsNavbarCollapsed(true);
       }
     }
-   
+
   };
 
-useEffect(() => {
-  getAuth();
-}, [])
+  useEffect(() => {
+    getAuth();
+  }, [])
 
 
   useEffect(() => {
@@ -158,46 +158,46 @@ useEffect(() => {
           id="basic-navbar-nav"
           className={isNavbarCollapsed ? "" : "show"}
         >
-          <div className="d-sm-flex ml-auto w-100  ">
+          <div className="d-sm-flex ml-auto w-100 contNavBar ">
             <Nav className="my-2 me-auto space-evenly">
               {authenticated &&
                 user.tipoDeUsuario == "admin" &&
                 renderMenuItems()}
+              {authenticated && (user.tipoDeUsuario == "visualizador" ||
+                user.tipoDeUsuario == "supervisor" ||
+                user.tipoDeUsuario == "administración") && (
+                  <Link className="navBtn" to="/cambio-turno">
+                    Cambios Turno
+                  </Link>
+                )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link className="navBtn" to="/alta-categoria">
+                  Categorías
+                </Link>
+              )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link to="/estadisticas" className="navBtn">
+                  Estadísticas
+                </Link>
+              )}
+              {authenticated &&
+                (user.relevamientoHabilitado ||
+                  user.tipoDeUsuario == "supervisor") && (
+                  <Link className=" navBtn " to="/relevamiento-motos">
+                    Relevamiento
+                  </Link>
+                )}
               {authenticated &&
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="" >Reportes</Link>
-                )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link to="/estadisticas" className="ms-3">
-                  Estadísticas
-                </Link>
-              )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-sm-3 ms-xxl-3" to="/alta-categoria">
-                  Categorías
-                </Link>
-              )}
-              {authenticated && (user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor" ||
-                user.tipoDeUsuario == "administración") && (
-                  <Link className="ms-xxl-3" to="/cambio-turno">
-                    Cambios Turno
-                  </Link>
-                )}
-              {authenticated &&
-                (user.relevamientoHabilitado ||
-                  user.tipoDeUsuario == "supervisor") && (
-                  <Link className=" ms-md-3 " to="/relevamiento-motos">
-                    Relevamiento
-                  </Link>
+                  <Link to="/reportes" className="navBtn" >Reportes</Link>
                 )}
             </Nav>
 
             {authenticated ? (
-              <Nav className={user.tipoDeUsuario=="admin"?"isAdmin":"notAdmin"}>
+              <Nav className={user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"}>
                 <NavDropdown
                   title={!isDesktop ? null : user.nombre}
                   id="collasible-nav-dropdown"
@@ -216,7 +216,7 @@ useEffect(() => {
                     <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
                   </NavDropdown.Item>
 
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
+                  <NavDropdown.Divider className="dirverDropDown" />
                   {/* {user.tipoDeUsuario == "admin" && ( */}
                   <NavDropdown.Item onClick={settings} className="navigation">
                     <ion-icon
@@ -238,7 +238,7 @@ useEffect(() => {
                     Notificaciones
                   </NavDropdown.Item>
                   {user.tipoDeUsuario == "admin" ||
-                  user.tipoDeUsuario == "supervisor" ? (
+                    user.tipoDeUsuario == "supervisor" ? (
                     <NavDropdown.Item
                       onClick={panelSupervisor}
                       className="navigation"
@@ -266,7 +266,7 @@ useEffect(() => {
                   ) : (
                     <></>
                   )}
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
+                  <NavDropdown.Divider className="dirverDropDown" />
                   <NavDropdown.Item onClick={logOut} className="navigation">
                     <ion-icon
                       name="log-out-outline"

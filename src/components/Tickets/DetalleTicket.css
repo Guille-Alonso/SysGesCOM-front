@@ -5,7 +5,11 @@
 }
 
 .botonGuardarCambiosTicket {
-  margin-top: 40%;
+  margin-top: 35%;
+}
+
+.botonGuardarCambiosTicket2 {
+  margin-top: 8%;
 }
 
 .fotoTicektDetalle {
@@ -125,31 +129,17 @@
   .inputEditarTicket2 {
     width: auto !important;
   }
+
   .botonGuardarCambiosTicket {
     margin-top: 78%;
   }
+
   .inputEditarTituloTicket2 {
     width: auto !important;
   }
 
   .dispositivoLabel {
     margin: auto;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .dispositivoLabel {
-    margin: auto;
-  } .botonGuardarCambiosTicket {
-    margin-top: 110%;
-  }
-
-  .inputEditarTituloTicket2 {
-    width: auto !important;
-  }
-
-  .inputEditarTicket2 {
-    width: auto !important;
   }
 }
 
@@ -165,10 +155,40 @@
   .inputEditarTicket2 {
     width: auto !important;
   }
+
   .botonGuardarCambiosTicket {
-    margin-top: auto;
+    margin-top: 5% !important;
+  }
+
+  .botonGuardarCambiosTicket2 {
+    margin-top: 10% !important;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .dispositivoLabel {
+    margin: auto;
+  }
+
+  .botonGuardarCambiosTicket {
+    margin-top: 94.5%;
+  }
+
+  .botonGuardarCambiosTicket2 {
+    margin-top: 20% !important;
+  }
+
+  .inputEditarTituloTicket2 {
+    width: auto !important;
+  }
+
+  .inputEditarTicket2 {
+    width: auto !important;
+  }
+
+}
+
+
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .dispositivoLabel {
@@ -182,7 +202,12 @@
   .inputEditarTicket2 {
     width: auto !important;
   }
+
   .botonGuardarCambiosTicket {
-    margin-top: 50%;
+    margin-top: 39.05%;
+  }
+
+  .botonGuardarCambiosTicket2 {
+    margin-top: 11% !important;
   }
 }

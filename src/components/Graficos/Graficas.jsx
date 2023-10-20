@@ -14,11 +14,15 @@ import { useState } from "react";
 import axios from "../../config/axios";
 import { Form, Spinner } from "react-bootstrap";
 import "../AltaEvento/AltaEvento.css";
+import "../ExportarExcel/ExportExcel.css";
 import useGet from "../../hooks/useGet";
 import "./Graficas.css";
 import GraficaSubcategoria from "./GraficaSubcategoria";
 import { COMContext } from "../../context/COMContext";
 import ExportToExcel from "../ExportarExcel/ExportToExcel";
+import ExportExcelMotos from "../ExportarExcel/ExportExcelMotos";
+import { faMotorcycle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
@@ -31,6 +35,8 @@ export function Grafico() {
   const { categoryName, setCategoryName } = useContext(COMContext);
 
   const [usuarios, loading] = useGet("/users/email", axios);
+  const [motos, loadingMotos] = useGet("/relevamientoMotos/listar", axios);
+
   const [searchTerm, setSearchTerm] = useState({ nombre: "" });
 
   const suggestionContainerRef = useRef(null);
@@ -517,13 +523,39 @@ export function Grafico() {
             </Form.Group>
           </div>
           {reportesFecha.length !== 0 ? (
-            <div className=" layoutHeight d-flex justify-content-center align-items-center mt-3">
+            <div className="layoutHeight d-flex justify-content-center align-items-center mt-3">
+            
+
               <Bar className="w-75 h-50" options={options} data={data} />
-              {reportesFecha.length !== 0 ? (
-                <ExportToExcel data={reportesFecha} />
-              ) : (
-                <></>
-              )}
+                 
+                <div className="contenedorBotonesExcel">
+
+                  {reportesFecha.length !== 0 ? (
+
+                    <ExportToExcel data={reportesFecha} />
+
+
+                  ) : (
+                    <></>
+                  )}
+
+                  {
+                    !loadingMotos?
+                    
+
+                      <div className="mt-2">
+                        <ExportExcelMotos motos={motos} />
+
+                      </div>
+                    
+                      :
+                      <div className="fondoBtnExcel mt-2">
+                        <FontAwesomeIcon
+                          className="btnExcel"
+                          icon={faMotorcycle} />
+                      </div>
+                  }
+                </div>
             </div>
           ) : (
             <div className="layoutHeight d-flex justify-content-center mt-2">

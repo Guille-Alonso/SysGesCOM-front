@@ -6,6 +6,7 @@ import fotoPredet from "../../assets/fotoPredeterminada.png";
 import { Spinner } from "react-bootstrap";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { getRandomColor } from "../../utils/convertirLetrasYMas";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -21,22 +22,22 @@ const Dashboard = () => {
       ? useGet("/reportes/totalesVisualizadorYSupervisor", axios)
       : [];
 
-  function getRandomColor() {
-    const randomInt = (min, max) =>
-      Math.floor(Math.random() * (max - min + 1) + min);
+  // function getRandomColor() {
+  //   const randomInt = (min, max) =>
+  //     Math.floor(Math.random() * (max - min + 1) + min);
 
-    const colors = [];
-    for (let i = 0; i < 16; i++) {
-      const red = randomInt(0, 255);
-      const green = randomInt(0, 255);
-      const blue = randomInt(0, 255);
+  //   const colors = [];
+  //   for (let i = 0; i < 16; i++) {
+  //     const red = randomInt(0, 255);
+  //     const green = randomInt(0, 255);
+  //     const blue = randomInt(0, 255);
 
-      const rgbaColor = `rgba(${red}, ${green}, ${blue}, 1)`;
-      colors.push(rgbaColor);
-    }
+  //     const rgbaColor = `rgba(${red}, ${green}, ${blue}, 1)`;
+  //     colors.push(rgbaColor);
+  //   }
 
-    return colors;
-  }
+  //   return colors;
+  // }
 
   const categoriasLabels = () => {
     let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría

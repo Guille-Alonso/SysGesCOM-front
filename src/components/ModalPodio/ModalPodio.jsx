@@ -35,26 +35,28 @@ function ModalPodio({ reportes }) {
         </Modal.Header>
         <Modal.Body className="ModalPodio">
           <div className="text-light nombreUsuarioPodio2">
-            {reportes.usuariosConMasReportes[1]?.usuario.nombreUsuario}
+          {reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[1]?.usuario.nombreUsuario : ""}
           </div>
           <div className="text-light nombreUsuarioPodio1">
-            {reportes.usuariosConMasReportes[0]?.usuario.nombreUsuario}
+          {reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.usuario.nombreUsuario : ""}
           </div>
           <div className="text-light nombreUsuarioPodio3">
-            {reportes.usuariosConMasReportes[2]?.usuario.nombreUsuario}
+          {reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[2]?.usuario.nombreUsuario : ""}
           </div>
           <img src={podioSvg} className="svgPodio" alt="" />
           <div className="fotosPodio">
-            <img className="fotoPodio1" src={larry} alt="" />
+            <img className="fotoPodio1" src={larry}
+            title={reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[1]?.usuario.nombreUsuario : ""}
+            alt="" />
             <img
               className="fotoPodio2"
-              title={reportes.usuariosConMasReportes[0]?.usuario.nombreUsuario}
+              title={reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.usuario.nombreUsuario : ""}
               src={larry}
               alt=""
             />
             <img
               className="fotoPodio3"
-              title={reportes.usuariosConMasReportes[2]?.usuario.nombreUsuario}
+               title={reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[2]?.usuario.nombreUsuario : ""}
               src={larry}
               alt=""
             />

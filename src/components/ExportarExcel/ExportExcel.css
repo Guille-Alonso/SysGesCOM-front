@@ -1,10 +1,22 @@
-.btnExcel{
-    border-radius: 10px;
-    border: solid;
-    border-color: white;
+.fondoBtnExcel {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: aliceblue;
+  position: relative;
+  left: 5%;
+  top: 13em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.btnExcel:hover{
-    background-color: green;
-    border: solid;
-    border-color: green;
+.fondoBtnExcel:hover {
+  background-color: rgb(22, 62, 22);
+  color: #fff;
+}
+.btnExcel {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
 }

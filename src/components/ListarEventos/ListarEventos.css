@@ -38,6 +38,13 @@
     .filtrarPorTipo label{
         margin: 0 !important;
     }
+
+    .filtrarPorDespacho{
+        position: absolute;
+        margin-left: 1290px;
+        margin-top: 10px;
+        color: white;
+    }
 }
 
 @media(max-width:800px){
@@ -60,5 +67,20 @@
         margin-top: 10px;
         color: white;
         height: 20px;
+    }
+    .filtrarPorDespacho{
+        position: absolute;
+        margin-left: 1450px;
+        margin-top: 55px;
+        color: white;
+    }
+}
+
+@media(min-width:800px) and (max-width:1100px){
+    .filtrarPorDespacho{
+        position: absolute;
+        margin-left: 1650px;
+        margin-top: 55px;
+        color: white;
     }
 }

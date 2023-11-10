@@ -1,70 +1,71 @@
-.contenedorPadre{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.contenedorPadre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.contenedorForm{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
+.contenedorForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
 }
-.formChangePassword{
-    color: #fff;
-    height: 60vh;
-    width: 500px;
-    border-radius: 15px;
-    border: solid 1.5px  #FFFFFF10;
-    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.inputBoxPasswordChange{
-    width: 380px !important;
-}
-.alertaError{
-    position: absolute;
-    z-index: 1;
-    top: 11%;
-    left: 75%;
-}
-.columnaForm{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.boton-confirmar{
-    font-size: 25px;
-    box-shadow: 0 25px 45px rgba(0,0,0,0.3);
-    cursor: pointer;
-    border-style: none;
-    border-radius: 20px;
-}
-.boton-confirmar::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    border-style: 4px solid #00ff62;
-    transition: 0.5s ease-in-out;
+.formChangePassword {
+  color: #fff;
+  height: 60vh;
+  min-height: 360px !important;
+  width: 500px;
+  border-radius: 15px;
+  border: solid 1.5px #ffffff10;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.boton-confirmar:hover::before{
-    height: 100%;
+.inputBoxPasswordChange {
+  width: 380px !important;
+}
+.alertaError {
+  position: absolute;
+  z-index: 1;
+  top: 11%;
+  left: 75%;
+}
+.columnaForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.boton-confirmar {
+  font-size: 25px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  border-style: none;
+  border-radius: 20px;
+}
+.boton-confirmar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-style: 4px solid #00ff62;
+  transition: 0.5s ease-in-out;
+}
+
+.boton-confirmar:hover::before {
+  height: 100%;
 }
 
 @media screen and (max-width: 768px) {
-    .formChangePassword{
-        width: 300px;
-    }
-    .inputBoxPasswordChange{
-        width: 100% !important ;
-    }
+  .formChangePassword {
+    width: 300px;
+  }
+  .inputBoxPasswordChange {
+    width: 100% !important ;
+  }
 }

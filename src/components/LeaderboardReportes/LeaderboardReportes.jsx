@@ -4,12 +4,13 @@ import { Table } from "react-bootstrap";
 import "./LeaderboardReportes.css";
 
 const LeaderboardReportes = ({ reportes }) => {
+  
   return (
     <>
-      <section title={`Usuarios con más reportes por mes (Larry The Bird)`} className="leaderboard">
+      <section title={`Usuarios con más despachos por mes`} className="container p-0 leaderboard">
         <h3 className="text-center text-light">Top Reportes</h3>
         <div className="tabla-podio d-flex justify-content-center">
-          <Table striped bordered hover variant="primary w-75 text-center">
+          <Table bordered >
             <thead>
               <tr>
                 <th>#</th>
@@ -19,7 +20,7 @@ const LeaderboardReportes = ({ reportes }) => {
               </tr>
             </thead>
 
-            <tbody>
+            {/* <tbody>
               <tr>
                 <td>🥇</td>
                 <td>
@@ -45,6 +46,34 @@ const LeaderboardReportes = ({ reportes }) => {
                 </td>
                 <td>{reportes.usuariosConMasReportes[2].usuario?.turno}</td>
                 <td>{reportes.usuariosConMasReportes[2].cantidadDeReportes}</td>
+              </tr>
+            </tbody> */}
+                <tbody>
+              <tr>
+                <td>🥇</td>
+                <td>
+                  {reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.usuario.nombreUsuario : ""}
+                </td>
+                <td>{reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.usuario.turno : ""}</td>
+                <td>
+                  {reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.totalDespachos : ""}
+                </td>
+              </tr>
+              <tr>
+                <td>🥈</td>
+                <td>
+                  {reportes.usuariosConMasDespachos.length > 1 ? reportes.usuariosConMasDespachos[1].usuario?.nombreUsuario : ""}
+                </td>
+                <td>{reportes.usuariosConMasDespachos.length > 1 ? reportes.usuariosConMasDespachos[1].usuario?.turno : ""}</td>
+                <td>{reportes.usuariosConMasDespachos.length > 1 ? reportes.usuariosConMasDespachos[1].totalDespachos : ""}</td>
+              </tr>
+              <tr>
+                <td>🥉</td>
+                <td>
+                  {reportes.usuariosConMasDespachos.length > 2 ? reportes.usuariosConMasDespachos[2].usuario?.nombreUsuario : ""}
+                </td>
+                <td>{reportes.usuariosConMasDespachos.length > 2 ? reportes.usuariosConMasDespachos[2].usuario?.turno : ""}</td>
+                <td>{reportes.usuariosConMasDespachos.length > 2 ? reportes.usuariosConMasDespachos[2].totalDespachos : ""}</td>
               </tr>
             </tbody>
           </Table>

@@ -202,9 +202,14 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 className="parrafoInfo"
               >
                 <option value="">-----Seleccionar-----</option>
-                <option>mañana</option>
+                <option value="mañana">mañana (06:00 am - 12:00 am)</option>
+                <option value="intermedio">intermedio (12:00 am - 18:00 pm)</option>
+                <option value="tarde">tarde (18:00 pm - 00:00 am)</option>
+                <option value="noche">noche (00:00 am - 06:00 am)</option>
+                {/* <option>mañana</option>
+                <option>intermedio</option>
                 <option>tarde</option>
-                <option>noche</option>
+                <option>noche</option> */}
               </FormSelect>
             ) : (
               <p className="parrafoInfo">{values.turno}</p>
@@ -222,6 +227,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 <option>estadística</option>
                 <option>supervisor</option>
                 <option>visualizador</option>
+                <option>administración</option>
               </FormSelect>
             ) : (
               <p className="parrafoInfo">{values.tipoDeUsuario}</p>

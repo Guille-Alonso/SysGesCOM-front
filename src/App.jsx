@@ -21,7 +21,15 @@ import EditarDespacho from "./components/Despacho/EditarDespacho";
 import { Grafico } from "./components/Graficos/Graficas";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import PrivateRouteEstadistica from "./routes/PrivateRouteEstadistica";
+import PrivateRouteAdministracion from "./routes/PrivateRouteAdministracion";
 import RelevamientoMotos from "./components/RelevamientoMotos/RelevamientoMotos";
+import PedidoCambios from "./components/PedidoCambios/PedidoCambios";
+import Notificaciones from "./components/Notificaciones/Notificaciones";
+import PrivateRouteVisualizadores from "./routes/PrivateRouteVisualizadores";
+import PanelSupervisor from "./components/PanelSupervisor/PanelSupervisor";
+import PrivateRouteSupervisores from "./routes/PrivateRouteSupervisores";
+import PanelAdmin from "./components/PanelAdmin/panelAdmin";
+import PDFcambios from "./components/PDFCambios/PDFcambios";
 
 function App() {
   return (
@@ -35,6 +43,22 @@ function App() {
                 <PrivateRouteEstadistica>
                   <AltaCategoria />
                 </PrivateRouteEstadistica>
+              }
+            />
+            <Route
+              path="/cambio-turno"
+              element={
+                <PrivateRouteAdministracion>
+                  <PedidoCambios />
+                </PrivateRouteAdministracion>
+              }
+            />
+            <Route
+              path="/cambio-pdf"
+              element={
+                <PrivateRouteAdministracion>
+                  <PDFcambios />
+                </PrivateRouteAdministracion>
               }
             />
             <Route
@@ -62,11 +86,27 @@ function App() {
               }
             />
             <Route
+              path="/notificaciones"
+              element={
+                <PrivateRouteVisualizadores>
+                  <Notificaciones />
+                </PrivateRouteVisualizadores>
+              }
+            />
+            <Route
               path="/relevamiento-motos"
               element={
-                <PrivateRoute>
+                <PrivateRouteVisualizadores>
                   <RelevamientoMotos />
-                </PrivateRoute>
+                </PrivateRouteVisualizadores>
+              }
+            />
+            <Route
+              path="/relevamiento-motos-panel"
+              element={
+                <PrivateRouteSupervisores>
+                  <PanelSupervisor />
+                </PrivateRouteSupervisores>
               }
             />
             <Route
@@ -121,9 +161,9 @@ function App() {
             <Route
               path="/alta-reporte"
               element={
-                <PrivateRoute>
+                <PrivateRouteVisualizadores>
                   <AltaEvento />
-                </PrivateRoute>
+                </PrivateRouteVisualizadores>
               }
             />
             <Route
@@ -156,6 +196,14 @@ function App() {
                 <PrivateRoute>
                   <EditarDespacho />
                 </PrivateRoute>
+              }
+            />
+            <Route
+              path="/panelAdmin"
+              element={
+                <PrivateRouteAdmin>
+                  <PanelAdmin />
+                </PrivateRouteAdmin>
               }
             />
           </Routes>

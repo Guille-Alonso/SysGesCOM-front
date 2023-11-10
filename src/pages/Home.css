@@ -1,48 +1,100 @@
-.estadisticas{
-    width: 60%;
-    height: 60vh;
+.estadisticas {
+  width: 60%;
+  height: 60vh;
 }
-.contenedorCambios{
-    display: flex;
+.giphyApi {
+  width: 60%;
+}
+.contenedorCambios {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.selectPodio {
+  background-color: #000 !important;
+  color: #fff;
+  border-radius: 2px;
+}
+.confettiCumple {
+  width: 100% !important;
+}
+.dashboardUsuario {
+  border: 1px solid #ccc;
+  background-color: #000;
+  border-radius: 7px;
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.dashboardIzquierda {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.dashboardDerecha {
+  width: 50%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dashboardCard {
+  width: 45%;
+  height: 40% !important;
+  border-radius: 7px;
+  height: 50%;
+  border: 1px solid #ccc;
+}
+.dashboardCardBig {
+  width: 90%;
+  border-radius: 7px;
+  height: 100%;
+  border: 1px solid #ccc;
+}
+.imgProfileDashboard {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.tituloReportes {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  height: fit-content;
+}
+.numeroDeReportesDashboard {
+  height: 40%;
+  font-size: 40px;
+}
+
+@media screen and (max-width: 980px) {
+  .contenedorHome {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .dashboardUsuario {
+    height: 380px;
+    width: 100%;
+  }
+  .estadisticas {
+    width: 90%;
+  }
 }
-.almanaque{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10px;
-    height: 450px;
-}
-.contendor-referencias{
-    margin: 0 auto;
-    margin-top: 20px;
-    padding: 10px;
-}
-.botonEnviarPedido{
-    margin-top: 10px;
-}
-.leaderboard{
-    /* border: 1px solid #ccc; */
-}
-.inProgress{
-    width: 100% !important;
-    height: 500px!important;
-}
-.cositas{
-    color: #fff;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: 70px;
-    font-weight: 800;
-    margin: auto 0;
-}
-.cositas::before{
-    background: linear-gradient(90deg, red, blue);
-    position: absolute;
-    inset: 0;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+@media screen and (max-width: 700px) {
+  .imgProfileDashboard {
+    width: 100px;
+    height: 100px;
+  }
+  .tituloReportes {
+    font-size: 14px;
+  }
 }

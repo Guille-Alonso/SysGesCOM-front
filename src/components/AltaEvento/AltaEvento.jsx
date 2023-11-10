@@ -161,8 +161,30 @@ const AltaEvento = () => {
     try {
       const { data } = await axios.get("/naturaleza/listarClasificacion");
       setNaturalezas(data.naturalezas);
-      setCategorias(data.categorias);
-      setSubcategorias(data.subcategorias);
+      setCategorias(
+        data.categorias.sort((catA, catB) => {
+          const nombreA = catA.nombre.replace(/[0-9]+/, "");
+          const nombreB = catB.nombre.replace(/[0-9]+/, "");
+
+          // Primero compara los nombres alfabéticamente
+          if (nombreA < nombreB) return -1;
+          if (nombreA > nombreB) return 1;
+
+          // Si los nombres son iguales, compara los números
+        })
+      );
+      setSubcategorias(
+        data.subcategorias.sort((subcatA, subcatB) => {
+          const nombreA = subcatA.nombre.replace(/[0-9]+/, "");
+          const nombreB = subcatB.nombre.replace(/[0-9]+/, "");
+
+          // Primero compara los nombres alfabéticamente
+          if (nombreA < nombreB) return -1;
+          if (nombreA > nombreB) return 1;
+
+          // Si los nombres son iguales, compara los números
+        })
+      );
     } catch (error) {
       toast.error("Error en la conexión");
     }
@@ -294,7 +316,7 @@ const AltaEvento = () => {
                       <option value="">Seleccione una opción</option>
 
                       {subcategorias
-                        .filter((subcat) => subcat.categoria._id == catSelected)
+                        .filter((subcat) => subcat.categoria._id == catSelected && subcat._id !=="64e7da580a5e30019cccd20a")
                         .map((item) => {
                           return (
                             <option key={item._id} value={item._id}>
@@ -303,6 +325,7 @@ const AltaEvento = () => {
                           );
                         })}
                     </Form.Select>
+                    {/* el id 64e7da580a5e30019cccd20a de la subcat pertenece a relevamiento de motos */}
                   </Form.Group>
                 </Col>
               </Row>

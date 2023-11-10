@@ -1,0 +1,32 @@
+.cardCambioOscura2 {
+  height: 100%;
+  width: 45vw;
+  border-radius: 5px;
+  background-color: #000;
+  border: 1px solid #ccc;
+  min-height: 400px;
+}
+.cardCambioOscura3 {
+  height: 100%;
+  width: 45vw;
+  border-radius: 5px;
+  background-color: #000;
+  border: 1px solid #ccc;
+  min-height: 400px;
+}
+.confirmarCambio {
+  height: 30px;
+  padding-right: 7px;
+}
+.confirmarCambio:hover {
+  scale: 1.2;
+  color: green;
+}
+.denegarCambio {
+  height: 30px;
+  padding-right: 7px;
+}
+.denegarCambio:hover {
+  scale: 1.2;
+  color: red;
+}

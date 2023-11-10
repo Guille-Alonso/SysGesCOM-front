@@ -1,35 +1,39 @@
-*{
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
-*::-webkit-scrollbar{
-    width: 8px;
-    background-color: #2546b8;
-    }
-*::-webkit-scrollbar-thumb  {
-    background-color: rgba(255, 255, 255, 0.85);
-    border-radius: 6px;
-    }
-
-body{
-	font-family: 'Roboto', sans-serif;
-	background: linear-gradient(45deg ,#141f27, #1b384a);
+*::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2546b8;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 6px;
 }
 
-.layoutHeight{
-	min-height: 75vh;
+body {
+  font-family: "Roboto", sans-serif;
+  /* background: linear-gradient(45deg, #141f27, #1b384a); */
+  background: #111111 !important;
 }
 
-.layoutHeight2{
-	min-height: 75vh;
-	max-width: 98%;
+.layoutHeight {
+  min-height: 75vh;
+}
+
+.layoutHeight2 {
+  min-height: 75vh;
+  max-width: 98vw;
+  /* max-width: 98%; asi estaba antes xd */
 }
 
 @media (max-height: 750px) {
-    .movFooter{
-        display: none;
-    }
+  .movFooter {
+    display: none;
+  }
 }

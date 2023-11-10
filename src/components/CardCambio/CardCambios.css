@@ -1,5 +1,5 @@
 .cardCambioOscura {
-  height: 200px;
+  height: 240px;
   width: 350px;
   border-radius: 5px;
   background-color: #000;
@@ -13,11 +13,12 @@
   font-size: 25px;
 }
 .inputFechaCambio {
+  color: black !important;
   height: 40px;
   border-radius: 5px;
   border: 1px solid #ccc;
   text-align: center;
-  background-color: #1c1b1b !important;
+  /* background-color: #1c1b1b !important; */
 }
 
 .botonEnviarPedido {

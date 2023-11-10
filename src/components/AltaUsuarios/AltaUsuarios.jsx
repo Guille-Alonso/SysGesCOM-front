@@ -275,9 +275,10 @@ const AltaUsuarios = () => {
                   required
                 >
                   <option value="">------------</option>
-                  <option>mañana</option>
-                  <option>tarde</option>
-                  <option>noche</option>
+                  <option value="mañana">mañana (06:00 am - 12:00 am)</option>
+                  <option value="intermedio">intermedio (12:00 am - 18:00 pm)</option>
+                  <option value="tarde">tarde (18:00 pm - 00:00 am)</option>
+                  <option value="noche">noche (00:00 am - 06:00 am)</option>
                 </Form.Select>
               </Form.Group>
             </div>

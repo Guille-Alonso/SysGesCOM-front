@@ -1,6 +1,8 @@
 import { Col, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import "./PDFcambios.css";
+import logoCOM from "../../assets/logo planilla visua.jpg"
+import logoMuniNuevo from "../../assets/img/RECORTE DE NUEVO_LOGO_MUNICIPAL_OCTUBRE.jpg"
 
 const PDFcambios = () => {
   const location = useLocation();
@@ -13,11 +15,11 @@ const PDFcambios = () => {
           <div className="d-flex flex-column">
             <div className="d-flex justify-content-around">
               <img
-                src="src\assets\logo planilla visua.jpg"
+                src={logoCOM}
                 className="logoComPDF"
               />
               <img
-                src="src\assets\logomuni128x128.bmp"
+                src={logoMuniNuevo}
                 className="logoMuniPDF"
               />
               <p className="textoPDF">

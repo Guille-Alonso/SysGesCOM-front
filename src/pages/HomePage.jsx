@@ -16,7 +16,7 @@ import { axiosGiphy, axiosGiphySearch } from "../config/axiosGiphy";
 import { toast } from "react-toastify";
 
 const HomePage = () => {
-  const [reportes, loading] = useGet("/reportes/podio", axios);
+  const [reportes, loading] = useGet("/reportes/podioDespachosPorMes/", axios);
   const [tipoPodio, setTipoPodio] = useState("general");
 
   const { user } = useContext(COMContext);
@@ -26,19 +26,26 @@ const HomePage = () => {
   function obtenerPeriodoDelDiaConHora(fecha) {
     const horaActual = fecha.getHours();
     
-    if (horaActual >= 7 && horaActual < 15) {
+    if (horaActual >= 6 && horaActual < 12) {
       return "mañana";
-    } else if (horaActual >= 15 && horaActual < 23) {
+    } else if (horaActual >= 12 && horaActual < 18) {
+      return "intermedio";
+    } else if (horaActual >= 18 && horaActual < 24) {
       return "tarde";
-    } else {
+    } else{
       return "noche";
     }
   }
   
-  const [reportesTurno, loadingTurno] = useGet(
-    `/reportes/podio/${obtenerPeriodoDelDiaConHora(new Date())}`,
-    axios
-    );
+  // const [reportesTurno, loadingTurno] = useGet(
+  //   `/reportes/podio/${obtenerPeriodoDelDiaConHora(new Date())}`,
+  //   axios
+  //   );
+  
+    const [reportesTurno, loadingTurno] = useGet(
+      `/reportes/podioDespachosPorMes/${obtenerPeriodoDelDiaConHora(new Date())}`,
+      axios
+      );
     
   const nacimientoDate = parseISO(user.nacimiento);
   const today = new Date();
@@ -148,11 +155,13 @@ const HomePage = () => {
             tipoPodio == "general" && (
               <LeaderboardReportes reportes={reportes} />
             )
+           
           )}
 
           {tipoPodio == "turno" && (
             <LeaderboardReportes reportes={reportesTurno} />
-          )}
+          )
+          }
           <div className="mt-3">
             <CardCambios />
           </div>

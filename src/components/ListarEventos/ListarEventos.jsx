@@ -8,6 +8,7 @@ import { COMContext } from "../../context/COMContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faRotate } from "@fortawesome/free-solid-svg-icons";
 import "./ListarEventos.css";
+import { convertirFecha2ASinHora, convertirFechaASinHora, obtenerFechaActualEnFormatoISO, obtenerPeriodoDelDia, obtenerPeriodoDelDiaConHora } from "../../utils/convertirFechaYTurno";
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
@@ -74,27 +75,27 @@ const ListarEventos = () => {
     } else setResultadoBusqueda(reportes.reportes);
   };
 
-  function convertirFecha2ASinHora(fecha) {
-    const meses = {
-      Ene: "01",
-      Feb: "02",
-      Mar: "03",
-      Abr: "04",
-      May: "05",
-      Jun: "06",
-      Jul: "07",
-      Ago: "08",
-      Sept: "09",
-      Oct: "10",
-      Nov: "11",
-      Dic: "12",
-    };
+  // function convertirFecha2ASinHora(fecha) {
+  //   const meses = {
+  //     Ene: "01",
+  //     Feb: "02",
+  //     Mar: "03",
+  //     Abr: "04",
+  //     May: "05",
+  //     Jun: "06",
+  //     Jul: "07",
+  //     Ago: "08",
+  //     Sept: "09",
+  //     Oct: "10",
+  //     Nov: "11",
+  //     Dic: "12",
+  //   };
 
-    const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
-    const mesNumerico = meses[mes];
-    const diaConCeros = String(dia).padStart(2, "0");
-    return `${diaConCeros}/${mesNumerico}/${anio}`;
-  }
+  //   const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
+  //   const mesNumerico = meses[mes];
+  //   const diaConCeros = String(dia).padStart(2, "0");
+  //   return `${diaConCeros}/${mesNumerico}/${anio}`;
+  // }
 
   useEffect(() => {
 
@@ -133,67 +134,69 @@ const ListarEventos = () => {
     }
   }, [reportes, buscador]);
 
-  function obtenerPeriodoDelDia() {
-    const horaActual = new Date().getHours();
+  // function obtenerPeriodoDelDia() {
+  //   const horaActual = new Date().getHours();
 
-    if (horaActual >= 7 && horaActual < 15) {
-      return "mañana";
-    } else if (horaActual >= 15 && horaActual < 23) {
-      return "tarde";
-    } else {
-      return "noche";
-    }
-  }
+  //   if (horaActual >= 7 && horaActual < 15) {
+  //     return "mañana";
+  //   } else if (horaActual >= 15 && horaActual < 23) {
+  //     return "tarde";
+  //   } else {
+  //     return "noche";
+  //   }
+  // }
 
-  function obtenerPeriodoDelDiaConHora(fechaString) {
-    const hora = fechaString.split(", ")[1].split(":")[0];
+  // function obtenerPeriodoDelDiaConHora(fechaString) {
+  //   const hora = fechaString.split(", ")[1].split(":")[0];
 
-    const horaActual = parseInt(hora, 10);
+  //   const horaActual = parseInt(hora, 10);
 
-    if (horaActual >= 7 && horaActual < 15) {
-      return "mañana";
-    } else if (horaActual >= 15 && horaActual < 23) {
-      return "tarde";
-    } else {
-      return "noche";
-    }
-  }
+  //   if (horaActual >= 7 && horaActual < 15) {
+  //     return "mañana";
+  //   } else if (horaActual >= 15 && horaActual < 23) {
+  //     return "tarde";
+  //   } else {
+  //     return "noche";
+  //   }
+  // }
 
-  function obtenerFechaActualEnFormatoISO() {
-    const fechaActual = new Date();
+  // function obtenerFechaActualEnFormatoISO() {
+  //   const fechaActual = new Date();
 
-    const year = fechaActual.getFullYear();
-    const month = String(fechaActual.getMonth() + 1).padStart(2, "0");
-    const day = String(fechaActual.getDate()).padStart(2, "0");
+  //   const year = fechaActual.getFullYear();
+  //   const month = String(fechaActual.getMonth() + 1).padStart(2, "0");
+  //   const day = String(fechaActual.getDate()).padStart(2, "0");
 
-    return `${year}-${month}-${day}`;
-  }
-  function convertirFechaASinHora(fecha) {
-    const meses = {
-      Ene: "01",
-      Feb: "02",
-      Mar: "03",
-      Abr: "04",
-      May: "05",
-      Jun: "06",
-      Jul: "07",
-      Ago: "08",
-      Sept: "09",
-      Oct: "10",
-      Nov: "11",
-      Dic: "12",
-    };
+  //   return `${year}-${month}-${day}`;
+  // }
 
-    const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
-    const mesNumerico = meses[mes];
-    const diaConCeros = String(dia).padStart(2, "0");
-    if (
-      `${anio}-${mesNumerico}-${diaConCeros}` ==
-      obtenerFechaActualEnFormatoISO()
-    ) {
-      return true;
-    } else return false;
-  }
+  // function convertirFechaASinHora(fecha) {
+  //   const meses = {
+  //     Ene: "01",
+  //     Feb: "02",
+  //     Mar: "03",
+  //     Abr: "04",
+  //     May: "05",
+  //     Jun: "06",
+  //     Jul: "07",
+  //     Ago: "08",
+  //     Sept: "09",
+  //     Oct: "10",
+  //     Nov: "11",
+  //     Dic: "12",
+  //   };
+
+  //   const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
+  //   const mesNumerico = meses[mes];
+  //   const diaConCeros = String(dia).padStart(2, "0");
+  //   if (
+  //     `${anio}-${mesNumerico}-${diaConCeros}` ==
+  //     obtenerFechaActualEnFormatoISO()
+  //   ) {
+  //     return true;
+  //   } else return false;
+  // }
+
   function obtenerTotalObjetosCumplenCondicion(array) {
     const filterArr = array.filter(
       (rep) =>

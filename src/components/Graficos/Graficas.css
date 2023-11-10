@@ -216,3 +216,14 @@
     display: flex;
   }
 }
+
+.contenedorBotonesExcel{
+  position: absolute;
+  right: 100px;
+}
+
+.contenedorSpinner{
+  position: absolute;
+  right: 50px;
+  height: 900px;
+}

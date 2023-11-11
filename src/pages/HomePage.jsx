@@ -139,6 +139,10 @@ const HomePage = () => {
           </div>
         </main>
         <aside className="contenedorCambios">
+    
+  
+          <div className="contLeaderboard">
+
           <select
             className="selectPodio mt-2"
             onChange={(e) => setTipoPodio(e.target.value)}
@@ -162,7 +166,8 @@ const HomePage = () => {
             <LeaderboardReportes reportes={reportesTurno} />
           )
           }
-          <div className="mt-3">
+            </div>
+          <div className=" cardCambios">
             <CardCambios />
           </div>
         </aside>

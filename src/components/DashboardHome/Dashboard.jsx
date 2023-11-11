@@ -7,6 +7,7 @@ import { Spinner } from "react-bootstrap";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { getRandomColor } from "../../utils/convertirLetrasYMas";
+import "./Dashboard.css"
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

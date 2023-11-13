@@ -88,7 +88,6 @@ function NavbarComponent() {
       if (!isDesktop) {
         setIsNavbarCollapsed(true);
       }
-
     } else {
       setIsDesktop(window.innerWidth >= 1400);
 
@@ -96,13 +95,11 @@ function NavbarComponent() {
         setIsNavbarCollapsed(true);
       }
     }
-
   };
 
   useEffect(() => {
     getAuth();
-  }, [])
-
+  }, []);
 
   useEffect(() => {
     handleResize();
@@ -192,7 +189,34 @@ function NavbarComponent() {
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="navBtn" >Reportes</Link>
+                  <Link to="/reportes" className="">
+                    Reportes
+                  </Link>
+                )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link to="/estadisticas" className="ms-3">
+                  Estadísticas
+                </Link>
+              )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link className="ms-xxl-3" to="/alta-categoria">
+                  Categorías
+                </Link>
+              )}
+              {authenticated &&
+                (user.tipoDeUsuario == "visualizador" ||
+                  user.tipoDeUsuario == "supervisor" ||
+                  user.tipoDeUsuario == "administración") && (
+                  <Link className="ms-xxl-3" to="/cambio-turno">
+                    Cambios Turno
+                  </Link>
+                )}
+              {authenticated &&
+                (user.relevamientoHabilitado ||
+                  user.tipoDeUsuario == "supervisor") && (
+                  <Link className="ms-md-3" to="/relevamiento-motos">
+                    Relevamiento
+                  </Link>
                 )}
             </Nav>
 

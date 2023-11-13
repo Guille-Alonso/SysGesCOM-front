@@ -14,11 +14,17 @@ import { useState } from "react";
 import axios from "../../config/axios";
 import { Form, Spinner } from "react-bootstrap";
 import "../AltaEvento/AltaEvento.css";
+import "../ExportarExcel/ExportExcel.css";
 import useGet from "../../hooks/useGet";
 import "./Graficas.css";
 import GraficaSubcategoria from "./GraficaSubcategoria";
 import { COMContext } from "../../context/COMContext";
 import ExportToExcel from "../ExportarExcel/ExportToExcel";
+import ExportExcelMotos from "../ExportarExcel/ExportExcelMotos";
+import { faMotorcycle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { obtenerPeriodoDelDiaConHora } from "../../utils/convertirFechaYTurno";
+import { getRandomColor } from "../../utils/convertirLetrasYMas";
 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
@@ -31,6 +37,8 @@ export function Grafico() {
   const { categoryName, setCategoryName } = useContext(COMContext);
 
   const [usuarios, loading] = useGet("/users/email", axios);
+  const [motos, loadingMotos] = useGet("/relevamientoMotos/listar", axios);
+
   const [searchTerm, setSearchTerm] = useState({ nombre: "" });
 
   const suggestionContainerRef = useRef(null);
@@ -108,19 +116,19 @@ export function Grafico() {
     return `${anio}-${mesNumerico}-${diaConCeros}`;
   }
 
-  function obtenerPeriodoDelDiaConHora(fechaString) {
-    const hora = fechaString.split(", ")[1].split(":")[0];
+  // function obtenerPeriodoDelDiaConHora(fechaString) {
+  //   const hora = fechaString.split(", ")[1].split(":")[0];
 
-    const horaActual = parseInt(hora, 10);
+  //   const horaActual = parseInt(hora, 10);
 
-    if (horaActual >= 7 && horaActual < 15) {
-      return "mañana";
-    } else if (horaActual >= 15 && horaActual < 23) {
-      return "tarde";
-    } else {
-      return "noche";
-    }
-  }
+  //   if (horaActual >= 7 && horaActual < 15) {
+  //     return "mañana";
+  //   } else if (horaActual >= 15 && horaActual < 23) {
+  //     return "tarde";
+  //   } else {
+  //     return "noche";
+  //   }
+  // }
 
   useEffect(() => {
     if (fechaDesde !== "" && fechaHasta !== "") {
@@ -236,22 +244,22 @@ export function Grafico() {
     },
   };
 
-  function getRandomColor() {
-    const randomInt = (min, max) =>
-      Math.floor(Math.random() * (max - min + 1) + min);
+  // function getRandomColor() {
+  //   const randomInt = (min, max) =>
+  //     Math.floor(Math.random() * (max - min + 1) + min);
 
-    const colors = [];
-    for (let i = 0; i < 16; i++) {
-      const red = randomInt(0, 255);
-      const green = randomInt(0, 255);
-      const blue = randomInt(0, 255);
+  //   const colors = [];
+  //   for (let i = 0; i < 16; i++) {
+  //     const red = randomInt(0, 255);
+  //     const green = randomInt(0, 255);
+  //     const blue = randomInt(0, 255);
 
-      const rgbaColor = `rgba(${red}, ${green}, ${blue}, 1)`;
-      colors.push(rgbaColor);
-    }
+  //     const rgbaColor = `rgba(${red}, ${green}, ${blue}, 1)`;
+  //     colors.push(rgbaColor);
+  //   }
 
-    return colors;
-  }
+  //   return colors;
+  // }
 
   const labels = Object.keys(categoriasLabels());
   const labelsCat = Object.keys(countReportesCat());
@@ -441,6 +449,7 @@ export function Grafico() {
                       <option value="mañana">Mañana</option>
                       <option value="tarde">Tarde</option>
                       <option value="noche">Noche</option>
+                      <option value="intermedio">Intermedio</option>
                     </select>
                   </div>
                   <div className="headerSearchItem2">
@@ -517,13 +526,39 @@ export function Grafico() {
             </Form.Group>
           </div>
           {reportesFecha.length !== 0 ? (
-            <div className=" layoutHeight d-flex justify-content-center align-items-center mt-3">
+            <div className="layoutHeight d-flex justify-content-center align-items-center mt-3">
+            
+
               <Bar className="w-75 h-50" options={options} data={data} />
-              {reportesFecha.length !== 0 ? (
-                <ExportToExcel data={reportesFecha} />
-              ) : (
-                <></>
-              )}
+                 
+                <div className="contenedorBotonesExcel">
+
+                  {reportesFecha.length !== 0 ? (
+
+                    <ExportToExcel data={reportesFecha} />
+
+
+                  ) : (
+                    <></>
+                  )}
+
+                  {
+                    !loadingMotos?
+                    
+
+                      <div className="mt-2">
+                        <ExportExcelMotos motos={motos} />
+
+                      </div>
+                    
+                      :
+                      <div className="fondoBtnExcel mt-2">
+                        <FontAwesomeIcon
+                          className="btnExcel"
+                          icon={faMotorcycle} />
+                      </div>
+                  }
+                </div>
             </div>
           ) : (
             <div className="layoutHeight d-flex justify-content-center mt-2">

@@ -90,3 +90,31 @@ nav a {
     color: #0d6efd !important;
   }
 }
+
+@media (min-width: 990px) and (max-width:1400px) {
+  .isAdmin .userProfile {
+    display: none;
+  }
+
+  .isAdmin .dropdown-menu {
+    background-color: transparent !important;
+  }
+
+  .isAdmin .divNav {
+    height: max-content;
+  }
+  .isAdmin #collasible-nav-dropdown::after{
+    content: none !important;
+  }
+  .isAdmin .dropdown-menu a {
+    color: #c5c5c8 !important;
+  }
+
+  .isAdmin .dropdown-menu :hover {
+    background-color: transparent !important;
+  }
+
+  .isAdmin .dropdown-menu :hover {
+    color: #0d6efd !important;
+  }
+}

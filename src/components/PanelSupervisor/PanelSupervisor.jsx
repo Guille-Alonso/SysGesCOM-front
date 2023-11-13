@@ -36,11 +36,13 @@ const PanelSupervisor = () => {
   function obtenerPeriodoDelDiaConHora(fecha) {
     const horaActual = fecha.getHours();
 
-    if (horaActual >= 7 && horaActual < 15) {
+    if (horaActual >= 6 && horaActual < 12) {
       return "mañana";
-    } else if (horaActual >= 15 && horaActual < 23) {
+    } else if (horaActual >= 12 && horaActual < 18) {
+      return "intermedio";
+    } else if (horaActual >= 18 && horaActual < 24) {
       return "tarde";
-    } else {
+    } else{
       return "noche";
     }
   }

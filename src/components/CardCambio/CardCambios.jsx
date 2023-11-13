@@ -46,7 +46,7 @@ const CardCambios = () => {
             min={calcularFechaMinima()}
           />
           {fechaPedido !== "" ? (
-            <p className="text-light">
+            <p className="text-light mb-0">
               <strong>Tu pedido es para: </strong>
               {fechaPedido}
             </p>

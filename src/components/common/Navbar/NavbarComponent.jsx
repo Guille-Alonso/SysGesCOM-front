@@ -79,10 +79,7 @@ function NavbarComponent() {
   };
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDesktop, setIsDesktop] =
-    user?.tipoDeUsuario == "admin"
-      ? useState(window.innerWidth >= 1400)
-      : useState(window.innerWidth >= 990);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
 
   const handleResize = () => {
     if (user?.tipoDeUsuario !== "admin") {
@@ -168,7 +165,7 @@ function NavbarComponent() {
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="ms-md-3 ms-xl-0">
+                  <Link to="/reportes" className="">
                     Reportes
                   </Link>
                 )}
@@ -178,7 +175,7 @@ function NavbarComponent() {
                 </Link>
               )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-sm-3 ms-xxl-3" to="/alta-categoria">
+                <Link className="ms-xxl-3" to="/alta-categoria">
                   Categorías
                 </Link>
               )}
@@ -186,7 +183,7 @@ function NavbarComponent() {
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link className="ms-md-3" to="/cambio-turno">
+                  <Link className="ms-xxl-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
                 )}

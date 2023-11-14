@@ -22,7 +22,6 @@ import { ALTA_REPORTES_VALUES } from "../../constants";
 import { COMContext } from "../../context/COMContext";
 
 const RelevamientoVehiculos = () => {
-  const [arrayVehiculos, setArrayVehiculos] = useState([]);
   const [motosBicis, setMotosBicis] = useState(0);
   const [autosCamionetas, setAutosCamionetas] = useState(0);
   const [camiones, setCamiones] = useState(0);
@@ -137,26 +136,29 @@ const RelevamientoVehiculos = () => {
     .replace(/^(\w)|\s(\w)/g, (match) => match.toUpperCase()); // Convertir la primera letra del día y del mes en mayúscula
 
   const agregarReporteMotos = async () => {
-    if (values.dispositivo !== "") {
-      setArrayVehiculos([
-        { "bicicleta/motos": motosBicis },
-        { "auto/camioneta": autosCamionetas },
-        { camion: camiones },
-        { colectivo: colectivos },
-      ]);
+    if (
+      values.dispositivo !== "" &&
+      (motosBicis > 0 || autosCamionetas > 0 || camiones > 0 || colectivos > 0)
+    ) {
+      let arr = [];
+      arr.push({ "bicicleta/moto": motosBicis });
+      arr.push({ "auto/camioneta": autosCamionetas });
+      arr.push({ camion: camiones });
+      arr.push({ colectivo: colectivos });
       try {
         const objVehiculoReporte = {
-          arrayVehiculos: arrayVehiculos,
+          arrayVehiculos: arr,
           reporte: {
             fecha: fechaSinZonaHoraria,
             detalle: detalleReporte(),
             naturaleza: "64b702496e1ce7bbdc5cc26a",
             usuario: user._id,
             categoria: "64b728ef93f64a87567f9840",
-            subcategoria: "6553acec32ab8843f3a5ecef",
+            subcategoria: "64e7da580a5e30019cccd20a", //relevamiento motos
             dispositivo: values.dispositivo,
           },
         };
+        console.log(objVehiculoReporte);
         const respuesta = await axios.post(
           "/relevamientoVehicular/alta",
           objVehiculoReporte

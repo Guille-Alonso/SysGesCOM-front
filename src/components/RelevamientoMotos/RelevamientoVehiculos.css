@@ -1,0 +1,54 @@
+.asideContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  border: solid 1px #ffffff2e;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  background-color: #f0f0f0;
+}
+
+.motoContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 100% !important;
+  backdrop-filter: blur(5px);
+}
+.motoContainer h4 {
+  margin: 0;
+}
+.motoSvg {
+  height: 80px;
+  width: 100px;
+  color: white !important;
+}
+
+.inputContainerMoto {
+  position: relative;
+  bottom: 4px;
+}
+
+.radioButtons {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+}
+.botonAgregarVehiculo {
+  font-size: 20px !important;
+  align-self: center;
+  width: 50px;
+  height: 50px;
+}
+.contenedorSvg {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+}
+.contendorContadores {
+  height: 100%;
+  margin-top: 40px;
+}

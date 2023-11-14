@@ -33,6 +33,7 @@ import PDFcambios from "./components/PDFCambios/PDFcambios";
 import ListarTickets from "./components/Tickets/ListarTickets";
 import AltaTickets from "./components/Tickets/AltaTickets";
 import DetalleTicket from "./components/Tickets/DetalleTicket";
+import RelevamientoVehiculos from "./components/RelevamientoMotos/RelevamientoVehiculos";
 
 function App() {
   return (
@@ -100,7 +101,8 @@ function App() {
               path="/relevamiento-motos"
               element={
                 <PrivateRouteVisualizadores>
-                  <RelevamientoMotos />
+                  {/* <RelevamientoMotos /> */}
+                  <RelevamientoVehiculos />
                 </PrivateRouteVisualizadores>
               }
             />
@@ -210,10 +212,10 @@ function App() {
               }
             />
             <Route
-              path="/tickets"
+              path="/home"
               element={
                 <PrivateRoute>
-                  <ListarTickets />
+                  <HomePage />
                 </PrivateRoute>
               }
             />

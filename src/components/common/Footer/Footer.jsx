@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Footer.css";
 import foto from "../../../assets/LarryTheBird.png";
+import vic from "../../../assets/img/victor.jpg";
 
 const Footer = () => {
   const [counter, setCounter] = useState(0);
@@ -21,10 +22,11 @@ const Footer = () => {
               className="btn btn-close botonCerrar"
               onClick={handleClick2}
             ></button>
-            <img src={foto} alt="" />
+            <img src={vic} alt="" className="bounce"/>
             <h5 className="mensaje">
-              Hola, encontraste un easter egg del sistema de gestión. Un saludo
-              de parte del equipo de Programación
+              Hola capo, encontraste un easter egg del sistema de gestión.
+              <br/> 
+              Un saludo de parte del equipo de Programación 🖖🖖 
             </h5>
           </div>
         </div>

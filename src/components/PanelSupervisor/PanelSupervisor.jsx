@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "../../config/axios";
 import useGet from "../../hooks/useGet";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
@@ -54,6 +54,9 @@ const PanelSupervisor = () => {
       return "noche";
     }
   }
+  useEffect(() => {
+    console.log(users);
+  }, [loading]);
 
   return (
     <div className="layoutHeight container">

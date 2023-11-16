@@ -221,11 +221,7 @@ function NavbarComponent() {
             </Nav>
 
             {authenticated ? (
-              <Nav
-                className={
-                  user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"
-                }
-              >
+              <Nav className={user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"}>
                 <NavDropdown
                   title={!isDesktop ? null : user.nombre}
                   id="collasible-nav-dropdown"

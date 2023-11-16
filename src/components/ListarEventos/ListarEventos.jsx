@@ -9,15 +9,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faRotate } from "@fortawesome/free-solid-svg-icons";
 import "./ListarEventos.css";
 import { convertirFecha2ASinHora, convertirFechaASinHora, obtenerFechaActualEnFormatoISO, obtenerPeriodoDelDia, obtenerPeriodoDelDiaConHora } from "../../utils/convertirFechaYTurno";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
+import { nanoid } from "nanoid";
+
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);
-  const { user, buscador, setBuscador, setPaginacion,checkboxDespacho,checkboxMunicipal,checkboxSeguridad,setCheckboxDespacho,
-    setCheckboxMunicipal,setCheckboxSeguridad, ResultadoBusqueda,setResultadoBusqueda } = useContext(COMContext);
+  const { user, buscador, setBuscador, setPaginacion, checkboxDespacho, checkboxMunicipal, checkboxSeguridad, setCheckboxDespacho,
+    setCheckboxMunicipal, setCheckboxSeguridad, ResultadoBusqueda, setResultadoBusqueda } = useContext(COMContext);
 
   const [selected, setSelected] = useState(undefined);
-  
 
+  const headings = [
+    "Nro",
+    "Fecha",
+    "Detalle",
+    "Usuario",
+    "Dispositivo",
+    "Categoria",
+    "",
+  ];
   const handleChange = (event) => {
     setBuscador(event.target.value);
   };
@@ -39,20 +52,20 @@ const ListarEventos = () => {
     if (!checkboxDespacho) {
       setResultadoBusqueda(array);
     } else if (checkboxDespacho) {
-      if(checkboxSeguridad){
+      if (checkboxSeguridad) {
         setResultadoBusqueda(
           reportes.reportes.filter((reporte) => reporte.naturaleza.nombre == "Seguridad")
         );
-      }else if(checkboxMunicipal){
+      } else if (checkboxMunicipal) {
         setResultadoBusqueda(
           reportes.reportes.filter((reporte) => reporte.naturaleza.nombre == "Municipal")
         );
-      }else setResultadoBusqueda(reportes.reportes);
+      } else setResultadoBusqueda(reportes.reportes);
     }
 
     setPaginacion(1);
   };
-  
+
   const filtroReportesSeguridad = (array, SiONo) => {
     setCheckboxSeguridad(!SiONo);
     if (!checkboxSeguridad) {
@@ -74,6 +87,8 @@ const ListarEventos = () => {
       );
     } else setResultadoBusqueda(reportes.reportes);
   };
+
+  const cont = 11;
 
   // function convertirFecha2ASinHora(fecha) {
   //   const meses = {
@@ -99,8 +114,8 @@ const ListarEventos = () => {
 
   useEffect(() => {
 
-    if (Array.isArray(reportes.reportes) && ((!checkboxDespacho && !checkboxMunicipal && !checkboxSeguridad)||(buscador !== ""))) {
-     
+    if (Array.isArray(reportes.reportes) && ((!checkboxDespacho && !checkboxMunicipal && !checkboxSeguridad) || (buscador !== ""))) {
+
       setCheckboxDespacho(false);
       setCheckboxMunicipal(false);
       setCheckboxSeguridad(false)
@@ -222,17 +237,17 @@ const ListarEventos = () => {
         {(user.tipoDeUsuario == "admin" ||
           user.tipoDeUsuario == "visualizador" ||
           user.tipoDeUsuario == "supervisor") && (
-          <Button
-            onClick={nuevoReporte}
-            style={{
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-            }}
-          >
-            +
-          </Button>
-        )}
+            <Button
+              onClick={nuevoReporte}
+              style={{
+                borderRadius: "50%",
+                width: "40px",
+                height: "40px",
+              }}
+            >
+              +
+            </Button>
+          )}
 
         {user.tipoDeUsuario == "supervisor" && (
           <>
@@ -264,13 +279,13 @@ const ListarEventos = () => {
             onClick={() =>
               filtroReportesDespachados(
                 checkboxSeguridad || checkboxMunicipal
-                    ? ResultadoBusqueda.filter(
-                      (reporte) => reporte.despacho !== undefined
-                      )
-                    :
-                reportes.reportes.filter(
-                  (reporte) => reporte.despacho !== undefined
-                ),
+                  ? ResultadoBusqueda.filter(
+                    (reporte) => reporte.despacho !== undefined
+                  )
+                  :
+                  reportes.reportes.filter(
+                    (reporte) => reporte.despacho !== undefined
+                  ),
                 checkboxDespacho
               )
             }
@@ -289,11 +304,11 @@ const ListarEventos = () => {
                 filtroReportesSeguridad(
                   checkboxDespacho
                     ? ResultadoBusqueda.filter(
-                        (reporte) => reporte.naturaleza.nombre == "Seguridad"
-                      )
+                      (reporte) => reporte.naturaleza.nombre == "Seguridad"
+                    )
                     : reportes.reportes.filter(
-                        (reporte) => reporte.naturaleza.nombre == "Seguridad"
-                      ),
+                      (reporte) => reporte.naturaleza.nombre == "Seguridad"
+                    ),
                   checkboxSeguridad
                 )
               }
@@ -309,11 +324,11 @@ const ListarEventos = () => {
                 filtroReportesMunicipal(
                   checkboxDespacho
                     ? ResultadoBusqueda.filter(
-                        (reporte) => reporte.naturaleza.nombre == "Municipal"
-                      )
+                      (reporte) => reporte.naturaleza.nombre == "Municipal"
+                    )
                     : reportes.reportes.filter(
-                        (reporte) => reporte.naturaleza.nombre == "Municipal"
-                      ),
+                      (reporte) => reporte.naturaleza.nombre == "Municipal"
+                    ),
                   checkboxMunicipal
                 )
               }
@@ -329,9 +344,62 @@ const ListarEventos = () => {
       <Row className="mt-5">
         <Col>
           {loading ? (
-            <Col className="d-flex justify-content-center">
-              <Spinner variant="light" />
-            </Col>
+
+            <MDBTable responsive>
+              <MDBTableHead className="colorTabla">
+                <tr>
+                  {headings.map((heading) => (
+                    <th key={nanoid()}>{heading}</th>
+                  ))}
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody className="colorTabla">
+                {Array.from({ length: 10 }).map(() => (
+                  
+                  <tr key={nanoid()}>
+                    <td>
+                      <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </td>
+                    <td>
+                      <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </td>
+                    <td>
+                      <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </td>
+                    <td>
+                      <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </td>
+                    <td>
+                      <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </td>
+                    <td>
+                      <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </td>
+                    <td>
+                      <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </td>
+
+                  </tr>
+                ))}
+
+
+              </MDBTableBody>
+            
+            </MDBTable>
           ) : (
             <TablaEventos
               headings={[

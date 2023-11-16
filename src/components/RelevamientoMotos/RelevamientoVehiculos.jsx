@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import motoSvg from "../../assets/motor-bike.svg";
 import biciSvg from "../../assets/bicycle.svg";
 import camionetaSvg from "../../assets/car-pickup.svg";
@@ -6,12 +5,6 @@ import autoSvg from "../../assets/car.svg";
 import camionSvg from "../../assets/truck.svg";
 import colectivoSvg from "../../assets/bus-alt.svg";
 import "./RelevamientoVehiculos.css";
-import {
-  faLightbulb,
-  faPeopleGroup,
-  faPerson,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";

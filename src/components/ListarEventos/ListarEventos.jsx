@@ -12,8 +12,8 @@ import { convertirFecha2ASinHora, convertirFechaASinHora, obtenerFechaActualEnFo
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 import { nanoid } from "nanoid";
-
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+
 
 const ListarEventos = () => {
   const [reportes, loading, getReportes] = useGet("/reportes/listar", axios);

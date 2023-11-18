@@ -65,7 +65,7 @@ function NavbarComponent() {
     { text: "Relevamiento", path: "/relevamiento-motos" },
     { text: "Reportes", path: "/reportes" },
     { text: "Usuarios", path: "/lista-usuarios" },
-    { text: "Tickets", path: "/tickets" },
+    // { text: "Tickets", path: "/tickets" },
   ];
 
   menuItems.sort((a, b) => a.text.localeCompare(b.text));
@@ -128,7 +128,7 @@ function NavbarComponent() {
   return (
     <Navbar
       collapseOnSelect
-      expand={user?.tipoDeUsuario == "admin" ? "xxl" : "lg"}
+      expand={user?.tipoDeUsuario == "admin"  ? "xxl" : "lg"}
       bg=""
       variant="dark"
       className="align-items-center"
@@ -163,7 +163,7 @@ function NavbarComponent() {
               {authenticated && (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "administración") && (
-                  <Link className="navBtn me-3" to="/cambio-turno">
+                  <Link className="navBtn me-md-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
                 )}
@@ -173,51 +173,36 @@ function NavbarComponent() {
                 </Link>
               )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link to="/estadisticas" className="navBtn">
+                <Link className="navBtn me-md-3" to="/estadisticas" >
                   Estadísticas
                 </Link>
               )}
               {authenticated &&
                 (user.relevamientoHabilitado ||
                   user.tipoDeUsuario == "supervisor") && (
-                  <Link className=" navBtn " to="/relevamiento-motos">
+                  <Link className=" navBtn me-md-3" to="/relevamiento-motos">
                     Relevamiento
                   </Link>
                 )}
+                
               {authenticated &&
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="">
+                  <Link to="/reportes" className="me-md-3">
                     Reportes
                   </Link>
                 )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link to="/estadisticas" className="ms-3">
-                  Estadísticas
-                </Link>
-              )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-xxl-3" to="/alta-categoria">
-                  Categorías
-                </Link>
-              )}
-              {authenticated &&
+              {/* {authenticated &&
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "administración") && (
                   <Link className="ms-xxl-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
-                )}
-              {authenticated &&
-                (user.relevamientoHabilitado ||
-                  user.tipoDeUsuario == "supervisor") && (
-                  <Link className="ms-md-3" to="/relevamiento-motos">
-                    Relevamiento
-                  </Link>
-                )}
+                )} */}
+              
             </Nav>
 
             {authenticated ? (

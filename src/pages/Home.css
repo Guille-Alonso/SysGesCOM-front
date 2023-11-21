@@ -1,10 +1,11 @@
 .estadisticas {
   width: 60%;
-  height: 60vh;
 }
+
 .giphyApi {
   width: 60%;
 }
+
 .contenedorCambios {
   display: flex;
   flex-direction: column;
@@ -12,89 +13,50 @@
   justify-content: center;
 }
 
+.contLeaderboard {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .selectPodio {
   background-color: #000 !important;
   color: #fff;
   border-radius: 2px;
 }
+
+.cardCambios{
+  margin-top: 25px;
+}
 .confettiCumple {
   width: 100% !important;
 }
-.dashboardUsuario {
-  border: 1px solid #ccc;
-  background-color: #000;
-  border-radius: 7px;
-  height: 60vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-.dashboardIzquierda {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.dashboardDerecha {
-  width: 50%;
-  height: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.dashboardCard {
-  width: 45%;
-  height: 40% !important;
-  border-radius: 7px;
-  height: 50%;
-  border: 1px solid #ccc;
-}
-.dashboardCardBig {
-  width: 90%;
-  border-radius: 7px;
-  height: 100%;
-  border: 1px solid #ccc;
-}
-.imgProfileDashboard {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-}
-.tituloReportes {
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  height: fit-content;
-}
-.numeroDeReportesDashboard {
-  height: 40%;
-  font-size: 40px;
-}
 
 @media screen and (max-width: 980px) {
+  .contenedorCambios {
+    width:100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .contLeaderboard{
+    width: 60vh;
+  }
   .contenedorHome {
+    overflow: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
-  .dashboardUsuario {
-    height: 380px;
-    width: 100%;
+  .cardCambios{
+    margin-top: 50px;
   }
-  .estadisticas {
-    width: 90%;
-  }
-}
-@media screen and (max-width: 700px) {
-  .imgProfileDashboard {
-    width: 100px;
-    height: 100px;
-  }
-  .tituloReportes {
-    font-size: 14px;
+} 
+
+@media screen and (max-width: 670px) {
+  .contenedorCambios {
+    width:100%;
+    flex-direction: column;
   }
 }

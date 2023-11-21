@@ -7,6 +7,8 @@ import { Spinner } from "react-bootstrap";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { getRandomColor } from "../../utils/convertirLetrasYMas";
+import "./Dashboard.css"
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -56,7 +58,7 @@ const Dashboard = () => {
           countObj[categoria] = 1;
         }
       }
-  
+
       return countObj;
     } else {
       for (let index = 0; index < reportesTotal.totalMes?.length; index++) {
@@ -82,7 +84,7 @@ const Dashboard = () => {
     labels,
     datasets: [
       {
-        label: user.tipoDeUsuario=="visualizador"?"Cantidad de Reportes por Categoría":"Cantidad de Despachos por Categoría",
+        label: user.tipoDeUsuario == "visualizador" ? "Cantidad de Reportes por Categoría" : "Cantidad de Despachos por Categoría",
         data: Object.values(categoriasLabels()),
         backgroundColor: getRandomColor(),
       },
@@ -93,13 +95,13 @@ const Dashboard = () => {
     plugins: {
       title: {
         display: true,
-        text: user.tipoDeUsuario=="visualizador"?"Reportes del Mes":"Despachos del mes", // Personaliza el título aquí
+        text: user.tipoDeUsuario == "visualizador" ? "Reportes del Mes" : "Despachos del mes", // Personaliza el título aquí
         fontSize: 16,
         color: "white"
       },
     },
   };
-  
+
 
   return (
     <>
@@ -184,10 +186,20 @@ const Dashboard = () => {
         <div className="dashboardDerecha">
           <div className="dashboardCardBig d-flex justify-content-center">
             {
-              loadingReportesTotal?
-              <Spinner variant="light" className="mt-3"/>:
+              loadingReportesTotal ?
+                <>
+                  <Spinner variant="light" className="mt-5 w-75 h-75" />
+                  {/* 
+                  <div className="w-100 h-100" >
 
-            <Pie data={data} options={options}/>
+                    <SkeletonTheme baseColor="#202020" highlightColor="blue" borderRadius={"100%"}>
+                      <Skeleton className="m-6.5 h-75 w-75" />
+                    </SkeletonTheme>
+                  </div> */}
+                </>
+
+                :
+                <Pie data={data} options={options} />
             }
           </div>
         </div>

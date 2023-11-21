@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import axios from "../../config/axios";
 import useGet from "../../hooks/useGet";
-import { Spinner } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast, ToastContainer } from "react-toastify";
 import "./PanelSupervisor.css";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+import { nanoid } from "nanoid";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 
 const PanelSupervisor = () => {
   const [users, loading, getUsers] = useGet("/users/email", axios);
@@ -14,7 +18,7 @@ const PanelSupervisor = () => {
     const updatedUser = {
       relevamientoHabilitado:
         usuario.relevamientoHabilitado == undefined ||
-        usuario.relevamientoHabilitado == false
+          usuario.relevamientoHabilitado == false
           ? true
           : false,
     };
@@ -32,7 +36,11 @@ const PanelSupervisor = () => {
       toast.error(error.response?.data.message || error.message);
     }
   };
-
+  const headings = [
+    "USUARIO",
+    "NOMBRE",
+    "HABILITAR"
+  ];
   function obtenerPeriodoDelDiaConHora(fecha) {
     const horaActual = fecha.getHours();
 
@@ -70,7 +78,41 @@ const PanelSupervisor = () => {
             <table className=" table text-light tablaPanelSupervisor">
               <tbody>
                 {loading ? (
-                  <Spinner />
+                  // <Spinner />
+                  
+                        <MDBTable responsive>
+                          <MDBTableHead className="colorTabla">
+                          </MDBTableHead>
+                          <MDBTableBody className="colorTabla">
+                            {Array.from({ length: 10 }).map(() => (
+
+                              <tr key={nanoid()}>
+                                <td>
+                                  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                    <Skeleton />
+                                  </SkeletonTheme>
+                                </td>
+                                <td>
+                                  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                    <Skeleton />
+                                  </SkeletonTheme>
+                                </td>
+                                <td>
+                                  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                    <Skeleton />
+                                  </SkeletonTheme>
+                                </td>
+
+
+                              </tr>
+                            ))}
+
+
+                          </MDBTableBody>
+
+                        </MDBTable>
+                     
+
                 ) : (
                   users.users
                     .filter(
@@ -127,7 +169,38 @@ const PanelSupervisor = () => {
             <table className=" table text-light tablaPanelSupervisor">
               <tbody>
                 {loading ? (
-                  <Spinner />
+                  // <Spinner />
+                  <MDBTable responsive>
+                          <MDBTableHead className="colorTabla">
+                          </MDBTableHead>
+                          <MDBTableBody className="colorTabla">
+                            {Array.from({ length: 10 }).map(() => (
+
+                              <tr key={nanoid()}>
+                                <td>
+                                  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                    <Skeleton />
+                                  </SkeletonTheme>
+                                </td>
+                                <td>
+                                  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                    <Skeleton />
+                                  </SkeletonTheme>
+                                </td>
+                                <td>
+                                  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                    <Skeleton />
+                                  </SkeletonTheme>
+                                </td>
+
+
+                              </tr>
+                            ))}
+
+
+                          </MDBTableBody>
+
+                        </MDBTable>
                 ) : (
                   users.users
                     .filter((user) => user.relevamientoHabilitado == true)

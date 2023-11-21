@@ -163,7 +163,7 @@ function NavbarComponent() {
               {authenticated && (user.tipoDeUsuario == "visualizador" ||
                 user.tipoDeUsuario == "supervisor" ||
                 user.tipoDeUsuario == "administración") && (
-                  <Link className="navBtn me-md-3" to="/cambio-turno">
+                  <Link className={user.tipoDeUsuario =="visualizador" || user.tipoDeUsuario =="administración"? "me-md-3 navBtn" : "navBtn" } to="/cambio-turno">
                     Cambios Turno
                   </Link>
                 )}

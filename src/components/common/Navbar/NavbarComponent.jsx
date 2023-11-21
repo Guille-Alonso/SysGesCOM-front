@@ -65,7 +65,7 @@ function NavbarComponent() {
     { text: "Relevamiento", path: "/relevamiento-motos" },
     { text: "Reportes", path: "/reportes" },
     { text: "Usuarios", path: "/lista-usuarios" },
-    { text: "Tickets", path: "/tickets" },
+    // { text: "Tickets", path: "/tickets" },
   ];
 
   menuItems.sort((a, b) => a.text.localeCompare(b.text));
@@ -165,7 +165,7 @@ function NavbarComponent() {
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="">
+                  <Link to="/reportes" className="ms-md-3 ms-xl-0">
                     Reportes
                   </Link>
                 )}
@@ -175,7 +175,7 @@ function NavbarComponent() {
                 </Link>
               )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-xxl-3" to="/alta-categoria">
+                <Link className="ms-sm-3 ms-xxl-3" to="/alta-categoria">
                   Categorías
                 </Link>
               )}
@@ -183,7 +183,7 @@ function NavbarComponent() {
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link className="ms-xxl-3" to="/cambio-turno">
+                  <Link className="ms-md-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
                 )}

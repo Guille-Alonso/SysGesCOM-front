@@ -211,15 +211,15 @@ function App() {
                 </PrivateRouteAdmin>
               }
             />
-            <Route
-              path="/home"
+            {/* <Route
+              path="/tickets"
               element={
                 <PrivateRoute>
-                  <HomePage />
+                  <ListarTickets/>
                 </PrivateRoute>
               }
-            />
-            <Route
+            /> */}
+            {/* <Route
               path="/nuevo-ticket"
               element={
                 <PrivateRoute>
@@ -234,7 +234,7 @@ function App() {
                   <DetalleTicket />
                 </PrivateRoute>
               }
-            />
+            /> */}
           </Routes>
           <ToastContainer />
         </Layout>

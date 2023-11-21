@@ -30,6 +30,10 @@ import PanelSupervisor from "./components/PanelSupervisor/PanelSupervisor";
 import PrivateRouteSupervisores from "./routes/PrivateRouteSupervisores";
 import PanelAdmin from "./components/PanelAdmin/panelAdmin";
 import PDFcambios from "./components/PDFCambios/PDFcambios";
+import ListarTickets from "./components/Tickets/ListarTickets";
+import AltaTickets from "./components/Tickets/AltaTickets";
+import DetalleTicket from "./components/Tickets/DetalleTicket";
+import RelevamientoVehiculos from "./components/RelevamientoMotos/RelevamientoVehiculos";
 
 function App() {
   return (
@@ -97,7 +101,8 @@ function App() {
               path="/relevamiento-motos"
               element={
                 <PrivateRouteVisualizadores>
-                  <RelevamientoMotos />
+                  {/* <RelevamientoMotos /> */}
+                  <RelevamientoVehiculos />
                 </PrivateRouteVisualizadores>
               }
             />
@@ -206,6 +211,30 @@ function App() {
                 </PrivateRouteAdmin>
               }
             />
+            {/* <Route
+              path="/tickets"
+              element={
+                <PrivateRoute>
+                  <ListarTickets/>
+                </PrivateRoute>
+              }
+            /> */}
+            {/* <Route
+              path="/nuevo-ticket"
+              element={
+                <PrivateRoute>
+                  <AltaTickets />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/detalleTicket"
+              element={
+                <PrivateRoute>
+                  <DetalleTicket />
+                </PrivateRoute>
+              }
+            /> */}
           </Routes>
           <ToastContainer />
         </Layout>

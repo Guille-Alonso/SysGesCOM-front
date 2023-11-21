@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "../../config/axios";
 import useGet from "../../hooks/useGet";
 import { Spinner } from "react-bootstrap";
@@ -42,10 +42,13 @@ const PanelSupervisor = () => {
       return "intermedio";
     } else if (horaActual >= 18 && horaActual < 24) {
       return "tarde";
-    } else{
+    } else {
       return "noche";
     }
   }
+  useEffect(() => {
+    console.log(users);
+  }, [loading]);
 
   return (
     <div className="layoutHeight container">

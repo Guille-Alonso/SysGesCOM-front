@@ -1,16 +1,36 @@
+.contTicket {
+  padding-left: 20px;
+  padding-right: 20px;
+
+}
+
+.botonGuardarCambiosTicket {
+  margin-top: 35%;
+}
+
+.botonGuardarCambiosTicket2 {
+  margin-top: 8%;
+}
+
 .fotoTicektDetalle {
   width: 100%;
   height: 100%;
-  margin: auto;
+  margin: 0;
   color: white;
   animation: pulse 1s alternate-reverse infinite;
 }
+
 .fotoTicketDetalle2 {
   object-fit: contain;
   width: 100%;
   height: 100%;
   margin: auto;
   color: white;
+}
+
+.fotoPreviewTicket {
+  height: 200px;
+  object-fit: contain;
 }
 
 @keyframes pulse {
@@ -22,6 +42,7 @@
     scale: 1;
   }
 }
+
 .navbarTicket {
   height: 40px;
   display: flex;
@@ -37,13 +58,19 @@
   gap: 20px;
 }
 
-.descripcionEditTicket {
+.descripcionEditarTicket {
   color: #fff;
   display: flex;
   margin-bottom: 1%;
   width: auto;
   height: 38px;
   font-size: 18px;
+}
+
+.descripcionEditarTicketUbi {
+  color: #fff;
+  font-size: 18px;
+  ;
 }
 
 .inputEditarTicket {
@@ -61,7 +88,9 @@
   border-radius: 10px;
   padding-left: 10px;
   padding-top: 5px;
+  resize: none !important
 }
+
 .inputEditarTituloTicket {
   width: 75% !important;
   color: #fff;
@@ -77,7 +106,9 @@
   border-radius: 10px;
   padding-left: 10px;
   padding-top: 7px;
+  resize: none !important
 }
+
 .botonEditarDetalleTicket {
   position: sticky;
 }
@@ -86,7 +117,7 @@
   width: fit-content;
   margin-bottom: 0% !important;
   color: #fff;
-  height: 100px;
+  height: auto;
   overflow-y: auto;
 }
 
@@ -95,14 +126,20 @@
     height: 60px;
   }
 
-  .dispositivoLabel {
-    margin: 30px auto;
+  .inputEditarTicket2 {
+    width: auto !important;
   }
-}
 
-@media screen and (max-width: 767px) {
+  .botonGuardarCambiosTicket {
+    margin-top: 78%;
+  }
+
+  .inputEditarTituloTicket2 {
+    width: auto !important;
+  }
+
   .dispositivoLabel {
-    margin: 60px auto;
+    margin: auto;
   }
 }
 
@@ -110,10 +147,67 @@
   .dispositivoLabel {
     margin: 30px auto;
   }
+
+  .inputEditarTituloTicket2 {
+    width: auto !important;
+  }
+
+  .inputEditarTicket2 {
+    width: auto !important;
+  }
+
+  .botonGuardarCambiosTicket {
+    margin-top: 5% !important;
+  }
+
+  .botonGuardarCambiosTicket2 {
+    margin-top: 10% !important;
+  }
 }
+
+@media screen and (max-width: 767px) {
+  .dispositivoLabel {
+    margin: auto;
+  }
+
+  .botonGuardarCambiosTicket {
+    margin-top: 94.5%;
+  }
+
+  .botonGuardarCambiosTicket2 {
+    margin-top: 20% !important;
+  }
+
+  .inputEditarTituloTicket2 {
+    width: auto !important;
+  }
+
+  .inputEditarTicket2 {
+    width: auto !important;
+  }
+
+}
+
+
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .dispositivoLabel {
-    margin: 30px auto;
+    margin: auto;
+  }
+
+  .inputEditarTituloTicket2 {
+    width: auto !important;
+  }
+
+  .inputEditarTicket2 {
+    width: auto !important;
+  }
+
+  .botonGuardarCambiosTicket {
+    margin-top: 39.05%;
+  }
+
+  .botonGuardarCambiosTicket2 {
+    margin-top: 11% !important;
   }
 }

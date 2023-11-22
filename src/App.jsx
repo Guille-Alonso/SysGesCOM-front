@@ -222,17 +222,17 @@ function App() {
             {/* <Route
               path="/nuevo-ticket"
               element={
-                <PrivateRoute>
+                <PrivateRouteAdmin>
                   <AltaTickets />
-                </PrivateRoute>
+                </PrivateRouteAdmin>
               }
             />
             <Route
               path="/detalleTicket"
               element={
-                <PrivateRoute>
+                <PrivateRouteAdmin>
                   <DetalleTicket />
-                </PrivateRoute>
+                </PrivateRouteAdmin>
               }
             /> */}
           </Routes>

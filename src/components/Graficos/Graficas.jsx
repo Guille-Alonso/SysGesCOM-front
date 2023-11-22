@@ -25,6 +25,8 @@ import { faMotorcycle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { obtenerPeriodoDelDiaConHora } from "../../utils/convertirFechaYTurno";
 import { getRandomColor } from "../../utils/convertirLetrasYMas";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
@@ -575,9 +577,21 @@ export function Grafico() {
               </div>
             </div>
           ) : (
-            <div className="layoutHeight d-flex justify-content-center mt-2">
-              <Spinner variant="light" />
-            </div>
+            <div className="layoutHeight d-flex justify-content-center align-items-end pt-4 ">
+            {/* <Spinner variant="light" /> */}
+            
+            {Array.from({ length: 12 }).map(() => (
+            <tr className="h-50 pb-0 ">
+    
+            <td className="pe-2" >
+                <SkeletonTheme baseColor="#202020" highlightColor="blue" className=" d-flex align-items-end">
+                  <Skeleton height={Math.floor(Math.random()*500)} width={"10vh"}/>
+                </SkeletonTheme>
+              </td>
+          
+          </tr>
+            ))}
+        </div >
           )}
         </>
       )}

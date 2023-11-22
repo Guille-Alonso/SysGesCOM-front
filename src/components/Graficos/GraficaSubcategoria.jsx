@@ -20,6 +20,8 @@ import { COMContext } from "../../context/COMContext";
 import ExportToExcel from "../ExportarExcel/ExportToExcel";
 import { obtenerPeriodoDelDiaConHora } from "../../utils/convertirFechaYTurno";
 import { getRandomColor } from "../../utils/convertirLetrasYMas";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 
 const GraficaSubcategoria = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -37,11 +39,11 @@ const GraficaSubcategoria = () => {
   const fechaActual = new Date();
   const primerDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
   const ultimoDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
-  
-  const [fechaDesde, setFechaDesde] = useState(primerDiaDelMes.toISOString().substr(0, 10));
-  const [fechaHasta, setFechaHasta] = useState(ultimoDiaDelMes.toISOString().substr(0, 10));  
 
-  const [flagHistorico, setFlagHistorico] = useState(true) 
+  const [fechaDesde, setFechaDesde] = useState(primerDiaDelMes.toISOString().substr(0, 10));
+  const [fechaHasta, setFechaHasta] = useState(ultimoDiaDelMes.toISOString().substr(0, 10));
+
+  const [flagHistorico, setFlagHistorico] = useState(true)
 
   const [isHovered, setIsHovered] = useState(false);
   const [changeClass, setChangeClass] = useState(false);
@@ -195,7 +197,7 @@ const GraficaSubcategoria = () => {
             reportesDespachados[index].subcategoria?.nombre.length < 20
               ? reportesDespachados[index].subcategoria?.nombre
               : reportesDespachados[index].subcategoria?.nombre.slice(0, 40) +
-                "...";
+              "...";
 
           if (countObj[subcategoria]) {
             // Si la categoría ya existe en el objeto, incrementa la cantidad
@@ -423,11 +425,11 @@ const GraficaSubcategoria = () => {
                   className="headerSearchInput"
                   onKeyDown={handleKeyDown}
                   placeholder="Ingrese un nombre"
-                  disabled = {reportesFecha.length == 0 ? true : false}
+                  disabled={reportesFecha.length == 0 ? true : false}
                 />
                 <div className="d-flex">
                   <label className="me-1">Histórico</label>
-                  <input disabled={!flagHistorico || reportesFecha.length == 0 ? true : false} onClick={traerHistorico} type="checkbox" name="" id=""/>
+                  <input disabled={!flagHistorico || reportesFecha.length == 0 ? true : false} onClick={traerHistorico} type="checkbox" name="" id="" />
                 </div>
                 <div className="headerSelectWrapper">
                   <select
@@ -435,7 +437,7 @@ const GraficaSubcategoria = () => {
                     onChange={selectedCategoria}
                     value={categoryName}
                     className="headerSelect"
-                    disabled = {reportesFecha.length == 0 ? true : false}
+                    disabled={reportesFecha.length == 0 ? true : false}
                   >
                     <option value="">Categorías</option>
                     {labelsCat.length !== 0 &&
@@ -450,7 +452,7 @@ const GraficaSubcategoria = () => {
                   onChange={selectedTurno}
                   value={turno}
                   className="headerSelect"
-                  disabled = {reportesFecha.length == 0 ? true : false}
+                  disabled={reportesFecha.length == 0 ? true : false}
                 >
                   <option value="">Todos</option>
                   <option value="mañana">Mañana</option>
@@ -460,7 +462,7 @@ const GraficaSubcategoria = () => {
                 </select>
               </div>
               <div className="headerSearchItem2">
-              
+
                 <div className="dateContainer">
                   <input
                     type="date"
@@ -468,7 +470,7 @@ const GraficaSubcategoria = () => {
                     id="desde"
                     value={fechaDesde}
                     onChange={handleFechaDesdeChange}
-                    disabled = {reportesFecha.length == 0 ? true : false}
+                    disabled={reportesFecha.length == 0 ? true : false}
                   />
                   <input
                     type="date"
@@ -476,7 +478,7 @@ const GraficaSubcategoria = () => {
                     id="hasta"
                     value={fechaHasta}
                     onChange={handleFechaHastaChange}
-                    disabled = {reportesFecha.length == 0 ? true : false}
+                    disabled={reportesFecha.length == 0 ? true : false}
                   />
                 </div>
                 <div className="headerSelectWrapper">
@@ -491,12 +493,12 @@ const GraficaSubcategoria = () => {
                       type="checkbox"
                       name=""
                       id=""
-                      disabled = {reportesFecha.length == 0 ? true : false}
+                      disabled={reportesFecha.length == 0 ? true : false}
                     />
                   </div>
                 </div>
                 <label className="" htmlFor="">
-                Total: {totalSubcategorias()}
+                  Total: {totalSubcategorias()}
                 </label>
               </div>
             </div>
@@ -541,10 +543,22 @@ const GraficaSubcategoria = () => {
           )}
         </div>
       ) : (
-        <div className="layoutHeight d-flex justify-content-center mt-2">
-          <Spinner variant="light" />
-        </div>
-      )}
+      <div className="layoutHeight d-flex justify-content-center align-items-end pt-4 ">
+        {/* <Spinner variant="light" /> */}
+        
+        {Array.from({ length: 12 }).map(() => (
+        <tr className="h-50 pb-0 ">
+
+        <td className="pe-2" >
+            <SkeletonTheme baseColor="#202020" highlightColor="blue" className=" d-flex align-items-end">
+              <Skeleton height={Math.floor(Math.random()*500)} width={"10vh"}/>
+            </SkeletonTheme>
+          </td>
+      
+      </tr>
+        ))}
+    </div >
+      )} 
     </>
   );
 };

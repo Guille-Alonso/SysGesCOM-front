@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
 import useGet from "../hooks/useGet";
 import axios from "../config/axios";
@@ -14,39 +14,40 @@ import Dashboard from "../components/DashboardHome/Dashboard";
 import GifCard from "../components/GifCard/GifCard";
 import { axiosGiphy, axiosGiphySearch } from "../config/axiosGiphy";
 import { toast } from "react-toastify";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const HomePage = () => {
   const [reportes, loading] = useGet("/reportes/podioDespachosPorMes/", axios);
   const [tipoPodio, setTipoPodio] = useState("general");
 
   const { user } = useContext(COMContext);
-  
-  const [gifs, loadingGifs] = user.tipoDeUsuario!=="supervisor" || user.tipoDeUsuario!=="visualizador" ? useGet(`/emoji?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&limit=6`, axiosGiphy):[];
+
+  const [gifs, loadingGifs] = user.tipoDeUsuario !== "supervisor" || user.tipoDeUsuario !== "visualizador" ? useGet(`/emoji?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&limit=6`, axiosGiphy) : [];
 
   function obtenerPeriodoDelDiaConHora(fecha) {
     const horaActual = fecha.getHours();
-    
+
     if (horaActual >= 6 && horaActual < 12) {
       return "mañana";
     } else if (horaActual >= 12 && horaActual < 18) {
       return "intermedio";
     } else if (horaActual >= 18 && horaActual < 24) {
       return "tarde";
-    } else{
+    } else {
       return "noche";
     }
   }
-  
+
   // const [reportesTurno, loadingTurno] = useGet(
   //   `/reportes/podio/${obtenerPeriodoDelDiaConHora(new Date())}`,
   //   axios
   //   );
-  
-    const [reportesTurno, loadingTurno] = useGet(
-      `/reportes/podioDespachosPorMes/${obtenerPeriodoDelDiaConHora(new Date())}`,
-      axios
-      );
-    
+
+  const [reportesTurno, loadingTurno] = useGet(
+    `/reportes/podioDespachosPorMes/${obtenerPeriodoDelDiaConHora(new Date())}`,
+    axios
+  );
+
   const nacimientoDate = parseISO(user.nacimiento);
   const today = new Date();
 
@@ -72,9 +73,9 @@ const HomePage = () => {
   const [results, setResults] = useState([])
   const [isSearching, setIsSearching] = useState(false);
 
-  const doSearch = async()=>{
+  const doSearch = async () => {
     try {
-      const {data} = await axiosGiphySearch.get(`/gifs/search?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&q=${search}&limit=6&rating=g`);
+      const { data } = await axiosGiphySearch.get(`/gifs/search?api_key=${import.meta.env.VITE_APP_GIPHY_API_KEY}&q=${search}&limit=6&rating=g`);
       setResults(data.data);
       setIsSearching(false);
     } catch (error) {
@@ -82,50 +83,50 @@ const HomePage = () => {
     }
   }
 
-  const handleChangeGiphy = (e)=>{
+  const handleChangeGiphy = (e) => {
     setSearch(e.target.value);
     setIsSearching(true);
   }
-  
-  useEffect(()=>{
-    if(isSearching){
+
+  useEffect(() => {
+    if (isSearching) {
       doSearch()
     }
-},[search])
+  }, [search])
 
   return (
     <div className="layoutHeight">
       <div className="d-flex justify-content-around contenedorHome">
-        <main className={user.tipoDeUsuario=="visualizador" || user.tipoDeUsuario=="supervisor" ?"estadisticas":"giphyApi"}>
-          
+        <main className={user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor" ? "estadisticas" : "giphyApi"}>
+
           <div>
             {user.tipoDeUsuario == "supervisor" ||
-            user.tipoDeUsuario == "visualizador" ? (
+              user.tipoDeUsuario == "visualizador" ? (
               <Dashboard />
             ) : (
               <div>
-              
-                {loadingGifs?
-                <Spinner className="mt-3" variant="light"/>
-                :
-                <div>
-                  <div className="mb-1">
-                  <label className="ms-2">Buscar :</label>
-                  <input type="text" value={search} className='ms-2' onChange={handleChangeGiphy} />
-                  </div>
-                <div className="d-flex flex-wrap">
-                  {
-                       results.length!==0?
-                       <div className="d-flex flex-wrap">
-                         {
-                           results.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
-                         }
-                       </div> 
-                       : gifs.map((result,index)=> <GifCard key={index} image={result.images.original.url} title={result.title}/>)
-                  }
 
-                </div>
-                </div>
+                {loadingGifs ?
+                  <Spinner className="mt-3" variant="light" />
+                  :
+                  <div>
+                    <div className="mb-1">
+                      <label className="ms-2">Buscar :</label>
+                      <input type="text" value={search} className='ms-2' onChange={handleChangeGiphy} />
+                    </div>
+                    <div className="d-flex flex-wrap">
+                      {
+                        results.length !== 0 ?
+                          <div className="d-flex flex-wrap">
+                            {
+                              results.map((result, index) => <GifCard key={index} image={result.images.original.url} title={result.title} />)
+                            }
+                          </div>
+                          : gifs.map((result, index) => <GifCard key={index} image={result.images.original.url} title={result.title} />)
+                      }
+
+                    </div>
+                  </div>
                 }
               </div>
             )}
@@ -139,30 +140,98 @@ const HomePage = () => {
           </div>
         </main>
         <aside className="contenedorCambios">
-          <select
-            className="selectPodio mt-2"
-            onChange={(e) => setTipoPodio(e.target.value)}
-            value={tipoPodio}
-            disabled={loading ? true : false}
-          >
-            <option value="general">General</option>
-            <option value="turno">Mi Turno</option>
-          </select>
 
-          {loading ? (
-            <Spinner className="mt-3" variant="light" />
-          ) : (
-            tipoPodio == "general" && (
-              <LeaderboardReportes reportes={reportes} />
+
+          <div className="contLeaderboard">
+
+            <select
+              className="selectPodio mt-2"
+              onChange={(e) => setTipoPodio(e.target.value)}
+              value={tipoPodio}
+              disabled={loading ? true : false}
+            >
+              <option value="general">General</option>
+              <option value="turno">Mi Turno</option>
+            </select>
+
+            {loading ? (
+              // <Spinner className="mt-3" variant="light" /> 
+              <section title={`Usuarios con más despachos por mes`} className="container p-0 leaderboard">
+                <h3 className="text-center text-light">Top Reportes</h3>
+                <div className="tabla-podio d-flex justify-content-center">
+                  <Table bordered >
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Turno</th>
+                        <th>Reportes</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>🥇</td>
+                        <td>
+                          <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                            <Skeleton />
+                          </SkeletonTheme>
+                        </td>
+                        <td>  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                          <Skeleton />
+                        </SkeletonTheme></td>
+                        <td>
+                          <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                            <Skeleton />
+                          </SkeletonTheme>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>🥈</td>
+                        <td>
+                          <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                            <Skeleton />
+                          </SkeletonTheme>
+                        </td>
+                        <td>  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                          <Skeleton />
+                        </SkeletonTheme></td>
+                        <td>  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                          <Skeleton />
+                        </SkeletonTheme>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>🥉</td>
+                        <td>
+                          <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                            <Skeleton />
+                          </SkeletonTheme>
+                        </td>
+                        <td>  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                          <Skeleton />
+                        </SkeletonTheme></td>
+                        <td>  <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                          <Skeleton />
+                        </SkeletonTheme></td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
+              </section>
+
+            ) : (
+              tipoPodio == "general" && (
+                <LeaderboardReportes reportes={reportes} />
+              )
+
+            )}
+
+            {tipoPodio == "turno" && (
+              <LeaderboardReportes reportes={reportesTurno} />
             )
-           
-          )}
-
-          {tipoPodio == "turno" && (
-            <LeaderboardReportes reportes={reportesTurno} />
-          )
-          }
-          <div className="mt-3">
+            }
+          </div>
+          <div className=" cardCambios">
             <CardCambios />
           </div>
         </aside>

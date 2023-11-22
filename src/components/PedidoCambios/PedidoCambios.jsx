@@ -159,7 +159,7 @@ const PedidoCambios = () => {
             <Col lg={6} className="p-0">
               <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
                 <div className="cardCambioColor2">
-                  <div className="d-flex flex-column cardCambioOscura2 justify-content align-items-center">
+                  <div className="d-flex flex-column cardCambioOscura2 align-items-center">
                     <h3 className="text-light p-4">Pedidos de Cambio</h3>
                     <table class="table text-light tablaCambios">
                       <thead>
@@ -257,7 +257,7 @@ const PedidoCambios = () => {
           <Col lg={6} className="">
             <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
               <div className="cardCambioColor2">
-                <div className="d-flex flex-column cardCambioOscura3 justify-content align-items-center">
+                <div className="d-flex flex-column cardCambioOscura3 align-items-center">
                   <h3 className="text-light p-4">
                     Pedidos de Cambio Confirmados
                   </h3>

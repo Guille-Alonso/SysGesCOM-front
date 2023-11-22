@@ -6,9 +6,6 @@
   scale: 1.2;
   color: green;
 }
-/* .contenedorNoticias {
-  border: 1px solid #ccc;
-} */
 
 .cardCambioOscuraTablaCambios {
   min-height: 60vh;
@@ -34,4 +31,10 @@
 }
 .newsLetter {
   width: 50%;
+}
+
+@media (max-height: 750px) {
+  .cardCambioOscuraTablaCambios {
+  width: auto;
+  }
 }

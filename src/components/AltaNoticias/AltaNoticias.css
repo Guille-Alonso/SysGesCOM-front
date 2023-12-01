@@ -1,0 +1,29 @@
+.contInputFechaNoticias {
+    display: flex;
+}
+.inputFechaNoticias {
+    position: flex;
+    color: white !important;
+    padding-left: 0% !important;
+    background: transparent !important;
+    border: none !important;   
+}
+.inputAltaNoticiaTitulo{
+    width: 500px !important;
+    height: 35px !important;
+    color: black;
+    border-radius: 10px;
+    padding: 4px 10px;
+    resize: none !important;
+}
+
+/* .inputAltaNoticiaDescripcion {
+    width: fit-content;
+    margin-bottom: 0% !important;
+    color: black;
+    border-radius: 10px;
+    height: 100px !important;
+    overflow-y: auto;
+    padding: 5px 10px 5px;
+    resize: none !important;
+} */

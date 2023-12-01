@@ -92,3 +92,9 @@ export const ALTA_TICKETS_VALUES = {
   photo: "",
   ubicacion: ""
 };
+export const ALTA_NOTICIAS_VALUES = {
+  fecha: "",
+  usuario: "",
+  titulo:"",
+  files: "",
+};

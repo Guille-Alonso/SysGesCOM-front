@@ -14,20 +14,20 @@ import newsLetter from "../../assets/newsletter.svg";
 const Notificaciones = () => {
   const { user } = useContext(COMContext);
   const [cambios, loading, getCambios] = useGet("/cambios/listar", axios);
-  const [fechaPedido, setFechaPedido] = useState("");
+  // const [fechaPedido, setFechaPedido] = useState("");
   const [selected, setSelected] = useState(null);
 
-  const setFecha = (e) => {
-    setFechaPedido(e.target.value);
-  };
+  // const setFecha = (e) => {
+  //   setFechaPedido(e.target.value);
+  // };
   const setSeleccionCambio = (id) => {
     setSelected(id);
-    setFechaPedido("");
+    // setFechaPedido("");
   };
 
   const actualizarCambio = async (id) => {
     const pedidoDeCambio = {
-      pedidoDevolucion: fechaPedido,
+      // pedidoDevolucion: fechaPedido,
       solicitado: user._id,
       estado: "acordado",
     };
@@ -45,12 +45,11 @@ const Notificaciones = () => {
   };
 
   const comparaFechaPedidoConActual = (fecha) => {
-    
     let fechaActual = new Date();
     fechaActual.setHours(0, 0, 0, 0);
-  
+
     let fechaDeseada = new Date(fecha);
-    fechaDeseada.setDate(fechaDeseada.getDate() + 1); 
+    fechaDeseada.setDate(fechaDeseada.getDate() + 1);
     fechaDeseada.setHours(0, 0, 0, 0);
 
     if (fechaDeseada < fechaActual) {
@@ -60,8 +59,7 @@ const Notificaciones = () => {
     } else {
       return true;
     }
-
-  }
+  };
 
   const calcularFechaMinima = () => {
     const fechaActual = new Date();
@@ -78,7 +76,12 @@ const Notificaciones = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleChanges = cambios.cambios
-    ?.filter((cam) => cam.estado === "consultado" && comparaFechaPedidoConActual(cam.pedido) && comparaFechaPedidoConActual(cam.pedidoDevolucion))
+    ?.filter(
+      (cam) =>
+        cam.estado === "consultado" &&
+        comparaFechaPedidoConActual(cam.pedido) &&
+        comparaFechaPedidoConActual(cam.pedidoDevolucion)
+    )
     .reverse()
     ?.slice(startIndex, endIndex);
 
@@ -121,116 +124,90 @@ const Notificaciones = () => {
           <Col lg={6} sm={0}>
             <aside className="d-flex flex-column justify-content-center">
               <div className="container-fluid col-12 d-flex flex-column align-items-center mt-3">
-                <div className="cardCambioColorTablaCambios">
-                  <div className="d-flex flex-column cardCambioOscuraTablaCambios align-items-center">
-                    <h3 className="text-light p-2">Pedidos de Cambio</h3>
-                    <table className=" table text-light tablaCambios">
-                      <thead>
-                        <tr>
-                          <th className="w-25" scope="col">
-                            Solicitante
-                          </th>
-                          <th className="w-25" scope="col">
-                            Dia a cubrir
-                          </th>
-                          <th className="w-25" scope="col">
-                            Dia a devolver
-                          </th>
-                          <th scope="col">Solicitado</th>
-                          <th scope="col"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {loading ? (
-                          <Spinner />
-                        ) : (
-                          visibleChanges
-                            ?.filter((cam) => cam.estado === "consultado")
-                            .map((cam) => {
-                              return (
-                                <tr
-                                  key={nanoid()}
-                                  onClick={() => setSeleccionCambio(cam._id)}
-                                  className={
-                                    selected === cam._id ? "row-(selected" : ""
-                                  }
-                                >
-                                  <td>{`${cam.solicitante.nombreUsuario} (${cam.solicitante.turno})`}</td>
-                                  <td>{cam.pedido}</td>
-                                  <td>
-                                    {selected === cam._id ? (
-                                      user._id !== cam.solicitante._id ? (
-                                        <input
-                                          type="date"
-                                          name="fechaPedidoDevolucion"
-                                          min={calcularFechaMinima()}
-                                          className="inputFechaCambio"
-                                          disabled={
-                                            user._id !== cam.solicitante._id ? (
-                                              false
-                                            ) : (
-                                              <p> A confirmar</p>
-                                            )
-                                          }
-                                          value={fechaPedido}
-                                          onChange={setFecha}
-                                        ></input>
+                <div className="d-flex flex-column cardCambioOscuraTablaCambios align-items-center">
+                  <h3 className="text-light p-2">Pedidos de Cambio</h3>
+                  <table className=" table text-light tablaCambios">
+                    <thead>
+                      <tr>
+                        <th className="w-25" scope="col">
+                          Solicitante
+                        </th>
+                        <th className="w-25" scope="col">
+                          Dia a cubrir
+                        </th>
+                        <th className="w-25" scope="col">
+                          Dia a devolver
+                        </th>
+                        <th scope="col">Solicitado</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {loading ? (
+                        <Spinner />
+                      ) : (
+                        visibleChanges
+                          ?.filter((cam) => cam.estado === "consultado")
+                          .map((cam) => {
+                            return (
+                              <tr
+                                key={nanoid()}
+                                onClick={() => setSeleccionCambio(cam._id)}
+                                className={
+                                  selected === cam._id ? "row-(selected" : ""
+                                }
+                              >
+                                <td>{`${cam.solicitante.nombreUsuario} (${cam.solicitante.turno})`}</td>
+                                <td>{cam.pedido}</td>
+                                <td>{cam.pedidoDevolucion}</td>
+                                <td>
+                                  {selected === cam._id ? (
+                                    <p
+                                      name="solicitado"
+                                      className="w-75 inputFechaCambio"
+                                      // onChange={setFecha}
+                                    >
+                                      {user._id !== cam.solicitante._id ? (
+                                        `${user.nombreUsuario} (${user.turno})`
                                       ) : (
                                         <p>A confirmar</p>
-                                      )
-                                    ) : (
-                                      <p>A confirmar</p>
-                                    )}
-                                  </td>
-                                  <td>
-                                    {selected === cam._id ? (
-                                      <p
-                                        name="solicitado"
-                                        className="w-75 inputFechaCambio"
-                                        onChange={setFecha}
-                                      >
-                                        {user._id !== cam.solicitante._id ? (
-                                          `${user.nombreUsuario} (${user.turno})`
-                                        ) : (
-                                          <p>A confirmar</p>
-                                        )}
-                                      </p>
-                                    ) : (
-                                      <>A confirmar</>
-                                    )}
-                                  </td>
-                                  <td>
-                                    {selected === cam._id ? (
-                                      user._id !== cam.solicitante._id &&
-                                      fechaPedido !== "" ? (
-                                        <FontAwesomeIcon
-                                          icon={faHandshake}
-                                          className="confirmarCambio"
-                                          onClick={() =>
-                                            actualizarCambio(cam._id)
-                                          }
-                                        />
-                                      ) : user._id == cam.solicitante._id ? (
-                                        <FaTrashAlt
-                                          onClick={() =>
-                                            borrarPedidoCambio(cam._id)
-                                          }
-                                          className="botonEliminar"
-                                        />
-                                      ) : (
-                                        <></>
-                                      )
+                                      )}
+                                    </p>
+                                  ) : (
+                                    <>A confirmar</>
+                                  )}
+                                </td>
+                                <td>
+                                  {selected === cam._id ? (
+                                    user._id !== cam.solicitante._id &&
+                                    cam.fechaPedidoDevolucion !== "" ? (
+                                      <FontAwesomeIcon
+                                        icon={faHandshake}
+                                        className="confirmarCambio"
+                                        onClick={() =>
+                                          actualizarCambio(cam._id)
+                                        }
+                                      />
+                                    ) : user._id == cam.solicitante._id ? (
+                                      <FaTrashAlt
+                                        onClick={() =>
+                                          borrarPedidoCambio(cam._id)
+                                        }
+                                        className="botonEliminar"
+                                      />
                                     ) : (
                                       <></>
-                                    )}
-                                  </td>
-                                </tr>
-                              );
-                            })
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
+                                    )
+                                  ) : (
+                                    <></>
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                      )}
+                    </tbody>
+                  </table>
                 </div>
                 <div className="paginacionCont mt-4">
                   <Button

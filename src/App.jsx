@@ -34,6 +34,7 @@ import ListarTickets from "./components/Tickets/ListarTickets";
 import AltaTickets from "./components/Tickets/AltaTickets";
 import DetalleTicket from "./components/Tickets/DetalleTicket";
 import RelevamientoVehiculos from "./components/RelevamientoMotos/RelevamientoVehiculos";
+import AltaNoticias from "./components/AltaNoticias/AltaNoticias";
 
 function App() {
   return (
@@ -209,6 +210,14 @@ function App() {
                 <PrivateRouteAdmin>
                   <PanelAdmin />
                 </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/alta-noticias"
+              element={
+                <PrivateRouteAdministracion>
+                  <AltaNoticias />
+                </PrivateRouteAdministracion>
               }
             />
             {/* <Route

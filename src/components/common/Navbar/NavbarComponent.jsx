@@ -65,6 +65,7 @@ function NavbarComponent() {
     { text: "Relevamiento", path: "/relevamiento-motos" },
     { text: "Reportes", path: "/reportes" },
     { text: "Usuarios", path: "/lista-usuarios" },
+    { text: "Noticias", path: "/alta-noticias" },
     // { text: "Tickets", path: "/tickets" },
   ];
 
@@ -175,6 +176,11 @@ function NavbarComponent() {
               {authenticated && user.tipoDeUsuario == "estadística" && (
                 <Link className="navBtn me-md-3" to="/estadisticas" >
                   Estadísticas
+                </Link>
+              )}
+              {authenticated && user.tipoDeUsuario == "administración" && (
+                <Link className="navBtn me-md-3" to="/alta-noticias">
+                  Noticias
                 </Link>
               )}
               {authenticated &&

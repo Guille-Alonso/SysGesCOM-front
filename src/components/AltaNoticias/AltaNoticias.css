@@ -1,0 +1,77 @@
+.contInputFechaNoticias {
+    display: flex;
+    justify-content: center;
+}
+
+.inputFechaNoticias {
+    position: flex;
+    color: white !important;
+    padding-left: 0% !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.inputAltaNoticiaTitulo {
+    width: 500px !important;
+    height: 35px !important;
+    color: black;
+    border-radius: 10px;
+    padding: 4px 10px;
+    resize: none !important;
+}
+
+.botonEliminarNoticia {
+    color: gray;
+}
+
+.botonEliminarNoticia:hover {
+    transform: scale(1.8);
+    color: red;
+}
+
+
+.not {
+    width: 100%;
+
+}
+
+.not a {
+    margin-left: 20px !important;
+}
+
+.not hr {
+    margin: 5px !important;
+    color: black;
+    margin-left: 0 !important;
+}
+
+.altaNoticias {
+    height: 500px;
+}
+
+.bodyAltaNoticias {
+    padding: 10px 0px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.contenidoAltaNoticias {
+    width: 500px;
+    height: 400px;
+    overflow-x: auto;
+    background-color: whitesmoke;
+    border-radius: 20px 0px 0px 20px;
+}
+
+/* .inputAltaNoticiaDescripcion {
+    width: fit-content;
+    margin-bottom: 0% !important;
+    color: black;
+    border-radius: 10px;
+    height: 100px !important;
+    overflow-y: auto;
+    padding: 5px 10px 5px;
+    resize: none !important;
+} */

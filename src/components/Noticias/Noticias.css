@@ -45,6 +45,19 @@
     justify-content: center !important;
 }
 
+.linkNoticia {
+    color: aliceblue;
+    text-decoration: none;
+    transition: border-bottom 0.3s ease;
+}
+
+.linkNoticia:hover {
+    border-bottom: 1px solid white !important;
+    color: white !important;
+    max-width: fit-content;
+}
+
+
 .circular {
     cursor: pointer;
 }
@@ -60,6 +73,7 @@
     border: 1px solid #ccc;
     place-self: center; */
 }
+
 
 /* 
 .contenidoAside span {

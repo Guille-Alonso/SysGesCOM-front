@@ -9,12 +9,11 @@ import LogoCOMM from '../../assets/SMT Escudo - blanco.png';
 const Noticias = () => {
     const [noticias, loading, getNoticias] = useGet("/noticias/listarNoticias", axios);
 
-    const funcionDescarga = async (id) => {
+    const funcionDescarga = async (obj) => {
         try {
-          // const {data} = await axios.get(`/noticias/listar/${id}`)
-          console.log(id)
+         
           const response = await axios.get(
-            `http://localhost:4000/noticias/listar/${id}`,
+            `http://10.0.0.230:4000/noticias/listar/${obj._id}`,
             {
               responseType: "blob", // Especifica el tipo de respuesta como Blob
             }
@@ -25,7 +24,7 @@ const Noticias = () => {
     
           const link = document.createElement("a");
           link.href = url;
-          // link.download = `noticia_${id}.pdf`; // Cambiar el nombre del archivo según tus necesidades
+          link.download = obj.titulo;
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -43,7 +42,7 @@ const Noticias = () => {
                         {
                     loading ? <Spinner variant="ligth " /> :noticias.noticias.map(element => {
                     return (
-                        <Link onClick={() => funcionDescarga(element._id)} >{element.titulo}</Link>
+                        <Link onClick={() => funcionDescarga(element)} >{element.titulo}</Link>
 
                     )})}
                     </div>

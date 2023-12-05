@@ -99,12 +99,11 @@ const AltaNoticias = () => {
     }
   };
 
-  const funcionDescarga = async (id) => {
+  const funcionDescarga = async (obj) => {
     try {
-      // const {data} = await axios.get(`/noticias/listar/${id}`)
-      console.log(id)
+  
       const response = await axios.get(
-        `http://localhost:4000/noticias/listar/${id}`,
+        `http://10.0.0.230:4000/noticias/listar/${obj._id}`,
         {
           responseType: "blob", // Especifica el tipo de respuesta como Blob
         }
@@ -115,7 +114,7 @@ const AltaNoticias = () => {
 
       const link = document.createElement("a");
       link.href = url;
-      // link.download = `noticia_${id}.pdf`; // Cambiar el nombre del archivo según tus necesidades
+      link.download = obj.titulo;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -157,7 +156,7 @@ const AltaNoticias = () => {
       <Row>
         <Col>
 
-          <Form id="myForm" action="http://localhost:4000/noticias/alta" enctype="multipart/form-data" method="POST"  onSubmit={submitForm}>
+          <Form id="myForm" action="http://10.0.0.230:4000/noticias/alta" enctype="multipart/form-data" method="POST"  onSubmit={submitForm}>
             <Form.Group className="contInputFechaNoticias">
               <Form.Control
                 name="fecha"
@@ -241,7 +240,7 @@ const AltaNoticias = () => {
 
                         <Row className="g-0 mt-2" >
                           <Col className="col-11">
-                            <Link onClick={() => funcionDescarga(element._id)} >{element.titulo}</Link>
+                            <Link onClick={() => funcionDescarga(element)} >{element.titulo}</Link>
 
                           </Col>
                           {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ?

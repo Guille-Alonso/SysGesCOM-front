@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
-import { Spinner, Table } from "react-bootstrap";
+import { Button, Spinner, Table } from "react-bootstrap";
 import LeaderboardReportes from "../components/LeaderboardReportes/LeaderboardReportes";
 import useGet from "../hooks/useGet";
 import axios from "../config/axios";
@@ -120,7 +120,7 @@ const HomePage = () => {
                 <Dashboard />
                 <div>
             {modalNoticiasOpen && <ModalNoticias closeModal={closeModalNoticias} />}
-            <button onClick={openModalNoticias}>Abrir Modal Noticias</button>
+            <Button className="mt-3 botonNoticias" variant="primary" onClick={openModalNoticias}>Novedades</Button>
           </div>
               </>
             ) : (

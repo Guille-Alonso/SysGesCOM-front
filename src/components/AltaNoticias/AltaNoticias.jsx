@@ -1,22 +1,23 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./AltaNoticias.css";
-import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Modal, Row, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import useGet from "../../hooks/useGet";
 import useForm from "../../hooks/useForm";
 import axios from "../../config/axios";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { COMContext } from "../../context/COMContext";
 import { ALTA_NOTICIAS_VALUES } from "../../constants";
 import { validationsAltaNoticias } from "../../helpers/validationsAltaNoticias";
+import { FaTrashAlt } from "react-icons/fa";
 
 const AltaNoticias = () => {
   const { user } = useContext(COMContext);
-  const datos = useLocation.state;
   const [selectedFile, setSelectedFile] = useState(null);
-  const [botonState, setBotonState] = useState(false);
   const fechaActual = new Date();
-  const navigate = useNavigate();
+  const [noticias, loading, getNoticias] = useGet("/noticias/listarNoticias", axios);
+  const [modalDelete, setModalDelete] = useState(false);
+  const [selected, setSelected] = useState(null);
 
   const options = {
     weekday: "long",
@@ -62,6 +63,7 @@ const AltaNoticias = () => {
           // Manejar la respuesta del servidor
           setValues(ALTA_NOTICIAS_VALUES)
           toast.success("Noticia cargada con éxito")
+          getNoticias()
           console.log(response.data);
         })
         .catch(error => {
@@ -83,40 +85,105 @@ const AltaNoticias = () => {
     handleChange(e)
 
     setLengthFile(e.target.files.length)
-    
-    console.log(e.target.files.length)
-  
+
+  }
+
+  const handleRemoveNoticia = async () => {
+    try {
+      await axios.delete("/noticias/", { data: { id: selected } });
+      toast.info("Noticia borrada con éxito");
+      getNoticias();
+      setModalDelete(false);
+    } catch (error) {
+      toast.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const funcionDescarga = async (id) => {
+    try {
+      // const {data} = await axios.get(`/noticias/listar/${id}`)
+      console.log(id)
+      const response = await axios.get(
+        `http://localhost:4000/noticias/listar/${id}`,
+        {
+          responseType: "blob", // Especifica el tipo de respuesta como Blob
+        }
+      );
+      console.log(response.data);
+      const blob = response.data;
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      // link.download = `noticia_${id}.pdf`; // Cambiar el nombre del archivo según tus necesidades
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const setNoticiaDelete = (id) => {
+    setModalDelete(true);
+    setSelected(id);
   }
 
   return (
     <Container className="layoutHeight">
-      <Form id="myForm" action="http://localhost:4000/noticias/alta" enctype="multipart/form-data" method="POST" className="formAltaEvento" onSubmit={submitForm}>
-        <Form.Group className="contInputFechaNoticias">
-          <Form.Control
-            name="fecha"
-            value={`${fecha} - ${hora}`}
-            required
-            className="inputFechaNoticias"
-          />
-        </Form.Group>
-        <Form.Group className="d-flex flex-column labelEditReporte mt-2">
-          <Form.Label className="">Título de la Noticia</Form.Label>
-          <Form.Control
-            className="inputAltaNoticiaTitulo w-100"
-            type="text" name="titulo" id=""
-            onChange={handleChange}
-            value={values.titulo}
-            isValid={values.titulo && !errors.titulo}
-            isInvalid={!!errors.titulo}
-            minLength={4}
-            maxLength={200}
-            required
-          />
-          <Form.Control.Feedback type="invalid" >
-            {errors.titulo}
-          </Form.Control.Feedback>
-        </Form.Group>
-        {/* <Form.Group className="d-flex flex-column labelEditReporte mt-2">
+      <Modal
+        className="modal-borrarUsuario"
+        show={modalDelete}
+        onHide={() => setModalDelete(false)}
+        backdrop="static"
+        centered
+      >
+        <div className="fondoModal">
+          <Modal.Header closeButton>
+            <h4>Borrar Cámara</h4>
+          </Modal.Header>
+          <div className="mensajeConfirmacion">
+            Seguro que quieres borrar esta Noticia?
+          </div>
+          <Button
+            className="btn-BorrarUsuario"
+            variant="danger"
+            onClick={handleRemoveNoticia}
+          >
+            Confirmar
+          </Button>
+        </div>
+      </Modal>
+      <Row>
+        <Col>
+
+          <Form id="myForm" action="http://localhost:4000/noticias/alta" enctype="multipart/form-data" method="POST"  onSubmit={submitForm}>
+            <Form.Group className="contInputFechaNoticias">
+              <Form.Control
+                name="fecha"
+                value={`${fecha} - ${hora}`}
+                required
+                className="inputFechaNoticias"
+              />
+            </Form.Group>
+            <Form.Group className="d-flex flex-column labelEditReporte mt-2">
+              <Form.Label className="">Título de la Noticia</Form.Label>
+              <Form.Control
+                className="inputAltaNoticiaTitulo w-100"
+                type="text" name="titulo" id=""
+                onChange={handleChange}
+                value={values.titulo}
+                isValid={values.titulo && !errors.titulo}
+                isInvalid={!!errors.titulo}
+                minLength={4}
+                maxLength={200}
+                required
+              />
+              <Form.Control.Feedback type="invalid" >
+                {errors.titulo}
+              </Form.Control.Feedback>
+            </Form.Group>
+            {/* <Form.Group className="d-flex flex-column labelEditReporte mt-2">
               <Form.Label className="">Descripción del Ticket</Form.Label>
               <textarea
                 className="inputAltaTicketDescripcion w-100"
@@ -126,41 +193,104 @@ const AltaNoticias = () => {
                 required
               />
             </Form.Group> */}
-        <Form.Group className="inputAltaEvento">
-          <Form.Label className="mt-2">Archivos</Form.Label>
-          <Form.Control
-            type="file"
-            name="files" multiple
-            id="imageNoticia"
-            className="InputArchivo"
-            onChange={handleChangeFile}
-            value={values.files}
-            isValid={values.files && !errors.files}
-            isInvalid={!!errors.files}
-          />
-          <Form.Control.Feedback type="invalid" >
-            {errors.files}
-          </Form.Control.Feedback>
-        </Form.Group>
-        {selectedFile && (
-          <img
-            src={selectedFile}
-            className="mt-5 d-flex justify-content-center align-items-center w-100 fotoPreview"
-            alt=""
-          />
-        )}
-        <Button
-          variant="success"
-          className="mt-5 col-12 mb-3"
-          size="lg"
-          type="submit" value="Upload your files" onClick={submitForm}
-        >
-          Agregar
-        </Button>
-      </Form>
+            <Form.Group className="inputAltaEvento">
+              <Form.Label className="mt-2">Archivos</Form.Label>
+              <Form.Control
+                type="file"
+                name="files" multiple
+                id="imageNoticia"
+                className="InputArchivo"
+                onChange={handleChangeFile}
+                value={values.files}
+                isValid={values.files && !errors.files}
+                isInvalid={!!errors.files}
+              />
+              <Form.Control.Feedback type="invalid" >
+                {errors.files}
+              </Form.Control.Feedback>
+            </Form.Group>
+            {selectedFile && (
+              <img
+                src={selectedFile}
+                className="mt-5 d-flex justify-content-center align-items-center w-100 fotoPreview"
+                alt=""
+              />
+            )}
+            <Button
+              variant="success"
+              className="mt-5 col-12 mb-3"
+              size="lg"
+              type="submit" value="Upload your files" onClick={submitForm}
+            >
+              Agregar
+            </Button>
+          </Form>
+
+        </Col>
+        <Col>
+          <div className="altaNoticias">
+            <div className='bodyAltaNoticias'>
+              <h1 className="text-light" >Noticias</h1>
+              <div className="contenidoAltaNoticias mt-1">
+                {
+
+                  loading ? <Spinner variant="ligth " /> : (noticias.noticias.map(element => {
+                    return (
+
+                      <div className="not">
+
+                        <Row className="g-0 mt-2" >
+                          <Col className="col-11">
+                            <Link onClick={() => funcionDescarga(element._id)} >{element.titulo}</Link>
+
+                          </Col>
+                          {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ?
+                            (
+                            <Col className="col-1">
+                              <FaTrashAlt
+                                onClick={() => setNoticiaDelete(element._id)}
+                                className=" botonEliminarNoticia"
+                              />
+                            </Col>
+
+                            ) : <></>
+                          }
+                        </Row>
+                        <hr />
+                      </div>
+
+                    )
+                  }))}
+              </div>
+
+            </div>
+          </div>
+        </Col>
+      </Row>
 
     </Container>
   );
 };
 
 export default AltaNoticias;
+
+
+/* <div className="footerNoticias">
+
+            </div> */
+
+
+// <div className="contNoticias">
+//   <Link onClick={() => funcionDescarga(element._id)} >{element.titulo}</Link>
+
+//   {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ?
+//     (
+//       <FaTrashAlt
+//         onClick={() => setNoticiaDelete(element._id)}
+//         className="ms-3 botonEliminar"
+//       />
+
+//     ) : <></>
+//   }
+//   <hr />
+// </div>

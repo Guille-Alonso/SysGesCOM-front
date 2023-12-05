@@ -28,39 +28,53 @@
   border-radius: 2px;
 }
 
-.cardCambios{
+.cardCambios {
   margin-top: 25px;
 }
+
 .confettiCumple {
   width: 100% !important;
 }
 
+.botonNoticias {
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.botonNoticias:hover {
+  transform: scale(1.1);
+}
+
 @media screen and (max-width: 980px) {
   .contenedorCambios {
-    width:100%;
+    width: 100%;
     flex-direction: row;
     justify-content: space-around;
   }
-  .contLeaderboard{
+
+  .contLeaderboard {
     width: 60vh;
   }
+
   .contenedorHome {
     overflow: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
-  .cardCambios{
+
+  .cardCambios {
     margin-top: 50px;
   }
-} 
+}
 
 @media screen and (max-width: 670px) {
   .contenedorCambios {
-    width:100%;
+    width: 100%;
     flex-direction: column;
   }
 }
+
 /* @media screen and (max-width: 764px) {
   .giphyApi{
     width: 550px;

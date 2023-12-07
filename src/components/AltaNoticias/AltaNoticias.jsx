@@ -108,18 +108,22 @@ const AltaNoticias = () => {
           responseType: "blob", // Especifica el tipo de respuesta como Blob
         }
       );
-      console.log(response.data);
+      
       const blob = response.data;
       const url = URL.createObjectURL(blob);
 
       const link = document.createElement("a");
+      link.setAttribute("target", "_blank");
       link.href = url;
-      link.download = obj.titulo;
+    
+      if(!blob.type.includes("image") && !blob.type.includes('application/pdf')){
+        link.download = obj.titulo;
+      }
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.log(error)
+      toast.error("Error en la conexión");
     }
   }
 

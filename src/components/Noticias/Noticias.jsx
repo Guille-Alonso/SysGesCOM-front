@@ -5,6 +5,7 @@ import axios from '../../config/axios';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import LogoCOMM from '../../assets/SMT Escudo - blanco.png';
+import { toast } from 'react-toastify';
 
 const Noticias = () => {
     const [noticias, loading, getNoticias] = useGet("/noticias/listarNoticias", axios);
@@ -18,18 +19,22 @@ const Noticias = () => {
               responseType: "blob", // Especifica el tipo de respuesta como Blob
             }
           );
-          console.log(response.data);
+          
           const blob = response.data;
           const url = URL.createObjectURL(blob);
     
           const link = document.createElement("a");
+          link.setAttribute("target", "_blank");
           link.href = url;
-          link.download = obj.titulo;
+          if(!blob.type.includes("image") && !blob.type.includes('application/pdf')){
+
+            link.download = obj.titulo;
+          }
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
         } catch (error) {
-          console.log(error)
+          toast.error("Error en la conexión");
         }
       }
     

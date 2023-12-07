@@ -10,6 +10,7 @@ import { COMContext } from "../../context/COMContext";
 import { ALTA_NOTICIAS_VALUES } from "../../constants";
 import { validationsAltaNoticias } from "../../helpers/validationsAltaNoticias";
 import { FaTrashAlt } from "react-icons/fa";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const AltaNoticias = () => {
   const { user } = useContext(COMContext);
@@ -101,25 +102,29 @@ const AltaNoticias = () => {
 
   const funcionDescarga = async (obj) => {
     try {
-  
+
       const response = await axios.get(
         `http://10.0.0.230:4000/noticias/listar/${obj._id}`,
         {
           responseType: "blob", // Especifica el tipo de respuesta como Blob
         }
       );
-      console.log(response.data);
+      
       const blob = response.data;
       const url = URL.createObjectURL(blob);
 
       const link = document.createElement("a");
+      link.setAttribute("target", "_blank");
       link.href = url;
-      link.download = obj.titulo;
+    
+      if(!blob.type.includes("image") && !blob.type.includes('application/pdf')){
+        link.download = obj.titulo;
+      }
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.log(error)
+      toast.error("Error en la conexión");
     }
   }
 
@@ -156,7 +161,7 @@ const AltaNoticias = () => {
       <Row>
         <Col>
 
-          <Form id="myForm" action="http://10.0.0.230:4000/noticias/alta" enctype="multipart/form-data" method="POST"  onSubmit={submitForm}>
+          <Form id="myForm" action="http://10.0.0.230:4000/noticias/alta" enctype="multipart/form-data" method="POST" onSubmit={submitForm}>
             <Form.Group className="contInputFechaNoticias">
               <Form.Control
                 name="fecha"
@@ -233,33 +238,142 @@ const AltaNoticias = () => {
               <div className="contenidoAltaNoticias mt-1">
                 {
 
-                  loading ? <Spinner variant="ligth " /> : (noticias.noticias.map(element => {
-                    return (
+                  loading ? 
+                  
+                  // <Spinner variant="ligth " /> 
+                  
+                <div className="not ps-2 pe-2 ">
+                  <Row className="g-0 mt-2" >
+                    <Col className="col-11">
+                    <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </Col>
+                    <Col className="col-1 ps-1">
+                    <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                      <SkeletonTheme height="20px" baseColor="#202020" highlightColor="blue">
+                        <Skeleton />
+                      </SkeletonTheme>
+                    </Col>
+                  </Row>
+                </div>
 
-                      <div className="not">
+                : (noticias.noticias.map(element => {
+                      return (
 
-                        <Row className="g-0 mt-2" >
-                          <Col className="col-11">
-                            <Link onClick={() => funcionDescarga(element)} >{element.titulo}</Link>
+                        <div className="not">
 
-                          </Col>
-                          {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ?
-                            (
-                            <Col className="col-1">
-                              <FaTrashAlt
-                                onClick={() => setNoticiaDelete(element._id)}
-                                className=" botonEliminarNoticia"
-                              />
+                          <Row className="g-0 mt-2" >
+                            <Col className="col-11">
+                              <Link className=" text-dark " onClick={() => funcionDescarga(element)} >{element.titulo}</Link>
+
                             </Col>
+                            {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ?
+                              (
+                                <Col className="col-1">
+                                  <FaTrashAlt
+                                    onClick={() => setNoticiaDelete(element._id)}
+                                    className=" botonEliminarNoticia"
+                                  />
+                                </Col>
 
-                            ) : <></>
-                          }
-                        </Row>
-                        <hr />
-                      </div>
+                              ) : <></>
+                            }
+                          </Row>
+                          <hr />
+                        </div>
 
-                    )
-                  }))}
+                      )
+                    }))} 
               </div>
 
             </div>

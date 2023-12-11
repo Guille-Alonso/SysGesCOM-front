@@ -6,7 +6,8 @@ import "./navBar.css";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { COMContext } from "../../../context/COMContext";
-import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png";
+// import logoCOM from "../../../assets/img/logo_comm_marca_de_agua.png";
+import logoCOMNavidad from "../../../assets/img/logo_comm_marca_de_agua-navidad.png";
 import fotoPredet from "../../../assets/fotoPredeterminada.png";
 import PanelAdmin from "../../PanelAdmin/panelAdmin";
 
@@ -129,7 +130,7 @@ function NavbarComponent() {
   return (
     <Navbar
       collapseOnSelect
-      expand={user?.tipoDeUsuario == "admin"  ? "xxl" : "lg"}
+      expand={user?.tipoDeUsuario == "admin" ? "xxl" : "lg"}
       bg=""
       variant="dark"
       className="align-items-center"
@@ -141,7 +142,7 @@ function NavbarComponent() {
           className="align-content-start "
         >
           <img
-            src={logoCOM}
+            src={logoCOMNavidad}
             width="150"
             height="40"
             className="d-inline-block align-top logocom"
@@ -161,10 +162,19 @@ function NavbarComponent() {
               {authenticated &&
                 user.tipoDeUsuario == "admin" &&
                 renderMenuItems()}
-              {authenticated && (user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor" ||
-                user.tipoDeUsuario == "administración") && (
-                  <Link className={user.tipoDeUsuario =="visualizador" || user.tipoDeUsuario =="administración"? "me-md-3 navBtn" : "navBtn" } to="/cambio-turno">
+              {authenticated &&
+                (user.tipoDeUsuario == "visualizador" ||
+                  user.tipoDeUsuario == "supervisor" ||
+                  user.tipoDeUsuario == "administración") && (
+                  <Link
+                    className={
+                      user.tipoDeUsuario == "visualizador" ||
+                      user.tipoDeUsuario == "administración"
+                        ? "me-md-3 navBtn"
+                        : "navBtn"
+                    }
+                    to="/cambio-turno"
+                  >
                     Cambios Turno
                   </Link>
                 )}
@@ -174,7 +184,7 @@ function NavbarComponent() {
                 </Link>
               )}
               {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="navBtn me-md-3" to="/estadisticas" >
+                <Link className="navBtn me-md-3" to="/estadisticas">
                   Estadísticas
                 </Link>
               )}
@@ -190,7 +200,7 @@ function NavbarComponent() {
                     Relevamiento
                   </Link>
                 )}
-                
+
               {authenticated &&
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
@@ -208,11 +218,14 @@ function NavbarComponent() {
                     Cambios Turno
                   </Link>
                 )} */}
-              
             </Nav>
 
             {authenticated ? (
-              <Nav className={user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"}>
+              <Nav
+                className={
+                  user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"
+                }
+              >
                 <NavDropdown
                   title={!isDesktop ? null : user.nombre}
                   id="collasible-nav-dropdown"
@@ -253,7 +266,7 @@ function NavbarComponent() {
                     Notificaciones
                   </NavDropdown.Item>
                   {user.tipoDeUsuario == "admin" ||
-                    user.tipoDeUsuario == "supervisor" ? (
+                  user.tipoDeUsuario == "supervisor" ? (
                     <NavDropdown.Item
                       onClick={panelSupervisor}
                       className="navigation"

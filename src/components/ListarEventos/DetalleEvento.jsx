@@ -19,6 +19,8 @@ import { COMContext } from "../../context/COMContext";
 import { Navigate } from "react-router-dom";
 import { validationsEditarEvento } from "../../helpers/validationsEditarEvento";
 import svg404 from "../../assets/img/web-error.svg";
+import html2canvas from "html2canvas";
+import jsPDF from 'jspdf';
 
 const DetalleEvento = () => {
   const [dispositivos, loading, getDispositivos] = useGet(
@@ -186,8 +188,21 @@ const DetalleEvento = () => {
     getDatos();
   }, []);
 
+
+  function capturarPantallaConImagenes() {
+
+      html2canvas(document.body).then(canvas => {
+        var link = document.createElement('a');
+        link.href = canvas.toDataURL();
+        link.download = 'screenshot.png';
+        link.click();
+      });
+  
+  }
+
+
   return (
-    <Container className="layoutHeight" md={12}>
+    <Container className="layoutHeight2" md={12}>
       <Form onSubmit={handleSubmit}>
         <div className="navbarReporte">
           <Form.Label className="labelEditReporte">
@@ -435,6 +450,8 @@ const DetalleEvento = () => {
           </Col>
         </Row>
       </Form>
+     <button disabled={imageUrl !== ""? false:true} onClick={capturarPantallaConImagenes} id="download">Tomar screenshot y descargar</button>
+      
     </Container>
   );
 };

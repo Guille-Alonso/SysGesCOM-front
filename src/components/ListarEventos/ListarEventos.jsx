@@ -145,7 +145,10 @@ const ListarEventos = () => {
               .includes(buscador.toLowerCase())
         );
       }
-      setResultadoBusqueda(results);
+      if(user.tipoDeUsuario == "tránsito"){
+
+        setResultadoBusqueda(results.filter(rep=>rep.categoria.nombre.includes("TRÁNSITO")));
+      }else setResultadoBusqueda(results);
     }
   }, [reportes, buscador]);
 

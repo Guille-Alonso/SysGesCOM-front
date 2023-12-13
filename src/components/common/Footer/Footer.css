@@ -73,8 +73,7 @@
   50% {
     transform: scale(1.5) rotate(360deg);
   }
-  100%{
+  100% {
     transform: scale(1) rotate(360deg);
-
   }
 }

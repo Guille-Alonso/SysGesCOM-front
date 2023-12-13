@@ -29,7 +29,6 @@ body {
 .layoutHeight2 {
   min-height: 75vh;
   max-width: 98vw;
-  /* max-width: 98%; asi estaba antes xd */
 }
 
 @media (max-height: 750px) {

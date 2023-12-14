@@ -12,6 +12,10 @@ import GeneralModal from "../common/GeneralModal/GeneralModal";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { validationsAltaCategoria } from "../../helpers/validationsAltaCategoria";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdb-react-ui-kit";
+
+import { nanoid } from "nanoid";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const AltaCategoria = () => {
   const [naturalezas, setNaturalezas] = useState([]);
@@ -23,19 +27,19 @@ const AltaCategoria = () => {
   const [buscador, setBuscador] = useState("");
   const [ResultadoBusqueda, setResultadoBusqueda] = useState([]);
 
-    const handleBuscador = (event) => {
-      setBuscador(event.target.value);
-    }
+  const handleBuscador = (event) => {
+    setBuscador(event.target.value);
+  }
 
-    useEffect(() => {
-      if (Array.isArray(categorias.categorias)) {
-        const results = categorias.categorias.filter(
-          (cat) =>
-          cat.nombre.toLowerCase().includes(buscador.toLowerCase()) 
-        );
-        setResultadoBusqueda(results);
-      }
-    }, [categorias, buscador]);
+  useEffect(() => {
+    if (Array.isArray(categorias.categorias)) {
+      const results = categorias.categorias.filter(
+        (cat) =>
+          cat.nombre.toLowerCase().includes(buscador.toLowerCase())
+      );
+      setResultadoBusqueda(results);
+    }
+  }, [categorias, buscador]);
 
   const enviarDatos = async () => {
     try {
@@ -52,7 +56,7 @@ const AltaCategoria = () => {
     ALTA_CATEGORIAS_VALUES,
     enviarDatos,
     validationsAltaCategoria
-  ); 
+  );
 
   const getNaturalezaEventos = async () => {
     try {
@@ -63,7 +67,11 @@ const AltaCategoria = () => {
       toast.error("Error en la conexión");
     }
   };
-
+  const headings = [
+    "Categoria",
+    "Tipo",
+    "",
+  ];
   useEffect(() => {
     getNaturalezaEventos();
   }, []);
@@ -135,17 +143,17 @@ const AltaCategoria = () => {
                   </Button>
                 </div>
                 <Container>
-          <Row>
-            <Col xs={12} className="d-flex">
-              {Object.keys(errors).length !== 0 &&
-                Object.values(errors).map((error, index) => (
-                  <Alert className="me-1" variant="danger" key={index}>
-                    {error}
-                  </Alert>
-                ))}
-            </Col>
-          </Row>
-        </Container>
+                  <Row>
+                    <Col xs={12} className="d-flex">
+                      {Object.keys(errors).length !== 0 &&
+                        Object.values(errors).map((error, index) => (
+                          <Alert className="me-1" variant="danger" key={index}>
+                            {error}
+                          </Alert>
+                        ))}
+                    </Col>
+                  </Row>
+                </Container>
               </Form>
             }
           />
@@ -156,7 +164,86 @@ const AltaCategoria = () => {
             className="container-fluid d-flex justify-content-center"
           >
             {loading ? (
-              <Spinner />
+               // <Spinner />
+              <Container fluid>
+                <Row>
+                  <Col xl={6} className="tabla-Municipal">
+                    <MDBTable responsive>
+                      <MDBTableHead className="colorTabla">
+                        <tr>
+                          {headings.map((heading) => (
+                            <th key={nanoid()}>{heading}</th>
+                          ))}
+                        </tr>
+                      </MDBTableHead>
+                      <MDBTableBody className="colorTabla">
+                        {Array.from({ length: 12 }).map(() => (
+
+                          <tr key={nanoid()}>
+                            <td>
+                              <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                <Skeleton />
+                              </SkeletonTheme>
+                            </td>
+                            <td>
+                              <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                <Skeleton />
+                              </SkeletonTheme>
+                            </td>
+                            <td>
+                              <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                <Skeleton />
+                              </SkeletonTheme>
+                            </td>
+                          
+
+                          </tr>
+                        ))}
+
+
+                      </MDBTableBody>
+
+                    </MDBTable>
+                  </Col>
+                  <Col xl={6} className="tabla-Municipal">
+                    <MDBTable responsive>
+                      <MDBTableHead className="colorTabla">
+                        <tr>
+                          {headings.map((heading) => (
+                            <th key={nanoid()}>{heading}</th>
+                          ))}
+                        </tr>
+                      </MDBTableHead>
+                      <MDBTableBody className="colorTabla">
+                        {Array.from({ length: 12 }).map(() => (
+
+                          <tr key={nanoid()}>
+                            <td>
+                              <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                <Skeleton />
+                              </SkeletonTheme>
+                            </td>
+                            <td>
+                              <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                <Skeleton />
+                              </SkeletonTheme>
+                            </td>
+                            <td>
+                              <SkeletonTheme baseColor="#202020" highlightColor="blue">
+                                <Skeleton />
+                              </SkeletonTheme>
+                            </td>
+                          </tr>
+                        ))}
+
+
+                      </MDBTableBody>
+
+                    </MDBTable>
+                  </Col>
+                </Row>
+              </Container>
+
             ) : (
               <Container fluid>
                 <Row>
@@ -189,8 +276,8 @@ const AltaCategoria = () => {
             )}
           </Col>
         </Row>
-       
-      </div>
+
+      </div >
     </>
   );
 };

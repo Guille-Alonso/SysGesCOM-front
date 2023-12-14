@@ -30,6 +30,11 @@ import PanelSupervisor from "./components/PanelSupervisor/PanelSupervisor";
 import PrivateRouteSupervisores from "./routes/PrivateRouteSupervisores";
 import PanelAdmin from "./components/PanelAdmin/panelAdmin";
 import PDFcambios from "./components/PDFCambios/PDFcambios";
+import ListarTickets from "./components/Tickets/ListarTickets";
+import AltaTickets from "./components/Tickets/AltaTickets";
+import DetalleTicket from "./components/Tickets/DetalleTicket";
+import RelevamientoVehiculos from "./components/RelevamientoMotos/RelevamientoVehiculos";
+import AltaNoticias from "./components/AltaNoticias/AltaNoticias";
 
 function App() {
   return (
@@ -97,7 +102,8 @@ function App() {
               path="/relevamiento-motos"
               element={
                 <PrivateRouteVisualizadores>
-                  <RelevamientoMotos />
+                  {/* <RelevamientoMotos /> */}
+                  <RelevamientoVehiculos />
                 </PrivateRouteVisualizadores>
               }
             />
@@ -206,6 +212,38 @@ function App() {
                 </PrivateRouteAdmin>
               }
             />
+            <Route
+              path="/alta-noticias"
+              element={
+                <PrivateRouteAdministracion>
+                  <AltaNoticias />
+                </PrivateRouteAdministracion>
+              }
+            />
+            {/* <Route
+              path="/tickets"
+              element={
+                <PrivateRoute>
+                  <ListarTickets/>
+                </PrivateRoute>
+              }
+            /> */}
+            {/* <Route
+              path="/nuevo-ticket"
+              element={
+                <PrivateRouteAdmin>
+                  <AltaTickets />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/detalleTicket"
+              element={
+                <PrivateRouteAdmin>
+                  <DetalleTicket />
+                </PrivateRouteAdmin>
+              }
+            /> */}
           </Routes>
           <ToastContainer />
         </Layout>

@@ -30,3 +30,12 @@
   scale: 1.2;
   color: red;
 }
+
+@media (max-height: 750px) {
+  .cardCambioOscura2 {
+  width: auto;
+  }
+  .cardCambioOscura3 {
+  width: auto;
+  }
+}

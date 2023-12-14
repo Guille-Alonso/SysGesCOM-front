@@ -13,6 +13,10 @@ import {
 import { toast } from "react-toastify";
 import "./PedidoCambios.css";
 import { useNavigate } from "react-router-dom";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
+import SkeletonPedidos from "./SkeletonPedidos";
+
 
 const PedidoCambios = () => {
   const { user } = useContext(COMContext);
@@ -69,12 +73,12 @@ const PedidoCambios = () => {
   };
 
   const comparaFechaPedidoConActual = (fecha) => {
-    
+
     let fechaActual = new Date();
     fechaActual.setHours(0, 0, 0, 0);
-  
+
     let fechaDeseada = new Date(fecha);
-    fechaDeseada.setDate(fechaDeseada.getDate() + 1); 
+    fechaDeseada.setDate(fechaDeseada.getDate() + 1);
     fechaDeseada.setHours(0, 0, 0, 0);
 
     if (fechaDeseada < fechaActual) {
@@ -96,7 +100,7 @@ const PedidoCambios = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleChanges = cambios.cambios
-    ?.filter((cam) => cam.estado === "acordado"  && comparaFechaPedidoConActual(cam.pedido) && comparaFechaPedidoConActual(cam.pedidoDevolucion))
+    ?.filter((cam) => cam.estado === "acordado" && comparaFechaPedidoConActual(cam.pedido) && comparaFechaPedidoConActual(cam.pedidoDevolucion))
     .reverse()
     ?.slice(startIndex, endIndex);
 
@@ -155,7 +159,7 @@ const PedidoCambios = () => {
             <Col lg={6} className="p-0">
               <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
                 <div className="cardCambioColor2">
-                  <div className="d-flex flex-column cardCambioOscura2 justify-content align-items-center">
+                  <div className="d-flex flex-column cardCambioOscura2 align-items-center">
                     <h3 className="text-light p-4">Pedidos de Cambio</h3>
                     <table class="table text-light tablaCambios">
                       <thead>
@@ -171,57 +175,57 @@ const PedidoCambios = () => {
                       </thead>
                       <tbody>
                         {loading ? (
-                          <Spinner />
+                          <SkeletonPedidos/>
                         ) : (
                           visibleChanges
                             ?.filter((cam) => cam.estado === "acordado")
                             .map((cam) =>
-                              //cam.estado == "acordado").map((cam) =>
-                              {
-                                return (
-                                  <tr
-                                    key={nanoid()}
-                                    onClick={() => setSeleccionCambio(cam._id)}
-                                    className={
-                                      selected === cam._id
-                                        ? "row-(selected"
-                                        : ""
-                                    }
-                                  >
-                                    <td>{cam.solicitante.nombreUsuario}</td>
-                                    <td>{cam.solicitante.turno}</td>
-                                    <td>{cam.pedido}</td>
-                                    <td>{cam.pedidoDevolucion}</td>
-                                    <td>{cam.solicitado.nombreUsuario}</td>
-                                    <td>
-                                      {selected === cam._id ? (
-                                        <FontAwesomeIcon
-                                          icon={faCircleCheck}
-                                          className="confirmarCambio"
-                                          onClick={() =>
-                                            actualizarCambio(cam._id)
-                                          }
-                                        />
-                                      ) : (
-                                        <></>
-                                      )}
-                                    </td>
-                                    <td>
-                                      {selected === cam._id ? (
-                                        <FontAwesomeIcon
-                                          icon={faBan}
-                                          className="denegarCambio"
-                                          onClick={() =>
-                                            rechazarPedidoCambio(cam._id)
-                                          }
-                                        />
-                                      ) : (
-                                        <></>
-                                      )}
-                                    </td>
-                                  </tr>
-                                );
-                              }
+                            //cam.estado == "acordado").map((cam) =>
+                            {
+                              return (
+                                <tr
+                                  key={nanoid()}
+                                  onClick={() => setSeleccionCambio(cam._id)}
+                                  className={
+                                    selected === cam._id
+                                      ? "row-(selected"
+                                      : ""
+                                  }
+                                >
+                                  <td>{cam.solicitante.nombreUsuario}</td>
+                                  <td>{cam.solicitante.turno}</td>
+                                  <td>{cam.pedido}</td>
+                                  <td>{cam.pedidoDevolucion}</td>
+                                  <td>{cam.solicitado.nombreUsuario}</td>
+                                  <td>
+                                    {selected === cam._id ? (
+                                      <FontAwesomeIcon
+                                        icon={faCircleCheck}
+                                        className="confirmarCambio"
+                                        onClick={() =>
+                                          actualizarCambio(cam._id)
+                                        }
+                                      />
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </td>
+                                  <td>
+                                    {selected === cam._id ? (
+                                      <FontAwesomeIcon
+                                        icon={faBan}
+                                        className="denegarCambio"
+                                        onClick={() =>
+                                          rechazarPedidoCambio(cam._id)
+                                        }
+                                      />
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            }
                             )
                         )}
                       </tbody>
@@ -253,7 +257,7 @@ const PedidoCambios = () => {
           <Col lg={6} className="">
             <div className="container-fluid d-flex flex-column align-items-center p-2 mt-5">
               <div className="cardCambioColor2">
-                <div className="d-flex flex-column cardCambioOscura3 justify-content align-items-center">
+                <div className="d-flex flex-column cardCambioOscura3 align-items-center">
                   <h3 className="text-light p-4">
                     Pedidos de Cambio Confirmados
                   </h3>
@@ -271,7 +275,8 @@ const PedidoCambios = () => {
                     </thead>
                     <tbody>
                       {loading ? (
-                        <Spinner />
+
+                        <SkeletonPedidos/>
                       ) : (
                         visibleChangesConfirmado
                           ?.filter((cam) => cam.estado === "confirmado")

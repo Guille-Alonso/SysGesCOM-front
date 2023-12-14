@@ -65,6 +65,8 @@ function NavbarComponent() {
     { text: "Relevamiento", path: "/relevamiento-motos" },
     { text: "Reportes", path: "/reportes" },
     { text: "Usuarios", path: "/lista-usuarios" },
+    { text: "Noticias", path: "/alta-noticias" },
+    // { text: "Tickets", path: "/tickets" },
   ];
 
   menuItems.sort((a, b) => a.text.localeCompare(b.text));
@@ -78,30 +80,27 @@ function NavbarComponent() {
   };
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = user?.tipoDeUsuario == "admin"? useState(window.innerWidth >= 1400) : useState(window.innerWidth >= 990);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
 
   const handleResize = () => {
-    if(user?.tipoDeUsuario !== "admin" ){
+    if (user?.tipoDeUsuario !== "admin") {
       setIsDesktop(window.innerWidth >= 990);
 
       if (!isDesktop) {
         setIsNavbarCollapsed(true);
       }
- 
-    }else{
+    } else {
       setIsDesktop(window.innerWidth >= 1400);
 
       if (!isDesktop) {
         setIsNavbarCollapsed(true);
       }
     }
-   
   };
 
-useEffect(() => {
-  getAuth();
-}, [])
-
+  useEffect(() => {
+    getAuth();
+  }, []);
 
   useEffect(() => {
     handleResize();
@@ -130,7 +129,7 @@ useEffect(() => {
   return (
     <Navbar
       collapseOnSelect
-      expand={user?.tipoDeUsuario == "admin" ? "xxl" : "lg"}
+      expand={user?.tipoDeUsuario == "admin"  ? "xxl" : "lg"}
       bg=""
       variant="dark"
       className="align-items-center"
@@ -149,65 +148,90 @@ useEffect(() => {
             alt="COM Logo"
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleNavbar} />
-        <Navbar.Collapse id="basic-navbar-nav" className={isNavbarCollapsed ? '' : 'show'}>
-          <div className="d-sm-flex ml-auto w-100  ">
-
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={toggleNavbar}
+        />
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className={isNavbarCollapsed ? "" : "show"}
+        >
+          <div className="d-sm-flex ml-auto w-100 contNavBar ">
             <Nav className="my-2 me-auto space-evenly">
-              {authenticated && user.tipoDeUsuario == "admin" && renderMenuItems()}
+              {authenticated &&
+                user.tipoDeUsuario == "admin" &&
+                renderMenuItems()}
+              {authenticated && (user.tipoDeUsuario == "visualizador" ||
+                user.tipoDeUsuario == "supervisor" ||
+                user.tipoDeUsuario == "administración") && (
+                  <Link className={user.tipoDeUsuario =="visualizador" || user.tipoDeUsuario =="administración"? "me-md-3 navBtn" : "navBtn" } to="/cambio-turno">
+                    Cambios Turno
+                  </Link>
+                )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link className="navBtn" to="/alta-categoria">
+                  Categorías
+                </Link>
+              )}
+              {authenticated && user.tipoDeUsuario == "estadística" && (
+                <Link className="navBtn me-md-3" to="/estadisticas" >
+                  Estadísticas
+                </Link>
+              )}
+              {authenticated && user.tipoDeUsuario == "administración" && (
+                <Link className="navBtn me-md-3" to="/alta-noticias">
+                  Noticias
+                </Link>
+              )}
+              {authenticated &&
+                (user.relevamientoHabilitado ||
+                  user.tipoDeUsuario == "supervisor") && (
+                  <Link className=" navBtn me-md-3" to="/relevamiento-motos">
+                    Relevamiento
+                  </Link>
+                )}
+                
               {authenticated &&
                 (user.tipoDeUsuario == "visualizador" ||
                   user.tipoDeUsuario == "supervisor" ||
                   user.tipoDeUsuario == "estadística" ||
                   user.tipoDeUsuario == "administración") && (
-                  <Link to="/reportes" className="ms-md-3 ms-xl-0" >Reportes</Link>
-                )}
-              {authenticated &&
-                (user.tipoDeUsuario == "estadística") && (
-                  <Link to="/estadisticas" className="ms-3">
-                    Estadísticas
+                  <Link to="/reportes" className="me-md-3">
+                    Reportes
                   </Link>
                 )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
-                <Link className="ms-sm-3 ms-xxl-3" to="/alta-categoria">
-                  Categorías
-                </Link>
-              )}
-              {authenticated && (user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor" ||
-                user.tipoDeUsuario == "administración") && (
+              {/* {authenticated &&
+                (user.tipoDeUsuario == "visualizador" ||
+                  user.tipoDeUsuario == "supervisor" ||
+                  user.tipoDeUsuario == "administración") && (
                   <Link className="ms-md-3" to="/cambio-turno">
                     Cambios Turno
                   </Link>
-                )}
-              {authenticated &&
-                (user.relevamientoHabilitado ||
-                  user.tipoDeUsuario == "supervisor") && (
-                  <Link className="ms-md-3" to="/relevamiento-motos">
-                    Relevamiento
-                  </Link>
-                )}
+                )} */}
+              
             </Nav>
 
             {authenticated ? (
-              <Nav className={user.tipoDeUsuario=="admin"?"isAdmin":"notAdmin"}>
+              <Nav className={user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"}>
                 <NavDropdown
-                  title={!isDesktop
-                     ? null : user.nombre}
+                  title={!isDesktop ? null : user.nombre}
                   id="collasible-nav-dropdown"
                   className="my-2 profileCard align-content-end"
                   show={!isDesktop || isDropdownOpen}
                   onClick={toggleDropdown}
                 >
-                  <NavDropdown.Item onClick={userProfile} className="navigation">
+                  <NavDropdown.Item
+                    onClick={userProfile}
+                    className="navigation"
+                  >
                     <ion-icon
                       name="help-circle-outline"
                       className="icons-drop"
                     ></ion-icon>
-                    <strong >{user.tipoDeUsuario.toUpperCase()}</strong>
+                    <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
                   </NavDropdown.Item>
 
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
+                  <NavDropdown.Divider className="dirverDropDown" />
                   {/* {user.tipoDeUsuario == "admin" && ( */}
                   <NavDropdown.Item onClick={settings} className="navigation">
                     <ion-icon
@@ -244,7 +268,10 @@ useEffect(() => {
                     <></>
                   )}
                   {user.tipoDeUsuario == "admin" ? (
-                    <NavDropdown.Item onClick={panelAdmin} className="navigation">
+                    <NavDropdown.Item
+                      onClick={panelAdmin}
+                      className="navigation"
+                    >
                       <ion-icon
                         name="settings-outline"
                         className="icons-drop"
@@ -254,7 +281,7 @@ useEffect(() => {
                   ) : (
                     <></>
                   )}
-                  <NavDropdown.Divider className="d-sm-none d-xxl-block" />
+                  <NavDropdown.Divider className="dirverDropDown" />
                   <NavDropdown.Item onClick={logOut} className="navigation">
                     <ion-icon
                       name="log-out-outline"
@@ -281,7 +308,7 @@ useEffect(() => {
           </div>
         </Navbar.Collapse>
       </Container>
-    </Navbar >
+    </Navbar>
   );
 }
 

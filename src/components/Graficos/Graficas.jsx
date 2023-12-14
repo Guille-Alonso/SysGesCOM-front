@@ -25,6 +25,8 @@ import { faMotorcycle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { obtenerPeriodoDelDiaConHora } from "../../utils/convertirFechaYTurno";
 import { getRandomColor } from "../../utils/convertirLetrasYMas";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 
 export function Grafico() {
   const [suggestions, setSuggestions] = useState([]);
@@ -37,20 +39,36 @@ export function Grafico() {
   const { categoryName, setCategoryName } = useContext(COMContext);
 
   const [usuarios, loading] = useGet("/users/email", axios);
-  const [motos, loadingMotos] = useGet("/relevamientoMotos/listar", axios);
+  // const [motos, loadingMotos] = useGet("/relevamientoMotos/listar", axios);
+  const [vehiculos, loadingVehiculos] = useGet(
+    "/relevamientoVehicular/listar",
+    axios
+  );
 
   const [searchTerm, setSearchTerm] = useState({ nombre: "" });
 
   const suggestionContainerRef = useRef(null);
 
   const fechaActual = new Date();
-  const primerDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
-  const ultimoDiaDelMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
-  
-  const [fechaDesde, setFechaDesde] = useState(primerDiaDelMes.toISOString().substr(0, 10));
-  const [fechaHasta, setFechaHasta] = useState(ultimoDiaDelMes.toISOString().substr(0, 10));
-  
-  const [flagHistorico, setFlagHistorico] = useState(true) 
+  const primerDiaDelMes = new Date(
+    fechaActual.getFullYear(),
+    fechaActual.getMonth(),
+    1
+  );
+  const ultimoDiaDelMes = new Date(
+    fechaActual.getFullYear(),
+    fechaActual.getMonth() + 1,
+    0
+  );
+
+  const [fechaDesde, setFechaDesde] = useState(
+    primerDiaDelMes.toISOString().substr(0, 10)
+  );
+  const [fechaHasta, setFechaHasta] = useState(
+    ultimoDiaDelMes.toISOString().substr(0, 10)
+  );
+
+  const [flagHistorico, setFlagHistorico] = useState(true);
 
   const [isHovered, setIsHovered] = useState(false);
   const [changeClass, setChangeClass] = useState(false);
@@ -376,14 +394,14 @@ export function Grafico() {
 
   const traerHistorico = async () => {
     if (flagHistorico) {
-      setReportesFecha([])
+      setReportesFecha([]);
       setTurno("");
       setFechaDesde("");
       setFechaHasta("");
       setDespachado(false);
       setSearchTerm({ nombre: "" });
       try {
-        setFlagHistorico(false)
+        setFlagHistorico(false);
         const { data } = await axios.get("/reportes/listarHistorico");
         setReportes(data.reportes);
         setReportesFecha(data.reportes);
@@ -391,7 +409,7 @@ export function Grafico() {
         console.log("Error al obtener los reportes:", error);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -416,19 +434,29 @@ export function Grafico() {
                       className="headerSearchInput"
                       onKeyDown={handleKeyDown}
                       placeholder="Ingrese un nombre"
-                      disabled = {reportesFecha.length == 0 ? true : false}
+                      disabled={reportesFecha.length == 0 ? true : false}
                     />
-                      <div className="d-flex">
-                        <label className="me-1">Histórico</label>
-                        <input disabled={!flagHistorico|| reportesFecha.length == 0 ? true : false} onClick={traerHistorico} type="checkbox" name="" id="" />
-                      </div>
+                    <div className="d-flex">
+                      <label className="me-1">Histórico</label>
+                      <input
+                        disabled={
+                          !flagHistorico || reportesFecha.length == 0
+                            ? true
+                            : false
+                        }
+                        onClick={traerHistorico}
+                        type="checkbox"
+                        name=""
+                        id=""
+                      />
+                    </div>
                     <div className="headerSelectWrapper">
                       <select
                         id=""
                         onChange={selectedCategoria}
                         value={categoryName}
                         className="headerSelect"
-                        disabled = {reportesFecha.length == 0 ? true : false}
+                        disabled={reportesFecha.length == 0 ? true : false}
                       >
                         <option value="">Categorías</option>
                         {labelsCat.length !== 0 &&
@@ -443,7 +471,7 @@ export function Grafico() {
                       onChange={selectedTurno}
                       value={turno}
                       className="headerSelect"
-                      disabled = {reportesFecha.length == 0 ? true : false}
+                      disabled={reportesFecha.length == 0 ? true : false}
                     >
                       <option value="">Todos</option>
                       <option value="mañana">Mañana</option>
@@ -453,7 +481,6 @@ export function Grafico() {
                     </select>
                   </div>
                   <div className="headerSearchItem2">
-                   
                     <div className="dateContainer">
                       <input
                         type="date"
@@ -461,7 +488,7 @@ export function Grafico() {
                         id="desde"
                         value={fechaDesde}
                         onChange={handleFechaDesdeChange}
-                        disabled = {reportesFecha.length == 0 ? true : false}
+                        disabled={reportesFecha.length == 0 ? true : false}
                       />
                       <input
                         type="date"
@@ -469,10 +496,10 @@ export function Grafico() {
                         id="hasta"
                         value={fechaHasta}
                         onChange={handleFechaHastaChange}
-                        disabled = {reportesFecha.length == 0 ? true : false}
+                        disabled={reportesFecha.length == 0 ? true : false}
                       />
                     </div>
-                  
+
                     <div className="headerSelectWrapper">
                       <div className="custom-tooltip">
                         <label className="me-2">Despachos</label>
@@ -485,7 +512,7 @@ export function Grafico() {
                           type="checkbox"
                           name=""
                           id=""
-                          disabled = {reportesFecha.length == 0 ? true : false}
+                          disabled={reportesFecha.length == 0 ? true : false}
                         />
                       </div>
                     </div>
@@ -527,43 +554,44 @@ export function Grafico() {
           </div>
           {reportesFecha.length !== 0 ? (
             <div className="layoutHeight d-flex justify-content-center align-items-center mt-3">
-            
-
               <Bar className="w-75 h-50" options={options} data={data} />
-                 
-                <div className="contenedorBotonesExcel">
 
-                  {reportesFecha.length !== 0 ? (
+              <div className="contenedorBotonesExcel">
+                {reportesFecha.length !== 0 ? (
+                  <ExportToExcel data={reportesFecha} />
+                ) : (
+                  <></>
+                )}
 
-                    <ExportToExcel data={reportesFecha} />
-
-
-                  ) : (
-                    <></>
-                  )}
-
-                  {
-                    !loadingMotos?
-                    
-
-                      <div className="mt-2">
-                        <ExportExcelMotos motos={motos} />
-
-                      </div>
-                    
-                      :
-                      <div className="fondoBtnExcel mt-2">
-                        <FontAwesomeIcon
-                          className="btnExcel"
-                          icon={faMotorcycle} />
-                      </div>
-                  }
-                </div>
+                {/* {!loadingMotos ? ( */}
+                {!loadingVehiculos ? (
+                  <div className="mt-2">
+                    {/* <ExportExcelMotos motos={motos} /> */}
+                    <ExportExcelMotos vehiculos={vehiculos} />
+                  </div>
+                ) : (
+                  <div className="fondoBtnExcel mt-2">
+                    <FontAwesomeIcon className="btnExcel" icon={faMotorcycle} />
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
-            <div className="layoutHeight d-flex justify-content-center mt-2">
-              <Spinner variant="light" />
-            </div>
+            <div className="layoutHeight d-flex justify-content-center align-items-end pt-4 ">
+            {/* <Spinner variant="light" /> */}
+            
+            {Array.from({ length: 12 }).map(() => (
+            <tr className="h-50 pb-0 ">
+    
+            <td className="pe-2" >
+                <SkeletonTheme baseColor="#202020" highlightColor="blue" className=" d-flex align-items-end">
+                  <Skeleton height={Math.floor(Math.random()*500)} width={"10vh"}/>
+                </SkeletonTheme>
+              </td>
+          
+          </tr>
+            ))}
+        </div >
           )}
         </>
       )}

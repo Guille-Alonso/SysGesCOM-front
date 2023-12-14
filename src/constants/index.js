@@ -82,3 +82,19 @@ export const ALTA_PEDIDOS_VALUES = {
   solicitado: "",
   estado: Boolean,
 };
+
+export const ALTA_TICKETS_VALUES = {
+  fecha: "",
+  descripcion: "",
+  usuario: "",
+  titulo:"",
+  dispositivo: "",
+  photo: "",
+  ubicacion: ""
+};
+export const ALTA_NOTICIAS_VALUES = {
+  fecha: "",
+  usuario: "",
+  titulo:"",
+  files: "",
+};

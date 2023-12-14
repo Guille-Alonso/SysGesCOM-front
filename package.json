@@ -16,6 +16,8 @@
     "bootstrap": "^5.2.3",
     "chart.js": "^4.3.2",
     "date-fns": "^2.30.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "mdb-react-ui-kit": "^6.0.0",
     "nanoid": "^4.0.2",
     "react": "^18.2.0",
@@ -37,6 +39,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
+    "magic-snowflakes": "^6.2.1",
     "vite": "^4.2.0"
   }
 }

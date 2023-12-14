@@ -23,6 +23,7 @@ const CardCambios = () => {
       pedidoDevolucion: fechaPedidoDevolucion,
       estado: "consultado",
     };
+    console.log(pedidoDeCambio);
     try {
       const respuesta = await axios.post("/cambios/alta", pedidoDeCambio);
       console.log(respuesta);

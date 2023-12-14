@@ -6,7 +6,8 @@ import "./login.css";
 import { useContext, useEffect, useState } from "react";
 import { COMContext } from "../../context/COMContext";
 import { useNavigate } from "react-router-dom";
-import logoCom from "../../assets/img/logo_comm_marca_de_agua.png";
+// import logoCom from "../../assets/img/logo_comm_marca_de_agua.png";
+import logoComNavidad from "../../assets/img/logo_comm_marca_de_agua-navidad.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,7 +37,7 @@ export const Login = () => {
       <div className="box">
         <span className="borderLine"></span>
         <form onSubmit={handleSubmit}>
-          <img src={logoCom} alt="logo del com" />
+          <img src={logoComNavidad} alt="logo del com" />
           <div className="inputBox">
             <input
               name="nombreUsuario"
@@ -74,7 +75,12 @@ export const Login = () => {
                 {error}
               </Alert>
             ))}
-          <input disabled={botonState} type="submit" value="Entrar" className="mt-4" />
+          <input
+            disabled={botonState}
+            type="submit"
+            value="Entrar"
+            className="mt-4"
+          />
         </form>
       </div>
     </div>

@@ -39,13 +39,9 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   const handleClick1 = () => {
     setChangeIcon(!changeIcon);
   };
-  // const handleClick2 = () => {
-  //   setChangeIcon(!changeIcon);
-  // };
 
   const editarUsuario = async () => {
-    //EDITADO
-    // handleClick2();
+    
     const { _id, ...userInfo } = user;
     if (JSON.stringify(userInfo) !== JSON.stringify(values)) {
       try {
@@ -228,6 +224,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
                 <option>supervisor</option>
                 <option>visualizador</option>
                 <option>administración</option>
+                <option>tránsito</option>
               </FormSelect>
             ) : (
               <p className="parrafoInfo">{values.tipoDeUsuario}</p>

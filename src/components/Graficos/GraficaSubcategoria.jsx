@@ -116,20 +116,6 @@ const GraficaSubcategoria = () => {
     return `${anio}-${mesNumerico}-${diaConCeros}`;
   }
 
-  // function obtenerPeriodoDelDiaConHora(fechaString) {
-  //   const hora = fechaString.split(", ")[1].split(":")[0];
-
-  //   const horaActual = parseInt(hora, 10);
-
-  //   if (horaActual >= 7 && horaActual < 15) {
-  //     return "mañana";
-  //   } else if (horaActual >= 15 && horaActual < 23) {
-  //     return "tarde";
-  //   } else {
-  //     return "noche";
-  //   }
-  // }
-
   useEffect(() => {
     if (fechaDesde !== "" && fechaHasta !== "") {
       if (searchTerm.nombre !== "") {
@@ -256,23 +242,6 @@ const GraficaSubcategoria = () => {
       // },
     },
   };
-
-  // function getRandomColor() {
-  //   const randomInt = (min, max) =>
-  //     Math.floor(Math.random() * (max - min + 1) + min);
-
-  //   const colors = [];
-  //   for (let i = 0; i < 16; i++) {
-  //     const red = randomInt(0, 255);
-  //     const green = randomInt(0, 255);
-  //     const blue = randomInt(0, 255);
-
-  //     const rgbaColor = `rgba(${red}, ${green}, ${blue}, 1)`;
-  //     colors.push(rgbaColor);
-  //   }
-
-  //   return colors;
-  // }
 
   const labels = Object.keys(countReportesSubcatElegida());
   const labelsCat = Object.keys(countReportesCat());

@@ -160,6 +160,7 @@ const Notificaciones = () => {
                                 <td>{`${cam.solicitante.nombreUsuario} (${cam.solicitante.turno})`}</td>
                                 <td>{cam.pedido}</td>
                                 <td>{cam.pedidoDevolucion}</td>
+                                {console.log(visibleChanges)}
                                 <td>
                                   {selected === cam._id ? (
                                     <p

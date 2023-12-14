@@ -145,72 +145,12 @@ const ListarEventos = () => {
               .includes(buscador.toLowerCase())
         );
       }
-      setResultadoBusqueda(results);
+      if(user.tipoDeUsuario == "tránsito"){
+
+        setResultadoBusqueda(results.filter(rep=>rep.categoria.nombre.includes("TRÁNSITO")));
+      }else setResultadoBusqueda(results);
     }
   }, [reportes, buscador]);
-
-  // function obtenerPeriodoDelDia() {
-  //   const horaActual = new Date().getHours();
-
-  //   if (horaActual >= 7 && horaActual < 15) {
-  //     return "mañana";
-  //   } else if (horaActual >= 15 && horaActual < 23) {
-  //     return "tarde";
-  //   } else {
-  //     return "noche";
-  //   }
-  // }
-
-  // function obtenerPeriodoDelDiaConHora(fechaString) {
-  //   const hora = fechaString.split(", ")[1].split(":")[0];
-
-  //   const horaActual = parseInt(hora, 10);
-
-  //   if (horaActual >= 7 && horaActual < 15) {
-  //     return "mañana";
-  //   } else if (horaActual >= 15 && horaActual < 23) {
-  //     return "tarde";
-  //   } else {
-  //     return "noche";
-  //   }
-  // }
-
-  // function obtenerFechaActualEnFormatoISO() {
-  //   const fechaActual = new Date();
-
-  //   const year = fechaActual.getFullYear();
-  //   const month = String(fechaActual.getMonth() + 1).padStart(2, "0");
-  //   const day = String(fechaActual.getDate()).padStart(2, "0");
-
-  //   return `${year}-${month}-${day}`;
-  // }
-
-  // function convertirFechaASinHora(fecha) {
-  //   const meses = {
-  //     Ene: "01",
-  //     Feb: "02",
-  //     Mar: "03",
-  //     Abr: "04",
-  //     May: "05",
-  //     Jun: "06",
-  //     Jul: "07",
-  //     Ago: "08",
-  //     Sept: "09",
-  //     Oct: "10",
-  //     Nov: "11",
-  //     Dic: "12",
-  //   };
-
-  //   const [, dia, mes, anio] = fecha.match(/(\d+) De (\w+) De (\d+)/);
-  //   const mesNumerico = meses[mes];
-  //   const diaConCeros = String(dia).padStart(2, "0");
-  //   if (
-  //     `${anio}-${mesNumerico}-${diaConCeros}` ==
-  //     obtenerFechaActualEnFormatoISO()
-  //   ) {
-  //     return true;
-  //   } else return false;
-  // }
 
   function obtenerTotalObjetosCumplenCondicion(array) {
     const filterArr = array.filter(

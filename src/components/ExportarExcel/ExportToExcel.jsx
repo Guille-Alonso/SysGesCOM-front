@@ -8,6 +8,8 @@ import { convertirEnMayusculaLaPrimeraLetra } from "../../utils/convertirLetrasY
 
 const ExportToExcel = ({ data }) => {
 
+  console.log(data)
+
   const exportToExcel = () => {
     const formattedData = data.map((item) => {
       // Aquí puedes ajustar cómo deseas formatear los objetos antes de exportarlos
@@ -16,7 +18,7 @@ const ExportToExcel = ({ data }) => {
         detalle: item.detalle,
         // Nro:item.numero,
         usuario: item.usuario.nombreUsuario,
-        turno: item.usuario.turno,
+        turno: item.usuario.turno.nombre,
         dispositivo: item.dispositivo.nombre,
         ubicación: convertirEnMayusculaLaPrimeraLetra(item.dispositivo.ubicacion),
         naturaleza: item.naturaleza.nombre,

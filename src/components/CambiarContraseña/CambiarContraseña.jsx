@@ -26,7 +26,7 @@ const CambiarContraseña = () => {
       };
 
       let respuesta = "";
-      if (user.tipoDeUsuario == "admin") {
+      if (user.tipoDeUsuario.nombre == "admin") {
         respuesta = await axios.put("/users/editPassword", changePass);
       } else
         respuesta = await axios.put("/users/editPassword/users", changePass);
@@ -62,7 +62,7 @@ const CambiarContraseña = () => {
           <Row>
             <Col xs={12} className="columnaForm">
               <Form onSubmit={handleSubmit} className="formChangePassword">
-                {user.tipoDeUsuario == "admin" ? (
+                {user.tipoDeUsuario.nombre == "admin" ? (
                   <Form.Group>
                     <Form.Label>Nombre de Usuario</Form.Label>
                     <Form.Control

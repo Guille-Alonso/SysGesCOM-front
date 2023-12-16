@@ -145,7 +145,7 @@ const ListarEventos = () => {
               .includes(buscador.toLowerCase())
         );
       }
-      if(user.tipoDeUsuario == "tránsito"){
+      if(user.tipoDeUsuario.nombre == "tránsito"){
 
         setResultadoBusqueda(results.filter(rep=>rep.categoria.nombre.includes("TRÁNSITO")));
       }else setResultadoBusqueda(results);
@@ -174,9 +174,9 @@ const ListarEventos = () => {
           icon={faMagnifyingGlass}
           className="iconoBusquedaCamaras"
         />
-        {(user.tipoDeUsuario == "admin" ||
-          user.tipoDeUsuario == "visualizador" ||
-          user.tipoDeUsuario == "supervisor") && (
+        {(user.tipoDeUsuario.nombre == "admin" ||
+          user.tipoDeUsuario.nombre == "visualizador" ||
+          user.tipoDeUsuario.nombre == "supervisor") && (
             <Button
               onClick={nuevoReporte}
               style={{
@@ -189,7 +189,7 @@ const ListarEventos = () => {
             </Button>
           )}
 
-        {user.tipoDeUsuario == "supervisor" && (
+        {user.tipoDeUsuario.nombre == "supervisor" && (
           <>
             <label className="totalTurno" htmlFor="">
               Turno {obtenerPeriodoDelDia()}:{" "}
@@ -205,7 +205,7 @@ const ListarEventos = () => {
           </>
         )}
 
-        {user.tipoDeUsuario == "visualizador" && (
+        {user.tipoDeUsuario.nombre == "visualizador" && (
           <label className="totalTurno" htmlFor="">
             Total del día:{" "}
             {reportes.reportes !== undefined ? reportes.reportes.length : ""}
@@ -235,7 +235,7 @@ const ListarEventos = () => {
           ></input>
         </div>
 
-        {user.tipoDeUsuario == "supervisor" && (
+        {user.tipoDeUsuario.nombre == "supervisor" && (
           <div className="d-flex filtrarPorTipo">
             <label className="me-1">Seguridad</label>
             <input

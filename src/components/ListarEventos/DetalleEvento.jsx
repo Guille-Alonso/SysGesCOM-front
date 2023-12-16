@@ -140,7 +140,7 @@ const DetalleEvento = () => {
   const getImg = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.0.230:4000/reportes/listar/${datos.reporte._id}`,
+        `http://10.5.0.206:4000/reportes/listar/${datos.reporte._id}`,
         {
           responseType: "blob", // Especifica el tipo de respuesta como Blob
         }
@@ -463,9 +463,9 @@ const DetalleEvento = () => {
               ) : (
                 <></>
               )}
-              {(user.tipoDeUsuario == "admin" ||
-                user.tipoDeUsuario == "visualizador" ||
-                user.tipoDeUsuario == "supervisor") &&
+              {(user.tipoDeUsuario.nombre == "admin" ||
+                user.tipoDeUsuario.nombre == "visualizador" ||
+                user.tipoDeUsuario.nombre == "supervisor") &&
                 !editReporte &&
                 datos.reporte.despacho == null && (
                   <div className=" botonEditarDetalleEvento d-flex justify-content-left">

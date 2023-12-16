@@ -13,7 +13,7 @@ const PrivateRouteVisualizadores = ({children}) => {
   
     return loading ? (
       <Spinner />
-    ) : authenticated && (user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor" || user.tipoDeUsuario == "admin")? (
+    ) : authenticated && (user.tipoDeUsuario.nombre == "visualizador" || user.tipoDeUsuario.nombre == "supervisor" || user.tipoDeUsuario.nombre == "admin")? (
       children
     ) : (
       <Navigate to="/login" />

@@ -98,7 +98,7 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
     const minutosConCeros = String(minutos).padStart(2, '0');
     const segundosConCeros = String(segundos).padStart(2, '0');
 
-    if (user.tipoDeUsuario == "estadística") {
+    if (user.tipoDeUsuario.nombre == "estadística") {
       return `${diaConCeros}-${mesNumerico}-${anio} ${horaConCeros}:${minutosConCeros}:${segundosConCeros}`;
 
     } else return `${diaConCeros}/${mesNumerico}/${anio}`;
@@ -150,11 +150,11 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
                 <td>{item.categoria.nombre}</td>
                 {/* <td>{item.subcategoria?.nombre}</td> */}
                 <td>
-                  {item.despacho == null && (user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor")? 
+                  {item.despacho == null && (user.tipoDeUsuario.nombre =="admin" || user.tipoDeUsuario.nombre =="supervisor")? 
                 
                 <FontAwesomeIcon onClick={()=>despacharReporte(item)} className="botonDespacho" icon={faXmark} />
              
-                : item.despacho !== null && (user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor")?
+                : item.despacho !== null && (user.tipoDeUsuario.nombre =="admin" || user.tipoDeUsuario.nombre =="supervisor")?
                 <FontAwesomeIcon onClick={()=>verEditarDespacho(item.despacho)} className="botonDespacho" icon={faCheck} />
                 : item.despacho == null ?
                 <FontAwesomeIcon className="botonDespachoDisable" icon={faXmark} />
@@ -166,7 +166,7 @@ const TablaEventos = ({ headings, items,  setSelected, selected,getReportes,user
                     onClick={() => verDetalle(item)}
                     className="botonVer"
                   />
-                  {user.tipoDeUsuario=="admin" || user.tipoDeUsuario=="supervisor" ?
+                  {user.tipoDeUsuario.nombre =="admin" || user.tipoDeUsuario.nombre =="supervisor" ?
                   <FaTrashAlt
                     onClick={() => setReportDelete(item._id)}
                     className="botonEliminar"

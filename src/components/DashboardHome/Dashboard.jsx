@@ -16,11 +16,11 @@ const Dashboard = () => {
   const { user } = useContext(COMContext);
 
   const [reportesDelDia, loadingReportes] =
-    user.tipoDeUsuario == "visualizador"
+    user.tipoDeUsuario.nombre == "visualizador"
       ? useGet("/reportes/listar", axios)
       : [];
   const [reportesTotal, loadingReportesTotal] =
-    user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor"
+    user.tipoDeUsuario.nombre == "visualizador" || user.tipoDeUsuario.nombre == "supervisor"
       ? useGet("/reportes/totalesVisualizadorYSupervisor", axios)
       : [];
 
@@ -28,7 +28,7 @@ const Dashboard = () => {
     let countObj = {}; // Objeto para almacenar la cantidad de reportes por categoría
     let cats = [];
 
-    if (user.tipoDeUsuario == "visualizador") {
+    if (user.tipoDeUsuario.nombre == "visualizador") {
       for (let index = 0; index < reportesTotal.totalMes?.length; index++) {
         const categoria = reportesTotal.totalMes[index].categoria.nombre;
 
@@ -67,7 +67,7 @@ const Dashboard = () => {
     labels,
     datasets: [
       {
-        label: user.tipoDeUsuario == "visualizador" ? "Cantidad de Reportes por Categoría" : "Cantidad de Despachos por Categoría",
+        label: user.tipoDeUsuario.nombre == "visualizador" ? "Cantidad de Reportes por Categoría" : "Cantidad de Despachos por Categoría",
         data: Object.values(categoriasLabels()),
         backgroundColor: getRandomColor(),
       },
@@ -78,7 +78,7 @@ const Dashboard = () => {
     plugins: {
       title: {
         display: true,
-        text: user.tipoDeUsuario == "visualizador" ? "Reportes del Mes" : "Despachos del mes", // Personaliza el título aquí
+        text: user.tipoDeUsuario.nombre == "visualizador" ? "Reportes del Mes" : "Despachos del mes", // Personaliza el título aquí
         fontSize: 16,
         color: "white"
       },
@@ -101,27 +101,27 @@ const Dashboard = () => {
             />
           </div>
           <div className="dashboardCard d-flex flex-column justify-content-around align-items-center text-light pt-2">
-            {user.tipoDeUsuario == "supervisor" ? (
+            {user.tipoDeUsuario.nombre == "supervisor" ? (
               <></>
             ) : (
               <h5 className="tituloReportes">Reportes del dia</h5>
             )}
-            {user.tipoDeUsuario == "visualizador" && (
+            {user.tipoDeUsuario.nombre == "visualizador" && (
               <h2 className="text-light numeroDeReportesDashboard">
                 {loadingReportes ? <Spinner /> : reportesDelDia.reportes.length}
               </h2>
             )}
-            {user.tipoDeUsuario == "supervisor" && (
+            {user.tipoDeUsuario.nombre == "supervisor" && (
               <h2 className="text-light numeroDeReportesDashboard">👮‍♂️</h2>
             )}
           </div>
           <div className="dashboardCard d-flex flex-column justify-content-around align-items-center text-light pt-2">
-            {user.tipoDeUsuario == "supervisor" ? (
+            {user.tipoDeUsuario.nombre == "supervisor" ? (
               <h5 className="tituloReportes">Despachos del mes</h5>
             ) : (
               <h5 className="tituloReportes">Reportes del mes</h5>
             )}
-            {user.tipoDeUsuario == "visualizador" && (
+            {user.tipoDeUsuario.nombre == "visualizador" && (
               <h2 className="text-light numeroDeReportesDashboard">
                 {loadingReportesTotal ? (
                   <Spinner />
@@ -130,7 +130,7 @@ const Dashboard = () => {
                 )}
               </h2>
             )}
-            {user.tipoDeUsuario == "supervisor" && (
+            {user.tipoDeUsuario.nombre == "supervisor" && (
               <h2 className="text-light numeroDeReportesDashboard">
                 {loadingReportesTotal ? (
                   <Spinner />
@@ -141,12 +141,12 @@ const Dashboard = () => {
             )}
           </div>
           <div className="dashboardCard d-flex flex-column justify-content-around align-items-center text-light pt-2">
-            {user.tipoDeUsuario == "supervisor" ? (
+            {user.tipoDeUsuario.nombre == "supervisor" ? (
               <h5 className="tituloReportes">Despachos Totales</h5>
             ) : (
               <h5 className="tituloReportes">Reportes Totales</h5>
             )}
-            {user.tipoDeUsuario == "visualizador" && (
+            {user.tipoDeUsuario.nombre == "visualizador" && (
               <h2 className="text-light numeroDeReportesDashboard">
                 {loadingReportesTotal ? (
                   <Spinner />
@@ -155,7 +155,7 @@ const Dashboard = () => {
                 )}
               </h2>
             )}
-            {user.tipoDeUsuario == "supervisor" && (
+            {user.tipoDeUsuario.nombre == "supervisor" && (
               <h2 className="text-light numeroDeReportesDashboard">
                 {loadingReportesTotal ? (
                   <Spinner />

@@ -157,7 +157,7 @@ const Notificaciones = () => {
                                   selected === cam._id ? "row-(selected" : ""
                                 }
                               >
-                                <td>{`${cam.solicitante.nombreUsuario} (${cam.solicitante.turno})`}</td>
+                                <td>{`${cam.solicitante.nombreUsuario} (${cam.solicitante.turno.nombre})`}</td>
                                 <td>{cam.pedido}</td>
                                 <td>{cam.pedidoDevolucion}</td>
                                 {console.log(visibleChanges)}
@@ -169,7 +169,7 @@ const Notificaciones = () => {
                                       // onChange={setFecha}
                                     >
                                       {user._id !== cam.solicitante._id ? (
-                                        `${user.nombreUsuario} (${user.turno})`
+                                        `${user.nombreUsuario} (${user.turno.nombre})`
                                       ) : (
                                         <p>A confirmar</p>
                                       )}

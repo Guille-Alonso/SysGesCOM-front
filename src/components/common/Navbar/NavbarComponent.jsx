@@ -84,7 +84,7 @@ function NavbarComponent() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 990);
 
   const handleResize = () => {
-    if (user?.tipoDeUsuario !== "admin") {
+    if (user?.tipoDeUsuario.nombre !== "admin") {
       setIsDesktop(window.innerWidth >= 990);
 
       if (!isDesktop) {
@@ -130,7 +130,7 @@ function NavbarComponent() {
   return (
     <Navbar
       collapseOnSelect
-      expand={user?.tipoDeUsuario == "admin" ? "xxl" : "lg"}
+      expand={user?.tipoDeUsuario.nombre == "admin" ? "xxl" : "lg"}
       bg=""
       variant="dark"
       className="align-items-center"
@@ -160,16 +160,16 @@ function NavbarComponent() {
           <div className="d-sm-flex ml-auto w-100 contNavBar ">
             <Nav className="my-2 me-auto space-evenly">
               {authenticated &&
-                user.tipoDeUsuario == "admin" &&
+                user.tipoDeUsuario.nombre == "admin" &&
                 renderMenuItems()}
               {authenticated &&
-                (user.tipoDeUsuario == "visualizador" ||
-                  user.tipoDeUsuario == "supervisor" ||
-                  user.tipoDeUsuario == "administración") && (
+                (user.tipoDeUsuario.nombre == "visualizador" ||
+                  user.tipoDeUsuario.nombre == "supervisor" ||
+                  user.tipoDeUsuario.nombre == "administración") && (
                   <Link
                     className={
-                      user.tipoDeUsuario == "visualizador" ||
-                      user.tipoDeUsuario == "administración"
+                      user.tipoDeUsuario.nombre == "visualizador" ||
+                      user.tipoDeUsuario.nombre == "administración"
                         ? "me-md-3 navBtn"
                         : "navBtn"
                     }
@@ -178,34 +178,34 @@ function NavbarComponent() {
                     Cambios Turno
                   </Link>
                 )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
+              {authenticated && user.tipoDeUsuario.nombre == "estadística" && (
                 <Link className="navBtn" to="/alta-categoria">
                   Categorías
                 </Link>
               )}
-              {authenticated && user.tipoDeUsuario == "estadística" && (
+              {authenticated && user.tipoDeUsuario.nombre == "estadística" && (
                 <Link className="navBtn me-md-3" to="/estadisticas">
                   Estadísticas
                 </Link>
               )}
-              {authenticated && user.tipoDeUsuario == "administración" && (
+              {authenticated && user.tipoDeUsuario.nombre == "administración" && (
                 <Link className="navBtn me-md-3" to="/alta-noticias">
                   Noticias
                 </Link>
               )}
               {authenticated &&
                 (user.relevamientoHabilitado ||
-                  user.tipoDeUsuario == "supervisor") && (
+                  user.tipoDeUsuario.nombre == "supervisor") && (
                   <Link className=" navBtn me-md-3" to="/relevamiento-motos">
                     Relevamiento
                   </Link>
                 )}
 
               {authenticated &&
-                (user.tipoDeUsuario == "visualizador" ||
-                  user.tipoDeUsuario == "supervisor" ||
-                  user.tipoDeUsuario == "estadística" ||
-                  user.tipoDeUsuario == "administración") && (
+                (user.tipoDeUsuario.nombre == "visualizador" ||
+                  user.tipoDeUsuario.nombre == "supervisor" ||
+                  user.tipoDeUsuario.nombre == "estadística" ||
+                  user.tipoDeUsuario.nombre == "administración") && (
                   <Link to="/reportes" className="me-md-3">
                     Reportes
                   </Link>
@@ -223,7 +223,7 @@ function NavbarComponent() {
             {authenticated ? (
               <Nav
                 className={
-                  user.tipoDeUsuario == "admin" ? "isAdmin" : "notAdmin"
+                  user.tipoDeUsuario.nombre == "admin" ? "isAdmin" : "notAdmin"
                 }
               >
                 <NavDropdown
@@ -241,7 +241,7 @@ function NavbarComponent() {
                       name="help-circle-outline"
                       className="icons-drop"
                     ></ion-icon>
-                    <strong>{user.tipoDeUsuario.toUpperCase()}</strong>
+                    <strong>{user.tipoDeUsuario.nombre.toUpperCase()}</strong>
                   </NavDropdown.Item>
 
                   <NavDropdown.Divider className="dirverDropDown" />
@@ -265,8 +265,8 @@ function NavbarComponent() {
                     ></ion-icon>
                     Notificaciones
                   </NavDropdown.Item>
-                  {user.tipoDeUsuario == "admin" ||
-                  user.tipoDeUsuario == "supervisor" ? (
+                  {user.tipoDeUsuario.nombre == "admin" ||
+                  user.tipoDeUsuario.nombre == "supervisor" ? (
                     <NavDropdown.Item
                       onClick={panelSupervisor}
                       className="navigation"
@@ -280,7 +280,7 @@ function NavbarComponent() {
                   ) : (
                     <></>
                   )}
-                  {user.tipoDeUsuario == "admin" ? (
+                  {user.tipoDeUsuario.nombre == "admin" ? (
                     <NavDropdown.Item
                       onClick={panelAdmin}
                       className="navigation"

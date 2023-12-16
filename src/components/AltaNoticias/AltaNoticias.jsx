@@ -104,7 +104,7 @@ const AltaNoticias = () => {
     try {
 
       const response = await axios.get(
-        `http://10.0.0.230:4000/noticias/listar/${obj._id}`,
+        `http://10.5.0.206:4000/noticias/listar/${obj._id}`,
         {
           responseType: "blob", // Especifica el tipo de respuesta como Blob
         }
@@ -161,7 +161,7 @@ const AltaNoticias = () => {
       <Row>
         <Col>
 
-          <Form id="myForm" action="http://10.0.0.230:4000/noticias/alta" enctype="multipart/form-data" method="POST" onSubmit={submitForm}>
+          <Form id="myForm" action="http://10.5.0.206:4000/noticias/alta" enctype="multipart/form-data" method="POST" onSubmit={submitForm}>
             <Form.Group className="contInputFechaNoticias">
               <Form.Control
                 name="fecha"
@@ -357,7 +357,7 @@ const AltaNoticias = () => {
                               <Link className=" text-dark " onClick={() => funcionDescarga(element)} >{element.titulo}</Link>
 
                             </Col>
-                            {user.tipoDeUsuario == "admin" || user.tipoDeUsuario == "administración" ?
+                            {user.tipoDeUsuario.nombre == "admin" || user.tipoDeUsuario.nombre == "administración" ?
                               (
                                 <Col className="col-1">
                                   <FaTrashAlt

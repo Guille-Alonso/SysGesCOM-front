@@ -13,7 +13,7 @@ const PrivateRouteAdministracion = ({ children }) => {
 
   return loading ? (
     <Spinner />
-  ) : authenticated && user.tipoDeUsuario !== "estadística" ? (
+  ) : authenticated && user.tipoDeUsuario.nombre !== "estadística" ? (
     children
   ) : (
     <Navigate to="/login" />

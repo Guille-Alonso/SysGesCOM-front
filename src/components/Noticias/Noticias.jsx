@@ -16,7 +16,7 @@ const Noticias = () => {
         try {
          
           const response = await axios.get(
-            `http://10.0.0.230:4000/noticias/listar/${obj._id}`,
+            `http://10.5.0.206:4000/noticias/listar/${obj._id}`,
             {
               responseType: "blob", // Especifica el tipo de respuesta como Blob
             }

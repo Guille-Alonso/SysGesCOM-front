@@ -44,6 +44,16 @@ export function Grafico() {
     "/relevamientoVehicular/listar",
     axios
   );
+  
+  const [turnos, loadingTurnos, getTurnos] = useGet(
+    "/turnos/listar",
+    axios
+  );
+
+  const [roles, loadingRoles, getRoles] = useGet(
+    "/roles/listar",
+    axios
+  );
 
   const [searchTerm, setSearchTerm] = useState({ nombre: "" });
 
@@ -276,6 +286,7 @@ export function Grafico() {
   };
 
   const selectedTurno = (e) => {
+    console.log(e.target.value)
     setTurno(e.target.value);
     setDespachado(false);
     if (e.target.value !== "") {
@@ -443,10 +454,17 @@ export function Grafico() {
                       disabled={reportesFecha.length == 0 ? true : false}
                     >
                       <option value="">Todos</option>
-                      <option value="mañana">Mañana</option>
-                      <option value="tarde">Tarde</option>
-                      <option value="noche">Noche</option>
-                      <option value="intermedio">Intermedio</option>
+                      {
+                      loading ? 
+                      <Spinner/>
+                      : 
+                      turnos.turnos.map((item) => {
+                    return (
+                      <option key={item._id} value={item.nombre}>
+                        {item.nombre}
+                      </option>
+                    );
+                  })}
                     </select>
                   </div>
                   <div className="headerSearchItem2">

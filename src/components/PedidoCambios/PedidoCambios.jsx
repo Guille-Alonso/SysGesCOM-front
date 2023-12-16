@@ -21,7 +21,7 @@ import SkeletonPedidos from "./SkeletonPedidos";
 const PedidoCambios = () => {
   const { user } = useContext(COMContext);
   const [cambios, loading, getCambios, setCambios] = useGet(
-    user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor"
+    user.tipoDeUsuario.nombre == "visualizador" || user.tipoDeUsuario.nombre == "supervisor"
       ? "/cambios/listarCambiosVisualizador"
       : "/cambios/listar",
     axios
@@ -193,7 +193,7 @@ const PedidoCambios = () => {
                                   }
                                 >
                                   <td>{cam.solicitante.nombreUsuario}</td>
-                                  <td>{cam.solicitante.turno}</td>
+                                  <td>{cam.solicitante.turno.nombre}</td>
                                   <td>{cam.pedido}</td>
                                   <td>{cam.pedidoDevolucion}</td>
                                   <td>{cam.solicitado.nombreUsuario}</td>
@@ -290,7 +290,7 @@ const PedidoCambios = () => {
                                 }
                               >
                                 <td>{cam.solicitante.nombreUsuario}</td>
-                                <td>{cam.solicitante.turno}</td>
+                                <td>{cam.solicitante.turno.nombre}</td>
                                 <td>{cam.pedido}</td>
                                 <td>{cam.pedidoDevolucion}</td>
                                 <td>{cam.solicitado.nombreUsuario}</td>

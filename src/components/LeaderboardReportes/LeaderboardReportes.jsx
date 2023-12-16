@@ -54,7 +54,7 @@ const LeaderboardReportes = ({ reportes }) => {
                 <td>
                   {reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.usuario.nombreUsuario : ""}
                 </td>
-                <td>{reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.usuario.turno : ""}</td>
+                <td>{reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.usuario.turno.nombre : ""}</td>
                 <td>
                   {reportes.usuariosConMasDespachos.length > 0 ? reportes.usuariosConMasDespachos[0]?.totalDespachos : ""}
                 </td>
@@ -64,7 +64,7 @@ const LeaderboardReportes = ({ reportes }) => {
                 <td>
                   {reportes.usuariosConMasDespachos.length > 1 ? reportes.usuariosConMasDespachos[1].usuario?.nombreUsuario : ""}
                 </td>
-                <td>{reportes.usuariosConMasDespachos.length > 1 ? reportes.usuariosConMasDespachos[1].usuario?.turno : ""}</td>
+                <td>{reportes.usuariosConMasDespachos.length > 1 ? reportes.usuariosConMasDespachos[1].usuario?.turno.nombre : ""}</td>
                 <td>{reportes.usuariosConMasDespachos.length > 1 ? reportes.usuariosConMasDespachos[1].totalDespachos : ""}</td>
               </tr>
               <tr>
@@ -72,7 +72,7 @@ const LeaderboardReportes = ({ reportes }) => {
                 <td>
                   {reportes.usuariosConMasDespachos.length > 2 ? reportes.usuariosConMasDespachos[2].usuario?.nombreUsuario : ""}
                 </td>
-                <td>{reportes.usuariosConMasDespachos.length > 2 ? reportes.usuariosConMasDespachos[2].usuario?.turno : ""}</td>
+                <td>{reportes.usuariosConMasDespachos.length > 2 ? reportes.usuariosConMasDespachos[2].usuario?.turno.nombre : ""}</td>
                 <td>{reportes.usuariosConMasDespachos.length > 2 ? reportes.usuariosConMasDespachos[2].totalDespachos : ""}</td>
               </tr>
             </tbody>

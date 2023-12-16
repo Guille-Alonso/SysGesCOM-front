@@ -118,8 +118,8 @@ const PanelSupervisor = () => {
                     .filter(
                       (user) =>
                         user.relevamientoHabilitado == false &&
-                        user.tipoDeUsuario == "visualizador" &&
-                        user.turno == obtenerPeriodoDelDiaConHora(new Date())
+                        user.tipoDeUsuario.nombre == "visualizador" &&
+                        user.turno.nombre == obtenerPeriodoDelDiaConHora(new Date())
                     )
                     .sort((relA, relB) => {
                       const nombreA = relA.nombre.replace(/[0-9]+/, "");

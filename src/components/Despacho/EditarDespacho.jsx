@@ -107,8 +107,8 @@ const EditarDespacho = () => {
                 name="acuse"
                 value={values.acuse}
                 disabled={
-                  user.tipoDeUsuario == "admin" ||
-                  user.tipoDeUsuario == "supervisor"
+                  user.tipoDeUsuario.nombre == "admin" ||
+                  user.tipoDeUsuario.nombre == "supervisor"
                     ? false
                     : true
                 }
@@ -133,8 +133,8 @@ const EditarDespacho = () => {
                               : false
                           }
                           disabled={
-                            user.tipoDeUsuario == "admin" ||
-                            user.tipoDeUsuario == "supervisor"
+                            user.tipoDeUsuario.nombre == "admin" ||
+                            user.tipoDeUsuario.nombre == "supervisor"
                               ? false
                               : true
                           }
@@ -153,8 +153,8 @@ const EditarDespacho = () => {
                 )}
               </div>
             </div>
-            {(user.tipoDeUsuario == "admin" ||
-              user.tipoDeUsuario == "supervisor") && (
+            {(user.tipoDeUsuario.nombre == "admin" ||
+              user.tipoDeUsuario.nombre == "supervisor") && (
               <Button disabled={botonState} className="mt-5" type="submit">
                 Editar
               </Button>

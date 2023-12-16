@@ -111,11 +111,11 @@ const HomePage = () => {
   return (
     <div className="layoutHeight">
       <div className="d-flex justify-content-around contenedorHome">
-        <main className={user.tipoDeUsuario == "visualizador" || user.tipoDeUsuario == "supervisor" ? "estadisticas" : "giphyApi"}>
+        <main className={user.tipoDeUsuario.nombre == "visualizador" || user.tipoDeUsuario.nombre == "supervisor" ? "estadisticas" : "giphyApi"}>
 
           <div>
-            {user.tipoDeUsuario == "supervisor" ||
-              user.tipoDeUsuario == "visualizador" ? (
+            {user.tipoDeUsuario.nombre == "supervisor" ||
+              user.tipoDeUsuario.nombre == "visualizador" ? (
               <>
                 <Dashboard />
                 <div>

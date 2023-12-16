@@ -12,7 +12,7 @@ const PrivateRouteAdmin = ({ children }) => {
   
     return loading ? (
       <Spinner />
-    ) : authenticated && user.tipoDeUsuario == "admin"? (
+    ) : authenticated && user.tipoDeUsuario.nombre == "admin"? (
       children
     ) : (
       <Navigate to="/login" />

@@ -12,10 +12,11 @@ import axios from "../../config/axios";
 import { toast } from "react-toastify";
 import { REGISTER_EDITAR_USUARIOS_VALUES } from "../../constants";
 import useForm from "../../hooks/useForm";
-import { Alert, Button, Form, FormSelect } from "react-bootstrap";
+import { Alert, Button, Form, FormSelect, Spinner } from "react-bootstrap";
 import { validationEditarUsuario } from "../../helpers/validationsEditarUsuario";
 import Modal from "react-bootstrap/Modal";
 import fotoPredet from "../../assets/fotoPredeterminada.png";
+import useGet from "../../hooks/useGet";
 
 const EditarUsuarios = ({ onClose, user, getUsers }) => {
   const [show, setShow] = useState(false);
@@ -41,7 +42,7 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   };
 
   const editarUsuario = async () => {
-    
+
     const { _id, ...userInfo } = user;
     if (JSON.stringify(userInfo) !== JSON.stringify(values)) {
       try {
@@ -52,8 +53,8 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
       } catch (error) {
         toast.error(
           error.response?.data.message ||
-            error.response?.data.errorMje ||
-            error.message
+          error.response?.data.errorMje ||
+          error.message
         );
       }
     } else onClose();
@@ -68,7 +69,19 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
   useEffect(() => {
     const { _id, ...userInfo } = user;
     setValues(userInfo);
+    console.log(userInfo)
   }, []);
+
+
+  const [turnos, loading, getTurnos] = useGet(
+    "/turnos/listar",
+    axios
+  );
+
+  const [roles, loadingRoles, getRoles] = useGet(
+    "/roles/listar",
+    axios
+  );
 
   return (
     <Form onSubmit={handleSubmit} className="usuarioCardBig">
@@ -82,8 +95,8 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
           }
           className="imgUsuarioBig"
         />
-        <Card.Title className="tipoDeUsuario">
-          {values.tipoDeUsuario.toUpperCase()}
+        <Card.Title className=".nombreDeUsuario">
+          {values.tipoDeUsuario.nombre}
         </Card.Title>
         {changeIcon ? (
           <FontAwesomeIcon
@@ -192,42 +205,60 @@ const EditarUsuarios = ({ onClose, user, getUsers }) => {
             {changeIcon ? (
               <FormSelect
                 name="turno"
-                value={values.turno}
+                value={values.turno.nombre}
                 onChange={handleChange}
                 required
                 className="parrafoInfo"
               >
                 <option value="">-----Seleccionar-----</option>
+                {loading ?
+                  <Spinner />
+                  :
+                  turnos.turnos.map((item) => {
+                    return (
+
+                      <option key={item._id} value={item._id}>
+                        {item.nombre.toUpperCase().concat(' ', "(", item.horario, ")")}
+                      </option>
+                    );
+                  })}
+
+                {/* <option value="">-----Seleccionar-----</option>
                 <option value="mañana">mañana (06:00 am - 12:00 am)</option>
                 <option value="intermedio">intermedio (12:00 am - 18:00 pm)</option>
                 <option value="tarde">tarde (18:00 pm - 00:00 am)</option>
                 <option value="noche">noche (00:00 am - 06:00 am)</option>
+                 */}
                 {/* <option>mañana</option>
                 <option>intermedio</option>
                 <option>tarde</option>
                 <option>noche</option> */}
               </FormSelect>
             ) : (
-              <p className="parrafoInfo">{values.turno}</p>
+              <p className="parrafoInfo">{values.turno.nombre}</p>
             )}
             <span className="spanBigCard">Area</span>
             {changeIcon ? (
               <FormSelect
                 name="tipoDeUsuario"
-                value={values.tipoDeUsuario}
+                value={values.tipoDeUsuario.nombre}
                 onChange={handleChange}
                 required
               >
                 <option value="">-----Seleccionar-----</option>
-                <option>admin</option>
-                <option>estadística</option>
-                <option>supervisor</option>
-                <option>visualizador</option>
-                <option>administración</option>
-                <option>tránsito</option>
+                {loadingRoles ?
+                <Spinner/>
+                :
+                roles.roles.map((item) => {
+                  return (
+                    <option key={item._id} value={item._id}>
+                      {item.nombre.toUpperCase()}
+                    </option>
+                  );
+                })}
               </FormSelect>
             ) : (
-              <p className="parrafoInfo">{values.tipoDeUsuario}</p>
+              <p className="parrafoInfo">{values.tipoDeUsuario.nombre}</p>
             )}
           </div>
         </div>

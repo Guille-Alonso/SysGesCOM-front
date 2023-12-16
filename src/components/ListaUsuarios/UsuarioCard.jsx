@@ -14,7 +14,7 @@ const UsuarioCard = ({ user }) => {
       />
       <div className="infoDeUsuarioCard">
         <p className="nameOfUserPrev">{user.nombre}</p>
-        <p className="infoTipoDeUsuario">{user.tipoDeUsuario.toUpperCase()}</p>
+        <p className="infoTipoDeUsuario">{user.tipoDeUsuario.nombre.toUpperCase()}</p>
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ const ListaUsuarios = () => {
       const results = users.users.filter(
         (user) =>
           user.nombre.toLowerCase().includes(buscador.toLowerCase()) ||
-          user.tipoDeUsuario.toLowerCase().includes(buscador.toLowerCase())
+          user.tipoDeUsuario.nombre.toLowerCase().includes(buscador.toLowerCase())
       );
       setFilteredUsers(results);
     }

@@ -93,7 +93,7 @@ export const PerfilUsuario = () => {
             <Form.Control
               type="text"
               placeholder="Turno"
-              value={user.turno}
+              value={user.turno.nombre}
               name="turno"
               disabled
             />
@@ -104,7 +104,7 @@ export const PerfilUsuario = () => {
             <Form.Control
               type="text"
               placeholder="Tipo de Usuario"
-              value={user.tipoDeUsuario}
+              value={user.tipoDeUsuario.nombre}
               name="tipoDeUsuario"
               disabled
             />

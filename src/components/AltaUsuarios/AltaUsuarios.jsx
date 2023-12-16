@@ -1,4 +1,4 @@
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, Alert, Spinner } from "react-bootstrap";
 import "./altaUsuarios.css";
 import "./iconoPasswordUsuarios.css";
 import useForm from "../../hooks/useForm";
@@ -10,6 +10,7 @@ import { useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
+import useGet from "../../hooks/useGet";
 
 const AltaUsuarios = () => {
   const agregarUsuario = async () => {
@@ -90,6 +91,16 @@ const AltaUsuarios = () => {
 
     return fechaFormateada;
   };
+
+  const [turnos, loading, getTurnos] = useGet(
+    "/turnos/listar",
+    axios
+  );
+
+  const [roles, loadingRoles, getRoles] = useGet(
+    "/roles/listar",
+    axios
+  );
 
   return (
     <>
@@ -235,19 +246,31 @@ const AltaUsuarios = () => {
               <Form.Select
                 className="perfilAltaUsuarios"
                 onChange={handleChange}
-                value={values.perfilAltaUsuarios}
+                value={values.perfilAltaUsuarios.nombre}
                 name="perfilAltaUsuarios"
                 required
               >
-                <option value="">
-                  ------------------Seleccionar-----------------
-                </option>
-                <option>admin</option>
+                <option value="">------------------Seleccionar-----------------</option>
+
+                {
+                  loadingRoles ?
+                    <Spinner />
+                    :
+                    roles.roles.map((item) => {
+                      return (
+                        <option key={item._id} value={item._id}>
+                          {item.nombre}
+                        </option>
+                      );
+                    })}
+
+                {/*<option>admin</option>
                 <option>estadística</option>
                 <option>supervisor</option>
                 <option>visualizador</option>
                 <option>administración</option>
-                <option>tránsito</option>
+                <option>tránsito</option> */}
+
               </Form.Select>
             </Form.Group>
 
@@ -271,15 +294,30 @@ const AltaUsuarios = () => {
                 <Form.Select
                   className="turno"
                   onChange={handleChange}
-                  value={values.turno}
+                  value={values.turno.nombre}
                   name="turno"
                   required
                 >
                   <option value="">------------</option>
+
+                  {
+                    loading ?
+                      <Spinner />
+                      :
+                      turnos.turnos.map((item) => {
+                        return (
+                          <option key={item._id} value={item._id}>
+                            {item.nombre}
+                          </option>
+                        );
+                      })}
+
+                  {/* 
                   <option value="mañana">mañana (06:00 am - 12:00 am)</option>
                   <option value="intermedio">intermedio (12:00 am - 18:00 pm)</option>
                   <option value="tarde">tarde (18:00 pm - 00:00 am)</option>
-                  <option value="noche">noche (00:00 am - 06:00 am)</option>
+                  <option value="noche">noche (00:00 am - 06:00 am)</option> */}
+
                 </Form.Select>
               </Form.Group>
             </div>
